@@ -196,6 +196,7 @@ where $c_m$ is the material speed of sound and defined as follows:
 \label{eq:equation5}
 c_m^2 = P_{\rho} + \frac{P}{\rho}P_e + \frac{4 \epsilon}{9}
 \end{equation}
+\comment{$P_{\rho}$ has units of $P/\rho$ = units of $e$; $\frac{P}{\rho}P_e $ has units of $P^2/(\rho e)$ = units of $P$ = units of $\rho e$. Something is wrong here. Should the second term be $\frac{P}{\rho^2}P_e $?\\}
 where $P_x$ is the standard shorthand notation for $\partial_x P$. 
 The above hyperbolic system of equation can be recast in a conservative form. This allows us to assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the energy radiation density $\epsilon$. Then, following some algebra given in \app{app:appendixA}, an equation verified by the entropy $s$ is obtained:
 \begin{equation}
@@ -298,7 +299,7 @@ The reader will notice that, except for the definition of the jumps, the whole m
 
 In this section, numerical results of the dimensional $1$D grey radiation-hydrodynamic equations are presented using the entropy viscosity method. First, second-order accuracy of the method is demonstrated using the method of manufactured solution (MMS). Then, some typical test cases for radiation-hydrodynamic equations are shown. The equations are discretized using CGFEM in the Moose framework \cite{Moose}. First order polynomials are used for the spatial discretization. The second-order BDF2 implicit temporal integrator is employed. The system is solved by a Preconditioned Jacobian Free Newton Krylov solver (PJFNK) where the full jacobian matrix is used as a preconditioner. 
  \begin{remark}
-The entropy residual is not integrated over the cell volume as it is usually done in the Galerkin finite element method. The variable values and their gradients are available at the quadrature point and for different time, and, thus, can be used to evaluate the entropy residual. The time-derivative term is discretized with the second-order temporal integrator, BDF2 \cite{Leveque}. 
+The entropy residual expression is not integrated over the cell volume as it is usually done in the Galerkin finite element method. The variable values and their gradients are available at the quadrature point and for different time, and, thus, can be used to evaluate the entropy residual. The time-derivative term is discretized with the second-order temporal integrator, BDF2 \cite{Leveque}. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -306,7 +307,7 @@ The entropy residual is not integrated over the cell volume as it is usually don
 \label{sec:MMS}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The same manufactured solution as in \cite{EdwardsMorelLowrie} are used in order to test both the diffusive and streaming limit solutions on a slab of thickness $L=2 \pi$ $cm$. The manufactured solutions are composed of trigonometric function. Periodic boundary conditions are used for all of the variables. The L$_2$ norm errors between the numerical and exact solutions are computed for density, momentum, total material energy, and radiation density energy. For each new simulation, the time step is divided by two and the  number of spatial degrees of freedom is doubled. With such settings, the error is expected to decrease by a factor $4$ if second-order convergence is achieved. \\
+The same manufactured solution as in \cite{EdwardsMorelLowrie} is used in order to test both the diffusive and streaming limit solutions in a slab of thickness $L=2 \pi$ $cm$. The manufactured solutions are composed of trigonometric function. Periodic boundary conditions are used for all of the variables. The L$_2$ norm errors between the numerical and exact solutions are computed for density, momentum, total material energy, and radiation density energy. For each new simulation, the time step is divided by two and the  number of spatial degrees of freedom is doubled. With such settings, the error is expected to decrease by a factor $4$ if second-order convergence is achieved. \\
 The first manufactured solution is designed to test the equilibrium-diffusion limit. In that case, the radiation energy is in equilibrium with the material temperature and the opacity is large which means that the radiation mean-free path is not resolved. The following exact solution was used:
 \begin{equation}
 \label{eq:equation13}
