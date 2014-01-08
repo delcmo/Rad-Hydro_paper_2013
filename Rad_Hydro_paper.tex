@@ -172,7 +172,7 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 \label{sec:entropy-visc-meth}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} \comment{\color{blue}{no JLG citations?}} to the $1$-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the dissipative terms, using the entropy minimum principle \cite{entropy}. Then, a definition for the entropy viscosity coefficient based upon the entropy production is given. \\
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the $1$-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the dissipative terms, using the entropy minimum principle \cite{entropy}. Then, a definition for the entropy viscosity coefficient based upon the entropy production is given. \\
 We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the radiation hydrodynamic equations are not strictly hyperbolic but numerous numerical techniques are based on the study of their hyperbolic parts \cite{Balsara, LowrieMorel}. Thus, following the same rationale, the system of equations given in \eqt{eq:equation1} is made hyperbolic by assuming an infinite opacity (the frozen approximation) and by ignoring the relaxation terms. These two assumptions yield the following system of equations:
 \begin{equation}
 \label{eq:equation3}
@@ -195,7 +195,7 @@ where $c_m$ is the material speed of sound and defined as follows:
 \label{eq:equation5}
 c_m^2 = P_{\rho} + \frac{P}{\rho^2}P_e + \frac{4 \epsilon}{9\rho}
 \end{equation}
-\comment{\color{blue}{$P_{\rho}$ has units of $P/\rho$ = units of $e$; $\frac{P}{\rho}P_e $ has units of $P^2/(\rho e)$ = units of $P$ = units of $\rho e$. Something is wrong here. Should the second term be $\frac{P}{\rho^2}P_e $?\\}}
+%\comment{\color{blue}{$P_{\rho}$ has units of $P/\rho$ = units of $e$; $\frac{P}{\rho}P_e $ has units of $P^2/(\rho e)$ = units of $P$ = units of $\rho e$. Something is wrong here. Should the second term be $\frac{P}{\rho^2}P_e $?\\}}
 where $P_x$ is the standard shorthand notation for $\partial_x P$. 
 The above hyperbolic system of equation can be recast in a conservative form. This allows us to assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the energy radiation density $\epsilon$. Then, following some algebra given in \app{app:appendixA}, an equation verified by the entropy $s$ is obtained:
 \begin{equation}
@@ -230,7 +230,7 @@ Once the dissipative terms are obtained, it remains to define the local viscosit
 %This is not an easy task and great care needs to be taken. It is proposed to explain the reasoning that leads to a definition for the viscosity coefficient $\kappa$. The definition of the viscosity coefficient $\kappa$ must meet the three following requirements:
 We require the following to hold in the prescription for $\kappa$:
 \begin{itemize}
-\item An upper bound on $\kappa$ is required for stability of the numerical scheme: when considering explicit temporal integrators, the maximum value of the viscosity coefficient is related to the Courant-Friedrichs-Lewy \comment{\color{blue}{not Lax but Lewy!}} number (CFL). This upper bound is defined by analogy to the standard upwind (Godunov) scheme that is known to efficiently smooth out oscillations (but is only first-order accurate). With implicit temporal integrators, the same reasoning is used even if the CFL number is, in theory, no longer required. This upper bound will be referred to as the \emph{first-order viscosity}, denoted by $\kappa_{max}(x,t)$.  
+\item An upper bound on $\kappa$ is required for stability of the numerical scheme: when considering explicit temporal integrators, the maximum value of the viscosity coefficient is related to the Courant-Friedrichs-Lewy number (CFL). This upper bound is defined by analogy to the standard upwind (Godunov) scheme that is known to efficiently smooth out oscillations (but is only first-order accurate). With implicit temporal integrators, the same reasoning is used even if the CFL number is, in theory, no longer required. This upper bound will be referred to as the \emph{first-order viscosity}, denoted by $\kappa_{max}(x,t)$.  
 \item Since the entropy residual is a measure the entropy production that occurs in shock regions, it is natural to define a viscosity coefficient proportional to the entropy residual. This will enable shock detection and tracking and also will provide a measure of the viscosity required to stabilize the scheme. This viscosity coefficient is referred to as the \emph{entropy viscosity coefficient} or \emph{second-order viscosity coefficient} and is denoted by $\kappa_e(x,t)$.
 \item The viscosity coefficients that is actually used in the dissipative terms, $\kappa$, of \eqt{eq:equation3} is defined as follows: $\kappa(x,t) = \min ( \kappa_e(x,t), \kappa_{max}(x,t) )$. With such a definition, the viscosity added to the system of equation will saturate to the first order viscosity in the shock region. Elsewhere, the entropy production and the viscosity coefficient $\kappa$ are expected to be small.
 \end{itemize}
@@ -246,7 +246,7 @@ The definition of the second order viscosity coefficient, $\kappa_e(x,t)$, is ba
 \label{eq:equation9}
 \tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_m^2 \frac{d\rho}{dt} + \frac{d\epsilon}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
 \end{equation}
-\comment{\color{blue}{the reader will not be able to see the connection with the appendix because in the appendix there are no such equations as Eq.(10). If you recall in the main text a result from the appendix, it should be found in the appendix\\}}
+%\comment{\color{blue}{the reader will not be able to see the connection with the appendix because in the appendix there are no such equations as Eq.(10). If you recall in the main text a result from the appendix, it should be found in the appendix\\}}
 The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) and $P_e$ is computed from the IGEOS. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply looking at the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:equation6} which required an analytical expression for the entropy function. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. The objective is to be able to also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), in order to stabilize them as well. \\
 Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$. Since the units of the viscosity coefficients are $m^2 s^{-1}$, a possible definition for $\kappa_e(x,t)$ is:
 \begin{equation}
@@ -267,14 +267,14 @@ J(x_i,t) = \max( J_{\rho}(x_i,t), J_{P}(x_i,t) )
 %The jumps of the pressure and density gradient are included in the definition of the viscosity coefficients since they are a good shock indicator (with CGFEM, the variables are continuous at the interface but their gradients are discontinuous). 
 The symbol $[[ \cdot ]]$ denotes the jump at the interface.\\
 %The reader will notice that the pressure jump is proportional to $(|u|+c_m)$ since the pressure varies in the shock. On another hand, the density jump is proportional to the material velocity that is the eigenvalue associated to the contact wave. \\
-The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:equation3} and will be used to solve for the grey radiation-hydrodynamic equations given in \eqt{eq:equation1}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$, and the physical diffusive term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ \comment{\color{blue}{what is that frac for?}} is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
+The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:equation3} and will be used to solve for the grey radiation-hydrodynamic equations given in \eqt{eq:equation1}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$, and the physical diffusive term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
  \begin{equation}
  \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right) = \partial_x \left[ \max\left(\frac{c}{3 \sigma_t} \text{, } \kappa \right) \partial_x \epsilon \right]
  \end{equation}
  Thus, as long as the artificial viscosity coefficient $\kappa$ is locally smaller that the physical diffusive coefficient $D=\frac{c}{3 \sigma_t}$, no artificial viscosity is required to ensure stability of the numerical scheme. As the diffusive coefficient $D$ goes to zero, shock can form in the radiation energy density profile and will require a certain amount of viscosity in order to prevent oscillations from forming. \\
 The effect of the relaxation source terms onto the entropy viscosity method can become problematic in the equilibrium diffusion limit $(\sigma_a c \to \infty)$: the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. In \cite{ShiJin}, a study on the impact of various artificial viscosity methods onto hyperbolic system with relaxation terms was carried out. It was shown that high-order viscosity coefficients are better suitable since they do not alter the physical solution as much as first-order viscosity such as the upwind scheme. A manufactured method solution is designed in \sect{sec:MMS} to test the convergence of the numerical solution in the equilibrium-diffusion limit.  
 \begin{remark}
-The coefficient $\rho c_m^2$ is used as a normalization parameter to make the ratio $\hat{D}_e(x,t) / \rho c_m^2$ have the unit of inverse time. The normalization factor has to be larger than $h$ in order to conserve the high-order accuracy. \comment{can you prove or provide evidence for this? \color{blue}{we need to talk about it}}
+The coefficient $\rho c_m^2$ is used as a normalization parameter to make the ratio $\hat{D}_e(x,t) / \rho c_m^2$ have the unit of inverse time. The normalization factor has to be larger than $h$ in order to conserve the high-order accuracy. %\comment{can you prove or provide evidence for this? \color{blue}{we need to talk about it}}
  \end{remark}
  \begin{remark}
 The reader will notice that, except for the definition of the jumps, the whole method is independent of the spatial discretization employed. The technique could be used with discontinuous Galerkin finite element or finite volume methods. In both cases, an adequate  definition of the jump terms can be found in \cite{valentin}.
@@ -290,10 +290,10 @@ The 1-D radiation-hydrodynamic equations \eqt{eq:equation1} are discretized with
 To obtain a weak form, the following generic form of \eqt{eq:equation1} is considered:
 \begin{equation}
 \label{eq:form}
-\partial_t U + \nabla \cdot F\left( U \right) = S
+\partial_t U + \partial_x F \left( U \right) = S + \partial_x H \left(U\right)
 \end{equation}
-where $U$ is the vector solution, $F$ is a conservative vector flux and $S$ is a vector source that contains the relaxation source terms and non-conservative terms:
-\begin{equation}
+where $U$ is the vector solution, $F$ is a conservative vector flux, $S$ is a vector containing the relaxation source terms and non-conservative terms, and $H$ is the artificial viscosity dissipative vector:
+\begin{eqnarray}
 U = \left[
 \begin{array}{cccc}
 \rho \\
@@ -308,8 +308,8 @@ F(U) = \left[
 \rho u^2 + P + \frac{\epsilon}{3} \\
 u \left( \rho E + P \right) \\
 \frac{4}{3} u \epsilon
-\end{array}
-\right] \text{ and }
+\end{array} 
+\right] \text{, } \nonumber \\
 S = \left[
 \begin{array}{cccc}
 0 \\
@@ -317,22 +317,28 @@ S = \left[
 -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) \\
 \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right)
 \end{array}
+\right] \text{ and } \nonumber \\ 
+H(U) = \left[
+\begin{array}{cccc}
+\kappa \partial_x \rho \\
+\rho \mu \partial_x u + u \kappa \partial_x \rho \\
+\kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u
+\end{array}
 \right]
 \nonumber
-\end{equation}
+\end{eqnarray}
 In order to apply the continuous finite element method, \eqt{eq:form} is multiplied by a smooth test function $\phi$, integrated by part over each finite element $e$ of the discrete mesh $\Omega$ bounded by $\delta \Omega$, to obtain a weak solution:
-\begin{equation}
-\sum_e \int_{e} \partial_t U \phi - \sum_e \int_{\Omega} F(U) \cdot \nabla \phi + \int_{\delta \Omega} F(U) \phi - \sum_e \int_{\Omega} S \phi = 0
-\end{equation}
+\begin{eqnarray}
+\sum_e \int_{\Omega} \partial_t U \phi - \sum_e \int_{\Omega} F(U) \partial_x \phi + \int_{\delta \Omega} F(U) \mathbf{n} \phi - \nonumber\\ \sum_e \int_{\Omega} S \phi + \sum_e \int_{\Omega} H(U) \partial_x \phi - \sum_e \int_{\partial \Omega}H \left( U \right) n \phi= 0
+\end{eqnarray}
+where $n$ is the outwards normal vector to the boundary of the computational domain. \\
 The integrals over the elements $e$ are evaluated using quadrature points rule: trapezoidal and gauss rules. The time-dependent term will be evaluated using the implicit second-order temporal integrator BDF2 \cite{Leveque}. Only linear polynomials for the test functions are considered in this paper.\\
-The integral on $\partial \Omega$ requires to compute the flux $F(U)$ on the boundary. It is chosen to treat the boundary for each physics independently and details will be given in \sect{sec:simulations}. \\
+The integral on $\partial \Omega$ requires to compute the flux $F(U)$ and $H(U)$ on the boundary. It is chosen to treat the boundary for each physics independently and details will be given in \sect{sec:simulations} on how to compute $F(U)$. The viscosity dissipative flux $H(U)$ is null on the boundaries since the viscosity coefficients $\kappa$ and $\mu$ are set to zero \cite{jlg1, jlg2, valentin}. \\
 The Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the system for each time step: Newton's and Krylov methods are used for the outer nonlinear and inner linear solves, respectively. The full Jacobian matrix is used as a preconditioner and is computed by finite difference: this options is available in Moose and remains efficient for 1-D simulations. 
  \begin{remark}
 The entropy residual expression is not integrated over the cell volume as it is usually done in the Galerkin finite element method. The variable values and their gradients are available at the quadrature point and for different time, and, thus, can be used to evaluate the entropy residual. The time-derivative term is discretized with the second-order temporal integrator, BDF2 \cite{Leveque}. 
 \end{remark}
-
-\comment{\color{blue}{This section does not need to be too long but I feel like stating the temporal scheme, giving the weak CGFEM form, and mentioning PJFNK, all of which you do in the Numerical results sections, would be better done here, in a separate section. This would also give more chances to the reader to understand how you discretize and solve the system of equations}}
-
+%\comment{\color{blue}{This section does not need to be too long but I feel like stating the temporal scheme, giving the weak CGFEM form, and mentioning PJFNK, all of which you do in the Numerical results sections, would be better done here, in a separate section. This would also give more chances to the reader to understand how you discretize and solve the system of equations}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical results}
@@ -684,7 +690,7 @@ The right-hand side of the internal energy equation can be simplified by choosin
 \right.
 \end{equation}
 This system of equation admits an entropy function $s$ that depends on density $\rho$, internal energy $e$ and radiation energy density $\epsilon$. In order to prove the entropy minimum principle, a conservation statement verified by the entropy is needed. This PDE is referred to as an entropy residual $D_e(x,t)$ and can be obtained by combination of the equations given in \eqt{eq:app_equ1ter}. This process is motivated by the following observation (chain rule) 
-\comment{I think you still had a mistake. Check my correction.\color{blue}{I do not see where the mistake is}}
+%\comment{I think you still had a mistake. Check my correction.\color{blue}{I do not see where the mistake is}}
 \begin{equation}
 \label{eq:app_equ2}
 \partial_{\alpha} s = \partial_{\rho} s \partial_{\alpha} \rho +  \partial_{e} s \partial_{\alpha}e +  \partial_{\epsilon} s \partial_{\alpha} \epsilon \text{,}
