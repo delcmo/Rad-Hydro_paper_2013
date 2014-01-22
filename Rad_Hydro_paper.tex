@@ -112,7 +112,9 @@ Texas A\&M University 3133 TAMU College Station, TX 77843-3133, jean.ragusa@tamu
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-It is proposed to use an artificial viscosity method called the entropy-based viscosity method \cite{jlg1, jlg2, valentin} to solve the 1-D grey radiation-hydrodynamic equations. Some theoretical aspect are introduced related to the entropy minimum principle \cite{entropy} in order to justify the derivation of the dissipative terms and the smart viscosity coefficient. The equations are discretized with Continuous Galerkin Finite Element Method (CGFEM) and implicit temporal integrator using the Moose framework \cite{Moose}. The method of manufactured solution (MMS) is used to prove second-order accuracy for both the equilibrium diffusion and streaming limits. Then, some typical test cases for $1$-D radiation hydrodynamic equations are run to demonstrate the capabilities of the entropy-based viscosity method in resolving shocks.
+The entropy viscosity method is extended to the 1-D grey radiation-hydrodynamic equations. 
+The method employs a viscous regularization to stabilize the numerical scheme but monitoring the local entropy production. 
+In order to satisfy the minimum entropy principle, a new functional form of the entropy residual is dervied, suitable for radiation-hydrodynamic equations. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and implicit temporal integrator withini the Moose multiphysics framework. The method of manufactured solution (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks are computed to present the capabilities of the entropy viscosity method in resolving shocks.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
