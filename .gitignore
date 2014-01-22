@@ -1,0 +1,13 @@
+*.un~
+*.swp
+*.swo
+*.sty
+*.aux
+*.log
+*.bbl
+*.pdf
+*.blg
+*.dvi
+*.zip
+*.spl
+
