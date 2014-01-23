@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  21 JAN 2014 17:29
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  23 JAN 2014 14:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -398,78 +398,78 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 {/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 
-Overfull \hbox (6.02379pt too wide) in paragraph at lines 175--177
+Overfull \hbox (6.02379pt too wide) in paragraph at lines 177--179
 \OT1/cmr/m/n/10 In this sec-tion, we ex-tend the en-tropy vis-cos-ity method [[
 ], [], []] to the $1$-D radiation-hydrodynamic
  []
 
 [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 233.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 235.
 
  (/usr/local/texlive/2012/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 233.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 235.
  [5] [6]
 [7] [8] [9] [10] <Mach1p05Temperature.png, id=53, 678.3744pt x 461.5644pt>
 File: Mach1p05Temperature.png Graphic file (type png)
 
 <use Mach1p05Temperature.png>
-Package pdftex.def Info: Mach1p05Temperature.png used on input line 466.
+Package pdftex.def Info: Mach1p05Temperature.png used on input line 468.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach1p05Density.png, id=55, 678.3744pt x 461.5644pt>
 File: Mach1p05Density.png Graphic file (type png)
 
 <use Mach1p05Density.png>
-Package pdftex.def Info: Mach1p05Density.png used on input line 471.
+Package pdftex.def Info: Mach1p05Density.png used on input line 473.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach1p05Viscosity.png, id=56, 678.3744pt x 461.5644pt>
 File: Mach1p05Viscosity.png Graphic file (type png)
 
 <use Mach1p05Viscosity.png>
-Package pdftex.def Info: Mach1p05Viscosity.png used on input line 476.
+Package pdftex.def Info: Mach1p05Viscosity.png used on input line 478.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [11 <./Mach1p05Temperature.png>] [12 <./Mach1p05Density.png>] <Mach1p2Temperat
 ure.png, id=65, 678.3744pt x 461.5644pt>
 File: Mach1p2Temperature.png Graphic file (type png)
 
 <use Mach1p2Temperature.png>
-Package pdftex.def Info: Mach1p2Temperature.png used on input line 502.
+Package pdftex.def Info: Mach1p2Temperature.png used on input line 504.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [13 <./Mach1p05Viscosity.png>]
 <Mach1p2Density.png, id=71, 678.3744pt x 461.5644pt>
 File: Mach1p2Density.png Graphic file (type png)
  <use Mach1p2Density.png>
-Package pdftex.def Info: Mach1p2Density.png used on input line 509.
+Package pdftex.def Info: Mach1p2Density.png used on input line 511.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach1p2Viscosity.png, id=72, 678.3744pt x 461.5644pt>
 File: Mach1p2Viscosity.png Graphic file (type png)
 
 <use Mach1p2Viscosity.png>
-Package pdftex.def Info: Mach1p2Viscosity.png used on input line 514.
+Package pdftex.def Info: Mach1p2Viscosity.png used on input line 516.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [14 <./Mach1p2Temperature.png>] [15 <./Mach1p2Density.png>] <Mach2Temperature.
 png, id=81, 678.3744pt x 461.0826pt>
 File: Mach2Temperature.png Graphic file (type png)
 
 <use Mach2Temperature.png>
-Package pdftex.def Info: Mach2Temperature.png used on input line 538.
+Package pdftex.def Info: Mach2Temperature.png used on input line 540.
 (pdftex.def)             Requested size: 418.25368pt x 284.29228pt.
  [16 <./Mach1p2Viscosity.png>]
 <Mach2Density.png, id=86, 678.3744pt x 461.5644pt>
 File: Mach2Density.png Graphic file (type png)
  <use Mach2Density.png>
-Package pdftex.def Info: Mach2Density.png used on input line 545.
+Package pdftex.def Info: Mach2Density.png used on input line 547.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach2Viscosity.png, id=87, 678.3744pt x 461.5644pt>
 File: Mach2Viscosity.png Graphic file (type png)
  <use Mach2Viscosity.png>
-Package pdftex.def Info: Mach2Viscosity.png used on input line 550.
+Package pdftex.def Info: Mach2Viscosity.png used on input line 552.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 [17 <./Mach2Temperature.png>]
@@ -477,58 +477,59 @@ Package pdftex.def Info: Mach2Viscosity.png used on input line 550.
 File: Mach2TemperatureEVandFO.png Graphic file (type png)
 
 <use Mach2TemperatureEVandFO.png>
-Package pdftex.def Info: Mach2TemperatureEVandFO.png used on input line 555.
+Package pdftex.def Info: Mach2TemperatureEVandFO.png used on input line 557.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [18 <./Mach2Density.png>]
 <Mach2DensityEVandFO.png, id=97, 678.3744pt x 461.5644pt>
 File: Mach2DensityEVandFO.png Graphic file (type png)
 
 <use Mach2DensityEVandFO.png>
-Package pdftex.def Info: Mach2DensityEVandFO.png used on input line 560.
+Package pdftex.def Info: Mach2DensityEVandFO.png used on input line 562.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
- [19 <./Mach2Viscosity.png>] [20 <./Mach2TemperatureEVandFO.png>] <Mach5Tempera
-ture.png, id=107, 678.3744pt x 461.5644pt>
-File: Mach5Temperature.png Graphic file (type png)
+ [19 <./Mach2Viscosity.png>] [20 <./Mach2TemperatureEVandFO.png>]
+<Mach5TemperatureAndComparison.png, id=107, 678.3744pt x 461.5644pt>
+File: Mach5TemperatureAndComparison.png Graphic file (type png)
 
-<use Mach5Temperature.png>
-Package pdftex.def Info: Mach5Temperature.png used on input line 584.
+<use Mach5TemperatureAndComparison.png>
+Package pdftex.def Info: Mach5TemperatureAndComparison.png used on input line 5
+86.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [21 <./Mach2DensityEVandFO.png>]
 <Mach5Density.png, id=112, 678.3744pt x 461.5644pt>
 File: Mach5Density.png Graphic file (type png)
  <use Mach5Density.png>
-Package pdftex.def Info: Mach5Density.png used on input line 590.
+Package pdftex.def Info: Mach5Density.png used on input line 592.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach5Viscosity.png, id=113, 678.3744pt x 461.5644pt>
 File: Mach5Viscosity.png Graphic file (type png)
  <use Mach5Viscosity.png>
-Package pdftex.def Info: Mach5Viscosity.png used on input line 595.
+Package pdftex.def Info: Mach5Viscosity.png used on input line 597.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
-[22 <./Mach5Temperature.png>] [23 <./Mach5Density.png>]
+[22 <./Mach5TemperatureAndComparison.png>] [23 <./Mach5Density.png>]
 <Mach50Temperature.png, id=122, 678.3744pt x 461.5644pt>
 File: Mach50Temperature.png Graphic file (type png)
 
 <use Mach50Temperature.png>
-Package pdftex.def Info: Mach50Temperature.png used on input line 619.
+Package pdftex.def Info: Mach50Temperature.png used on input line 621.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [24 <./Mach5Viscosity.png>]
 <Mach50Density.png, id=127, 678.3744pt x 461.5644pt>
 File: Mach50Density.png Graphic file (type png)
  <use Mach50Density.png>
-Package pdftex.def Info: Mach50Density.png used on input line 625.
+Package pdftex.def Info: Mach50Density.png used on input line 627.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
 
 <Mach50Viscosity.png, id=128, 678.3744pt x 461.5644pt>
 File: Mach50Viscosity.png Graphic file (type png)
 
 <use Mach50Viscosity.png>
-Package pdftex.def Info: Mach50Viscosity.png used on input line 630.
+Package pdftex.def Info: Mach50Viscosity.png used on input line 632.
 (pdftex.def)             Requested size: 418.25368pt x 284.58936pt.
  [25 <./Mach50Temperature.png>] [26 <./Mach50Density.png>] [27 <./Mach50Viscosi
 ty.png>]
-Overfull \hbox (8.34583pt too wide) in paragraph at lines 650--650
+Overfull \hbox (8.34583pt too wide) in paragraph at lines 652--652
 []\OT1/cmr/bx/n/14.4 Proof of the en-tropy min-i-mum prin-ci-ple for the radiat
 ion-
  []
@@ -537,11 +538,11 @@ ion-
 Missing character: There is no Ð in font cmr10!
  [31] [32] (./Rad_Hydro_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 5559 strings out of 493488
- 83786 string characters out of 3141326
+ 5551 strings out of 493488
+ 83772 string characters out of 3141326
  164891 words of memory out of 3000000
- 8749 multiletter control sequences out of 15000+200000
- 16815 words of font info for 65 fonts, out of 3000000 for 9000
+ 8744 multiletter control sequences out of 15000+200000
+ 15569 words of font info for 60 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,14n,58p,1470b,354s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/t
@@ -564,7 +565,7 @@ mr9.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 fb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 ></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
 
-Output written on Rad_Hydro_paper.pdf (32 pages, 1628022 bytes).
+Output written on Rad_Hydro_paper.pdf (32 pages, 1713530 bytes).
 PDF statistics:
  219 PDF objects out of 1000 (max. 8388607)
  130 compressed objects within 2 object streams
