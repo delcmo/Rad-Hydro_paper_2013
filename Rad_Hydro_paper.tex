@@ -583,10 +583,10 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach5Temperature.png}
+                \includegraphics[width=\textwidth]{Mach5TemperatureAndComparison.png}
         \caption{Material and radiation temperature profiles at steady-state for Mach 5 test.}\label{fig:Mach5_temp}
 \end{figure}
-In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer display a embedded hydrodynamic shock but has a Zeldovich spike. The mesh is not fine enough to correctly resolve the Zeldovich spike. The density profile, \fig{fig:Mach5_density}, has a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not show any oscillations. 
+In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer display a embedded hydrodynamic shock but has a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike: in the top left corner of \fig{fig:Mach5_temp}, the Zeldovich spike region is plotted for different mesh from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size. The density profile, \fig{fig:Mach5_density}, has a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not show any oscillations. 
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{Mach5Density.png}
