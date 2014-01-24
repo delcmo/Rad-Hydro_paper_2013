@@ -12,3 +12,5 @@
 *.spl
 *.ps
 *.gz
+*.csv
+*.xlsx
