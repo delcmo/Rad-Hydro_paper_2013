@@ -335,7 +335,7 @@ H(U) = \left[
 \end{eqnarray}
 In order to apply the continuous finite element method, \eqt{eq:form} is multiplied by a smooth test function $\phi$, integrated by part over each finite element $e$ of the discrete mesh $\Omega$ bounded by $\partial \Omega$, to obtain a weak solution:
 \begin{eqnarray}
-\sum_e \int_{\Omega} \partial_t U \phi - \sum_e \int_{\Omega} F(U) \partial_x \phi + \int_{\partial \Omega} F(U) \mathbf{n} \phi - \nonumber\\ \sum_e \int_{\Omega} S \phi + \sum_e \int_{\Omega} H(U) \partial_x \phi - \int_{\partial \Omega}H \left( U \right) \mathbf{n} \phi= 0
+\sum_e \int_{e} \partial_t U \phi - \sum_e \int_{e} F(U) \partial_x \phi + \int_{\partial \Omega} F(U) \mathbf{n} \phi - \nonumber\\ \sum_e \int_{e} S \phi + \sum_e \int_{e} H(U) \partial_x \phi - \int_{\partial \Omega}H \left( U \right) \mathbf{n} \phi= 0
 \end{eqnarray}
 where $\mathbf{n}$ is the outward normal vector to the boundary of the computational domain. \\
 The integrals over the elements $e$ are evaluated using quadrature points rule: trapezoidal and Gauss rules. The time-dependent term will be evaluated using the implicit second-order temporal integrator BDF2 \cite{Leveque}. Only linear polynomials for the test functions are considered in this paper.\\
