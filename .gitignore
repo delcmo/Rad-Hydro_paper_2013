@@ -14,3 +14,4 @@
 *.gz
 *.csv
 *.xlsx
+*.DS_Store
