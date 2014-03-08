@@ -116,8 +116,7 @@ Texas A\&M University 3133 TAMU College Station, TX 77843-3133, jean.ragusa@tamu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 The entropy viscosity method is extended to the 1-D grey radiation-hydrodynamic equations. 
-The method employs a viscous regularization to stabilize the numerical scheme while monitoring the local entropy production. 
-In order to satisfy the minimum entropy principle, a new functional form of the entropy residual is derived, suitable for radiation-hydrodynamic equations. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and implicit temporal integrator within the Moose multiphysics framework. The method of manufactured solution (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique at capturing and resolving shocks.
+The method employs a viscous regularization to stabilize the numerical scheme with a viscosity coefficient modulated by the entropy production that is known to be peaks in shocks. The dissipative terms are consistent with the entropy minimum principle which requires a new functional form of the entropy residual to be derived, suitable for radiation-hydrodynamic equations. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and implicit temporal integrator within the Moose multiphysics framework. The method of manufactured solution (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique at capturing and resolving shocks.
 \end{abstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -139,7 +138,7 @@ Solving the radiation hydrodynamic equations is a challenging task for multiple 
 %And, fourth, the radiation hydrodynamic equations are stiff to solve in the equilibrium diffusion limit, mainly because of the relaxation source terms that couple the two physics. 
 Significant effort has been put into developing Riemann solvers for both the radiation and hydrodynamic equations. Balsara \cite{Balsara} developed a Riemann solver for the radiation-hydrodynamic equations by considering the frozen approximation that decouple the two physics components. However, such an approach can reveal itself questionable in the equilibrium diffusion limit. In this case, the coupling terms drive the physics and have to be accounted for. A \emph{generalized Riemann solver} which accounts exactly for the relaxation terms was developed in \cite{LowrieMorelHittinger}. Another approach, applicable in the equilibrium limit, consists of recasting the system of equations in a conservative form. Then, a numerical solution can be obtained by modifying the equation of state, yielding the radiation-modified equation of state (REOS). This is straightforward to implement in any solver for Euler equations by replacing the equation of state by the REOS \cite{Woodward}. \\
 %As mentioned earlier, the high-order accuracy needs to be considered as well. A great amount of work is available in the literature when it comes to solve for Euler equations and the radiation transport equation \cite{Hairer, Wareing}, independent to each other. However, achieving high-order accuracy when coupling the two physics is not an easy process because of the different time scales. 
-Edwards and al. proposed a two stage semi-implicit scheme IMEX to solve the coupled radiation-hydrodynamic equations \cite{EdwardsMorelKnoll}. They applied a Trapezoidal/BDF2 temporal discretization scheme to the nonlinear grey radiative diffusion. The radiation and hydrodynamic equations are solved implicitly and explicitly, respectively. A Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with analytical solutions. \\
+Edwards and al. proposed a two stage semi-implicit scheme IMEX to solve the coupled radiation-hydrodynamic equations \cite{EdwardsMorelKnoll}. They applied a Trapezoidal/BDF2 temporal discretization scheme to the nonlinear grey radiative diffusion. The radiation and hydrodynamic equations are solved implicitly and explicitly, respectively. A Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with semi-analytical solutions. \\
 In this article we propose to solve the $1$-D radiation-hydrodynamics equations by using \emph{the entropy viscosity method}. This technique, developed by Guermond et al.  for hyperbolic system of equations \cite{jlg1, jlg2}, consists in
 adding appropriate dissipative terms to the governing equations  whose viscosity coefficient is modulated by the local entropy production. These dissipative terms are devised so as to stabilize  the numerical scheme and to remove the non-physical oscillations appearing at the shock locations. Generally speaking, entropy is produced at shocks \cite{Toro}. Thus, by setting the viscosity coefficient proportional to the entropy production, shocks can be detected and tracked, and an adequate amount of viscosity is added locally to stabilize the numerical scheme. The entropy production is computed on the fly, by analyzing the entropy residual; this residual is strongly peaked in shocks and small elsewhere. The entropy viscosity method has been shown to achieve high-order accuracy away from the shock regions and
 % and first-order convergence in the shock. This method 
@@ -157,7 +156,7 @@ and the corresponding variables are defined for clarity purposes:
 \end{array}
 \right. ,
 \end{equation}
-where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, the radiation energy density, material pressure and temperature, respectively. The total and absorption cross-sections, $\sigma_t$ and $\sigma_a$, are temperature-dependent. The variables $a$ and $c$ are the Boltzman constant and the speed of light, respectively. Lastly, the symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. \
+where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, the radiation energy density, material pressure and temperature, respectively. The total and absorption cross-sections, $\sigma_t$ and $\sigma_a$ are either constant or density- and temperature-dependent. The variables $a$ and $c$ are the Boltzman constant and the speed of light, respectively. Lastly, the symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. \
 The material temperature and pressure are computed with the Ideal Gas equation of state (IGEOS):
 \begin{equation}
 \label{eq:equation2}
@@ -198,10 +197,10 @@ The jacobian matrix of the hyperbolic terms can be computed to derive the eigenv
 where $c_m$ is the material speed of sound and is defined as follows:
 \begin{equation}
 \label{eq:equation5}
-c_m^2 = P_{\rho} + \frac{P}{\rho^2}P_e + \frac{4 \epsilon}{9\rho}
+c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho}
 \end{equation}
 %\comment{\color{blue}{$P_{\rho}$ has units of $P/\rho$ = units of $e$; $\frac{P}{\rho}P_e $ has units of $P^2/(\rho e)$ = units of $P$ = units of $\rho e$. Something is wrong here. Should the second term be $\frac{P}{\rho^2}P_e $?\\}}
-with $P_x$ the standard shorthand notation for $\partial_x P$. 
+with $P_x$ the standard shorthand notation for $\partial_x P$, and $c^2_{Euler}$ denotes the definition of the speed of sound when only considering the $1$-D Euler equations.
 The above hyperbolic system of equations can be recast in a conservative form. This allows us to assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$. Then, following some algebra given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:equation6}
@@ -236,10 +235,10 @@ Once the dissipative terms are obtained, it remains to define the local viscosit
 We require the following to hold in the prescription for $\kappa$:
 \begin{itemize}
 \item An upper bound on $\kappa$ is required for stability of the numerical scheme: when considering explicit temporal integrators, the maximum value of the viscosity coefficient is related to the Courant-Friedrichs-Lewy number (CFL). This upper bound is defined by analogy to the standard upwind (Godunov) scheme that is known to efficiently smooth out oscillations (but is only first-order accurate). With implicit temporal integrators, the same reasoning is used even if the CFL number is, in theory, no longer required. This upper bound will be referred to as the \emph{first-order viscosity}, denoted by $\kappa_{max}(x,t)$.  
-\item Since the entropy residual is a measure the entropy production that occurs in shock regions, it is natural to define a viscosity coefficient proportional to the entropy residual. This will enable shock detection and tracking and will also provide a measure of the viscosity required to stabilize the scheme. This viscosity coefficient is referred to as the \emph{entropy viscosity coefficient} or \emph{second-order viscosity coefficient} and is denoted by $\kappa_e(x,t)$.
+\item Since the entropy residual is a measure of the entropy production that occurs in shock regions, it is natural to define a viscosity coefficient proportional to the entropy residual. This will enable shock detection and tracking and will also provide a measure of the viscosity required to stabilize the scheme. This viscosity coefficient is referred to as the \emph{entropy viscosity coefficient} or \emph{second-order viscosity coefficient} and is denoted by $\kappa_e(x,t)$.
 \item The viscosity coefficient that is actually used in the dissipative terms, $\kappa$, of \eqt{eq:equation3} is defined as follows: $\kappa(x,t) = \min ( \kappa_e(x,t), \kappa_{max}(x,t) )$. With such a definition, the viscosity added to the system of equation will saturate to the first order viscosity in the shock regions. Elsewhere, the entropy production and the viscosity coefficient $\kappa$ are expected to be small.
 \end{itemize}
-Next, we define the first- and second-order viscosity coefficients. Following the work of Zingan et al. \cite{valentin}, the first-order viscosity definition is based on the local largest eigenvalue that is known to be $|u| + c_m$:
+Next, we define the first- and second-order viscosity coefficients. Following the work of Zingan et al. \cite{valentin}, the first-order viscosity definition is based on the local largest eigenvalue that is known to be $|u| + c_m$ in $1$-D:
 \begin{equation}
 \label{eq:equation8}
 \kappa_{max} = \frac{h}{2} \left( |u| + c_m \right)
@@ -249,16 +248,22 @@ The definition of the second order viscosity coefficient, $\kappa_e(x,t)$, is ba
 % (\app{app:appendixA}):
 \begin{equation}
 \label{eq:equation9}
-\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_m^2 \frac{d\rho}{dt} + \frac{d\epsilon}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
+%\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_m^2 \frac{d\rho}{dt} + \frac{d\epsilon}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
+\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_{Euler}^2 \frac{d\rho}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
 \end{equation}
 %\comment{\color{blue}{the reader will not be able to see the connection with the appendix because in the appendix there are no such equations as Eq.(10). If you recall in the main text a result from the appendix, it should be found in the appendix\\}}
 The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) and $P_e$ is computed from the IGEOS. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:equation6} which required an analytical expression for the entropy function. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. The objective is to be able to also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), in order to stabilize them as well. \\
-Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$. Since the units of the viscosity coefficients are $m^2 s^{-1}$, a possible definition for $\kappa_e(x,t)$ is:
+Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
+\begin{equation}
+\label{eq:equation12}
+\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{n_P}
+\end{equation} 
+where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$, and $n_P$ is a normalization function (of the same unit as pressure) that has to be chosen so that the viscosity coefficient $\kappa$ is of unit $m^2/s$. It is chosen to take the following definition for the normalization function: $n_P = \rho c_m^2$. Thus, the final definition for the viscosity coefficient $\kappa$ is the following:
 \begin{equation}
 \label{eq:equation12}
 \kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2}
 \end{equation} 
-where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$. The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for Continuous Galerkin FEM: 
+The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for Continuous Galerkin FEM: 
 \begin{equation}
 \label{eq:equation12bis}
 \left\{
@@ -279,7 +284,7 @@ The entropy viscosity method is now well defined for the hyperbolic system given
  Thus, as long as the artificial viscosity coefficient $\kappa$ is locally smaller that the physical diffusive coefficient $D=\frac{c}{3 \sigma_t}$, no artificial viscosity is required to ensure stability of the numerical scheme. As the diffusive coefficient $D$ goes to zero, shocks can form in the radiation energy density profile and will require a certain amount of viscosity in order to prevent oscillations from appearing. \\
 The effect of the relaxation source terms onto the entropy viscosity method can become problematic in the equilibrium diffusion limit $(\sigma_a c \to \infty)$: the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. In \cite{ShiJin}, a study on the impact of various artificial viscosity methods onto hyperbolic systems with relaxation terms was carried out. It was shown that high-order viscosity coefficients are better suitable since they do not alter the physical solution as much as first-order viscosity such as the upwind scheme. A manufactured method solution is designed in \sect{sec:MMS} to test the convergence of the numerical solution in the equilibrium-diffusion limit.  
 \begin{remark}
-The coefficient $\rho c_m^2$ is used as a normalization parameter to make the ratio $\hat{D}_e(x,t) / \rho c_m^2$ have the unit of inverse time. The normalization factor has to be larger than $h$ in order to conserve the high-order accuracy. %\comment{can you prove or provide evidence for this? \color{blue}{we need to talk about it}}
+The normalization factor has to be larger than $h$ in order to conserve the high-order accuracy.%\comment{can you prove or provide evidence for this? \color{blue}{we need to talk about it}}
  \end{remark}
  \begin{remark}
 The reader will notice that, except for the definition of the jumps, the whole method is independent of the spatial discretization employed. The technique could be used with discontinuous Galerkin finite element or finite volume methods. In both cases, an adequate  definition of the jump terms can be found in \cite{valentin}.
@@ -327,7 +332,7 @@ S = \left[
 H(U) = \left[
 \begin{array}{cccc}
 \kappa \partial_x \rho \\
-\rho \mu \partial_x u + u \kappa \partial_x \rho \\
+\kappa \partial_x (\rho u) \\
 \kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u
 \end{array}
 \right]
@@ -338,7 +343,7 @@ In order to apply the continuous finite element method, \eqt{eq:form} is multipl
 \sum_e \int_{e} \partial_t U \phi - \sum_e \int_{e} F(U) \partial_x \phi + \int_{\partial \Omega} F(U) \mathbf{n} \phi - \nonumber\\ \sum_e \int_{e} S \phi + \sum_e \int_{e} H(U) \partial_x \phi - \int_{\partial \Omega}H \left( U \right) \mathbf{n} \phi= 0
 \end{eqnarray}
 where $\mathbf{n}$ is the outward normal vector to the boundary of the computational domain. \\
-The integrals over the elements $e$ are evaluated using either trapezoidal or Gauss quadrature rules. The time-dependent term will be evaluated using the implicit second-order temporal integrator BDF2 \cite{Leveque}. Only linear polynomials for the test functions are considered in this paper.\\
+The integrals over the elements $e$ are evaluated using either trapezoidal or Gauss quadrature rules. The time-dependent term will be evaluated using the implicit second-order temporal integrator BDF2 \cite{Leveque}. Only linear polynomials test functions are considered in this paper.\\
 The integral on $\partial \Omega$ requires computation of the flux $F(U)$ and $H(U)$ on the boundary. It is chosen to treat the boundary for each physics component independently and details will be given in \sect{sec:simulations} on how to compute $F(U)$. The viscosity dissipative flux $H(U)$ is zero on the boundaries since the viscosity coefficients $\kappa$ and $\mu$ are set to zero \cite{jlg1, jlg2, valentin}. \\
 The Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the system for each time step: Newton's and Krylov methods are used for the outer nonlinear and inner linear solves, respectively. The full Jacobian matrix is used as a preconditioner and is computed by finite difference: this options is available in Moose and remains efficient for 1-D simulations. 
  \begin{remark}
@@ -444,7 +449,7 @@ For both manufactured solutions the error is divided by four as the time step $\
 \subsection{Radiation shock simulations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{sec:simulations}
-The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can resolve shocks occuring in radiation-hydrodynamic simulations. Multiple test cases are considered with Mach numbers of $1.05$, $1.2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions of each test case will be given in a table and plots of the density ($\rho (x)$), the radiation ($\theta (x)$) and material ($T(x)$) temperatures at steady-state will be shown as well as the local viscosity coefficients $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a $1$D slab of thickness $L$. The initial step is located at $x_0$ and will be specified for all of test cases. For all of the test cases presented in this paper the cross sections $\sigma_a$ and $\sigma_t$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$.\\
+The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can resolve shocks occuring in radiation-hydrodynamic simulations. Multiple test cases are considered with Mach numbers of $1.05$, $1.2$, $2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions of each test case will be given in a table and plots of the density ($\rho (x)$), the radiation ($\theta (x)$) and material ($T(x)$) temperatures at steady-state will be shown as well as the local viscosity coefficients $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a $1$D slab of thickness $L$. The initial step is located at $x_0$ and will be specified for all of test cases. For all of the test cases presented in this paper the cross sections $\sigma_a$ and $\sigma_t$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$.\\
 For the Mach $2$ simulation, results will be shown when employing the first-order viscosity $(\kappa(x,t) = \kappa_{max}(x,t))$. The rational for this is to show the benefits of using a high-order viscosity coefficients. \\
 The inlet and outlet BCs are given next. The Euler equations and radiation equation are considered independently since the later one is parabolic. At the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary condition can be used. At the outlet, the flow become subsonic which requires a particular treatment. Following the work from \cite{SEM}, a static boundary condition is implemented. Only the back pressure is provided and the other variables are computed using the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet.
 
@@ -502,7 +507,7 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{tabular}  
 \end{center}  
 \end{table}
-The slab thickness is set to $L=10^{-3}$ $cm$ and the initial step was located at $x_0 = 5$ $10^{-4}$ $cm$. 
+The slab thickness is set to $L=3 10^{-2}$ $cm$ and the initial step was located at $x_0 = 0$ $cm$. 
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{Mach_1p2_nel_1000_temperature.png}
@@ -525,7 +530,7 @@ Overall, the numerical solution behaves as expected in the shock and the entropy
 \subsubsection{A Mach $2$ shock:}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The Mach $2$ shock test has two features: a hydrodynamic shock and a Zeldovich spike, which make it interesting for testing the robustness of the entropy-based viscosity method. The initial conditions are specified in \tbl{tbl:table5}.
+The Mach $2$ shock test has two features: a hydrodynamic shock and a Zeldovich spike, which make it interesting for testing the robustness of the entropy-based viscosity method. The initial conditions are specified in \tbl{tbl:table5} for a slab of length $L=3 10^{-2}$ $cm$ with $x_0 = 0.$ $cm$.
 \begin{table}[H]
 \caption{\label{tbl:table5} Initial conditions for Mach $2$.}
 \begin{center}
@@ -546,7 +551,7 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
         \caption{Material and radiation temperature profiles at steady-state for Mach 2 test.}\label{fig:Mach2_temp}
 \end{figure}
 Once again, the radiation temperature profile is smooth and the material temperature experiences an embedded hydrodynamic shock and a peak as shown in \fig{fig:Mach2_temp}. In \fig{fig:Mach2_density}, the shock is well resolved. The viscosity coefficient profile is given in \fig{fig:Mach2_viscosity} and is peaked, once again, in the shock region. \\
-For academic purpose, the same simulation was run with the first-order viscosity i.e., $\kappa$ was set equal to $\kappa_{max}$ in the whole domain, in order to see the advantage of using a second-order viscosity coefficient. The results are given in \fig{fig:Mach2_tempEVandFO} for the material and radiation temperatures and in \fig{fig:Mach2_densityEVandFO} for the material density. Numerical solutions with first- and second-order viscosity coefficients are graphed. The radiation temperature profile (\fig{fig:Mach2_tempEVandFO}) is not affected by the first-order viscosity and curves are confounded: this is expected because of the way the artificial viscosity term is treated in the radiation equation (\sect{sec:entropy-visc-meth}). However, on the same figure, the shock and peak in the material temperature profile are smoothed out: the shock is not as sharp and the peak amplitude is reduced because of the large amount of viscosity added to the system. This test shows the benefits of using a high-order viscosity coefficient in order to avoid over dissipation.
+For academic purpose, the same simulation was run with the first-order viscosity i.e., $\kappa$ was set equal to $\kappa_{max}$ in the whole domain, in order to see the advantage of using a second-order viscosity coefficient. The results are given in \fig{fig:Mach2_tempEVandFO} for the material density and temperature. Numerical solutions with first- and second-order viscosity coefficients are graphed. The radiation temperature profile (not shown here) is not affected by the first-order viscosity and curves are confounded: this is expected because of the way the artificial viscosity term is treated in the radiation equation (\sect{sec:entropy-visc-meth}). However, on the same figure, the shock and peak in the material temperature profile are smoothed out: the shock is not as sharp and the peak amplitude is reduced because of the large amount of viscosity added to the system. This test shows the benefits of using a high-order viscosity coefficient in order to avoid over dissipation.
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{Mach_2_nel_2000_density.png}
@@ -559,19 +564,18 @@ For academic purpose, the same simulation was run with the first-order viscosity
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach2TemperatureEVandFO.png}
-        \caption{Comprarison between the material and radiation temperatures run with the high-order and first order viscosity coefficients: radiation temperature with second-order viscosity, radiation temperature with first-order viscosity, material temperature with second-order viscosity and material temperature with first-order viscosity (circle).}\label{fig:Mach2_tempEVandFO}
+                \includegraphics[width=\textwidth]{Mach_2_fo_ev.png}
+        \caption{Comprarison between the material density and temperature profiles run with the high-order and first-order viscosity coefficients.}\label{fig:Mach2_tempEVandFO}
 \end{figure}
-\begin{figure}[H]
-                \centering
-                \includegraphics[width=\textwidth]{Mach2DensityEVandFO.png}
-        \caption{Comparison between material density run with high-order and first-order viscosity: material density with second-order viscosity and material density with first-order viscosity.}\label{fig:Mach2_densityEVandFO}
-\end{figure}
+%\begin{figure}[H]
+ %               \centering
+  %              \includegraphics[width=\textwidth]{Mach2DensityEVandFO.png}
+  %      \caption{Comparison between material density run with high-order and first-order viscosity: material density with second-order viscosity and material density with first-order viscosity.}\label{fig:Mach2_densityEVandFO}
+%\end{figure}
 
 \subsubsection{Mach $5$ shock:}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-A Mach $5$ test is run with the initial conditions of \tbl{tbl:table6} on a computational domain of length $L=0.052$ $cm$ and with a $CFL$ of $10$ (same $x_0$ as well). Steady-state results are shown in \fig{fig:Mach5_temp}, \fig{fig:Mach5_density} and \fig{fig:Mach5_viscosity} for the material and radiation temperatures, the density and the viscosity coefficients, respectively.
+A Mach $5$ test is run with the initial conditions of \tbl{tbl:table6} on a computational domain of length $L=0.05$ $cm$ and with a $CFL$ of $10$ ($x_0 = 0$ $cm$). Steady-state results are shown in \fig{fig:Mach5_temp}, \fig{fig:Mach5_density} and \fig{fig:Mach5_viscosity} for the material and radiation temperatures, the density and the viscosity coefficients, respectively.
 \begin{table}[H]
 \caption{\label{tbl:table6} Initial conditions for Mach $5$.}
 \begin{center}
@@ -588,7 +592,12 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_5_nel_2000_temperature.png}
+                \includegraphics[width=\textwidth]{Mach_5_nel_1000_temperature.png}
+        \caption{Material and radiation temperature profiles at steady-state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_temp}
+\end{figure}
+\begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{Mach_5_comparison.png}
         \caption{Material and radiation temperature profiles at steady-state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_temp}
 \end{figure}
 In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer displayed an embedded hydrodynamic shock but has a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike: in the top left corner of \fig{fig:Mach5_temp}, the Zeldovich spike region is plotted for different mesh from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size. The density profile, \fig{fig:Mach5_density}, has a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any oscillations. 
@@ -606,7 +615,7 @@ In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The materi
 \subsubsection{Mach $50$ shock:} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Mach $50$ test is known to be challenging. The initial conditions are given in \tbl{tbl:table7}. The computational domain is of length $L=0.30$ $cm$. Results are once again given at steady-state.
+Mach $50$ test is known to be challenging. The initial conditions are given in \tbl{tbl:table7}. The computational domain is of length $L=0.2$ $cm$. Results are once again given at steady-state.
 \begin{table}[H]
 \caption{\label{tbl:table7} Initial conditions for Mach $50$.}
 \begin{center}
@@ -623,18 +632,18 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-2}$ & $7.33726$ $10^{5}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach50Temperature.png}
+                \includegraphics[width=\textwidth]{Mach_50_nel_1000_temperature.png}
         \caption{Material and radiation temperature profiles at steady-state for Mach 50 test.}\label{fig:Mach50_temp}
 \end{figure}
-At Mach $50$, there is no embedded hydrodynamic shock forming. The density profile is smooth as shown in \fig{fig:Mach50_density}. In \fig{fig:Mach50_temp}, the material and radiation temperatures overlap on all of the computational domain except for a small region located between $x=0.05$ and $x=0.06$ $cm$. In this particular region, the viscosity coefficient saturates to the first-order viscosity (\fig{fig:Mach50_viscosity}) because of the inflection point in the material temperature profile. The artificial dissipative terms correctly stabilize the material temperature profile without altering the physical solution: the radiation temperature is expected to increase ahead of the material temperature.
+At Mach $50$, there is no embedded hydrodynamic shock forming. The density profile is smooth as shown in \fig{fig:Mach50_density}. In \fig{fig:Mach50_temp}, the material and radiation temperatures overlap on all of the computational domain except for a small region located between $x=-0.2$ and $x=-0.18$ $cm$. In this particular region, the viscosity coefficient saturates to the first-order viscosity (\fig{fig:Mach50_viscosity}) because of the inflection point in the material temperature profile. The artificial dissipative terms correctly stabilize the material temperature profile without altering the physical solution: the radiation temperature is expected to increase ahead of the material temperature.
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach50Density.png}
+                \includegraphics[width=\textwidth]{Mach_50_nel_1000_density.png}
         \caption{Material density profile at steady-state for Mach 50 test.}\label{fig:Mach50_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach50Viscosity.png}
+                \includegraphics[width=\textwidth]{Mach_50_nel_1000_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and second-order viscosity $\kappa$ profiles at steady-state for Mach 50 test.}\label{fig:Mach50_viscosity}
 \end{figure}
 
@@ -644,9 +653,9 @@ At Mach $50$, there is no embedded hydrodynamic shock forming. The density profi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{sec:ccl}
-In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the $1$-D radiation-hydrodynamic equations. The method relies on a theoretical approach based on entropy production and verification of the entropy minimum principle ensures positivity of the density, the internal energy and the entropy. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. \\
-The method behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich peak are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient, that is computed on the fly. The addition of dissipative terms to the set of equations, requires more computational work but is rather simple to implement.\\
-As future work, extension to the multi-D equations could be considered: all of the derivations presented in this paper hold. The definition of the viscosity coefficients $\kappa$ and $\kappa_{max}$ do not need to be modified. From a theoretical point of view, this paper does not investigate a maximum principle: this property is currently under investigation for Euler equations.
+In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the $1$-D radiation-hydrodynamic equations. A theoretical derivation is given for the derivation of the dissipative terms that are consistent with the entropy minimum principle. The viscosity coefficient $\kappa$ is defined proportional to the entropy residual that measures the local entropy production allowing detection of shocks. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. \\
+The method behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich peak are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock region only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient, that is computed on the fly. The addition of dissipative terms to the set of equations, requires more computational work but is rather simple to implement.\\
+As future work, extension to the multi-D equations could be considered: all of the derivations presented in this paper hold. The definition of the viscosity coefficients $\kappa$ and $\kappa_{max}$ do not need to be modified.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
