@@ -260,12 +260,12 @@ Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportiona
 \end{equation} 
 where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$, and $n_P$ is a normalization function (of the same unit as pressure) that has to be chosen so that the viscosity coefficient $\kappa$ is of unit $m^2/s$. It is chosen to take the following definition for the normalization function: $n_P = \rho c_m^2$. Thus, the final definition for the viscosity coefficient $\kappa$ is the following:
 \begin{equation}
-\label{eq:equation12}
+\label{eq:equation12bis}
 \kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2}
 \end{equation} 
 The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for Continuous Galerkin FEM: 
 \begin{equation}
-\label{eq:equation12bis}
+\label{eq:equation12ter}
 \left\{
 \begin{array}{lll}
 J_P(x_i,t) = |u| [[\partial_x P]]\\
@@ -598,9 +598,9 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{Mach_5_comparison.png}
-        \caption{Material and radiation temperature profiles at steady-state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_temp}
+        \caption{Material and radiation temperature profiles at steady-state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_comparison}
 \end{figure}
-In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer displayed an embedded hydrodynamic shock but has a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike: in the top left corner of \fig{fig:Mach5_temp}, the Zeldovich spike region is plotted for different mesh from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size. The density profile, \fig{fig:Mach5_density}, has a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any oscillations. 
+In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer displayed an embedded hydrodynamic shock but has a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike. In \fig{fig:Mach5_comparison}, the Zeldovich spike region is plotted for different mesh from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size when correctly refined. The density profile, \fig{fig:Mach5_density}, has a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any oscillations. 
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{Mach_5_nel_2000_density.png}
