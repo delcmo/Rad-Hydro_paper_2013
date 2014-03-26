@@ -604,6 +604,11 @@ In this paper, we have shown that the entropy-based viscosity method is a valid 
 The method behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich peak are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock region only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient, that is computed on the fly. The addition of dissipative terms to the set of equations, requires more computational work but is rather simple to implement.\\
 As future work, extension to the multi-D equations could be considered: all of the derivations presented in this paper hold. The definition of the viscosity coefficients $\kappa$ and $\kappa_{max}$ do not need to be modified. It would be very interesting to model the radiation with the $Sn$ approximation and apply the entropy based artificial viscosity to the resultant radiation-hydrodynamics equations. Given the advective nature of the $Sn$ equations, dissipation would need to be added to these equations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Acknowledgements}
+The authors would like to aknowledge Jim Ferguson for providing the semi-analytical solutions, and also Bojan Popov for the fruitful discussions. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \begin{appendices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,109 +761,4 @@ The viscous regularization derived in this appendix, has two viscosity coefficie
 \section*{References}
 %\section*{References}
 \bibliography{mybibfile}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\addcontentsline{toc}{section}{Bibliography}
-%\begin{thebibliography}{24}
-%
-% \bibitem{Hussaini}
-% \emph{Upwind and high-resolution schemes},
-% Hussaini MY, van Leer B, Van Rosendale J, Berlin: Springer, 1997.
-%  
-%    \bibitem{jlg1}
-%  {\em Entropy viscosity method for nonlinear conservation laws}, 
-%  Jean-Luc Guermond, R. Pasquetti, B. Popov, J. Comput. Phys., 230 (2011) 4248-4267.
-%  
-%  \bibitem{jlg2}
-%  {\em Entropy Viscosity Method for High-Order Approximations of Conservation Laws}, 
-%  J-L. Guermond, R. Pasquetti, 
-%  Lecture Notes in Computational Science and Engineering, Springer, Volume 76, (2011) 411-418.
-%
-% \bibitem{Leveque}
-% \emph{Numerical methods for conservation laws},
-% LeVeque RJ, Lectures in Mathematics, Basel: Birhauser, 1990
-%
-%  \bibitem{Balsara}
-%  \emph{An Analysis of the Hyperbolic Nature of the Equations of Radiation Hydrodynamics},
-%  Dinshaw S. Balsara, J. Quant. Spectrosc. Radiat. Transfer, Vol. 61, No. 5, pp. 617-627, 1999.
-%  
-%  \bibitem{LowrieMorelHittinger}
-%  \emph{Coupling radiation and hydrodynamics},
-%  Lowrie RB, Morel JE, Hittinger JA, 521 (1), 432-50 (1999).
-%  
-%  \bibitem{Woodward}
-%  \emph{Numerical simulations for radiation hydrodynamics. I. Diffusion limit}
-%  Dai W, Woodward PR, J. Comput Phys (1998), 142, 182-207.
-%  
-%  \bibitem{Wareing}
-%\emph{A diffusion synthetic acceleration method for the SN equations with discontinuous finite element space and time differencing},
-%T.A. Wareing, J.E. Morel, J.M. McGhee, Proceedings of the International COnference on Mathematics and Computation, Reactor Physics and Environmental Analysis in Nuclear Applications, Madrid, spain, September 27-30, vol. 1, pp. 45-44.
-%       
-%\bibitem{Hairer}
-%\emph{Solving ordinary differential equations II},
-%Second Revised ed., Springer Series in Computational Mathematics, Springer, New York, 2002.
-% 
-% \bibitem{EdwardsMorelKnoll}
-% \emph{Nonlinear variants of the TR$-$BDF$2$ method for thermal radiative diffusion},
-% Jarrods D. Edwards, Jim E. Morel, Dana A. Knoll, Journal of Computational Physics, 230 (2011), 1198-1214.
-% 
-%\bibitem{Toro}
-%  \emph{Riemann Solvers and numerical methods for fluid dynamics.}
-%  E.F. Toro, $2^{nd}$ Edition, Springer.  
-%    
-%  \bibitem{valentin}
-%  \emph{Implementation of the entropy viscosity method with the discontinuous Galerkin method},
-%  Valentin Zingan, Jean-Luc Guermond, Jim Morel, Bojan Popov, Volume 253, 1 January 2013, Pages 479-490
-%  
-% \bibitem{LowrieEdwards}
-% \emph{Radiative shock solutions with grey non equilibrium diffusion},
-% R. B. Lowrie, J. D. Edwards, Shock Waves (2008) 18:129-143.
-% 
-% \bibitem{entropy}
-% \emph{E. Tadmor. A minimum entropy principle in the gas dynamics equations},
-%  Appl. Numer. Math., 2(3-5):211Ð219, 1986.
-%    
-%  \bibitem{LowrieMorel}
-%  \emph{Issues with high-resolution Godunov methods for radiation hydrodynamics},
-%  R.B. Lowrie, J.E. Morel, Journal of Quantitative Spectroscopy \& Radiative Transfer, 69, 475-489 (2001).
-%  
-%\bibitem{Lax}
-%\emph{Weak solutions of nonlinear hyperbolic equations and their numerical computation},
-%P. Lax, Comm. Pure Appl. Math., 7:159-193, 1954.
-%
-%\bibitem{Evans}
-%\emph{Numerical approximations of hyperbolic systems of conservation laws},
-%E. Godlewski and P.-A. Raviart, volume 118 of Applied Mathematical Sciences. Springer-Verlag, New York, 1996. ISBN 0-387-94529-6.
-%
-%\bibitem{EdwardsMorelLowrie}
-%\emph{Second-Order Discretization in Space and Time for Radiation Hydrodynamics},
-%Jarrod D. Edwards, Jim E. Morel, Robert B. Lowrie, International Conference on Mathematics and Computational Methods Applied to Nuclear Science \& Engineering (M\&C 2013), Sun Valley, Idaho USA, May 5-9, American Nuclear Society, LaGrange Park, II (2013).
-%   
-%  \bibitem{ShiJin}
-%  \emph{Numerical Schemes for Hyperbolic Conservation Laws with Stiff Relaxation Terms}, 
-%  Shi Jin and C. David Levermore, Journal of Computational Physics, 126, 449-467 (1996).
-%  
-%  \bibitem{jlg}
-%  \emph{Viscous regularization of the Euler equations and entropy principles},
-%  Jean-Luc Guermond and Bojan Popov, under review.
-%  
-%  \bibitem{Moose}
-%  \emph{A parallel computational framework for coupled systems of nonlinear equations},
-%  D. Gaston, C. Newsman, G. Hansen and D. Lebrun-Grandie, Nucl. Eng. Design, vol 239, pp 1768-1778, 2009.
-% 
-% \bibitem{JFNK}
-% \emph{Jacobian-free Newton-Krylov methods: a survey of approaches and applications},
-% Knoll D. A., Keyes D. E., Journal of Computational Physics, 193, 2, 357-397 (2004).
-% 
-% \bibitem{SEM}
-%  \emph{The discrete equation method (DEM) for fully compressible, two-phase flows in ducts of spatially varying cross-section.}
-%  R.Berry, R.Saurel, O. LeMetayer,
-%  Nuclear Engineering and Design 240 (2010) 3797-3818.
-  
-%  \bibitem{Parabolic}
-%  \emph{On positivity preserving finite volume schemes for Euler equations},
-%  Perthane B. and Shu C-W., Numer. Math., 73(1):119-130, 1996.
-  
-%  \end{thebibliography}
-
 \end{document}
