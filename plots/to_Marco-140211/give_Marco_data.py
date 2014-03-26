@@ -1,0 +1,5 @@
+numpy.savetxt('x_5.txt', x_RT)
+numpy.savetxt('rho_5.txt', Density_RT)
+numpy.savetxt('u_5.txt', Speed_RT)
+numpy.savetxt('Er_5.txt', RED_RT)
+numpy.savetxt('T_5.txt', Temp_RT)
