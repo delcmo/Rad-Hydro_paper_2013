@@ -5,6 +5,7 @@
 *.aux
 *.log
 *.bbl
+*.blg
 *.pdf
 *.blg
 *.dvi
@@ -15,3 +16,6 @@
 *.csv
 *.xlsx
 *.DS_Store
+*.out
+
+
