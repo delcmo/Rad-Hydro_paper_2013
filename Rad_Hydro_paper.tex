@@ -305,7 +305,7 @@ To obtain a weak form, the following generic form of \eqt{eq:equation1} is consi
 \end{equation}
 where $U$ is the vector solution, $F$ is a conservative vector flux, $S$ is a vector containing the relaxation source terms and non-conservative terms, and $H$ is the artificial viscosity dissipative flux:
 \begin{eqnarray}
-U = \left[
+U &=& \left[
 \begin{array}{cccc}
 \rho \\
 \rho u \\
@@ -321,7 +321,7 @@ u \left( \rho E + P \right) \\
 \frac{4}{3} u \epsilon
 \end{array} 
 \right] \text{, } \nonumber \\
-S = \left[
+S &=& \left[
 \begin{array}{cccc}
 0 \\
 0 \\
@@ -329,7 +329,7 @@ S = \left[
 \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right)
 \end{array}
 \right] \text{ and } \nonumber \\ 
-H(U) = \left[
+H(U) &=& \left[
 \begin{array}{cccc}
 \kappa \partial_x \rho \\
 \kappa \partial_x (\rho u) \\
@@ -449,7 +449,7 @@ For both manufactured solutions the error is divided by four as the time step $\
 \subsection{Radiation shock simulations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \label{sec:simulations}
-The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can resolve shocks occuring in radiation-hydrodynamic simulations. Multiple test cases are considered with Mach numbers of $1.05$, $1.2$, $2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions of each test case will be given in a table and plots of the density ($\rho (x)$), the radiation ($\theta (x)$) and material ($T(x)$) temperatures at steady-state will be shown as well as the local viscosity coefficients $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a $1$D slab of thickness $L$. The initial step is located at $x_0$ and will be specified for all of test cases. For all of the test cases presented in this paper the cross sections $\sigma_a$ and $\sigma_t$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$.\\
+The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can resolve shocks occuring in radiation-hydrodynamic simulations. Multiple test cases are considered with Mach numbers of $1.05$, $1.2$, $2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions of each test case will be given in a table and plots of the density $\rho (x)$, the radiation $\theta (x)$ and material $T(x)$ temperatures at steady-state will be shown as well as the local viscosity coefficients $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a $1$D slab of thickness $L$. The initial step is located at $x_0$ and will be specified for all of test cases. For all of the test cases presented in this paper the cross sections $\sigma_a$ and $\sigma_t$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$.\\
 For the Mach $2$ simulation, results will be shown when employing the first-order viscosity $(\kappa(x,t) = \kappa_{max}(x,t))$. The rational for this is to show the benefits of using a high-order viscosity coefficients. \\
 The inlet and outlet BCs are given next. The Euler equations and radiation equation are considered independently since the later one is parabolic. At the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary condition can be used. At the outlet, the flow become subsonic which requires a particular treatment. Following the work from \cite{SEM}, a static boundary condition is implemented. Only the back pressure is provided and the other variables are computed using the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet.
 
