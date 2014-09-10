@@ -72,7 +72,7 @@ Apply the entropy viscosity method to the $1$-D grey radiation-hydrodynamic equa
 \begin{block}{Background:}
 \begin{itemize}
 \setlength{\itemsep}{15pt}
-\item RHD are a wave-dominated problem.
+\item RHD are a wave-dominated problem with source terms.
 \item They are known to develop shocks due to the nature of Euler equations.
 \item Great amount of work available in the literature on how to solve RHD: approximate Riemann solver \cite{LowrieMorel, Balsara}, flux limiter \cite{EdwardsMorelKnoll}, $\cdots$
 \item Have a common approach: focus on the hyperbolic part of the RHD.
@@ -112,12 +112,13 @@ Apply the entropy viscosity method to the $1$-D grey radiation-hydrodynamic equa
 \begin{block}{}
 \begin{itemize}
 \setlength{\itemsep}{15pt}
+\item The method requires a hyperbolic system of equations.
 \item Add artificial dissipative terms consistent with the entropy minimum principle.
 \item Define a local and smooth viscosity coefficient function of the grid size.
 \item The viscosity coefficient is defined proportional to the entropy production.
 \item The entropy production is locally computed by evaluating the entropy residual:
 \begin{equation}
-D_e(\vec{r},t) = \partial_t s + \vec{u} \cdot \grad s \geq 0 \nonumber
+R_e = \partial_t s + \vec{u} \cdot \grad s \geq 0 \nonumber
 \end{equation}
 \end{itemize}
 \end{block}
@@ -152,7 +153,7 @@ c^2 =  \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c^2_{\text{Euler}}} + \under
 \end{frame}
 %************************************************
 \begin{frame}
-\begin{block}{Derivation of the dissipative terms:}
+\begin{block}{Viscous regularization and viscosity coefficient(s):}
 \begin{enumerate}
 \setlength{\itemsep}{15pt}
 \item Derive the dissipative terms using the modified system of equations (no source term). \\
@@ -196,14 +197,19 @@ two viscosity coefficients: $\mu$ and $\kappa$. In the rest of this presentation
 \begin{frame}{}
 \begin{block}{Definition of the viscosity coefficient $\kappa$:}
 \begin{align}
-\mu(x,t) = \min \left( \mu_{max}(x,t), \mu_e(x,t) \right) \nonumber \\
-\mu_{max}(x,t) = 0.5 h \left( | u | + c \right) \nonumber \\
-\mu_e(x,t) = h^2 \frac{\max \left( \tilde{R}_e(x,t), J \right)}{norm_P} \nonumber 
+&\mu(x,t) = \min \left( \mu_{max}(x,t), \mu_e(x,t) \right) \nonumber \\
+&\mu_{max}(x,t) = 0.5 h \left( | u | + c \right) \nonumber \\
+&\mu_e(x,t) = h^2 \frac{\max \left( \tilde{R}_e(x,t), J \right)}{norm_P} \nonumber
 \end{align}
+\end{block}
+\begin{block}{Entropy residual:}
+\begin{equation}
+\tilde{R}_e =  \frac{DP}{Dt} - c^2_{Euler} \frac{D\rho}{Dt} \nonumber
+\end{equation}
 \end{block}
 \begin{block}{The jump $J$ and the normalization parameter $norm_P$:}
 \begin{align}
-&J = \max \left(| u |  [[P]],  |u| c_{Euler}^2 [[\rho]] \right) \nonumber \\
+&J = \max \left(| u |  [[\partial_x P]],  |u| c_{Euler}^2 [[\partial_x \rho]] \right) \nonumber \\
 &norm_P = \rho c_{Euler}^2 \nonumber
 \end{align}
 \end{block}
@@ -211,7 +217,7 @@ two viscosity coefficients: $\mu$ and $\kappa$. In the rest of this presentation
 %************************************************
 \begin{frame}{}
 \begin{block}{EVM and the diffusion term $\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$:}
-In the radiation equation, two second-order terms: diffusion and dissipative terms.
+In the radiation equation, there are two second-order terms: diffusion and dissipative terms.
 \begin{align}
 {\color{magenta}\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)} + {\color{red}\partial_x \left( \kappa \partial_x \epsilon \right)} \rightarrow \partial_x \left( \max \left( {\color{magenta}\frac{c}{3 \sigma_t}} , {\color{red}\kappa} \right) \partial_x \epsilon \right) \nonumber
 \end{align}
@@ -255,6 +261,7 @@ MMS to investigate the behavior of the dissipative terms in the asymptotic limit
 \item Fully implicit $\rightarrow$ non-linear solver with a preconditioner.
 \item Continuous Galerkin Finite Element Method (CGFEM).
 \item Second-order in time (BDF2) and space (linear polynomials).
+\item Gauss quadrature rule.
 \item RHEA: Radiation-Hydrodynamic EquAtion ($1$-D code). 
 \end{itemize}
 \end{block}
@@ -276,6 +283,7 @@ $\sigma_a = \sigma_t = 1000$ $cm^{-1}$.
 \begin{table}[H]
 \caption{L$_2$ norms of the error for for the equilibrium diffusion limit case using a manufactured solution.}
 \begin{center}
+\resizebox{\columnwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{\rho E}$ & \textbf{ratio} \\ \hline
@@ -294,6 +302,7 @@ $160$ & $1.25$ $10^{-2}$ &  $6.17726$ $10^{-5}$ & $4.25$ & $3.381042$ $10^{-3}$ 
 $320$ & $6.25$ $10^{-3}$ & $1.509184$ $10^{-5}$ & $4.09$ & $8.373657$ $10^{-3}$ & $4.04$ \\ \hline 
 $640$ & $3.125$ $10^{-3}$  & $3.72548$ $10^{-6}$ & $4.05$ & $2.070538$ $10^{-3}$ & $4.04$ \\ \hline   
 \end{tabular}  
+}
 \end{center}
 \end{table}
 \end{frame}
@@ -314,7 +323,8 @@ $\sigma_a = \sigma_t = 1$ $cm^{-1}$.
 \begin{frame}
 \begin{table}[H]
 \begin{center}
-\caption{\label{tbl:table2} L$_2$ norms of the error for for the streaming limit case using a manufactured solution.}
+\caption{ L$_2$ norms of the error for for the streaming limit case using a manufactured solution.}
+\resizebox{\columnwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 \textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{\rho E}$ & \textbf{ratio} \\ \hline
@@ -335,6 +345,7 @@ $320$ & $6.25$ $10^{-3}$ & $2.10925$ $10^{-3}$ &$3.97$& $9.03866$ $10^{-6}$ & $3
 $640$ & $3.125$ $10^{-3}$ & $5.28472$ $10^{-4}$ &$3.99$& $2.25649$ $10^{-6}$ & $4.01$ \\ \hline
 $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ & $3.95$ \\ \hline
 \end{tabular}
+}
 \end{center}
 \end{table}
 \end{frame}
@@ -349,6 +360,7 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 \item All tests reach a steady-state solution.
 \item BDF2 and linear polynomials.
 \item Uniform mesh.
+\item Semi-analytical solutions are plotted for comparison.
 \end{itemize}
 \end{block}
 \end{frame}
