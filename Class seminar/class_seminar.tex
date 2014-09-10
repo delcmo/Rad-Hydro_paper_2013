@@ -220,10 +220,29 @@ In the radiation equation, two second-order terms: diffusion and dissipative ter
 %************************************************
 \begin{frame}{}
 \begin{block}{Relaxation term:}
-Example from Leveque's book:
-
+\begin{equation}
+\left\{
+\begin{array}{ll}
+\partial_t u + \partial_x v = 0 \nonumber \\
+\partial_t v + \partial_x p(u) = \frac{1}{\psi} \left( v - f(u) \right) \nonumber
+\end{array}
+\right.
+\end{equation}
+as $\psi \to 0$, it can be shown that:
+\begin{equation}
+\left\{
+\begin{array}{ll}
+v \sim f(u) \nonumber \\
+\partial_t u + \partial_x f(u) = \partial_x \left( \beta \partial_x u \right) \nonumber
+\end{array}
+\right.
+\end{equation}
+where $\beta$ is function of $\psi$, $p(u)$ and $f(u)$.
 \end{block}
-\begin{block}{}
+\begin{block}{Problem:}
+$\Rightarrow$ the relaxation term behaves as a diffusion term in the asymptotic limit and thus, will compete with the dissipative term.
+\end{block}
+\begin{block}{Solution:}
 MMS to investigate the behavior of the dissipative terms in the asymptotic limit.
 \end{block}
 \end{frame}
@@ -281,7 +300,7 @@ $640$ & $3.125$ $10^{-3}$  & $3.72548$ $10^{-6}$ & $4.05$ & $2.070538$ $10^{-3}$
 %************************************************
 \begin{frame}
 The second manufactured solution is used to test the method in the streaming limit: the radiation streaming dominates the absorption/re-emission term and evolves at a fast time scale.
-\begin{block}{}
+\begin{block}{MMS: the streaming limit}
 \begin{align}
 &\rho = \sin(x-t)+2 \nonumber \\
 &u = \left( \sin(x-t)+2 \right)^{-1} \nonumber \\
@@ -329,6 +348,7 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 \item Step initial conditions.
 \item All tests reach a steady-state solution.
 \item BDF2 and linear polynomials.
+\item Uniform mesh.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -338,21 +358,21 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p05_nel_500_density.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p05_nel_500_density.png}
 %                \caption{Pressure}
         \end{subfigure}%
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p05_nel_500_temperature.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p05_nel_500_temperature.png}
 %                \caption{Velocity.}
         \end{subfigure}
          %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p05_nel_500_viscosity.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p05_nel_500_viscosity.png}
 %                \caption{Density.}
         \end{subfigure}
         \caption{Steady-state numerical solution with $500$ cells, linear polynomials and BDF2.}
@@ -364,21 +384,21 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p2_nel_1000_temperature.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p2_nel_1000_temperature.png}
 %                \caption{Pressure}
         \end{subfigure}%
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p2_nel_1000_density.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p2_nel_1000_density.png}
 %                \caption{Velocity.}
         \end{subfigure}
          %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_1p2_nel_1000_viscosity.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_1p2_nel_1000_viscosity.png}
 %                \caption{Density.}
         \end{subfigure}
         \caption{Steady-state numerical solution with $1000$ cells, linear polynomials and BDF2.}
@@ -390,21 +410,21 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_2_nel_2000_temperature.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_2_nel_2000_temperature.png}
 %                \caption{Pressure}
         \end{subfigure}%
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_2_nel_2000_density.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_2_nel_2000_density.png}
 %                \caption{Velocity.}
         \end{subfigure}
          %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_2_nel_2000_viscosity.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_2_nel_2000_viscosity.png}
 %                \caption{Density.}
         \end{subfigure}
         \caption{Steady-state numerical solution with $1000$ cells, linear polynomials and BDF2.}
@@ -416,25 +436,32 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_5_nel_2000_temperature.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_5_nel_2000_temperature.png}
 %                \caption{Pressure}
         \end{subfigure}%
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_5_nel_2000_density.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_5_nel_2000_density.png}
 %                \caption{Velocity.}
         \end{subfigure}
          %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_5_nel_2000_viscosity.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_5_nel_2000_viscosity.png}
 %                \caption{Density.}
         \end{subfigure}
         \caption{Steady-state numerical solution with $1000$ cells, linear polynomials and BDF2.}
         \end{figure}
+\end{frame}
+%************************************************
+\begin{frame}{Numerical results: Mach $5$, Zeldovich's spike.}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../elsarticle/Mach_5_comparison.png}
+\end{figure}
 \end{frame}
 %************************************************
 \begin{frame}{Numerical results: Mach $50$.}
@@ -442,21 +469,21 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \centering
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_50_nel_1000_temperature.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_50_nel_1000_temperature.png}
 %                \caption{Pressure}
         \end{subfigure}%
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_50_nel_1000_density.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_50_nel_1000_density.png}
 %                \caption{Velocity.}
         \end{subfigure}
          %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{0.4\textwidth}
                 \centering
-                \includegraphics[width=\textwidth]{../Mach_50_nel_1000_viscosity.png}
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_50_nel_1000_viscosity.png}
 %                \caption{Density.}
         \end{subfigure}
         \caption{Steady-state numerical solution with $1000$ cells, linear polynomials and BDF2.}
