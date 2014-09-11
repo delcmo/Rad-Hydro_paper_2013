@@ -55,7 +55,7 @@ Marc-Olivier Delchini, Jim Morel and Jean Ragusa \\
 %        \begin{subfigure}[b]{0.4\textwidth}
                 \centering
                 \includegraphics[width=0.35\textwidth]{rhea.png}
-%                \caption{Pressure}
+                \caption{Rhea}
 \end{figure}%
 \end{frame}
 %
@@ -100,19 +100,19 @@ Apply the entropy viscosity method to the $1$-D grey radiation-hydrodynamic equa
 \begin{block}{A few remarks:}
 \begin{itemize}
 \setlength{\itemsep}{10pt}
-\item Relaxation term in the energy and radiation equations: $ \sigma_a c \left( a T^4 - \epsilon \right)$.% behaves like a diffusion term when $\sigma_a \to \infty$ \cite{ShiJin}.
-\item Diffusion term: $\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$.
+\item Relaxation term in the energy and radiation equations: ${\color{blue}\sigma_a c \left( a T^4 - \epsilon \right)}$.% behaves like a diffusion term when $\sigma_a \to \infty$ \cite{ShiJin}.
+\item Diffusion term: ${\color{magenta}\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)}$.
 \item The above system of equations is NOT hyperbolic ???? 
 \end{itemize}
 \end{block}
 \end{frame}
 %************************************************
-\begin{frame}{The entropy viscosity method \cite{jlg}:}
+\begin{frame}{The entropy viscosity method (EVM) \cite{jlg}:}
 \emph{It is an artificial dissipation method with smart viscosity coefficient(s)  capable of tracking the shock so that dissipation is only added into the shock region.}
 \begin{block}{}
 \begin{itemize}
 \setlength{\itemsep}{15pt}
-\item The method requires a hyperbolic system of equations.
+\item The method requires a \emph{hyperbolic system of equations}.
 \item Add artificial dissipative terms consistent with the entropy minimum principle.
 \item Define a local and smooth viscosity coefficient function of the grid size.
 \item The viscosity coefficient is defined proportional to the entropy production.
@@ -188,7 +188,7 @@ where $s(\rho,e,\alpha) = s_{Euler}(\rho, e) + \frac{\rho_0}{\rho} \hat{s}(\alph
 \end{block}
 \begin{block}{}
 %\begin{itemize}
-two viscosity coefficients: $\mu$ and $\kappa$. In the rest of this presentation, we will assume that $\kappa = \mu$ $\rightarrow$ parabolic regularization.
+two viscosity coefficients: $\kappa$ and $\mu$. In the rest of this presentation, we will assume that $\kappa = \mu$ $\rightarrow$ parabolic regularization.
 %\end{itemize}
 \end{block}
 \end{frame}
@@ -262,7 +262,7 @@ MMS to investigate the behavior of the dissipative terms in the asymptotic limit
 \item Continuous Galerkin Finite Element Method (CGFEM).
 \item Second-order in time (BDF2) and space (linear polynomials).
 \item Gauss quadrature rule.
-\item RHEA: Radiation-Hydrodynamic EquAtion ($1$-D code). 
+\item RHEA: Radiation-Hydrodynamic EquAtions ($1$-D code). 
 \end{itemize}
 \end{block}
 \end{frame}
@@ -469,7 +469,7 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
         \end{figure}
 \end{frame}
 %************************************************
-\begin{frame}{Numerical results: Mach $5$, Zeldovich's spike.}
+\begin{frame}{Numerical results: Mach $5$, Zeldovich spike.}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../elsarticle/Mach_5_comparison.png}
@@ -531,7 +531,43 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 %************************************************
 %************************************************
 %************************************************
+\begin{frame}{Entropy residual with dissipative terms:}
+\begin{block}{}
+ \begin{align}
+ \frac{Ds}{Dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\text{(a)} &= \nonumber\\
+ \partial_x \left( \rho \kappa \partial_x s \right) &+ \kappa \partial_e s \partial_x s - \rho \kappa \underbrace{X A X^t}_\text{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\text{(c)} \nonumber
+ \end{align}
+ \end{block}
+ \begin{block}{}
+ where $X$ is a row vector defined as $X=\left( \rho, e, \epsilon \right)$ and $A$ is the $3$x$3$ symmetric matrix:
+ \begin{equation}
+ A = 
+ \left[
+ \begin{array}{ccc}
+\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
+ \partial_{\rho,e} s & \partial_{e,e} s & \partial_{e,\epsilon} s \\
+ \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e,\epsilon} s & \partial_{\epsilon,\epsilon} s
+ \end{array}
+ \right] \nonumber
+ \end{equation}
+ \end{block}
+\end{frame}
 %************************************************
+\begin{frame}{Positivity of the matrix $A$:}
+\begin{block}{}
+With $s(\rho, e, \epsilon) = \tilde{s}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\epsilon)$:
+ \begin{equation}
+ A = 
+ \left[
+ \begin{array}{ccc}
+\partial_{\rho} \left( \rho^2 \partial_{\rho} \tilde{s} \right) & \partial_{\rho,e} \tilde{s} & 0 \\
+ \partial_{\rho,e} \tilde{s} & \partial_{e,e} \tilde{s} & 0 \\
+ 0 & 0 & {\color{blue}\rho^{-1} \partial_{\epsilon,\epsilon} \hat{s}}
+ \end{array}
+ \right] \nonumber
+ \end{equation}
+\end{block}
+\end{frame}
 %************************************************
 %************************************************
 %************************************************
