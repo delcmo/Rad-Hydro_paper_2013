@@ -188,14 +188,14 @@ where $s(\rho,e,\alpha) = s_{Euler}(\rho, e) + \frac{\rho_0}{\rho} \hat{s}(\alph
 \end{block}
 \begin{block}{}
 %\begin{itemize}
-two viscosity coefficients: $\kappa$ and $\mu$. In the remaining of this presentation, we will assume that $\kappa = \mu$ $\rightarrow$ parabolic regularization.
+two viscosity coefficients: $\kappa$ and $\mu$. In the remaining of this presentation, we will assume that $\mu = \kappa$ $\rightarrow$ parabolic regularization.
 %\end{itemize}
 \end{block}
 \end{frame}
 %************************************************
 \subsection{Definition of the viscosity coefficient.}
 \begin{frame}{}
-\begin{block}{Definition of the viscosity coefficient $\kappa$:}
+\begin{block}{Definition of the viscosity coefficient $\mu$:}
 \begin{align}
 &\mu(x,t) = \min \left( \mu_{max}(x,t), \mu_e(x,t) \right) \nonumber \\
 &\mu_{max}(x,t) = 0.5 h \left( | u | + c \right) \nonumber \\
@@ -224,7 +224,7 @@ In the radiation equation, there are two second-order terms: diffusion and dissi
 \end{block}
 \end{frame}
 %************************************************
-\begin{frame}{}
+\begin{frame}{EVM and the relaxation term}
 \begin{block}{Relaxation term:}
 \begin{equation}
 \left\{
