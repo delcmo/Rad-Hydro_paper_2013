@@ -139,15 +139,15 @@ R_e = \partial_t s + \vec{u} \cdot \grad s \geq 0 \nonumber
 \begin{array}{lll}
 \partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 \\
 \partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 \\
-\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = 0 \\
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right]  + u \partial_x \frac{\epsilon}{3}= 0 \\
 \partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = 0
 \end{array}
 \right. 
 \nonumber
 \end{equation}
-Eigenvalues: $\lambda_1 = u - c$, $\lambda_{2,3} = u$ and $\lambda_4 = u + c$ where $c$ is the speed of sound defined as:
+Eigenvalues: $\lambda_1 = u - c_{sp}$, $\lambda_{2,3} = u$ and $\lambda_4 = u + c_{sp}$ where $c_{sp}$ is the speed of sound defined as:
 \begin{equation}
-c^2 =  \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c^2_{\text{Euler}}} + \underbrace{ \frac{4 \epsilon}{9\rho}}_{c^2_{\text{rad}}} \nonumber
+c_{sp}^2 =  \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c^2_{\text{Euler}}} + \underbrace{ \frac{4 \epsilon}{9\rho}}_{c^2_{\text{rad}}} \nonumber
 \end{equation}
 \end{block}
 \end{frame}
@@ -225,7 +225,8 @@ In the radiation equation, there are two second-order terms: diffusion and dissi
 \end{frame}
 %************************************************
 \begin{frame}{EVM and the relaxation term}
-\begin{block}{Relaxation term:}
+\begin{block}{}
+Consider the system of conservation laws:
 \begin{equation}
 \left\{
 \begin{array}{ll}
@@ -243,10 +244,10 @@ v \sim f(u) \nonumber \\
 \end{array}
 \right.
 \end{equation}
-where $\beta$ is function of $\psi$, $p(u)$ and $f(u)$.
+where $\beta$ is function of $\psi$, $\partial_u p(u)$ and $f(u)$.
 \end{block}
 \begin{block}{Problem:}
-$\Rightarrow$ the relaxation term behaves as a diffusion term in the asymptotic limit and thus, will compete with the dissipative term.
+$\Rightarrow$ the relaxation term behaves as a diffusion term in the asymptotic limit and thus, will compete with the dissipative term ${\color{red}\partial_x \left( \mu \partial_x u \right)}$.
 \end{block}
 \begin{block}{Solution:}
 MMS to investigate the behavior of the dissipative terms in the asymptotic limit.
@@ -268,7 +269,7 @@ MMS to investigate the behavior of the dissipative terms in the asymptotic limit
 \end{frame}
 %************************************************
 \begin{frame}{}
-\begin{block}{MMS: the equilibrium diffusion limit}
+\begin{block}{MMS: the equilibrium-diffusion limit}
 \begin{align}
 & \rho = \sin (x-t)+2 \nonumber \\
 & u = \cos(x-t) +2 \nonumber \\
@@ -281,7 +282,7 @@ $\sigma_a = \sigma_t = 1000$ $cm^{-1}$.
 %************************************************
 \begin{frame}{}
 \begin{table}[H]
-\caption{L$_2$ norms of the error for for the equilibrium diffusion limit case using a manufactured solution.}
+\caption{L$_2$ norms of the error for the equilibrium diffusion limit case using a manufactured solution.}
 \begin{center}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
@@ -323,7 +324,7 @@ $\sigma_a = \sigma_t = 1$ $cm^{-1}$.
 \begin{frame}
 \begin{table}[H]
 \begin{center}
-\caption{ L$_2$ norms of the error for for the streaming limit case using a manufactured solution.}
+\caption{ L$_2$ norms of the error for the streaming limit case using a manufactured solution.}
 \resizebox{\columnwidth}{!}{
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -361,6 +362,7 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 \item BDF2 and linear polynomials.
 \item Uniform mesh.
 \item Semi-analytical solutions are plotted for comparison.
+\item Ideal Gas Equation of State: $P = ( \gamma - 1) \rho e$.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -509,8 +511,8 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 \setlength{\itemsep}{14pt}
 \item The entropy viscosity method was successfully applied to the $1$-D RHD.
 \item $1$-D numerical results show good agreement with semi-analytical solutions.
-\item Demonstrated high-order accuracy and correct behavior in the equilibrium diffusion limit.
-\item The method can be applied with any equation of state with a convex entropy.
+\item Demonstrated high-order accuracy and correct behavior in the equilibrium-diffusion limit.
+\item The method can be applied to any equation of state with a convex entropy.
 \item The method is simple to implement and the viscosity coefficient is computed on the fly.
 \end{itemize}
 \end{block}
@@ -531,10 +533,18 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 %************************************************
 %************************************************
 %************************************************
+\begin{frame}
+\begin{figure}[H]
+                \centering
+                \includegraphics[width=\textwidth]{../elsarticle/Mach_2_fo_ev.png}
+        \caption{First-order viscosity $\kappa_{max}$ and second-order viscosity $\kappa$ profiles at steady state for Mach 2 test.}\label{fig:Mach2_viscosity}
+\end{figure}
+\end{frame}
+%************************************************
 \begin{frame}{Entropy residual with dissipative terms:}
 \begin{block}{}
  \begin{align}
- \frac{Ds}{Dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\text{(a)} &= \nonumber\\
+ \frac{Ds}{Dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right)}_\text{(a)} \partial_x u &= \nonumber\\
  \partial_x \left( \rho \kappa \partial_x s \right) &+ \kappa \partial_e s \partial_x s - \rho \kappa \underbrace{X A X^t}_\text{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\text{(c)} \nonumber
  \end{align}
  \end{block}
@@ -555,7 +565,7 @@ $1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ &
 %************************************************
 \begin{frame}{Positivity of the matrix $A$:}
 \begin{block}{}
-With $s(\rho, e, \epsilon) = \tilde{s}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\epsilon)$:
+With $s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\epsilon)$:
  \begin{equation}
  A = 
  \left[
@@ -566,6 +576,14 @@ With $s(\rho, e, \epsilon) = \tilde{s}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\eps
  \end{array}
  \right] \nonumber
  \end{equation}
+\end{block}
+\begin{block}{}
+With $s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\epsilon)$, assuming that
+\begin{align}
+&P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s = 0, \nonumber \\
+\text{it yields} \nonumber \\
+& P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } \hat{s} - \frac{4\epsilon}{3} \partial_{\epsilon} \hat{s} = \alpha. \nonumber
+\end{align}
 \end{block}
 \end{frame}
 %************************************************
