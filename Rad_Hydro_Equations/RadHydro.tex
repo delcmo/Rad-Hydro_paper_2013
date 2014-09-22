@@ -1,0 +1,302 @@
+%% Based on a TeXnicCenter-Template by Tino Weinkauf.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% HEADER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+
+%% Packages for Graphics & Figures %%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx} %%For loading graphic files
+%% Math Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage{listings}
+\lstset{language=C++}
+\usepackage{lscape} 
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage{landscape}
+\usepackage{xspace}
+\usepackage{color}
+\textwidth = 450pt
+\def\fxnote#1{\marginpar{\textcolor{green}{#1}}}
+\def\fxwarning#1{\marginpar{\textcolor{red}{#1}}}
+\usepackage[a4paper]{geometry}
+% common reference commands
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
+\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
+\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
+\newcommand{\sect}[1]{Section~\ref{#1}}                     % section
+\newcommand{\subsect}[1]{Subsection~\ref{#1}}                     % subsection
+\newcommand{\app}[1]{Appendix~\ref{#1}}                     % appendix
+
+\newcommand{\ie}{i.e.,\@\xspace}
+\newcommand{\eg}{e.g.,\@\xspace}
+\newcommand{\psc}[1]{{\sc {#1}}}
+\newcommand{\rs}{\psc{R7}\xspace}
+
+\title{The entropy viscosity  method applied to the $1$-D Rad-Hydro equations. \\
+Marc-Olivier Delchini, Jim Morel, Bojan popov}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+The objective of this write-up is to show the theoretical advancements made in the application of the entropy viscosity method to the $1$-D  radiation-hydrolic equations. The entropy viscosity method was initially developed by Dr Guermond et. al (ref) and applied to Burger's and Euler equations. The method consists of adding dissipative terms in a way that preserves the entropy minimum principle (ref). The method is theoretically dissipative for any convex equation of state (ref) when considering Euler equations. The viscosity coefficient is function of the entropy production in the system that is evaluated by computing an entropy residual. Very good results were observed in one and multi-dimension. \\ 
+We now propose to apply this method to the $1$-D rad-hydro equations. First, some theoretical aspects regarding the entropy minimum principle are detailed along with the derivation of the dissipative terms. Then, definition of the viscosity coefficients is given and some numerical results are showed. \\
+The $1$-D radiation-hyrolic equations are given in \eqt{eq:radhydro}: 
+\begin{equation}
+\label{eq:radhydro}
+\left\{
+\begin{array}{llll}
+\partial_t \rho + \partial_x \left( \rho u \right) = 0\\
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P \right) = \frac{1}{3} \partial_x \epsilon \\
+\partial_t \left( \rho E \right) + \partial_x \left[ u \left(\rho E + P \right) \right] = - \sigma_a c \left( a T^4 - \epsilon \right) - \frac{u}{3} \partial_x \epsilon \\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon  \right) = \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right) + \frac{u}{3} \partial_x \epsilon 
+\end{array}
+\right.
+\end{equation}
+where $\rho$, $u$ and $E$ are the density, the momentum and the specific total energy, respectively. The pressure $P$ and the temperature $T$ are computed by the ideal equation of state \eqt{eq:eos} that closes the system of equation. The last equation solve for the radiation intensity $\epsilon$. The material properties $\sigma_a$ and $\sigma_t$ are the constant absorption and total cross-sections, respectively. The speed of light is denoted by the letter $c$.
+\begin{equation}
+\label{eq:eos}
+P = (\gamma-1) \rho e
+\end{equation} 
+The entropy viscosity method was initially designed for hyperbolic equations. It is well known that the well-poseness of a hyperbolic system of equation is tied to the convexity of the corresponding entropy function. Unfortunately, the system of interest contains a parabolic equation. Therefore, from a theoretical point of view, the entropy viscosity method cannot be applied to system of equation \eqt{eq:radhydro}. It is then proposed to modify the radiation equation in  order to make it hyperbolic by setting the diffusion coefficient $D=\frac{c}{3\sigma_t}$ to zero. This is equivalent to having an infinite total cross-section which is known as the ... . Thus, under this assumption, the system of equation becomes:
+\begin{equation}
+\label{eq:radhydro2}
+\left\{
+\begin{array}{llll}
+\partial_t \rho + \partial_x \left( \rho u \right) = 0\\
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P \right) = \frac{1}{3} \partial_x \epsilon \\
+\partial_t \left( \rho E \right) + \partial_x \left[ u \left(\rho E + P \right) \right] = - \sigma_a c \left( a T^4 - \epsilon \right) - \frac{u}{3} \partial_x \epsilon \\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon  \right) =  \sigma_a c \left( a T^4 - \epsilon \right) + \frac{u}{3} \partial_x \epsilon 
+\end{array}
+\right.
+\end{equation}
+where all of the variables were defined previously. \\
+The next step consist of deriving the eigenvalues and the $1$-D characteristic equations of the system given in \eqt{eq:radhydro2}. First the system is recast in terms of the primitive variables $(\rho, u, e, \epsilon)$ where $e$ is the specific internal energy, and the source term $\sigma_a c (aT^4 - \epsilon)$ is omitted for now (we are here interested in the eigenvalues and the characteristic equations):
+\begin{eqnarray}
+\label{eq:radhydro3}
+\left\{
+\begin{array}{llll}
+\partial_t \rho + \partial_x \left( \rho u \right) = 0 \\
+\rho \left( \partial_t u + u \partial_x u \right) + \partial_x P +\frac{1}{3} \partial_x \epsilon = 0 \\
+\rho \left( \partial_t e + u \partial_x e \right) + P \partial_x u =  0 \\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = 0
+\end{array}
+\right.
+\end{eqnarray}
+Remembering that the pressure is a function of the density $\rho$ and the $e$, the jacobian matrix $J$ can be derived:
+\begin{equation}
+J = \left[
+\begin{array}{llll}
+u & \rho & 0 & 0 \\
+\frac{P_{\rho}}{\rho} & u & \frac{P_{e}}{\rho} & \frac{1}{3} \\
+0 & P & u & 0 \\
+0 & \frac{4 \epsilon}{3} & 0 & u  
+\end{array}
+\right]
+\end{equation}
+The eigenvalues of the matrix $J$ are the following: $u-c_m$, $u$, $u$ and $u+c_m$ where $c_m$ is the speed of sound and defined as follows: $c_m^2 = $. When considering the ideal gas equation of state, the speed of sound becomes: $c_m^2 = \frac{\gamma \left( P + \frac{\epsilon}{3} \right)}{\rho}$. \\
+Before trying to apply the entropy viscosity method, let us make sure that the system of equation given in \eqt{eq:radhydro3} obeys to the entropy minimum principle (ref). To do so, it is required to derive an entropy equation. Let us assume that there exists an entropy function $s$, function of the density $\rho$, the internal energy $e$ and the radiation intensity $\epsilon$. Under this assumption, by using the primitive forms of the equation given by \eqt{eq:radhydro3} and the chain rule,
+\begin{equation}
+\label{eq:chain_rule}
+\frac{ds}{dt} = s_{\rho} \frac{d \rho}{dt} + s_e \frac{d e}{dt} + \rho s_{\epsilon} \frac{d \epsilon}{dt},
+\end{equation}
+it yields:
+\begin{equation}
+\label{eq:ent_equ}
+\frac{ds}{dt} = -\left( \rho s_{\rho} + P s_e + \rho \frac{4\epsilon}{3} s_{\epsilon} \right) \partial_x u
+\end{equation}
+where $s_x$ denotes the partial derivative of $s$ with respect to $x$, and $\frac{ds}{dt}$ is the Lagrange or material derivative defined as follows:
+\begin{equation}
+\frac{ds}{dt} = \partial_t s + u \partial_x s
+\end{equation}
+For \eqt{eq:ent_equ} to verify the entropy minimum principle, the right hand side is required to be greater or equal to zero which implies:
+\begin{equation}
+\label{eq:ent_equ2}
+-\left( \rho s_{\rho} + P s_e + \rho \frac{4\epsilon}{3} s_{\epsilon} \right) \partial_x u \geq 0
+\end{equation}
+The above inequality can be verified if:
+\begin{itemize}
+\item the term $\left( \rho s_{\rho} + P s_e +\rho  \frac{4\epsilon}{3} s_{\epsilon} \right)$ is proportional to the derivative of the velocity $\partial_x u$.
+\item the term $\left( \rho s_{\rho} + P s_e + \rho \frac{4\epsilon}{3} s_{\epsilon} \right)$ is equal to zero. 
+\end{itemize}
+The first case is not physically possible since it would imply the entropy function $s$ to be function of the material velocity $u$. Thus, it is assumed that the partial derivatives of $s$ are tied by the following relation:
+\begin{equation}
+\label{eq:ent_equ3}
+ \rho s_{\rho} + P s_e + \rho \frac{4\epsilon}{3} s_{\epsilon} = 0
+\end{equation}
+Then, the entropy minimum principle is verified for any entropy function $s$ verifying \eqt{eq:ent_equ3}. \\
+As mentioned earlier, the entropy viscosity method consists of adding dissipative terms to the equations of interest in a way that conserves the entropy minimum principle. Such a condition is not often easy to meet. It is proposed to detail every single steps that lead to the derivation of the dissipative term. First, let us add the dissipative terms to the conservative form of the system of equation (we are still considering the hyperbolic system without any source terms):
+\begin{equation}
+\label{eq:radhydro4}
+\left\{
+\begin{array}{llll}
+\partial_t \rho + \partial_x \left( \rho u \right) = \partial_x f\\
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P \right) + \frac{1}{3} \partial_x \epsilon = \partial_x g\\
+\partial_t \left( \rho E \right) + \partial_x \left[ u \left(\rho E + P \right) \right]  +  \frac{u}{3} \partial_x \epsilon = \partial_x \left( h + ug \right)\\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon  \right) - \frac{u}{3} \partial_x \epsilon = \partial_x l 
+\end{array}
+\right.
+\end{equation}
+where $f$, $g$, $h$ and $l$ are the dissipative terms to derive. We now proceed as previously: the system of equation is first recast in terms of the primitive variables, and the entropy equation is derived using the chain rule of \eqt{eq:chain_rule}. \\
+The system of equation in terms of the primitive variables is the following:
+\begin{eqnarray}
+\label{eq:radhydro5}
+\left\{
+\begin{array}{llll}
+\partial_t \rho + \partial_x \left( \rho u \right) = \partial_x f \\
+\rho \left( \partial_t u + u \partial_x u \right) + \partial_x P +\frac{1}{3} \partial_x \epsilon = \partial_x g + u \partial_x f \\
+\rho \left( \partial_t e + u \partial_x e \right) + P \partial_x u =  \partial_x h + g \partial_x u - \left( e - u^2 \right) \partial_x f\\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = \partial_x l
+\end{array}
+\right.
+\end{eqnarray}
+Using the chain rule it yields the entropy equation:
+\begin{equation}
+\label{eq:ent_equ4}
+\rho \frac{ds}{dt} + \left( \rho s_{\rho} + P s_e +\rho  \frac{4\epsilon}{3} s_{\epsilon} \right) \partial_x u= s_e \left( \partial_x h + g \partial_x u \left(e- u^2\right) \partial_x f \right) + \rho s_{\rho} \partial_x f + \rho s_{\epsilon}  \partial_x l 
+\end{equation}
+The entropy equation of \eqt{eq:ent_equ4} contains extra terms compare to (\eqt{eq:ent_equ2}). Following the assumption given in \eqt{eq:ent_equ3}, the second term in the left-hand side cancels out. Then, it remains to deal with the right-hand side that is function of the dissipative terms. The objective is now to figure out a definition for each of those dissipative terms in order to ensure positivity of $\frac{ds}{dt}$ which is sufficient to prove the entropy minimum principle. \\
+The right-hand side of \eqt{eq:ent_equ4} can be simplified by using the following definitions:
+\begin{eqnarray}
+\label{eq:def1}
+g = \mu \partial_x u + u \cdot f \nonumber \\
+h = \tilde{h} - 0.5 u^2 \cdot f 
+\end{eqnarray}
+where $\tilde{h}$ is a dissipative term and $\mu$ is a positive viscosity coefficient whom definition will be detailed later in ... .
+Then, the right-hand side $rhs$, becomes:
+\begin{equation}
+rhs = \mu \left( \partial_x u \right)^2  +  s_e \left( \partial_x \tilde{h}-e \partial_x f \right) + \rho s_{\rho} \partial_x f + \rho s_{\epsilon} \partial_x l
+\end{equation}
+which can be recast as follows:
+\begin{equation}
+\label{eq:def2}
+rhs = \mu \left( \partial_x u \right)^2  + s_e \partial_x \tilde{h}+ \left(-e s_e + \rho s_{\rho} \right) \partial_x f + \rho s_{\epsilon} \partial_x l
+\end{equation}
+The first term $\mu \left( \partial_x u \right)^2$ is always positive and does not need any further attention. Proving that the rest of the above expression has a positive sign is almost impossible as it is. Therefore, \eqt{eq:def2} is recast by integrating per part and omitting the term $\mu \left( \partial_x u \right)^2$, which yields:
+\begin{equation}
+\label{eq:def3}
+rhs = \underbrace{\partial_x \left[ s_e \tilde{h} + \left( \rho s_{\rho} - e s_e \right) f + \rho s_{\epsilon} l \right]}_\text{(1)}  - \underbrace{\left[ \tilde{h} \partial_x s_e + f \partial_x \left(\rho s_{\rho} - e s_e\right) + l \partial_x \left( \rho s_{\epsilon} \right)\right]}_\text{(2)}
+\end{equation}
+For clarity purpose, \eqt{eq:def3} is split into two terms that will be treated separately. \\
+Following (ref), the objective is now to find a proper definition for the dissipative terms $\tilde{h}$, $f$ and $l$ in order to recast $(1)$ in the form of a Laplace of the entropy $s$. Possible definitions for the dissipative terms that meet this requirement are: 
+\begin{equation}
+\boxed{
+\left\{
+\begin{array}{lll}
+\label{eq:def4}
+f = \kappa \partial_x \rho  \\
+\tilde{h} = \kappa \partial_x \left( \rho e \right) \\
+l = \kappa \partial_x \epsilon 
+\end{array} \right.
+} 
+\end{equation}
+which yields:
+\begin{equation}
+(1) = \partial_x \left( \rho \kappa \partial_x s \right) 
+\end{equation}
+where $\kappa$ is a positive viscosity coefficient. \\
+The second step consists in using the definition for the dissipative terms to determine the sign of $(2)$ in \eqt{eq:def3}. Thus, substituting expression from \eqt{eq:def4} into $(2)$, it yields:
+\begin{eqnarray}
+\label{eq:def5}
+(2) = -\rho \kappa \underbrace{\left[ \partial_x e \partial_x s_e + \partial_x \rho \partial_x s_{\rho} + \partial_x \epsilon \partial_x s_{\epsilon} + \frac{2}{\rho} s_{\epsilon} s_{\epsilon} \partial_x \epsilon \partial_x \rho + \frac{2}{\rho}s_{\rho} \left( \partial_x \rho \right)^2  \right]}_\text{(3)}  + \kappa \partial_x \rho \partial_x s \nonumber
+\end{eqnarray}
+The ten in the brackets can be expressed under a quadratic form by using the chain rule:
+\begin{equation}
+\label{eq:def6}
+\partial_x s_y (\rho, e, \epsilon) = \frac{\partial^2 s}{\partial \rho \partial y} \partial_x \rho + \frac{\partial^2 s}{\partial e \partial y} \partial_x e + \frac{\partial^2 s}{\partial \epsilon \partial y} \partial_x \epsilon
+\end{equation}
+where $y$ can be any of these three variables: $\rho$, $e$ and $\epsilon$. \\
+Then, using the chain rule from \eqt{eq:def6} into (3), a quadratic form is obtained as follows:
+\begin{equation}
+(3) = -
+\left[
+\begin{array}{lll}
+\partial_x \rho \nonumber \\
+\partial_x e \nonumber \\
+\partial_x \epsilon \nonumber
+\end{array}
+\right]^t
+\underbrace{
+\left[
+\begin{array}{ccc}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 s_{\rho} \right) & s_{\rho,e} & \rho^{-1} \partial_{\rho} \left( \rho s_{\epsilon} \right) \nonumber \\
+s_{\rho,e} & s_{e,e} & s_{e,\epsilon} \nonumber \\
+\rho^{-1} \partial_{\rho} \left( \rho s_{\epsilon} \right) & s_{e,\epsilon} & s_{\epsilon, \epsilon} \nonumber
+\end{array}
+\right]}_{\Sigma}
+\left[
+\begin{array}{lll}
+\partial_x \rho \nonumber \\
+\partial_x e \nonumber \\
+\partial_x \epsilon \nonumber
+\end{array}
+\right]
+\end{equation}
+It remains, now, to show that the matrix $\Sigma$ is negative-definite (the quadratic form is in the right-hand side of the entropy residual). A sufficient condition to prove that a symmetric matrix is negative-definite is to look at the sign of its sub-matrix determinants. Thus, to show that $\Sigma$ is negative-determinant, we have to prove that:
+\begin{equation}
+\label{eq:def7}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 s_{\rho} \right) \leq 0 \text{, }
+det\left[
+\begin{array}{cc}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 s_{\rho} \right) & s_{\rho,e} \\
+s_{\rho,e} & s_{e,e}
+\end{array}
+\right] \geq 0
+\text{ and }
+det(\Sigma) \leq 0 \nonumber
+\end{equation} 
+where $det$ denotes the determinant function.\\
+Proving that the determinant of $3x3$ matrix, alike $\Sigma$, has a sign can become very complex. Then, some further assumptions are required in order to simply the system without lack of generality. An assumption that is often made in two-phase flow equation, is to assume that the entropy of the system is the sum of the phase wise entropy. Here, an equivalent assumption would yield the following expression for the entropy $s(\rho, e, \epsilon)$:
+\begin{equation}
+\label{eq:def8}
+s(\rho, e, \epsilon) = \tilde{s}(\rho,e) + \hat{s}(\epsilon) 
+\end{equation}
+Thus, the matrix $\Sigma$ can be recast using the definition of the entropy from \eqt{eq:def8}, as follows:
+\begin{equation}
+\label{eq:def9}
+\Sigma = 
+\left[
+\begin{array}{ccc}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 \tilde{s}_{\rho} \right) & \tilde{s}_{\rho,e} & \rho^{-1} \hat{s}_{\epsilon} \\
+\tilde{s}_{\rho,e} & \tilde{s}_{e,e} & 0 \\
+\rho^{-1} \hat{s}_{\epsilon} & 0 & \hat{s}_{\epsilon, \epsilon} 
+\end{array}
+\right]
+\end{equation}
+Let us now compute the determinant of $\Sigma$ using the rule of Sarrus:
+\begin{equation}
+det(\Sigma) = \hat{s}_{\epsilon \epsilon} 
+det \left[ 
+\begin{array}{cc}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 \tilde{s}_{\rho} \right) & \tilde{s}_{\rho,e} \\
+\tilde{s}_{\rho,e} & \tilde{s}_{e,e}
+\end{array}
+\right]
++ \left( \frac{1}{\rho} \hat{s}_\epsilon \right)^2 \tilde{s}_{ee}
+\end{equation}
+Then, sufficient conditions for $det(\Sigma)$ to be negative are:
+\begin{equation}
+\label{eq:def10}
+\left\{
+\begin{array}{lll}
+\hat{s}_{\epsilon \epsilon} \leq 0 \\
+det \left[ 
+\begin{array}{cc}
+\rho ^{-2} \partial_{\rho} \left( \rho^2 \tilde{s}_{\rho} \right) & \tilde{s}_{\rho,e} \\
+\tilde{s}_{\rho,e} & \tilde{s}_{e,e}
+\end{array}
+\right] \geq 0 \\
+\tilde{s}_{ee} \geq 0 
+\end{array}
+\right.
+\end{equation}
+which equivalent to assume that the entropy function $-\tilde{s}$ and $-\hat{s}$ are convex.
+\end{document}
