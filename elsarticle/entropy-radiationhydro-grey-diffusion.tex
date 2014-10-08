@@ -348,7 +348,7 @@ The entropy residual expression is not integrated over the cell volume as it is 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, numerical results using the entropy viscosity method are presented for the dimensional 1-D grey radiation-hydrodynamic equations. First, second-order accuracy of the method is demonstrated using the method of manufactured solution (MMS). Then, results for some standard radiation-hydrodynamic test cases are given. 
+In this section, numerical results using the entropy viscosity method are presented for the 1-D grey radiation-hydrodynamic equations. First, second-order accuracy of the method is demonstrated using the method of manufactured solution (MMS). Then, results for some standard radiation-hydrodynamic test cases are given. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Space/time accuracy}
@@ -444,7 +444,7 @@ The purpose of this section is to show that the entropy-based viscosity method (
 
 For the Mach $2$ simulation, results will also be shown when employing only the first-order viscosity $(\kappa(x,t) = \kappa_{max}(x,t))$ in order to show the benefits of using a high-order viscosity coefficient. 
 
-The inlet and outlet boundary conditions (BCs) are given next. The Euler equations and radiation equation are considered independently since the latter one is parabolic. At the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary condition can be used. At the outlet, the flow become subsonic which requires a particular treatment. Following the work from \cite{SEM}, a static boundary condition is implemented. Only the back pressure is provided and the other variables are computed using the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet.
+The inlet and outlet boundary conditions (BCs) are given next. The Euler equations and radiation equation are considered independently since the latter one is parabolic. At the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment. Following the work from \cite{SEM}, a static boundary condition is implemented. Only the back pressure is provided and the other variables are computed using the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{An equilibrium diffusion test}
