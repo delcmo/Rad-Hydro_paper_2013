@@ -63,6 +63,14 @@
 \newcommand{\subsect}[1]{Subsection~\ref{#1}}                     % subsection
 \newcommand{\app}[1]{Appendix~\ref{#1}}                     % appendix
 %
+\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
+\newcommand{\grad}{\vec{\nabla}}
+\newcommand{\norm}{\textrm{norm}}
+\renewcommand{\Re}{\textrm{Re}}
+\newcommand{\Us}{\textrm{U}}
+\newcommand{\Ls}{\textrm{L}}
+\newcommand{\Pe}{\textrm{P\'e}}
+%
 \newcommand{\ie}{i.e.,\@\xspace}
 \newcommand{\eg}{e.g.,\@\xspace}
 \newcommand{\psc}[1]{{\sc {#1}}}
@@ -159,9 +167,10 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the 1-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the dissipative terms, using the entropy minimum principle \cite{entropy}. Then, a definition for the entropy viscosity coefficient based upon the entropy production is given. 
-
-\noindent
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the 1-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of a viscous regularization, using the entropy minimum principle \cite{entropy}. Then, a definition for the entropy viscosity coefficient based upon the entropy production is given. Lastly, an asymptotic limit onto the system of equations modified with the viscous regularization is performed to show that the equilibrium-diffusion limit is recovered. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivation of a viscous regularization for the $1$-D grey non-equilibrium Radiation-Hydrodynamic equations}\label{sec:visc-reg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the radiation hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the study of their hyperbolic parts \cite{Balsara, LowrieMorel}. Thus, following the same rationale, the system of equations given in \eqt{eq:equation1} is made hyperbolic by assuming an infinite opacity (the frozen approximation) and by ignoring the relaxation terms. These two assumptions yield the following system of equations:
 \begin{equation}
 \label{eq:equation3}
@@ -182,7 +191,7 @@ The jacobian matrix of the hyperbolic terms can be computed to derive the eigenv
 where $c_m$ is the radiation-modified material speed of sound and is defined as follows:
 \begin{equation}
 \label{eq:equation5}
-c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho}
+c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad}
 \end{equation}
 with $P_x$ the standard shorthand notation for $\partial_x P$, and $c^2_{Euler}$ denotes the definition of the speed of sound when considering only the 1-D Euler equations.
 The above hyperbolic system of equations can be recast in a conservative form. This allows us to assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$. Following some algebra given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
@@ -210,11 +219,131 @@ where $\kappa$ is a locally defined positive viscosity coefficient. It was assum
 \left\{
 \begin{array}{ll}
 P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 \\
-s( \rho, e, \epsilon) = \hat{s}(\rho, e) + \frac{\rho_0}{\rho}\tilde{s}(\epsilon) 
+s( \rho, e, \epsilon) = s(\rho, e)_{Euler} + s(\epsilon, \rho)_{rad} = s(\rho, e)_{Euler} + \frac{\rho_0}{\rho} \epsilon^\frac{3}{4}
 \end{array}
 \right.
 \end{equation}
-where $-\tilde{s}$ is convex with respect to the radiation energy density $\epsilon$ and $-\hat{s}$ is convex with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The constant $\rho_0$ is of order one and appears only for dimensionality purposes. \\
+where $s_{Euler}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{rad}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The constant $\rho_0$ is of order one and appears only for dimensionality purposes. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The equilibrium-diffusion limit}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We now perform an asymptotic limit onto the $1$-D Grey non-equilibrium diffusion Radiation-Hydrodynamic equations modified with the viscous regularization derived in \sect{sec:visc-reg}. The objective is to compare the asymptotic equations that will be derived, against the equilibrium-diffusion radiation-hydrodynamic equations taken from Section $4$ of \cite{LowrieMorel}. The equations with the viscous regularization are recalled:
+%
+\begin{equation}
+\label{eq:equation-visc-reg}
+\left\{
+\begin{array}{lll}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \div \left( \kappa \grad \rho \right) \\
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \div \left( \kappa \grad (\rho u) \right) \\
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) + \div \left( \kappa \grad (\rho E)\right)\\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right) + \div \left( \kappa \grad \epsilon \right)
+\end{array}
+\right. .
+\end{equation}
+%
+To derive the scaled version of \eqt{eq:equation-visc-reg}, we consider the following non-dimensionalization:
+%
+\begin{multline}
+\label{eq:norm_param}
+\rho^*   = \frac{\rho}{\rho_\infty}           ,\
+u^*      = \frac{u}{u_\infty}                 ,\
+P^*      = \frac{P}{\rho_\infty c^2_{m,\infty}}   ,\
+\epsilon^*      = \frac{\epsilon}{a T_\infty^4 }              ,\
+E^*      = \frac{E}{c^2_{m,\infty} }              ,\
+\sigma_t^*      = \frac{\sigma_t}{\sigma_{t,\infty} }              ,\\
+\sigma_a^*      = \frac{\sigma_a}{\sigma_{a,\infty} }              ,\
+T^*      = \frac{T}{T_\infty }              ,\
+x^* = \frac{x}{L_\infty}                      ,\
+t^* = \frac{t}{L_\infty / u_\infty}           ,\ 
+\kappa^* = \frac{\kappa}{\kappa_\infty}       ,
+\end{multline}
+%
+where  the subscript $\infty$ denote the far-field or stagnation quantities and the superscript $*$ 
+stands for the non-dimensional variables. The far-field reference quantities are chosen such that the 
+dimensionless flow quantities are of order 1. Using the scaled variables introduced in \eqt{eq:norm_param}, the non-dimensionalized equations are obtained:
+%
+\begin{align}
+\label{eq:equation-visc-reg-scaled}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) &= \Pe_\infty \div \left( \kappa \grad \rho \right) \nonumber \\
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) &= \Pe_\infty \div \left( \kappa \grad (\rho u) \right) \nonumber \\
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] &= -\frac{u}{3} \partial_x \epsilon - \nonumber \\ 
+&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t - \Ls_{s,\infty} \sigma_a \right)  \left(T^4 - \epsilon \right) + \Pe_\infty \div \left( \kappa \grad (\rho E)\right)  \\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) &= \frac{u}{3} \partial_x \epsilon + \Ls_\infty \Us^{-1}_\infty \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \nonumber \\
+&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t - \Ls_{s,\infty} \sigma_a \right) \left( T^4 - \epsilon \right) + \Pe_\infty \div \left( \kappa \grad \epsilon \right) \ ,  \nonumber 
+\end{align}
+%
+where:
+%
+\begin{multline}\label{eq:scaled-nb}
+\Ls_\infty = \frac{\sigma_{t,\infty}}{L_\infty} \ , \Ls_{s,\infty} = \frac{\sigma_{t,\infty}}{\sigma_{a,\infty}} \ , \Us = \frac{c_{m,\infty}}{c} \ , \\  \Re_\infty = \frac{a T^4_\infty}{\rho_\infty u^2_\infty} \text{ and } \Pe_\infty = \frac{\kappa_\infty}{u_\infty L_\infty} \ .
+\end{multline}
+%
+The number $\Ls_\infty$ denote the ratio of the spatial characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is scaled $O(1)$ . $\Ls_{s,\infty}$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. The relativistic effect are measured by the number $\Us_\infty$ and $\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. They scale as $O(\varepsilon)$ and $O(1)$, respectively. Lastly, the P\' echlet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term. The scaling of all of the non-dimensionalized numbers, but the P\'echlet number, are derived from the physic. The scaling of the P\'echlet number is chosen to scale as $O(1)$ so that the equilibrium-diffusion equations are recovered when doing the asymptotic limit. The next step consists in expanding each variable in a power series in $\varepsilon$, e.g.,
+%
+\begin{equation}\label{eq:expansion-series}
+x = \sum_i x_i \varepsilon^i \ ,
+\end{equation}
+%
+where $x$ denotes a variable. By substituting the expanded expression of each variable in \eqt{eq:equation-visc-reg-scaled} and using the scaling of the non-dimensionalizing numbers, the leading-, first- and second-order equations are retrieved. The leading-order of \eqt{eq:equation-visc-reg-scaled} yields:
+%
+\begin{align}\label{eq:first-order}
+&\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0 \nonumber \ ,\\
+&\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P + \frac{\epsilon}{3}\right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , \\
+&\epsilon_0 = T_0 \nonumber \ .
+\end{align}
+%
+The first-order material and radiation equation along with $T_0 = \epsilon_0$ yield: $\epsilon_1 = T_1$. The total energy equation is obtained by taking the second-order material and radiation energy equations and summing to cancel the relaxation terms:
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x \epsilon \right)_0 + \partial_x \left( \kappa \partial_x \epsilon \right)_0 \nonumber
+\end{equation}
+%
+where $P^* = P + \Re_\infty^{-1} \frac{T^4}{3}$ and $e^* = e + \Re_\infty^{-1} \frac{T^4}{3 \rho}$ are the radiation-modified pressure and internal energy. The equilibrium-diffusion system of equations is obtained by taking the leading-order continuity and momentum equations, and the second-order total energy equation, e.g,
+%
+\begin{align}\label{eq:equip-diff-equ}
+&\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0 \nonumber \ ,\\
+&\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P^* \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , \\
+&\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0 \ . \nonumber
+\end{align}
+%
+The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ},i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. It is also interested to investigate how the asymptotic limit affects the entropy given in \eqt{eq:equation7bis} for the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
+%
+\begin{equation}\label{eq:ent-scaled}
+s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \Re_\infty^{-1} \frac{\beta}{\rho} \epsilon^\frac{3}{4}
+\end{equation}
+%
+Remembering that $\Re_\infty = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy is:
+%
+\begin{equation}\label{eq:ent-scaled-2}
+s \left( \rho, e \right)_0 = s\left( \rho, e \right)_{Euler,0} + \frac{\beta}{\rho_0} T_0^4 \ .
+\end{equation}
+%
+\eqt{eq:ent-scaled-2} is to compare against the entropy, $s^*$, obtained when using the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+%
+\begin{equation}\label{eq:ent-reos}
+s^*(\rho,e) = s(\rho,e)_{Euler} + \frac{4T^3}{3\rho} \ .
+\end{equation}
+%
+The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\beta$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\beta$ is set to $\frac{4}{3}$ which yields the following \emph{dimensionalized} entropy:
+%
+\begin{equation}\label{eq:entropy}
+s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \frac{4}{3\rho} \left(\frac{\epsilon}{a}\right)^\frac{3}{4}
+\end{equation}
+%
+\eqt{eq:entropy} can be used to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations. Using the definition of the radiation entropy, $s_{rad}$, it is shown that:
+%
+\begin{equation}\label{eq:sp-sd-rad}
+c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
+\end{equation}
+%  
+where $P_{rad} = \frac{\epsilon}{3}$ is a radiation pressure. Using \eqt{eq:sp-sd-rad}, the speed of sound $c_m^2$ can be rewritten as follows:
+%
+\begin{equation}
+c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}}
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{A definition for the viscosity coefficients}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Once the dissipative terms are obtained, it remains to define the local viscosity coefficient $\kappa(x,t)$. 
 We require the following to hold in the prescription for $\kappa$:
 \begin{itemize}
@@ -240,12 +369,24 @@ The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) 
 Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
 \begin{equation}
 \label{eq:equation12}
-\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{n_P}
+\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\norm_P}
 \end{equation} 
-where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$, and $n_P$ is a normalization function (of the same units as pressure) that has to be chosen so that the viscosity coefficient $\kappa$ has units of $m^2/s$. The following definition for the normalization function has been chosen: $n_P = \rho c_m^2$. Thus, the final definition for the viscosity coefficient $\kappa$ is the following:
+where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$, and $\norm_P$ is a normalization function (of the same units as pressure) that has to be chosen so that the viscosity coefficient $\kappa$ has units of $m^2/s$ and to ensure the correct asymptotic equations in the equilibrium-diffusion limit. Using the definition of the viscosity coefficient given in \eqt{eq:equation12} and the scaling of \eqt{eq:norm_param}, it can be shown that:
+%
+\begin{equation}
+\kappa_\infty = \frac{\rho_\infty c^2_{m,\infty} u_\infty L_\infty}{\norm_{P,\infty}} \ .
+\end{equation}
+%
+The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'echlet number defined in \eqt{eq:scaled-nb} that was proved to scale as one in order to preserve the equilibrium-diffusion limit. Thus, using the definition of the P\'echlet number and the expression for $\kappa_\infty$, it is devised that:
+%
+\begin{equation}
+\norm_{P,\infty} = \rho_\infty c^2_{m,\infty} \nonumber \ ,
+\end{equation}
+%
+which leads us to choose: $\norm_P = \rho c_m^2$. Thus, the final definition for the viscosity coefficient $\kappa$ is the following:
 \begin{equation}
 \label{eq:equation12bis}
-\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2}
+\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2} \ .
 \end{equation} 
 The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for Continuous Galerkin FEM: 
 \begin{equation}
@@ -276,8 +417,7 @@ The normalization factor has to be larger than $h$ in order to conserve high-ord
  \begin{remark}
 The reader will notice that, except for the definition of the jumps, the whole method is independent of the spatial discretization employed. The technique could be used with discontinuous Galerkin finite element or finite volume methods. In both cases, an adequate  definition of the jump terms can be found in \cite{valentin}.
  \end{remark}
-
-
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical scheme and solution technique}
@@ -676,7 +816,7 @@ We start with the hyperbolic system given in \eqt{eq:equation3} and add dissipat
 \begin{array}{llll}
 \frac{d \rho}{dt} + \rho \partial_x u = \partial_x f \\
 \partial_t (\rho u) + \partial_x \left(\rho u^2 +  P + \frac{\epsilon}{3} \right) = \partial_x g  \\
-\partial_t (\rho E) + \partial_x \left[ u \left( \rho E +P \right) \right] + u \partial_x \epsilon = \partial_x \left( h + ug \right) \\
+\partial_t (\rho E) + \partial_x \left[ u \left( \rho E +P \right) \right] + \frac{u}{3} \partial_x \epsilon = \partial_x \left( h + ug \right) \\
 \partial_t \epsilon + u \partial_x \epsilon + \frac{4}{3} \epsilon \partial_x u = \partial_x l
 \end{array}
 \right.
@@ -725,9 +865,9 @@ l &= \kappa \partial_x \epsilon
  Thus, using the continuity, the internal energy and the radiation equations of \eqt{eq:app_equ1ter} and using \eqt{eq:app_equ2} along with the definition of the dissipative terms, a conservation statement satisfied by the entropy $s$ is obtained:
  \begin{eqnarray}
  \label{eq:app_equ3}
- \frac{ds}{dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_e s \partial_x s - \rho \kappa \underbrace{X A X^t}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)}
+ \frac{ds}{dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_x \rho \partial_x s - \rho \kappa \underbrace{X A X^t}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)}
  \end{eqnarray}
- where $X$ is a row vector defined as $X=\left( \rho, e, \epsilon \right)$ and $A$ is the $3$x$3$ symmetric matrix:
+ where $X$ is a row vector defined as $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3$x$3$ symmetric matrix:
  \begin{equation}
  A = 
  \left[
@@ -753,17 +893,17 @@ The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simpl
  where $A_k$ is the $k^{th}$ order leading principle minor. Determining the sign of the last inequality that corresponds to the determinant of the $3$ by $3$ matrix $A$ can be difficult and needs to be simplified. Zeroing out the off-diagonal entries of the last row or column would simplify the expression for the determinant of $A$. This can be achieved by assuming $\partial_{\rho}(\rho \partial_{\epsilon} s)$ and $\partial_{e, \epsilon} s$ are zero, which requires the following form for the entropy function:
 \begin{equation}
 \label{eq:app_equ4}
-s(\rho, e, \epsilon) = \tilde{s}(\rho,e) + \frac{\rho_0}{\rho}\hat{s}(\epsilon) \text{. } 
+s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{1}{\rho}s_{rad}(\epsilon) \text{. } 
 \end{equation}
-where $\tilde{s}$ and $\hat{s}$ are two functions whose properties will be provided later. The constant $\rho_0$ is used for a dimensionality purpose.
+where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later.
 Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$ becomes:
  \begin{equation}
  A = 
  \left[
  \begin{array}{ccc}
-\partial_{\rho} \left( \rho^2 \partial_{\rho} \tilde{s} \right) & \partial_{\rho,e} \tilde{s} & 0 \\
- \partial_{\rho,e} \tilde{s} & \partial_{e,e} \tilde{s} & 0 \\
- 0 & 0 & \rho^{-1} \partial_{\epsilon,\epsilon} \hat{s}
+\partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) & \partial_{\rho,e} s_{Euler} & 0 \\
+ \partial_{\rho,e} s_{Euler} & \partial_{e,e} s_{Euler} & 0 \\
+ 0 & 0 & \rho^{-1} \partial_{\epsilon,\epsilon} s_{rad}
  \end{array}
  \right] \nonumber
  \end{equation}
@@ -772,24 +912,24 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
  \label{eq:A_matrix}
  \left\{
  \begin{array}{lll}
- A_1 = \partial_{\rho} \left( \rho^2 \partial_{\rho} \tilde{s} \right) \leq 0 \\
- A_2 = \partial_{\rho} \left( \rho^2 \partial_{\rho} \tilde{s} \right) \partial_{e,e} \tilde{s} - \left( \partial_{\rho,e} \tilde{s} \right)^2 \geq 0\\
- A_3 =  \rho^{-1} \partial_{\epsilon,\epsilon} \hat{s} A_2 \leq 0
+ A_1 = \partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) \leq 0 \\
+ A_2 = \partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) \partial_{e,e} s_{Euler} - \left( \partial_{\rho,e} s_{Euler} \right)^2 \geq 0\\
+ A_3 =  \rho^{-1} \partial_{\epsilon,\epsilon} s_{rad} A_2 \leq 0
  \end{array}
  \right.
  \end{equation} 
-This is easily achieved when assuming that the functions $-\tilde{s}$ and $-\hat{s}$ are convex. Thus, the sign of $(b)$ is now determined. \\
+This is easily achieved when assuming that the functions $s_{Euler}$ and $s_{rad}$ are concave. Thus, the sign of $(b)$ is now determined. \\
 Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \mu (\partial_x u)^2$. The density $\rho$ and the viscosity coefficient $\mu$ are both positive: the latest proof for positivity of the density can be found in \cite{jlg}. Then, only the sign of $\partial_e s$ remains unknown but it can be determined by studying $(a)$. It was assumed earlier in this appendix that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. This equation is now recast and split into two equations using \eqt{eq:app_equ4}. Separation of variables yields:
  \begin{equation}
- P \partial_e \tilde{s} + \rho^2 \partial_{\rho} \tilde{s} = \alpha \text{ and } \hat{s} - \frac{4\epsilon}{3} \partial_{\epsilon} \hat{s} = \alpha \nonumber
+ P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = \alpha \nonumber
  \end{equation}
- where $\alpha$ is a constant to determine. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e \tilde{s} + \rho^2 \partial_{\rho} \tilde{s} = 0$. Then, following \cite{jlg}, definitions for $\partial_e \tilde{s}$ and $\partial_{\rho} \tilde{s}$ are obtained:
+ where $\alpha$ is a constant to determine. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = 0$. Then, following \cite{jlg}, definitions for $\partial_e s_{Euler}$ and $\partial_{\rho} s_{Euler}$ are obtained:
  \begin{equation}
  \label{eq:definition}
  \left\{
  \begin{array}{ll}
- \partial_e s = \partial_e \tilde{s} = T^{-1} \nonumber\\
- \partial_{\rho} \tilde{s} = -\frac{P}{\rho^2} \partial_e \tilde{s}
+ \partial_e s = \partial_e s_{Euler} = T^{-1} \nonumber\\
+ \partial_{\rho} s_{Euler} = -\frac{P}{\rho^2} \partial_e s_{Euler}
  \end{array}
  \right.
  \end{equation} 
@@ -800,8 +940,8 @@ From the above results, the entropy minimum principle follows, so that the sign 
 \end{equation}
  %%%%%%%%%%%%%%%
 \begin{remark}
-By assuming $\alpha=0$, an expression for the $\hat{s}$ can be derived by solving the ODE, $\hat{s} - \frac{4\epsilon}{3} \partial_{\epsilon} \hat{s} = 0$, which yields:
-$\hat{s}(\epsilon) = \beta \exp \left(\frac{4 \epsilon^{2}}{3} \right)$, where $\beta$ is a constant. The sign of $\beta$ is determined by using the condition, $\partial_{\epsilon,\epsilon} \hat{s} \leq 0$, derived above, so that $\beta\leq0$.
+By assuming $\alpha=0$, an expression for the $s_{rad}$ can be derived by solving the ODE, $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, which yields:
+$s_{rad}(\epsilon) = \beta \epsilon^\frac{3}{4}$, where $\beta$ is a constant. The sign of $\beta$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad} \leq 0$, derived above, so that $\beta\geq0$.
 \end{remark}
 \begin{remark}
 The viscous regularization derived in this appendix, has two viscosity coefficients: $\mu$ and $\kappa$. For the purpose of this paper, these coefficients are set equal. Under this assumption, the above viscous regularization is equivalent to the parabolic regularization of \cite{Parabolic}.
