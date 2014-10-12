@@ -167,19 +167,19 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the 1-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of a viscous regularization, using the entropy minimum principle \cite{entropy}. Then, a definition for the entropy viscosity coefficient based upon the entropy production is given. Lastly, an asymptotic limit onto the system of equations modified with the viscous regularization is performed to show that the equilibrium-diffusion limit is recovered. 
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the 1-D radiation-hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of a viscous regularization, using the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed onto the system of equations modified with the viscous regularization, to show that the equilibrium-diffusion limit is recovered \cite{LowrieMorel}. Lastly, a definition for the entropy viscosity coefficient derived along with the viscous regularizations is proposed and based upon the entropy production.  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivation of a viscous regularization for the $1$-D grey non-equilibrium Radiation-Hydrodynamic equations}\label{sec:visc-reg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the radiation hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the study of their hyperbolic parts \cite{Balsara, LowrieMorel}. Thus, following the same rationale, the system of equations given in \eqt{eq:equation1} is made hyperbolic by assuming an infinite opacity (the frozen approximation) and by ignoring the relaxation terms. These two assumptions yield the following system of equations:
+We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the radiation hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the study of their hyperbolic parts \cite{Balsara, LowrieMorel}. Thus, following the same rationale, the system of equations given in \eqt{eq:equation1} is made hyperbolic by ignoring the relaxation and the diffusion terms in the radiation and material energy equations. These two assumptions yield the following system of equations:
 \begin{equation}
 \label{eq:equation3}
 \left\{
 \begin{array}{lll}
 \partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 \\
 \partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 \\
-\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon\\
-\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] +\frac{u}{3} \partial_x \epsilon = 0\\
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = 0
 \end{array}
 \right. .
 \end{equation}
@@ -191,9 +191,9 @@ The jacobian matrix of the hyperbolic terms can be computed to derive the eigenv
 where $c_m$ is the radiation-modified material speed of sound and is defined as follows:
 \begin{equation}
 \label{eq:equation5}
-c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad}
+c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \ .
 \end{equation}
-with $P_x$ the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only the 1-D Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$.
+$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only the 1-D Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:equation4} are unconditionally real.
 Because the above system is hyperbolic, we can assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables). Following some algebra given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:equation6}
@@ -201,7 +201,7 @@ Because the above system is hyperbolic, we can assume the existence of an entrop
 \end{equation}
 where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle, $\frac{Ds}{Dt} \geq 0$, \cite{entropy} when the solution remains smooth.
 
-When adding dissipative terms to each equation of \eqt{eq:equation3} as required in the entropy viscosity method, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these extra terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Obtaining the final expression of the dissipative terms is a lengthy process and only the final result along with the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The system of equations with the dissipative terms is as follows:
+We propose to modify \eqt{eq:equation3} by adding dissipative terms to keep the solution smooth when shocks develop. When adding dissipative terms to each equation of \eqt{eq:equation3} as required in the entropy viscosity method, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these extra terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Obtaining the final expression of the dissipative terms is a lengthy process and only the final result along with the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The system of equations with the dissipative terms is as follows:
 \begin{equation}
 \label{eq:equation7}
 \left\{
@@ -219,15 +219,15 @@ where $\kappa$ is a locally defined positive viscosity coefficient. It was assum
 \left\{
 \begin{array}{ll}
 P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 \\
-s( \rho, e, \epsilon) = s(\rho, e)_{Euler} + s(\epsilon, \rho)_{rad} = s(\rho, e)_{Euler} + \frac{\rho_0}{\rho} \epsilon^\frac{3}{4}
+s( \rho, e, \epsilon) = s(\rho, e)_{Euler} + s(\epsilon, \rho)_{rad} = s(\rho, e)_{Euler} + \frac{\rho^{(0)}}{\rho} \epsilon^\frac{3}{4}
 \end{array}
 \right.
 \end{equation}
-where $s_{Euler}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{rad}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The constant $\rho_0$ appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion limit. 
+where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The constant $\rho^{(0)}$ appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We now perform an asymptotic limit onto the $1$-D Grey non-equilibrium diffusion Radiation-Hydrodynamic equations modified with the viscous regularization derived in \sect{sec:visc-reg} to investigate whether we recover the correct asymptotic equations and to compare them against the equilibrium-diffusion radiation-hydrodynamic equations taken from Section $4$ of \cite{LowrieMorel}. The equations with the viscous regularization are recalled:
+We now perform an asymptotic limit onto the $1$-D Grey non-equilibrium diffusion Radiation-Hydrodynamic equations modified with the viscous regularization derived in \sect{sec:visc-reg} to investigate whether we recover the correct asymptotic equations and to compare them against the equilibrium-diffusion radiation-hydrodynamic equations taken from Section $4$ of \cite{LowrieMorel}. The equations with the viscous regularization derived in \sect{sec:visc-reg} are recalled:
 %
 \begin{equation}
 \label{eq:equation-visc-reg}
@@ -292,7 +292,7 @@ where $x$ denotes a variable. By substituting the expanded expression of each va
 &\epsilon_0 = T_0 \nonumber \ .
 \end{align}
 %
-The first-order material and radiation equation along with $T_0 = \epsilon_0$ yield: $\epsilon_1 = T_1$. The total energy equation is obtained by taking the second-order material and radiation energy equations and summing them to cancel the second-order relaxation terms:
+The first-order material energy and radiation equations along with $T_0 = \epsilon_0$ yield: $\epsilon_1 = T_1$. The asymptotic total energy equation is obtained by taking the second-order material and radiation energy equations and summing them to cancel the second-order relaxation terms:
 %
 \begin{equation}
 \partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x \epsilon \right)_0 + \partial_x \left( \kappa \partial_x \epsilon \right)_0 \nonumber
@@ -312,7 +312,7 @@ The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilib
 s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \Re_\infty^{-1} \frac{\rho^{(0)}}{\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
-Remembering that $\Re_\infty = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy is:
+Remembering that $\Re_\infty = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy yields:
 %
 \begin{equation}\label{eq:ent-scaled-2}
 s \left( \rho, e \right)_0 = s\left( \rho, e \right)_{Euler,0} + \frac{\rho^{(0)}}{\rho_0} T_0^4 \ .
@@ -340,7 +340,7 @@ where $P_{rad} = \frac{\epsilon}{3}$ is a radiation pressure. Using \eqt{eq:sp-s
 %
 \begin{equation}
 c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}}
-\end{equation}
+\end{equation} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A definition for the viscosity coefficients}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -893,7 +893,7 @@ The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simpl
  where $A_k$ is the $k^{th}$ order leading principle minor. Determining the sign of the last inequality that corresponds to the determinant of the $3$ by $3$ matrix $A$ can be difficult and needs to be simplified. Zeroing out the off-diagonal entries of the last row or column would simplify the expression for the determinant of $A$. This can be achieved by assuming $\partial_{\rho}(\rho \partial_{\epsilon} s)$ and $\partial_{e, \epsilon} s$ are zero, which requires the following form for the entropy function:
 \begin{equation}
 \label{eq:app_equ4}
-s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{1}{\rho}s_{rad}(\epsilon) \text{. } 
+s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho^{(0)}}{\rho}s_{rad}(\epsilon) \text{. } 
 \end{equation}
 where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later.
 Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$ becomes:
