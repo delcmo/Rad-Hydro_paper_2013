@@ -87,7 +87,7 @@
 %
 \begin{frontmatter}
 %
-\title{Numerical solution of the 1-D grey radiation hydrodynamics equations with an entropy-based artificial viscosity}
+\title{Numerical solution of the 1-D grey non-equilibrium radiation hydrodynamics equations with an entropy-based artificial viscosity}
 %-------------------------
 %-------------------------
 \author{Marc O. Delchini\fnref{label1}}
@@ -105,8 +105,8 @@
 %-------------------------
 %-------------------------
 \begin{abstract}
-The entropy viscosity method is extended to the 1-D grey radiation-hydrodynamic equations. 
-The method employs a viscous regularization to stabilize the numerical scheme with a viscosity coefficient modulated by the entropy production that is known to peak in shocks. The dissipative terms are consistent with the entropy minimum principle which requires that a new functional form of the entropy residual, suitable for the radiation-hydrodynamic equations, be derived. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and an implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solution (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks.
+The entropy viscosity method is extended to the 1-D grey non-equilibrium radiation-hydrodynamic equations. 
+The method employs a viscous regularization to stabilize the numerical scheme with a viscosity coefficient modulated by the entropy production that is known to peak in shocks. The dissipative terms are consistent with the entropy minimum principle which requires that a new functional form of the entropy residual, suitable for the radiation-hydrodynamic equations, be derived. The viscous regularization is proven to conserve the equilibrium-diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and an implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solution (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks.
 \end{abstract}
 %
 \begin{keyword}
@@ -133,7 +133,7 @@ Edwards and al. \cite{EdwardsMorelLowrie} proposed a two-stage semi-implicit IME
 In this article we propose to solve the 1-D radiation-hydrodynamics equations by using \emph{the entropy viscosity method}. This technique, developed by Guermond et al.  for hyperbolic systems of equations \cite{jlg1, jlg2}, consists in adding appropriate dissipative terms to the governing equations.  The viscosity coefficient of these terms is modulated by the local entropy production. These dissipative terms are devised to stabilize the numerical scheme and to remove the non-physical oscillations appearing at the shock locations. Generally speaking, entropy is produced at shocks \cite{Toro}. Thus, by setting the viscosity coefficient proportional to the entropy production, shocks can be detected and tracked and an adequate amount of viscosity is added locally to stabilize the numerical scheme. The entropy production is computed on the fly, by analyzing the entropy residual. This residual is strongly peaked in shocks and small elsewhere. 
 The entropy viscosity method was shown to achieve high-order accuracy away from the shock regions, was successfully applied to non-linear hyperbolic equations using various discretization methods (finite volume, continuous and discontinuous finite elements, spectral method) and yielded high-order accuracy on non-uniform meshes and complex geometries \cite{jlg2, valentin}. Because of the similarity between Euler equations and the radiation hydrodynamic equations, it is conjectured that the entropy viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
 
-The 1-D grey radiation-hydrodynamic (GRH) equations are recalled in \eqt{eq:equation1}:
+The 1-D grey non-equilibrium radiation-hydrodynamic (GRH) equations are recalled in \eqt{eq:equation1}:
 \begin{equation}
 \label{eq:equation1}
 \left\{
@@ -158,9 +158,9 @@ e = C_v T
 \end{equation}
 where $e$ is the specific internal energy and is obtained from the expression $e = E - 0.5 u^2$. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
 
-The objective of this paper is to extend the entropy-based viscosity method to the 1-D grey radiation-hydrodynamic equations. The approach followed in this paper is similar to those of \cite{Balsara, LowrieMorel} in order to make \eqt{eq:equation1} hyperbolic. Then, an entropy equation is derived and used to obtain the functional forms of the viscous stabilization terms. Definitions for the viscosity coefficients are provided. 
+The objective of this paper is to extend the entropy-based viscosity method to the 1-D grey non-equilibrium radiation-hydrodynamic equations. The approach followed in this paper is similar to those of \cite{Balsara, LowrieMorel} in order to make \eqt{eq:equation1} hyperbolic. Then, an entropy equation is derived and used to obtain the functional forms of the viscous stabilization terms. Definitions for the viscosity coefficients are provided. 
 
-This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy viscosity method is extended to the grey radiation-hydrodynamic equations;  details regarding the derivation of the adequate dissipative terms and definitions for the new viscosity coefficients are provided. Spatial and temporal discretization schemes are discussed in \sect{sec:num-scheme} along with the solution algorithm employed to solve the discretized equations. Numerical results are presented in \sect{sec:num-res} where the second-order accuracy of the scheme is demonstrated in both the equilibrium diffusion and streaming limits, using the method of manufactured solutions applied to the GRH equations. Then, several numerical test cases, taken from the published literature, are provided; in these simulations, the Mach number varies from $1.05$ to $50$ \cite{LowrieEdwards}. Conclusions are presented in \sect{sec:ccl}.
+This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy viscosity method is extended to the grey non-equilibrium radiation-hydrodynamic equations;  details regarding the derivation of the adequate dissipative terms and definitions for the new viscosity coefficients are provided. Spatial and temporal discretization schemes are discussed in \sect{sec:num-scheme} along with the solution algorithm employed to solve the discretized equations. Numerical results are presented in \sect{sec:num-res} where the second-order accuracy of the scheme is demonstrated in both the equilibrium diffusion and streaming limits, using the method of manufactured solutions applied to the GRH equations. Then, several numerical test cases, taken from the published literature, are provided; in these simulations, the Mach number varies from $1.05$ to $50$ \cite{LowrieEdwards}. Conclusions are presented in \sect{sec:ccl}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,7 +203,7 @@ Because the above system is hyperbolic, we can assume the existence of an entrop
 \end{equation}
 where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle, $\frac{Ds}{Dt} \geq 0$, \cite{entropy} when the solution remains smooth.
 
-We propose to modify \eqt{eq:equation3} by adding dissipative terms to keep the solution smooth when shocks develop. When adding dissipative terms to each equation of \eqt{eq:equation3} as required in the entropy viscosity method, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these extra terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Obtaining the final expression of the dissipative terms is a lengthy process and only the final result along with the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The system of equations with the dissipative terms is as follows:
+Because \eqt{eq:equation3} can develop shocks, dissipative terms are added to each equation to keep the solution smooth. When adding dissipative terms to each equation of \eqt{eq:equation3} as required in the entropy viscosity method, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these extra terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Obtaining the final expression of the dissipative terms is a lengthy process and only the final result along with the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The system of equations with the dissipative terms is as follows:
 \begin{equation}
 \label{eq:equation7}
 \left\{
@@ -280,7 +280,7 @@ where:
 \Ls_\infty = \frac{\sigma_{t,\infty}}{L_\infty} \ , \Ls_{s,\infty} = \frac{\sigma_{t,\infty}}{\sigma_{a,\infty}} \ , \Us = \frac{c_{m,\infty}}{c} \ , \\  \Re_\infty = \frac{a T^4_\infty}{\rho_\infty u^2_\infty} \text{ and } \Pe_\infty = \frac{\kappa_\infty}{u_\infty L_\infty} \ .
 \end{multline}
 %
-The number $\Ls_\infty$ denote the ratio of the spatial characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is scaled $O(1)$ . $\Ls_{s,\infty}$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. The relativistic effect are measured by the number $\Us_\infty$, and $\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. They scale as $O(\varepsilon)$ and $O(1)$, respectively. Lastly, the P\' echlet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus, require stabilization terms). The scaling of the P\'echlet number can be devised from the scaled continuity equation. Let us assume that $\Pe_\infty$ scales as $\varepsilon$: in that case the leading-order continuity equation does not have any stabilization terms which will yields to the formation of spurious oscillations in shock regions. The same study will show the same inconsistency when assuming $\Pe_\infty = O(\varepsilon^{-1})$. Thus, the P\'echlet number is chosen to a scale as one to yield well-scaled dissipative terms in all of the equations. We assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
+The number $\Ls_\infty$ denote the ratio of the spatial characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is scaled $O(1)$ . $\Ls_{s,\infty}$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. The relativistic effect are measured by the number $\Us_\infty$, and $\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. They scale as $O(\varepsilon)$ and $O(1)$, respectively. Lastly, the P\' echlet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus, require stabilization terms). The scaling of the P\'echlet number can be devised from the scaled continuity equation. Let us assume that $\Pe_\infty$ scales as $\varepsilon$: in that case the leading-order continuity equation does not have any stabilization terms which will yield to the formation of spurious oscillations in shock regions. The same study will show the same inconsistency when assuming $\Pe_\infty = O(\varepsilon^{-1})$. Thus, the P\'echlet number is chosen to scale as one to yield well-scaled dissipative terms in all of the equations. We assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
 %
 \begin{equation}\label{eq:expansion-series}
 x = \sum_i x_i \varepsilon^i \ ,
@@ -310,7 +310,7 @@ where $P^* = P + \Re_\infty^{-1} \frac{T^4}{3}$ and $e^* = e + \Re_\infty^{-1} \
 %
 The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ},i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. 
 
-We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived from the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
+We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived when only considering the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
 %
 \begin{equation}\label{eq:ent-scaled}
 s' \left( \rho', e', \epsilon' \right) = s'\left( \rho', e' \right)_{Euler} + \Re_\infty^{-1} \frac{\rho'^{(0)}}{\rho'} \epsilon^{\frac{3}{4}'}
@@ -319,19 +319,19 @@ s' \left( \rho', e', \epsilon' \right) = s'\left( \rho', e' \right)_{Euler} + \R
 Remembering that $\Re_\infty = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
 %
 \begin{equation}\label{eq:ent-scaled-2}
-s \left( \rho, e \right)_0 = s\left( \rho, e \right)_{Euler,0} + \frac{\rho^{(0)}}{\rho_0} T_0^4 \ .
+s \left( \rho, e \right)_0 = s\left( \rho, e \right)_{Euler,0} + \frac{\rho^{(0)}}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-\eqt{eq:ent-scaled-2} is to compare against the entropy, $s^*$, obtained when considering the frozen in limit of the equilibrrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+\eqt{eq:ent-scaled-2} is to compare against the entropy, $s^*$, obtained when considering the frozen in limit of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s(\rho,e)_{Euler} + \frac{4T^3}{3\rho} \ .
 \end{equation}
 %
-The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\rho^{(0)}$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\rho^{(0)}$ is set to $\frac{4}{3}$ which yields the following \emph{dimensionalized} entropy:
+The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\rho^{(0)}$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\rho^{(0)}$ is set to $\frac{4}{3}a^\frac{1}{4}$ which yields the following \emph{dimensionalized} entropy:
 %
 \begin{equation}\label{eq:entropy}
-s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \frac{4}{3\rho} \left(\frac{\epsilon}{a}\right)^\frac{3}{4}
+s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
 \eqt{eq:entropy} can be used to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations. Using the definition of the radiation entropy, $s_{rad}$, it can be shown that:
@@ -346,7 +346,7 @@ where $P_{rad} = \frac{\epsilon}{3}$ is a radiation pressure. Using \eqt{eq:sp-s
 c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}}
 \end{equation} 
 \tcb{have to add something about $c_m$ being the upper bound of the sound speed definition introduced in \cite{LowrieMorel}}
-In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the $1$-D grey non-equilibrium radiation-hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives and by introducing the radiative pressure $P_{rad}$.
+In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the $1$-D grey non-equilibrium radiation-hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives by introducing the radiative pressure $P_{rad}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A definition for the viscosity coefficients}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -406,7 +406,7 @@ J(x_i,t) = \max( J_{\rho}(x_i,t), J_{P}(x_i,t) )
 \end{equation}
 The symbol $[[ \cdot ]]$ denotes the jump at the cell interface.
 
-The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:equation3} and will be used to solve for the grey radiation-hydrodynamic equations given in \eqt{eq:equation1}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
+The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:equation3} and will be used to solve for the grey non-equilibrium radiation-hydrodynamic equations given in \eqt{eq:equation1}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
 \begin{equation}
  \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right) 
  \Longrightarrow
@@ -493,7 +493,7 @@ The entropy residual expression is not integrated over the cell volume as it is 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, numerical results using the entropy viscosity method are presented for the 1-D grey radiation-hydrodynamic equations. First, second-order accuracy of the method is demonstrated using the method of manufactured solution (MMS). Then, results for some standard radiation-hydrodynamic test cases are given. 
+In this section, numerical results using the entropy viscosity method are presented for the 1-D grey non-equilibrium radiation-hydrodynamic equations. First, second-order accuracy of the method is demonstrated using the method of manufactured solution (MMS). Then, results for some standard radiation-hydrodynamic test cases are given. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Space/time accuracy}
@@ -819,7 +819,7 @@ We start with the hyperbolic system given in \eqt{eq:equation3} and add dissipat
 \label{eq:app_equ1bis}
 \left\{
 \begin{array}{llll}
-\frac{d \rho}{dt} + \rho \partial_x u = \partial_x f \\
+\frac{D \rho}{Dt} + \rho \partial_x u = \partial_x f \\
 \partial_t (\rho u) + \partial_x \left(\rho u^2 +  P + \frac{\epsilon}{3} \right) = \partial_x g  \\
 \partial_t (\rho E) + \partial_x \left[ u \left( \rho E +P \right) \right] + \frac{u}{3} \partial_x \epsilon = \partial_x \left( h + ug \right) \\
 \partial_t \epsilon + u \partial_x \epsilon + \frac{4}{3} \epsilon \partial_x u = \partial_x l
@@ -832,10 +832,10 @@ where $f$, $g$, $h$ and $l$ are dissipative terms to be determined.
 \label{eq:app_equ1}
 \left\{
 \begin{array}{llll}
-\frac{d \rho}{dt} + \rho \partial_x u = \partial_x f \\
-\rho \frac{du}{dt} + \partial_x \left( P + \frac{\epsilon}{3} \right) = \partial_x g - u \partial_x f  \\
-\rho \frac{de}{dt} + P \partial_x u = \partial_x h + g \partial_x u + \left( 0.5 u^2 - e \right) \partial_x f \\
-\frac{d\epsilon}{dt} + \frac{4}{3} \epsilon \partial_x u = \partial_x l
+\frac{D \rho}{Dt} + \rho \partial_x u = \partial_x f \\
+\rho \frac{Du}{Dt} + \partial_x \left( P + \frac{\epsilon}{3} \right) = \partial_x g - u \partial_x f  \\
+\rho \frac{De}{Dt} + P \partial_x u = \partial_x h + g \partial_x u + \left( 0.5 u^2 - e \right) \partial_x f \\
+\frac{D\epsilon}{Dt} + \frac{4}{3} \epsilon \partial_x u = \partial_x l
 \end{array}
 \right.
 \end{equation}
@@ -844,10 +844,10 @@ The right-hand side of the internal energy equation can be simplified by choosin
 \label{eq:app_equ1ter}
 \left\{
 \begin{array}{llll}
-\frac{d \rho}{dt} + \rho \partial_x u = \partial_x f \\
-\rho \frac{du}{dt} + \partial_x \left( P + \frac{\epsilon}{3} \right) = \partial_x g - u \partial_x f  \\
-\rho \frac{de}{dt} + P \partial_x u = \rho \mu (\partial_x u)^2 + \partial_x \tilde{h} - e \partial_x f \\
-\frac{d\epsilon}{dt} + \frac{4}{3} \epsilon \partial_x u = \partial_x l
+\frac{D \rho}{Dt} + \rho \partial_x u = \partial_x f \\
+\rho \frac{Du}{Dt} + \partial_x \left( P + \frac{\epsilon}{3} \right) = \partial_x g - u \partial_x f  \\
+\rho \frac{De}{Dt} + P \partial_x u = \rho \mu (\partial_x u)^2 + \partial_x \tilde{h} - e \partial_x f \\
+\frac{D\epsilon}{Dt} + \frac{4}{3} \epsilon \partial_x u = \partial_x l
 \end{array}
 \right.
 \end{equation}
@@ -870,7 +870,7 @@ l &= \kappa \partial_x \epsilon
  Thus, using the continuity, the internal energy and the radiation equations of \eqt{eq:app_equ1ter} and using \eqt{eq:app_equ2} along with the definition of the dissipative terms, a conservation statement satisfied by the entropy $s$ is obtained:
  \begin{eqnarray}
  \label{eq:app_equ3}
- \frac{ds}{dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_x \rho \partial_x s - \rho \kappa \underbrace{X A X^t}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)}
+ \frac{Ds}{Dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_x \rho \partial_x s - \rho \kappa \underbrace{X A X^t}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)}
  \end{eqnarray}
  where $X$ is a row vector defined as $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3$x$3$ symmetric matrix:
  \begin{equation}
@@ -898,9 +898,9 @@ The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simpl
  where $A_k$ is the $k^{th}$ order leading principle minor. Determining the sign of the last inequality that corresponds to the determinant of the $3$ by $3$ matrix $A$ can be difficult and needs to be simplified. Zeroing out the off-diagonal entries of the last row or column would simplify the expression for the determinant of $A$. This can be achieved by assuming $\partial_{\rho}(\rho \partial_{\epsilon} s)$ and $\partial_{e, \epsilon} s$ are zero, which requires the following form for the entropy function:
 \begin{equation}
 \label{eq:app_equ4}
-s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho^{(0)}}{\rho}s_{rad}(\epsilon) \text{. } 
+s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\beta}{\rho}s_{rad}(\epsilon) \text{. } 
 \end{equation}
-where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later.
+where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later, and $\beta$ is a constant of same unit as the density.
 Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$ becomes:
  \begin{equation}
  A = 
@@ -926,7 +926,7 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
 This is easily achieved when assuming that the functions $s_{Euler}$ and $s_{rad}$ are concave. Thus, the sign of $(b)$ is now determined. \\
 Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \mu (\partial_x u)^2$. The density $\rho$ and the viscosity coefficient $\mu$ are both positive: the latest proof for positivity of the density can be found in \cite{jlg}. Then, only the sign of $\partial_e s$ remains unknown but it can be determined by studying $(a)$. It was assumed earlier in this appendix that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. This equation is now recast and split into two equations using \eqt{eq:app_equ4}. Separation of variables yields:
  \begin{equation}
- P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = \alpha \nonumber
+ P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = \frac{\alpha}{\beta} \nonumber
  \end{equation}
  where $\alpha$ is a constant to determine. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = 0$. Then, following \cite{jlg}, definitions for $\partial_e s_{Euler}$ and $\partial_{\rho} s_{Euler}$ are obtained:
  \begin{equation}
@@ -938,16 +938,16 @@ Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \
  \end{array}
  \right.
  \end{equation} 
- where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. \\
+ where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. In addition, using the ODE $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, an expression for the radiation entropy is obtained by performing an integration which yields: $s_{rad}(\epsilon)  = \rho^{(0)} \epsilon^\frac{3}{4}$. The sign of $\rho^{(0)}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad}(\epsilon) \leq 0$, derived above, so that $\rho^{(0)}\geq0$.\\
 From the above results, the entropy minimum principle follows, so that the sign of the entropy residual is known:
 \begin{equation}
 \boxed{\partial_t s + u \partial_x s \geq 0}
 \end{equation}
  %%%%%%%%%%%%%%%
-\begin{remark}
-By assuming $\alpha=0$, an expression for the $s_{rad}$ can be derived by solving the ODE, $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, which yields:
-$s_{rad}(\epsilon) = \rho^{(0)} \epsilon^\frac{3}{4}$, where $\rho^{(0)}$ is a constant. The sign of $\rho^{(0)}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad} \leq 0$, derived above, so that $\rho^{(0)}\geq0$.
-\end{remark}
+%\begin{remark}
+%By assuming $\alpha=0$, an expression for the $s_{rad}$ can be derived by solving the ODE, $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, which yields:
+%$s_{rad}(\epsilon) = \rho^{(0)} \epsilon^\frac{3}{4}$, where $\rho^{(0)}$ is a constant. The sign of $\rho^{(0)}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad} \leq 0$, derived above, so that $\rho^{(0)}\geq0$.
+%\end{remark}
 \begin{remark}
 The viscous regularization derived in this appendix, has two viscosity coefficients: $\mu$ and $\kappa$. For the purpose of this paper, these coefficients are set equal. Under this assumption, the above viscous regularization is equivalent to the parabolic regularization of \cite{Parabolic}.
 \end{remark}
