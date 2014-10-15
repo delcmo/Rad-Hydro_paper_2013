@@ -72,6 +72,12 @@
 \newcommand{\Ls}{\textrm{L}}
 \newcommand{\Pe}{\textrm{P\'e}}
 %
+\renewcommand{\Re}{\mathbb{P}_\infty}
+\renewcommand{\Us}{\mathbb{C}_\infty}
+\renewcommand{\Pe}{\mathbb{V}_\infty}
+\renewcommand{\Ls}{\mathbb{L}_\infty}
+\newcommand{\Lsi}{\mathbb{L}_{s,\infty}}
+%
 \newcommand{\ie}{i.e.,\@\xspace}
 \newcommand{\eg}{e.g.,\@\xspace}
 \newcommand{\psc}[1]{{\sc {#1}}}
@@ -263,6 +269,8 @@ where $s_{rad}$ is concave with respect to the radiation energy density $\epsilo
 \subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\tcr{you are mixing 1D spatial derivatives and grad/div operator here.}
+
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
 %
 \begin{subequations}
@@ -292,7 +300,7 @@ To derive the scaled version of \eqt{eq:equation-visc-reg}, we consider the foll
 \label{eq:norm_param}
 \begin{array}{llll}
 \rho'   = \frac{\rho}{\rho_\infty}           , & 
-u'      = \frac{u}{u_\infty}                 , & 
+u'      = \frac{u}{c_{m,\infty}}                 , & 
 P'      = \frac{P}{\rho_\infty c^2_{m,\infty}}   , & 
 \epsilon'      = \frac{\epsilon}{a T_\infty^4 }              , \\
 E'      = \frac{E}{c^2_{m,\infty} }              , & 
@@ -300,62 +308,73 @@ E'      = \frac{E}{c^2_{m,\infty} }              , &
 \sigma_a'      = \frac{\sigma_a}{\sigma_{a,\infty} }              , & 
 T'      = \frac{T}{T_\infty }              , \\
 x' = \frac{x}{L_\infty}                      , & 
-t' = \frac{t}{L_\infty / u_\infty}           , &  
+t' = \frac{t}{L_\infty / c_{m,\infty}}       , &  
 \kappa' = \frac{\kappa}{\kappa_\infty}       ,
 \end{array}
 \end{equation}
 %
+\tcr{we need to sat something about u and cm being of the same magnitude, otherwise we need to further assume that in the asymptotics\\}
 where  the subscript $\infty$ denote the far-field or stagnation quantities and the superscript $'$ 
 stands for the non-dimensional variables. The far-field reference quantities are chosen such that the 
-dimensionless flow quantities are of order one. Using the scaled variables introduced in \eqt{eq:norm_param}, the non-dimensionalized equations are obtained:
+dimensionless quantities are of order one. Note that $\sigma_a$ will be expressed as $\sigma_t - \sigma_s$.  Using the scaled variables introduced in \eqt{eq:norm_param}, the non-dimensionalized equations are as follows:
 %
 \begin{subequations}
 \label{eq:equation-visc-reg-scaled}
 \begin{equation}
-\partial_{t'} \left( \rho' \right) + \partial_{x'}\left( \rho' u' \right) = \Pe_\infty \div \left( \kappa' \partial_{x'} \rho' \right) 
+\partial_{t'} \left( \rho' \right) + \partial_{x'}\left( \rho' u' \right) = \Pe \div \left( \kappa' \partial_{x'} \rho' \right) 
 \end{equation}
 %
 \begin{equation}
-\partial_{t'} \left( \rho' u'\right) + \partial_{x'} \left(\rho u^{2'} + P' + \frac{\epsilon'}{3} \right) = \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} (\rho' u') \right) 
+\partial_{t'} \left( \rho' u'\right) + \partial_{x'} \left(\rho u^{2'} + P' + \Re \frac{\epsilon'}{3} \right) = \Pe \partial_{x'} \left( \kappa' \partial_{x'} (\rho' u') \right) 
 \end{equation}
 %
 \begin{multline}
 \partial_{t'} \left( \rho' E'\right) + \partial_{x'} \left[ u' \left( \rho' E' + P' \right) \right] 
 = 
 -
-\frac{u'}{3} \partial_{x'} \epsilon' 
-\\ - 
-\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Ls_{s,\infty} \sigma_a' \right)  \left(T^{4'} - \epsilon' \right) 
+\Re \frac{u'}{3} \partial_{x'} \epsilon' 
+\\ 
+- 
+\Re \Us^{-1} \Ls \left( \sigma_t' - \Lsi \sigma_s' \right)  \left(T^{\prime,4} - \epsilon' \right) 
 + 
-\Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} (\rho' E')\right)  
+\Pe \partial_{x'} \left( \kappa' \partial_{x'} (\rho' E')\right)  
 \end{multline}
 %
 \begin{multline}
 \partial_{t'} \epsilon' + \frac{4}{3} \partial_{x'} \left( u' \epsilon' \right) 
 = \frac{u'}{3} \partial_{x'} \epsilon' 
 + 
-\Ls_\infty \Us^{-1}_\infty \partial_{x'} \left( \frac{1}{3 \sigma_t'} \partial_{x'} \epsilon' \right) 
+\Ls^{-1} \Us^{-1} \partial_{x'} \left( \frac{1}{3 \sigma_t'} \partial_{x'} \epsilon' \right) 
 \\ + 
-\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Ls_{s,\infty} \sigma_a' \right) \left( T^{4'} - \epsilon' \right) 
+\Us^{-1} \Ls \left( \sigma_t' - \Lsi \sigma_s' \right) \left( T^{\prime,4} - \epsilon' \right) 
 + 
-\Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} \epsilon' \right)
+\Pe \partial_{x'} \left( \kappa' \partial_{x'} \epsilon' \right)
 \end{multline}
 \end{subequations}
 %
-where: \tcr{I strongly recommend using the same as Lowrie, that is, $\mathbb{C}$ and $\mathbb{P}$ instead of $\Us$ and $\Re$}
+where:
 %
-\begin{multline}\label{eq:scaled-nb}
-\Ls_\infty = \frac{\sigma_{t,\infty}}{L_\infty} \ , 
-\Ls_{s,\infty} = \frac{\sigma_{t,\infty}}{\sigma_{a,\infty}} \ , 
-\Us = \frac{c_{m,\infty}}{c} \ , \\  
-\Re_\infty = \frac{a T^4_\infty}{\rho_\infty u^2_\infty} 
-\text{ and } \Pe_\infty = \frac{\kappa_\infty}{u_\infty L_\infty} \ .
-\end{multline}
+\tcr{you have $\Ls$ and $L_\infty$. They look a lot the same. Is this what you wanted? Furthermore, I had to change the definition of $\Ls$ because it was not unitless.}
+\begin{multline*}
+\label{eq:scaled-nb}
+\Ls = L_\infty \sigma_{t,\infty} \ , 
+\Lsi = \frac{\sigma_{s,\infty}}{\sigma_{t,\infty}} \ , \\
+\Us = \frac{c_{m,\infty}}{c} \ ,   
+\Re = \frac{a T^4_\infty}{\rho_\infty c^2_{m,\infty} } 
+\text{ and } \Pe = \frac{\kappa_\infty}{c_{m,\infty} L_\infty} \ .
+\end{multline*}
 %
-The number $\Ls_\infty$ denote the ratio of the characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is assumed to scale as $O(1)$. 
-$\Ls_{s,\infty}$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. 
-The relativistic effects are measured by the number $\Us_\infty$.
-$\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. $\Us_\infty$ and $\Re_\infty$ scale as $O(\varepsilon)$ and $O(1)$, respectively. Finally, the P\' eclet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus require stabilization terms). The scaling of the P\'eclet number can be devised from the scaled continuity equation. Let us assume that $\Pe_\infty$ scales as $\varepsilon$: in that case the leading-order continuity equation does not have any stabilization terms which may lead to the formation of spurious oscillations in shock regions. The same study will show the same inconsistency when assuming $\Pe_\infty = O(\varepsilon^{-1})$. Thus, the P\'eclet number is chosen to scale as one ($\Pe_\infty = O(1)$) to yield well-scaled dissipative terms in all of the equations. We assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
+The relativistic effects are measured by the parameter $\Us$ that represents the ratio of the material speed to the speed of light; it is scaled as  $O(\varepsilon)$.
+%
+The parameter $\Ls$ denotes the ratio of the characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path; it is assumed to scale as $O(\varepsilon^{-1})$. 
+%
+The parameter $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path \tcr{your definition had $\sigma_a$} and scales as $O(1)$.\tcr{Morel's notes have $O(\varepsilon)$ which I believe is wrong} 
+%
+$\Re$ is a measure of the ratio of the radiation energy to the material energy; it is scaled as $O(1)$. 
+%
+Finally, the P\'eclet number, $\Pe$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus require adequate stabilization). The scaling of the P\'eclet number can be inferred from the scaled continuity equation, for instance. If we assume that $\Pe$ scales as $O(\varepsilon)$, then the leading-order continuity equation does not have any stabilization terms which may lead to the formation of spurious oscillations in shock regions. The same argument shows the same effect when assuming $\Pe = O(\varepsilon^{-1})$. Thus, the P\'eclet number is chosen to scale as one ($\Pe = O(1)$) to yield well-scaled dissipative terms. 
+%
+Next, we assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
 %
 \begin{equation}\label{eq:expansion-series}
 \varphi = \sum_i \varphi_i \varepsilon^i \ ,
@@ -363,37 +382,58 @@ $\Re_\infty$ is a measure of the ratio of the material energy to the radiation e
 %
 where $\varphi$ denotes any given variable. By substituting the power series expansion for each variable in \eqt{eq:equation-visc-reg-scaled} and using the scaling of the non-dimensional numbers, the leading-, first- and second-order equations are obtained. The leading-order of \eqt{eq:equation-visc-reg-scaled} yields:
 %
-\begin{align}\label{eq:first-order}
-&\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0 \nonumber \ ,\\
-&\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P + \frac{\epsilon}{3}\right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , \\
-&\epsilon_0 = T_0 \nonumber \ .
-\end{align}
-%
-\tcr{why give only 3 equations, the GHR system has 4 equations}
-%
-The first-order material energy and radiation equations along with $T_0 = \epsilon_0$ yield: $\epsilon_1 = T_1$. The asymptotic total energy equation is obtained by taking the second-order material and radiation energy equations and summing them to cancel the second-order relaxation terms:
+\begin{subequations}
+\label{eq:first-order}
 %
 \begin{equation}
-\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x \epsilon \right)_0 + \partial_x \left( \kappa \partial_x \epsilon \right)_0 \nonumber
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0  \ ,
 \end{equation}
 %
-where $P^* = P + \Re_\infty^{-1} \frac{T^4}{3}$ and $e^* = e + \Re_\infty^{-1} \frac{T^4}{3 \rho}$ are the radiation-modified pressure and internal energy and match the definitions given in \cite{LowrieMorel}. The equilibrium-diffusion system of equations is obtained by taking the leading-order continuity and momentum equations, and the second-order total energy equation, e.g,
+\begin{equation}
+\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P + \frac{\epsilon}{3}\right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ ,
+\end{equation}
 %
-\begin{align}\label{eq:equip-diff-equ}
-&\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0 \nonumber \ ,\\
-&\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P^* \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , \\
-&\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0 \ . \nonumber
-\end{align}
+\begin{equation}\label{eq:expansion-series_energy}
+\epsilon_0 = T_0^4  \ .
+\end{equation}
+%
+\end{subequations}
+%
+%
+\eqt{eq:expansion-series_energy} states that the leading order terms for the material energy and the radiation energy are identical. One can similarly show that the first-order material energy and radiation equations also yield: $\epsilon_1 = T_1^4$. The asymptotic total energy equation is obtained by taking the second-order material and radiation energy equations and summing them to cancel the second-order relaxation terms, yielding:
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right]_0 = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x \epsilon \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0
+\end{equation}
+%
+where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the radiation-modified pressure and internal energy and match the definitions given in \cite{LowrieMorel}. The equilibrium-diffusion system of equations is obtained by taking the leading-order continuity and momentum equations, and the second-order total energy equation, e.g,
+%
+\begin{subequations}
+\label{eq:equip-diff-equ}
+%
+\begin{equation}
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right)\right)_0 \nonumber \ ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P^* \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right]_0 = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0 \ . \end{equation}
+%
+\end{subequations}
+\tcr{say that this is exactly the viscous reg one would have obtained when starting from the EDL\\}
 %
 The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ},i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. 
 
 We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived when only considering the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
 %
 \begin{equation}\label{eq:ent-scaled}
-s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re_\infty^{-1} \frac{\rho'^{(0)}}{\rho'} \epsilon^{\frac{3}{4}'}
+s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re \frac{\rho'^{(0)}}{\rho'} \epsilon^{\prime,3/4}
 \end{equation}
 %
-Remembering that $\Re_\infty = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
+Remembering that $\Re = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
 %
 \begin{equation}\label{eq:ent-scaled-2}
 s \left( \rho, e \right)_0 = s_{Euler}\left( \rho, e \right)_{0} + \frac{\rho^{(0)}}{\rho_0} T_0^3 \ .
@@ -460,7 +500,7 @@ where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at
 \kappa_\infty = \frac{\rho_\infty c^2_{m,\infty} u_\infty L_\infty}{\norm_{P,\infty}} \ .
 \end{equation}
 %
-The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'echlet number defined in \eqt{eq:scaled-nb} that was proved to scale as one in order to preserve the equilibrium-diffusion limit. Thus, using the definition of the P\'echlet number and the expression for $\kappa_\infty$, it is devised that:
+The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'eclet number defined in \eqt{eq:scaled-nb} that was proved to scale as one in order to preserve the equilibrium-diffusion limit. Thus, using the definition of the P\'echlet number and the expression for $\kappa_\infty$, it is devised that:
 %
 \begin{equation}
 \norm_{P,\infty} = \rho_\infty c^2_{m,\infty} \nonumber \ ,
@@ -545,7 +585,8 @@ H(U) =
 \begin{bmatrix}
 \kappa \partial_x \rho \\
 \kappa \partial_x (\rho u) \\
-\kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u
+\kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u \\
+\max \big( 0, \kappa- c/(3 \sigma_t) \big) \partial_x \epsilon 
 \end{bmatrix}
 \end{eqnarray*}
 
@@ -1076,18 +1117,18 @@ The viscous regularization derived in this appendix, has two viscosity coefficie
 %\partial_{t'} \left( \rho' \right) + \partial_{x'}\left( \rho' u' \right) &= \Pe_\infty \div \left( \kappa' \partial_{x'} \rho' \right) \nonumber \\
 %\partial_{t'} \left( \rho' u'\right) + \partial_{x'} \left(\rho u^{2'} + P' + \frac{\epsilon'}{3} \right) &= \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} (\rho' u') \right) \nonumber \\
 %\partial_{t'} \left( \rho' E'\right) + \partial_{x'} \left[ u' \left( \rho' E' + P' \right) \right] &= -\frac{u'}{3} \partial_{x'} \epsilon' - \nonumber \\ 
-%&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Ls_{s,\infty} \sigma_a' \right)  \left(T^{4'} - \epsilon' \right) + \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} (\rho' E')\right)  \\
+%&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Lsi \sigma_a' \right)  \left(T^{4'} - \epsilon' \right) + \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} (\rho' E')\right)  \\
 %\partial_{t'} \epsilon' + \frac{4}{3} \partial_{x'} \left( u' \epsilon' \right) &= \frac{u'}{3} \partial_{x'} \epsilon' + \Ls_\infty \Us^{-1}_\infty \partial_{x'} \left( \frac{1}{3 \sigma_t'} \partial_{x'} \epsilon' \right) + \nonumber \\
-%&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Ls_{s,\infty} \sigma_a' \right) \left( T^{4'} - \epsilon' \right) + \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} \epsilon' \right) \ ,  \nonumber 
+%&\Re_\infty \Us^{-1}_\infty \Ls_\infty \left( \sigma_t' - \Lsi \sigma_a' \right) \left( T^{4'} - \epsilon' \right) + \Pe_\infty \partial_{x'} \left( \kappa' \partial_{x'} \epsilon' \right) \ ,  \nonumber 
 %\end{align}
 %%
 %where:
 %%
 %\begin{multline}\label{eq:scaled-nb}
-%\Ls_\infty = \frac{\sigma_{t,\infty}}{L_\infty} \ , \Ls_{s,\infty} = \frac{\sigma_{t,\infty}}{\sigma_{a,\infty}} \ , \Us = \frac{c_{m,\infty}}{c} \ , \\  \Re_\infty = \frac{a T^4_\infty}{\rho_\infty u^2_\infty} \text{ and } \Pe_\infty = \frac{\kappa_\infty}{u_\infty L_\infty} \ .
+%\Ls_\infty = \frac{\sigma_{t,\infty}}{L_\infty} \ , \Lsi = \frac{\sigma_{t,\infty}}{\sigma_{a,\infty}} \ , \Us = \frac{c_{m,\infty}}{c} \ , \\  \Re_\infty = \frac{a T^4_\infty}{\rho_\infty u^2_\infty} \text{ and } \Pe_\infty = \frac{\kappa_\infty}{u_\infty L_\infty} \ .
 %\end{multline}
 %%
-%The number $\Ls_\infty$ denote the ratio of the spatial characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is scaled $O(1)$ . $\Ls_{s,\infty}$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. The relativistic effect are measured by the number $\Us_\infty$, and $\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. They scale as $O(\varepsilon)$ and $O(1)$, respectively. Lastly, the P\' echlet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus, require stabilization terms). The scaling of the P\'echlet number can be devised from the scaled continuity equation. Let us assume that $\Pe_\infty$ scales as $\varepsilon$: in that case the leading-order continuity equation does not have any stabilization terms which will yields to the formation of spurious oscillations in shock regions. The same study will show the same inconsistency when assuming $\Pe_\infty = O(\varepsilon^{-1})$. Thus, the P\'echlet number is chosen to a scale as one to yield well-scaled dissipative terms in all of the equations. We assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
+%The number $\Ls_\infty$ denote the ratio of the spatial characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path and is scaled $O(1)$ . $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(\varepsilon)$. The relativistic effect are measured by the number $\Us_\infty$, and $\Re_\infty$ is a measure of the ratio of the material energy to the radiation energy. They scale as $O(\varepsilon)$ and $O(1)$, respectively. Lastly, the P\' echlet number, $\Pe_\infty$, measures the ratio of the viscous term to the advection term and its scaling is chosen so that the equilibrium-diffusion equations are recovered with well-scaled dissipative terms (the equilibrium-diffusion equations can develop shocks and thus, require stabilization terms). The scaling of the P\'echlet number can be devised from the scaled continuity equation. Let us assume that $\Pe_\infty$ scales as $\varepsilon$: in that case the leading-order continuity equation does not have any stabilization terms which will yields to the formation of spurious oscillations in shock regions. The same study will show the same inconsistency when assuming $\Pe_\infty = O(\varepsilon^{-1})$. Thus, the P\'echlet number is chosen to a scale as one to yield well-scaled dissipative terms in all of the equations. We assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
 %%
 %\begin{equation}\label{eq:expansion-series}
 %x = \sum_i x_i \varepsilon^i \ ,
