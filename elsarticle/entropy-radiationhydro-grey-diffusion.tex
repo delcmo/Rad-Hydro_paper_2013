@@ -230,7 +230,7 @@ Because the above system is hyperbolic, we can assume the existence of an entrop
 \label{eq:equation6}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) = 0 \text{, }
 \end{equation}
-where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} \geq 0$  when the solution remains smooth). \tcr{isn't it =0 for smooth solutions?}
+where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} = 0$  when the solution remains smooth). \tcr{isn't it =0 for smooth solutions?} \tcb{Yes it is}
 
 Because the solutions of \eqt{eq:GHR_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms to each equation of \eqt{eq:GHR_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations with dissipative terms present is as follows:
 \begin{subequations}
@@ -262,33 +262,34 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 \begin{equation}
 s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\epsilon, \rho) = s(\rho, e)_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4}
 \end{equation}
+\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out.}
 \end{subequations}
-where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. $\beta$ is a constant. The functional form of $s_{rad}$ \tcr{finish} appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
+where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. $\beta$ is a constant. The functional form of $s_{rad}$ \tcr{finish} \tcb{?} appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\tcr{you are mixing 1D spatial derivatives and grad/div operator here.}
+\tcr{you are mixing 1D spatial derivatives and grad/div operator here.} \tcb{done}
 
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
 %
 \begin{subequations}
 \label{eq:equation-visc-reg}
 \begin{equation}
-\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \div \left( \kappa \grad \rho \right) 
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \partial_x \left( \kappa \partial_x \rho \right) 
 \end{equation}
 %
 \begin{equation}
-\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \div \left( \kappa \grad (\rho u) \right) 
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \partial_x \left( \kappa \partial_x (\rho u) \right) 
 \end{equation}
 %
 \begin{equation}
-\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) + \div \left( \kappa \grad (\rho E)\right)
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) + \partial_x \left( \kappa \partial_x (\rho E)\right)
 \end{equation}
 %
 \begin{equation}
-\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right) + \div \left( \kappa \grad \epsilon \right)
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right)
 \end{equation}
 \end{subequations}
 %
@@ -314,6 +315,7 @@ t' = \frac{t}{L_\infty / c_{m,\infty}}       , &
 \end{equation}
 %
 \tcr{we need to sat something about u and cm being of the same magnitude, otherwise we need to further assume that in the asymptotics\\}
+\tcb{u and $c_m$ must scale the same otherwise you do not recover the equilibrium-diffusion limit. If you use the same scaling as for Euler equations, the Mach number appears in the equations and you need to assume $M_\infty = 1$ to recover the correct asymptotic limit. Also, in the papers I read, I have never seen anything about the Mach number. I talked to Dr Morel about it and he did not bring any further justification for this choice. Also, we are looking at steady-state shock which requires a Mach number of order one in the shock.}
 where  the subscript $\infty$ denote the far-field or stagnation quantities and the superscript $'$ 
 stands for the non-dimensional variables. The far-field reference quantities are chosen such that the 
 dimensionless quantities are of order one. Note that $\sigma_a$ will be expressed as $\sigma_t - \sigma_s$.  Using the scaled variables introduced in \eqt{eq:norm_param}, the non-dimensionalized equations are as follows:
@@ -321,7 +323,7 @@ dimensionless quantities are of order one. Note that $\sigma_a$ will be expresse
 \begin{subequations}
 \label{eq:equation-visc-reg-scaled}
 \begin{equation}
-\partial_{t'} \left( \rho' \right) + \partial_{x'}\left( \rho' u' \right) = \Pe \div \left( \kappa' \partial_{x'} \rho' \right) 
+\partial_{t'} \left( \rho' \right) + \partial_{x'}\left( \rho' u' \right) = \Pe \partial_x \left( \kappa' \partial_{x'} \rho' \right) 
 \end{equation}
 %
 \begin{equation}
@@ -354,7 +356,7 @@ dimensionless quantities are of order one. Note that $\sigma_a$ will be expresse
 %
 where:
 %
-\tcr{you have $\Ls$ and $L_\infty$. They look a lot the same. Is this what you wanted? Furthermore, I had to change the definition of $\Ls$ because it was not unitless.}
+\tcr{you have $\Ls$ and $L_\infty$. They look a lot the same. Is this what you wanted? Furthermore, I had to change the definition of $\Ls$ because it was not unitless.} \tcb{This notation is better. But why do not you keep $Pe_\infty$ for P\'echlet?}
 \begin{multline*}
 \label{eq:scaled-nb}
 \Ls = L_\infty \sigma_{t,\infty} \ , 
@@ -368,7 +370,7 @@ The relativistic effects are measured by the parameter $\Us$ that represents the
 %
 The parameter $\Ls$ denotes the ratio of the characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path; it is assumed to scale as $O(\varepsilon^{-1})$. 
 %
-The parameter $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path \tcr{your definition had $\sigma_a$} and scales as $O(1)$.\tcr{Morel's notes have $O(\varepsilon)$ which I believe is wrong} 
+The parameter $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path \tcr{your definition had $\sigma_a$} \tcb{you are right}and scales as $O(1)$.\tcr{Morel's notes have $O(\varepsilon)$ which I believe is wrong} \tcb{ you need to have $O(\varepsilon)$ to recover $T_0^4 = \epsilon_0$ and $T_1^4 = \epsilon_1$}
 %
 $\Re$ is a measure of the ratio of the radiation energy to the material energy; it is scaled as $O(1)$. 
 %
@@ -386,7 +388,7 @@ where $\varphi$ denotes any given variable. By substituting the power series exp
 \label{eq:first-order}
 %
 \begin{equation}
-\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho \right)\right)_0  \ ,
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x  \rho \right)_0  \ ,
 \end{equation}
 %
 \begin{equation}
@@ -412,7 +414,7 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 \label{eq:equip-diff-equ}
 %
 \begin{equation}
-\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho \right)\right)_0 \nonumber \ ,
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x  \rho \right)_0 \nonumber \ ,
 \end{equation}
 %
 \begin{equation}
@@ -423,9 +425,9 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 \partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right]_0 = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0 \ . \end{equation}
 %
 \end{subequations}
-\tcr{say that this is exactly the viscous reg one would have obtained when starting from the EDL\\}
+\tcr{say that this is exactly the viscous reg one would have obtained when starting from the EDL\\} \tcb{added something at the end of the paragraph below}
 %
-The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ},i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. 
+The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ},i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
 
 We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived when only considering the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
 %
