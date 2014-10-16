@@ -262,7 +262,7 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 \begin{equation}
 s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\epsilon, \rho) = s(\rho, e)_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4}
 \end{equation}
-\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out.}
+%\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
 where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. $\beta$ is a constant. The functional form of $s_{rad}$ \tcr{finish} \tcb{?} appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
 
@@ -432,22 +432,22 @@ The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilib
 We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived when only considering the hyperbolic terms of the $1$-D grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{\rho_\infty c_{m,\infty}^2}{T_\infty}$ which yields:
 %
 \begin{equation}\label{eq:ent-scaled}
-s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re \frac{\rho'^{(0)}}{\rho'} \epsilon^{\prime,3/4}
+s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re\frac{\beta'}{\rho'} \epsilon^{\prime,3/4}
 \end{equation}
 %
-Remembering that $\Re = O(1)$ and that $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
+Note that $\beta$ has the same unit as $s_0 / \epsilon^\frac{3}{4}$ \app{app:appendixA}. Remembering that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
 %
 \begin{equation}\label{eq:ent-scaled-2}
-s \left( \rho, e \right)_0 = s_{Euler}\left( \rho, e \right)_{0} + \frac{\rho^{(0)}}{\rho_0} T_0^3 \ .
+s \left( \rho, e \right)_0 = s_{Euler}\left( \rho, e \right)_{0} + \frac{\beta'}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-\eqt{eq:ent-scaled-2} is to compare against the entropy, $s^*$, obtained when considering the frozen in limit of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the frozen in limit of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
 \end{equation}
 %
-The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\rho^{(0)}$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\rho^{(0)}$ is set to $\frac{4}{3}a^\frac{1}{4}$ which yields the following \emph{dimensionalized} entropy:
+The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\beta'$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\beta'$ is set to $\frac{4}{3}$ which yields the following \emph{dimensionalized} entropy:
 %
 \begin{equation}\label{eq:entropy}
 s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
@@ -1019,9 +1019,9 @@ The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simpl
  where $A_k$ is the $k^{th}$ order leading principle minor. Determining the sign of the last inequality that corresponds to the determinant of the $3$ by $3$ matrix $A$ can be difficult and needs to be simplified. Zeroing out the off-diagonal entries of the last row or column would simplify the expression for the determinant of $A$. This can be achieved by assuming $\partial_{\rho}(\rho \partial_{\epsilon} s)$ and $\partial_{e, \epsilon} s$ are zero, which requires the following form for the entropy function:
 \begin{equation}
 \label{eq:app_equ4}
-s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\beta}{\rho}s_{rad}(\epsilon) \text{. } 
+s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho^{(0)}}{\rho}s_{rad}(\epsilon) \text{. } 
 \end{equation}
-where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later, and $\beta$ is a constant of same unit as the density.
+where $s_{Euler}$ and $s_{rad}$ are two functions whose properties will be provided later, and $\rho^{(0)}$ is a constant of same unit as the density and assumed positive to ensure positivity of $s(\rho,e,\epsilon)$.
 Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$ becomes:
  \begin{equation}
  A = 
@@ -1029,7 +1029,7 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
  \begin{array}{ccc}
 \partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) & \partial_{\rho,e} s_{Euler} & 0 \\
  \partial_{\rho,e} s_{Euler} & \partial_{e,e} s_{Euler} & 0 \\
- 0 & 0 & \rho^{-1} \partial_{\epsilon,\epsilon} s_{rad}
+ 0 & 0 & \frac{\rho^{(0)}}{\rho} \partial_{\epsilon,\epsilon} s_{rad}
  \end{array}
  \right] \nonumber
  \end{equation}
@@ -1040,14 +1040,14 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
  \begin{array}{lll}
  A_1 = \partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) \leq 0 \\
  A_2 = \partial_{\rho} \left( \rho^2 \partial_{\rho} s_{Euler} \right) \partial_{e,e} s_{Euler} - \left( \partial_{\rho,e} s_{Euler} \right)^2 \geq 0\\
- A_3 =  \rho^{-1} \partial_{\epsilon,\epsilon} s_{rad} A_2 \leq 0
+ A_3 =  \frac{\rho^{(0)}}{\rho} \partial_{\epsilon,\epsilon} s_{rad} A_2 \leq 0
  \end{array}
  \right.
  \end{equation} 
-This is easily achieved when assuming that the functions $s_{Euler}$ and $s_{rad}$ are concave. Thus, the sign of $(b)$ is now determined. \\
+This is easily achieved when assuming that the entropy $s_{Euler}$ is concave with respect to $e$ and $1/ \rho$, and $s_{rad}$ is concave with respect to $\epsilon$. Thus, the sign of $(b)$ is now determined. \\
 Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \mu (\partial_x u)^2$. The density $\rho$ and the viscosity coefficient $\mu$ are both positive: the latest proof for positivity of the density can be found in \cite{jlg}. Then, only the sign of $\partial_e s$ remains unknown but it can be determined by studying $(a)$. It was assumed earlier in this appendix that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. This equation is now recast and split into two equations using \eqt{eq:app_equ4}. Separation of variables yields:
  \begin{equation}
- P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = \frac{\alpha}{\beta} \nonumber
+ P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = \frac{\alpha}{\rho^{(0)}} \nonumber
  \end{equation}
  where $\alpha$ is a constant to determine. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = 0$. Then, following \cite{jlg}, definitions for $\partial_e s_{Euler}$ and $\partial_{\rho} s_{Euler}$ are obtained:
  \begin{equation}
@@ -1059,11 +1059,12 @@ Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \
  \end{array}
  \right.
  \end{equation} 
- where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. In addition, using the ODE $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, an expression for the radiation entropy is obtained by performing an integration which yields: $s_{rad}(\epsilon)  = \rho^{(0)} \epsilon^\frac{3}{4}$. The sign of $\rho^{(0)}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad}(\epsilon) \leq 0$, derived above, so that $\rho^{(0)}\geq0$.\\
+ where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. In addition, using the ODE $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, an expression for the radiation entropy is obtained by performing an integration which yields: $s_{rad}(\epsilon)  = s_{rad}^{(0)} \left(\frac{\epsilon}{\epsilon^{(0)}}\right)^\frac{3}{4}$. The sign of $\beta = s_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad}(\epsilon) \leq 0$, derived above, so that $\beta = s_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}\geq0$.\\
 From the above results, the entropy minimum principle follows, so that the sign of the entropy residual is known:
 \begin{equation}
-\boxed{\partial_t s + u \partial_x s \geq 0}
+\boxed{\partial_t s + u \partial_x s \geq 0} \ ,
 \end{equation}
+where $s\left( e, \rho, \epsilon \right) = s_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4}$ and $\rho^{(0)}$ is set to one.
  %%%%%%%%%%%%%%%
 %\begin{remark}
 %By assuming $\alpha=0$, an expression for the $s_{rad}$ can be derived by solving the ODE, $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, which yields:
