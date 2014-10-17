@@ -230,7 +230,7 @@ Because the above system is hyperbolic, we can assume the existence of an entrop
 \label{eq:equation6}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) = 0 \text{, }
 \end{equation}
-where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} = 0$  when the solution remains smooth). \tcr{isn't it =0 for smooth solutions?} \tcb{Yes it is}
+where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} = 0$  for smooth solutions). 
 
 Because the solutions of \eqt{eq:GHR_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms to each equation of \eqt{eq:GHR_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations with dissipative terms present is as follows:
 \begin{subequations}
@@ -269,8 +269,6 @@ where $s_{rad}$ is concave with respect to the radiation energy density $\epsilo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\tcr{you are mixing 1D spatial derivatives and grad/div operator here.} \tcb{done}
 
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
 %
@@ -356,7 +354,6 @@ dimensionless quantities are of order one. Note that $\sigma_a$ will be expresse
 %
 where:
 %
-\tcr{you have $\Ls$ and $L_\infty$. They look a lot the same. Is this what you wanted? Furthermore, I had to change the definition of $\Ls$ because it was not unitless.} \tcb{This notation is better. But why do not you keep $Pe_\infty$ for P\'echlet?}
 \begin{multline*}
 \label{eq:scaled-nb}
 \Ls = L_\infty \sigma_{t,\infty} \ , 
@@ -370,7 +367,7 @@ The relativistic effects are measured by the parameter $\Us$ that represents the
 %
 The parameter $\Ls$ denotes the ratio of the characteristic spatial scale length of the radiation-hydrodynamic solution to the radiation mean-free-path; it is assumed to scale as $O(\varepsilon^{-1})$. 
 %
-The parameter $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path \tcr{your definition had $\sigma_a$} \tcb{you are right}and scales as $O(1)$.\tcr{Morel's notes have $O(\varepsilon)$ which I believe is wrong} \tcb{ you need to have $O(\varepsilon)$ to recover $T_0^4 = \epsilon_0$ and $T_1^4 = \epsilon_1$}
+The parameter $\Lsi$ represents the ratio of the total mean-free-path to the scattering mean-free-path and scales as $O(1)$. \tcr{Morel's notes have $O(\varepsilon)$ which I believe is wrong} \tcb{ you need to have $O(\varepsilon)$ to recover $T_0^4 = \epsilon_0$ and $T_1^4 = \epsilon_1$} \tcr{one of us will have to redo the derivation. I obtained the asymptotic eqs with $\Lsi$ being $O(1)$}.
 %
 $\Re$ is a measure of the ratio of the radiation energy to the material energy; it is scaled as $O(1)$. 
 %
@@ -435,13 +432,14 @@ We also investigate how the asymptotic limit affects the entropy function $s(\rh
 s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re\frac{\beta'}{\rho'} \epsilon^{\prime,3/4}
 \end{equation}
 %
-Note that $\beta$ has the same unit as $s_0 / \epsilon^\frac{3}{4}$ \app{app:appendixA}. Remembering that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscript are omitted again for brevity):
+Note that $\beta$ has the same unit as $s_0 / \epsilon^\frac{3}{4}$ \app{app:appendixA}. Remembering that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscripts are omitted for brevity):
+\tcr{the $_0$ seem mis-placed}
 %
 \begin{equation}\label{eq:ent-scaled-2}
 s \left( \rho, e \right)_0 = s_{Euler}\left( \rho, e \right)_{0} + \frac{\beta'}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the frozen in limit of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the \tcr{frozen in limit} of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
@@ -450,10 +448,10 @@ s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
 The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\beta'$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\beta'$ is set to $\frac{4}{3}$ which yields the following \emph{dimensionalized} entropy:
 %
 \begin{equation}\label{eq:entropy}
-s \left( \rho, e, \epsilon \right) = s\left( \rho, e \right)_{Euler} + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
+s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
-\eqt{eq:entropy} can be used to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations. Using the definition of the radiation entropy, $s_{rad}$, it can be shown that:
+\eqt{eq:entropy} can be used to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations. Using the definition of the radiation entropy, $s_{rad}$ \tcr{where is this actually defined?} , it can be shown that:
 %
 \begin{equation}\label{eq:sp-sd-rad}
 c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
