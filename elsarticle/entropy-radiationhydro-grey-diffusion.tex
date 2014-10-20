@@ -259,13 +259,24 @@ where $\kappa$ is a positive locally defined viscosity coefficient. The followin
 P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 
 \end{equation}
 %
-\begin{equation}
+\begin{equation}\label{eq:ent_4_equ}
 s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\epsilon, \rho) = s(\rho, e)_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
-where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. $\beta$ is a constant. The functional form of $s_{rad}$ \tcr{finish} \tcb{?} appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
-
+where $s_{rad}$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. $\beta$ is a constant. The entropy $s_{Euler}$ stands for the entropy function that is obtained from the Euler equations, and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$. The functional form of $s_{rad} = \beta \rho^{-1} \epsilon^\frac{3}{4}$ \tcr{finish} \tcb{?} appears for dimensionality purposes and will be derived further in \sect{sect:equ-diff} when performing an asymptotic study to derive the equilibrium-diffusion equations. 
+The entropy $s(\rho,e,\epsilon)$ can also be defined through a relation analogue to the second-thermodynamic law. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_4_equ}, a modified entropy relation is obtained:
+%
+\begin{equation}\label{eq:ent_relation}
+Tds = d\hat{e} + \left[ d\hat{P} + \epsilon \left( \frac{T \beta}{\epsilon^\frac{1}{4}} -\frac{4}{3} \right) \right] d \rho^{-1} + \rho^{-1}\left( \frac{3 T \beta}{4 \epsilon^\frac{1}{4}} -1 \right) d \epsilon
+\end{equation}
+%
+where $\hat{e}$ and $\hat{P}$ are the radiation-modified internal energy and pressure, respectively, and are defined as follows:
+%
+\begin{equation}\label{eq:rad_mod_var}
+\hat{e} = e + \frac{\epsilon}{\rho} \ \text{and} \ \hat{P} = P + \frac{\epsilon}{3}
+\end{equation}
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -433,13 +444,13 @@ s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \R
 \end{equation}
 %
 Note that $\beta$ has the same unit as $s_0 / \epsilon^\frac{3}{4}$ \app{app:appendixA}. Remembering that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy yields (the superscripts are omitted for brevity):
-\tcr{the $_0$ seem mis-placed}
+\tcr{the $_0$ seem mis-placed} \tcb{ done}
 %
 \begin{equation}\label{eq:ent-scaled-2}
-s \left( \rho, e \right)_0 = s_{Euler}\left( \rho, e \right)_{0} + \frac{\beta'}{\rho_0} T_0^3 \ .
+s_0 \left( \rho, e \right) = s_{Euler,0}\left( \rho, e \right) + \frac{\beta'}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the \tcr{frozen in limit} of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the \tcr{frozen in limit} \tcb{ok} of the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
@@ -448,10 +459,10 @@ s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
 The difference between the two entropy expressions given in \eqt{eq:ent-reos} and \eqt{eq:ent-scaled-2} lies in the parameter $\beta'$ that is remained to determine. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\beta'$ is set to $\frac{4}{3}$ which yields the following \emph{dimensionalized} entropy:
 %
 \begin{equation}\label{eq:entropy}
-s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
+s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + s_{rad}(\rho,\epsilon)= s_{Euler}\left( \rho, e \right) + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
-\eqt{eq:entropy} can be used to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations. Using the definition of the radiation entropy, $s_{rad}$ \tcr{where is this actually defined?} , it can be shown that:
+The constant $\beta$ is now fully determined and can be used for two purposes: (i) recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations, and (ii) get a final expression for the entropy relation given in \eqt{eq:ent_relation}. We start with (i), and using the definition of the radiation entropy, $s_{rad} $ \tcr{where is this actually defined?} \tcb{after equation 8b} , it can be shown that:
 %
 \begin{equation}\label{eq:sp-sd-rad}
 c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
@@ -463,6 +474,20 @@ where $P_{rad} = \frac{\epsilon}{3}$ is a radiation pressure. Using \eqt{eq:sp-s
 c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}}
 \end{equation} 
 \tcb{have to add something about $c_m$ being the upper bound of the sound speed definition introduced in \cite{LowrieMorel}}
+We now give the final expression for the entropy relation by substituting the definition of the constant $\beta = \frac{3a^\frac{1}{4}}{4}$ derived through the asymptotic limit in \eqt{eq:ent_relation} to yield:
+%
+\begin{equation}\label{eq:ent_relation2}
+Tds = d\hat{e} + \left[ d\hat{P} + \frac{4}{3}\epsilon \mathbb{D} \right] d \rho^{-1} + \rho^{-1}\mathbb{D} \ d \epsilon
+\end{equation}
+%
+where $\mathbb{D} = \left(\frac{aT^4}{\epsilon}\right)^\frac{1}{4}-1$ is an adimensional number that measures how close the non-equilibrium radiation-hydrodynamic equations is to the equilibrium-diffusion limit. Owing \eqt{eq:expansion-series_energy}, we infer that $\mathbb{D} \to 0$ in the equilibrium-diffusion limit, which allows us to recover the entropy relation valid in the frozen in limit and given in \cite{LowrieMorel}:
+%
+\begin{equation}
+Tds^* = de^* + P^*d \rho^{-1} \ .
+\end{equation}
+%
+Note that $e^* = \hat{e}$ and $P^* = \hat{P}$ in the equilibrium-diffusion limit.
+ 
 In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the $1$-D grey non-equilibrium radiation-hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives by introducing the radiative pressure $P_{rad}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -912,7 +937,7 @@ At Mach $50$, there is no embedded hydrodynamic shock forming as shown in \fig{f
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the 1-D radiation-hydrodynamic equations. A theoretical derivation is given for the derivation of the dissipative terms that are consistent with the entropy minimum principle. The viscosity coefficient $\kappa$ is defined proportional to the entropy residual that measures the local entropy production allowing detection of shocks. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. 
+In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the 1-D non-equilibrium radiation-hydrodynamic equations. A theoretical derivation is given for the derivation of a viscous regularization that is consistent with the entropy minimum principle and valid for all equation of states with a concave entropy function. An asymptotic study showed that the viscous regularization conserves the equilibrium-diffusion limit and allows to recover the results initially obtained with the radiation-modified equation of state (REOS) \cite{LowrieMorel}. The viscosity coefficient $\kappa$ is defined proportional to the entropy residual that measures the local entropy production allowing detection of shocks. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. 
 
 The entropy-based numerical scheme also behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich spike are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock region only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient that is computed on the fly. The addition of dissipative terms to the set of equations requires more computational work but is rather simple to implement.
 
