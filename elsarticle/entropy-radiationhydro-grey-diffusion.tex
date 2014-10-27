@@ -511,7 +511,7 @@ where $h$ is the local grid size. This definition is derived based on the upwind
 The definition of the second order viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:equation6}) recast as a function of pressure $P$, density $\rho$ and radiation energy density $\epsilon$:
 \begin{equation}
 \label{eq:equation9}
-\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_{Euler}^2 \frac{d\rho}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
+\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{d\hat{P}}{dt} - c_m^2 \frac{d\rho}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
 \end{equation}
 The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) and $P_e$ is computed from the IGEOS. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:equation6} which required an analytical expression for the entropy function. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. The objective is to be able to also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), in order to stabilize them as well. \\
 Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
