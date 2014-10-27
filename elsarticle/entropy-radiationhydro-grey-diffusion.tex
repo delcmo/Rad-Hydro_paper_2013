@@ -113,7 +113,7 @@
 %-------------------------
 \begin{abstract}
 The entropy viscosity method is extended to the grey non-equilibrium radiation-hydrodynamic equations. 
-The method employs a viscous regularization to stabilize the numerical scheme with an artificial viscosity coefficient modulated by the entropy production which is known to be peaked in shock regions. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the radiation-hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks.
+The method employs a viscous regularization to stabilize the numerical solution with an artificial viscosity coefficient modulated by the entropy production which is known to be peaked in shock regions. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the radiation-hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method (CGFEM) and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions (MMS) is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks.
 \end{abstract}
 %
 \begin{keyword}
@@ -131,7 +131,7 @@ radiation-hydrodynamics \sep shock-capturing scheme \sep entropy viscosity metho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Solving the radiation hydrodynamic equations is a difficult task for multiple reasons. First, the characteristic time scales between the radiation and hydrodynamics are different by several orders of magnitude which often requires the radiation part to be solved implicitly to ensure stability. Second, as with any wave-dominated problems, high resolution schemes are needed to accurately resolve shocks. Third, achieving high-order accuracy in time and space is challenging but some recent works provide high-order accuracy results when solving either the Euler equations \cite{Hussaini, jlg1, jlg2, Leveque} or the radiation equation \cite{nse_ragusa_wang,jcp_ragusa_wang}. 
+Solving the radiation hydrodynamic equations is a difficult task for multiple reasons. First, the characteristic time scales between the radiation and hydrodynamics are different by several orders of magnitude which often requires the radiation part to be solved implicitly to ensure stability. Second, as with any wave-dominated problems, high resolution schemes are needed to accurately resolve shocks. Third, high-order accuracy in time and space is challenging to achieve but some recent works provide examples of such results when solving either the Euler equations \cite{Hussaini, jlg1, jlg2, Leveque} or the radiation equation \cite{nse_ragusa_wang,jcp_ragusa_wang}. 
 
 Substantial research efforts have focused on Riemann solvers for both the radiation and hydrodynamic equations. Balsara \cite{Balsara} developed a Riemann solver for the radiation-hydrodynamic equations by considering the frozen approximation that decouples the two physics components. However, such an approach may be questionable in the equilibrium diffusion limit. In this case, the coupling terms drive the physics and have to be accounted for. A \emph{generalized Riemann solver} that accounts exactly for the relaxation terms was developed in \cite{Balsara}. Another approach assumes the strong equilibrium diffusion limit in which radiation diffusion is negligible and the radiation simply advects at the material velocity \cite{Woodward}. In this limit, the radiation hydrodynamics equation can be expressed in the form of the Euler equations with a radiation-modified equation of state (REOS). Any solution technique for the Euler equations may be applied to these equations. Thus, one may develop approximate Riemann solvers for these equations and applied them in a more general context. 
 
@@ -167,7 +167,7 @@ The 1-D grey non-equilibrium radiation-hydrodynamic equations are recalled in \e
 where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or density- and temperature-dependent. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
 The material temperature and pressure are computed with the ideal gas equation of state (IGEOS):
 \begin{equation}
-\label{eq:equation2}
+\label{eq:IGEOS}
 \left\{
 \begin{array}{ll}
 P = (\gamma-1) C_v \rho T \\
@@ -216,25 +216,28 @@ We recall that the entropy viscosity method was developed for hyperbolic system 
 %
 The eigenvalues of system (\eqref{GHR_hyperbolic}) are: 
 \begin{equation}
-\label{eq:equation4}
+\label{eq:eigenvalues_hyperbolicGRH}
 \lambda_1 = u-c_m \text{, } \lambda_{2,3} = u \text{ and } \lambda_4 = u+c_m ,
 \end{equation}
+%
 where $c_m$ is the radiation-modified material speed of sound and is defined as follows:
+%
 \begin{equation}
-\label{eq:equation5}
+\label{eq:soundspeed}
 c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \ .
 \end{equation}
-$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only the Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:equation4} are unconditionally real.
+%
+$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only the Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real.
 Because the above system is hyperbolic, we can assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables). Following some algebra given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
-\label{eq:equation6}
+\label{eq:entropy_equation}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) = 0 \text{, }
 \end{equation}
-where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:equation6} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} = 0$  for smooth solutions). 
+where $\frac{D \cdot}{Dt}$ denotes the total or material derivative. \eqt{eq:entropy_equation} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy} ($\frac{Ds}{Dt} = 0$  for smooth solutions). 
 
-Because the solutions of \eqt{eq:GHR_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms to each equation of \eqt{eq:GHR_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:equation6}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations with dissipative terms present is as follows:
+Because the solutions of \eqt{eq:GHR_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms to each equation of \eqt{eq:GHR_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:entropy_equation}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations with dissipative terms present is as follows:
 \begin{subequations}
-\label{eq:equation7}
+\label{eq:regularized_hyperbolic_GRH}
 \begin{equation}
 \partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \partial_x \left( \kappa \partial_x \rho \right) 
 \end{equation}
@@ -462,7 +465,7 @@ The difference between the two entropy expressions given in \eqt{eq:ent-reos} an
 s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + s_{rad}(\rho,\epsilon)= s_{Euler}\left( \rho, e \right) + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
-The constant $\beta$ is now fully determined and can be used for two purposes: (i) recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:equation5} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations, and (ii) get a final expression for the entropy relation given in \eqt{eq:ent_relation}. We start with (i), and using the definition of the radiation entropy, $s_{rad} $ \tcr{where is this actually defined?} \tcb{after equation 8b} , it can be shown that:
+The constant $\beta$ is now fully determined and can be used for two purposes: (i) recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:soundspeed} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations, and (ii) get a final expression for the entropy relation given in \eqt{eq:ent_relation}. We start with (i), and using the definition of the radiation entropy, $s_{rad} $ \tcr{where is this actually defined?} \tcb{after equation 8b} , it can be shown that:
 %
 \begin{equation}\label{eq:sp-sd-rad}
 c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
@@ -471,9 +474,20 @@ c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial 
 where $P_{rad} = \frac{\epsilon}{3}$ is a radiation pressure. Using \eqt{eq:sp-sd-rad}, the speed of sound $c_m^2$ can be rewritten as follows:
 %
 \begin{equation}
-c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}}
+c_m^2 = c_{Euler}^2 + c_{rad}^2 = \left. \frac{\partial P}{\partial \rho} \right|_{s_{Euler}} + \left. \frac{\partial P_{rad}}{\partial \rho} \right|_{s_{rad}} \,.
 \end{equation} 
-\tcb{have to add something about $c_m$ being the upper bound of the sound speed definition introduced in \cite{LowrieMorel}}
+In \cite{LowrieMorel}, Lowrie and Morel show that the radiation-modified soundspeed in the EDL can be written as
+\begin{subequations}
+\begin{equation}
+c_m^2 = c_{Euler}^2 + \frac{4}{3}\frac{\mathbb{P} T^4}{\rho}\frac{\Gamma(2-3\Gamma) + \frac{4\mathbb{P} T^4 g}{3P}}{1+\frac{4\mathbb{P} T^4 g}{P}}
+\end{equation}
+which is maximum for $Gamma=1/3$, in which case Lowrie and Morel's expression becomes
+\begin{equation}
+c_m^2 = c_{Euler}^2  + \frac{4}{9} \frac{\mathbb{P}T^4}{\rho} \,,
+\end{equation}
+from which we conclude that their soundspeed is less or equal to our expression \eqt{eq:soundspeed} (it is equal in the EDL).
+\end{subequations}
+
 We now give the final expression for the entropy relation by substituting the definition of the constant $\beta = \frac{3a^\frac{1}{4}}{4}$ derived through the asymptotic limit in \eqt{eq:ent_relation} to yield:
 %
 \begin{equation}\label{eq:ent_relation2}
@@ -508,12 +522,12 @@ Next, we define the local first- and second-order viscosity coefficients $\kappa
 where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient.
 
 \noindent 
-The definition of the second order viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:equation6}) recast as a function of pressure $P$, density $\rho$ and radiation energy density $\epsilon$:
+The definition of the second order viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) recast as a function of pressure $P$, density $\rho$ and radiation energy density $\epsilon$:
 \begin{equation}
 \label{eq:equation9}
 \tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{dP}{dt} - c_{Euler}^2 \frac{d\rho}{dt} \right)}_\textrm{$\hat{D}_e(x,t)$}
 \end{equation}
-The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) and $P_e$ is computed from the IGEOS. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:equation6} which required an analytical expression for the entropy function. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. The objective is to be able to also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), in order to stabilize them as well. \\
+The term $s_e$ is the inverse of the material temperature (\app{app:appendixA}) and $P_e$ is computed from the IGEOS. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:entropy_equation} which required an analytical expression for the entropy function. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. The objective is to be able to also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), in order to stabilize them as well. \\
 Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
 \begin{equation}
 \label{eq:equation12}
@@ -957,7 +971,7 @@ The authors would like to acknowledge Jim Ferguson for providing the semi-analyt
 \label{app:appendixA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:equation7} is given. This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the multi-D Euler equations by using the entropy minimum principle.\\
+In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given. This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the multi-D Euler equations by using the entropy minimum principle.\\
 We start with the hyperbolic system given in \eqt{eq:equation3} and add dissipative terms to each equation as follows:
 \begin{equation}
 \label{eq:app_equ1bis}
