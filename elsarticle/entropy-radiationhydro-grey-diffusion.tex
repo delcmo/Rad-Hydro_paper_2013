@@ -24,7 +24,7 @@
 \usepackage{float}
 \usepackage{graphicx}
 \usepackage{caption}
-%\usepackage{subcaption}
+\usepackage{subcaption}
 \usepackage[titletoc,toc]{appendix}
 \usepackage{xspace}
 %\usepackage{color}
@@ -786,6 +786,35 @@ The computational domain is of size $L=0.08$ $cm$ and the initial step is at $x_
 \end{figure}
 The energy transfer between the material and radiation fields is not large enough to form a shock in the material. Thus, all of the material variables are smooth (\fig{fig:Mach105_temp} and \fig{fig:Mach105_density}) as well as the radiation temperature $\theta$. Because of the smoothness of the solution, the viscosity coefficient $\kappa$ is three order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$ (\fig{fig:Mach105_viscosity}).
 
+We also investigate the frozen in limit where the diffusion coefficient $D = \frac{c}{3\sigma_t}$ artificially goes to zero by setting the total cross section to a very large value ($\sigma_t = 10^8 cm^{-1}$). The objective is to investigate whether the viscous regularization can efficiently stabilize the radiation equation when the diffusion term vanishes. The initial conditions and parameters are unchanged but for the total cross section that is set to $10^8 cm^{-1}$. The simulation is run with three different meshes, $50$, $100$ and $200$ cells, and the temperature, velocity, density, and, viscosity and diffusion coefficients profiles are plotted in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_visc}.
+%
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_velocity.png}
+        \caption{Material velocity profile.}
+        \label{fig:Mach_1p05_frozen_density}
+\end{figure}%
+\begin{figure}[H]
+            \centering
+            \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_density.png}
+            \caption{Material density profile.}
+            \label{fig:Mach_1p05_frozen_velocity}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_temperatures.png}
+        \caption{Material temperature profile.}
+        \label{fig:Mach_1p05_frozen_temp}
+\end{figure}        
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_viscosity_coeffs.png}
+        \caption{Numerical viscosity and diffusion coefficients profiles for a mesh with $100$ cells.}
+        \label{fig:Mach_1p05_frozen_visc}
+\end{figure}
+%\caption{Solution profiles at steady-state for Mach 1.05 test in the frozen in limit.}\label{fig:1d_frozen_in}
+%
+The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any oscillation in the shock region, and as the mesh is refined, the shock becomes stiffer. In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked and dominates the diffusion coefficient in the shock region: the viscous regularization efficiently stabilizes the radiation profile.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A $1.2$ Mach hydrodynamic shock}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
