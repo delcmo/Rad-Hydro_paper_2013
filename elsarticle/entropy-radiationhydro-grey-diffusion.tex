@@ -94,7 +94,7 @@
 %
 \begin{frontmatter}
 %
-\title{Numerical solution of the 1-D grey non-equilibrium radiation hydrodynamics equations with an entropy-based artificial viscosity technique}
+\title{Numerical solution of the 1-D Grey non-equilibrium Radiation-Hydrodynamics equations with an entropy-based artificial viscosity technique}
 %-------------------------
 %-------------------------
 \author{Marc O. Delchini\fnref{label1}}
@@ -179,7 +179,8 @@ e = C_v T
 where  $e = E - 0.5 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
 
 %The objective of this paper is to extend the entropy-based viscosity method to the Grey non-equilibrium Radiation-Hydrodynamic equations. 
-The approach followed in this paper is similar to those of \cite{Balsara, LowrieMorel}: the relaxation and diffusion terms in the radiation and material energy equations are ignored in order to make \eqt{eq:GRH} hyperbolic. Then, an entropy equation is derived and used to obtain the functional forms of the viscous stabilization terms. Definitions for the viscosity coefficients are provided. 
+The approach followed in this paper is similar to those of \cite{Balsara, LowrieMorel}: the relaxation and diffusion terms in the radiation and material energy equations are omitted in order to make \eqt{eq:GRH} hyperbolic \tcb{I do not understand what is wrong with that}. 
+%Then, an entropy equation is derived and used to obtain the functional forms of the viscous stabilization terms. Definitions for the viscosity coefficients are provided. 
 
 This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy viscosity method is extended to the grey non-equilibrium radiation-hydrodynamic equations;  details regarding the derivation of the adequate dissipative terms and definitions for the new viscosity coefficients are provided. Spatial and temporal discretization schemes are discussed in \sect{sec:num-scheme} along with the solution algorithm employed to solve the discretized equations. Numerical results are presented in \sect{sec:num-res} where the second-order accuracy of the scheme is demonstrated in both the equilibrium diffusion and streaming limits, using the method of manufactured solutions applied to the GRH equations. Then, several numerical test cases, taken from the published literature, are provided; in these simulations, the Mach number varies from $1.05$ to $50$ \cite{LowrieEdwards}. Conclusions are presented in \sect{sec:ccl}.
 
@@ -190,7 +191,7 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations i.e. with viscous dissipative terms present; we show that the equilibrium-diffusion limit is retrieved for the regularized GHR equations. Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations i.e. with viscous dissipative terms present; we show that the equilibrium-diffusion limit is retrieved for the regularized GHR equations. The frozen in limit is also investigated and a connection is shown between the results presented in this paper and other results previously derived in Lowrie et al. \cite{LowrieMorel}. Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivation of a viscous regularization for the Grey non-equilibrium Radiation-Hydrodynamic equations}\label{sec:visc-reg}
@@ -229,7 +230,7 @@ where $c_m$ is a radiation-modified material speed of sound and is defined as fo
 c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \ .
 \end{equation}
 %
-$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real.
+$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$.
 Because the above system is hyperbolic, we can assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables). Following some algebra given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:entropy_equation}
@@ -307,7 +308,7 @@ The full GRH equations \emph{with} the viscous regularization derived in \sect{s
 \end{equation}
 \end{subequations}
 %
-In this section, we carry out of an asymptotic limit for the (non-equilibrium) grey diffusion Radiation-Hydrodynamic equations with viscous regularization present (\eqt{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. We compare the asymptotic results against the equilibrium-diffusion Radiation-Hydrodynamic equations taken from Section $4$ of \cite{LowrieMorel}. 
+In this section, we carry out of an asymptotic limit for the (non-equilibrium) Grey diffusion Radiation-Hydrodynamic equations with viscous regularization present (\eqt{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. We compare the asymptotic results against the equilibrium-diffusion Radiation-Hydrodynamic equations taken from Section $4$ of \cite{LowrieMorel}. 
 
 To derive the scaled version of \eqt{eq:equation-visc-reg}, we consider the following non-dimensionalization:
 %
@@ -444,7 +445,7 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ}, i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in the asymptotic limit}\label{sect:ent-asym-limit}
+\subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in equilibrium-diffusion in limit}\label{sect:ent-asym-limit}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:equation7bis} and derived when only considering the hyperbolic terms of the Grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{c_{m,\infty}^2}{T_\infty}$ which yields:
@@ -460,19 +461,19 @@ Note that $\beta'$ is equal to one since $\beta$ is a constant. $\beta_\infty$ i
 s_0 \left( \rho, e \right) = s_{Euler,0}\left( \rho, e \right) + \frac{\beta_\infty}{a\frac{1}{4}} \frac{1}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the frozen in limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
+\eqt{eq:ent-scaled-2} is to compare against the \emph{scaled} entropy, $s^*$, obtained when considering the equilibrium-diffusion limit and the Radiation Equation of State (REOS) introduced in Section 4 of \cite{LowrieMorel}, e.g.:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
 \end{equation}
 %
-The difference between the two entropy expressions given in \eqt{eq:ent-scaled-2} and \eqt{eq:ent-reos} lies in the parameter $\beta_\infty$ that remains to be determined. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion limit, $\beta_\infty$ is set to $\frac{4}{3} a^\frac{1}{4}$ which yields the following \emph{dimensionalized} entropy:
+The difference between the two entropy expressions given in \eqt{eq:ent-scaled-2} and \eqt{eq:ent-reos} lies in the parameter $\beta_\infty$ that remains to be determined. In order to make $s_0$ and $s^*$ equal in the equilibrium-diffusion in limit, $\beta_\infty$ is set to $\frac{4}{3} a^\frac{1}{4}$ which yields the following \emph{dimensionalized} entropy:
 %
 \begin{equation}\label{eq:entropy}
 s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + s_{rad}(\rho,\epsilon)= s_{Euler}\left( \rho, e \right) + \frac{4a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}
 \end{equation}
 %
-The constant $\beta$ is now fully determined and can be used for two purposes: (i) recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:soundspeed} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations and (ii) obtain a final expression for the entropy relation given in \eqt{eq:ent_relation} under a form analoguous to the second thermodynamic law. We start with (i): Using the definition of the radiation entropy, $s_{rad} $, given in \eqt{eq:entropy}, it can be shown that:
+The constant $\beta$ is now fully determined and the final expression of the entropy (\eqt{eq:entropy}) can be used for two purposes: (i) recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:soundspeed} under the form of a partial derivative alike the definition of the speed of sound for the pure Euler equations and (ii) obtain a final expression for the entropy relation given in \eqt{eq:ent_relation} under a form analoguous to the second thermodynamic law. We start with (i): Using the definition of the radiation entropy, $s_{rad} $, given in \eqt{eq:entropy}, it can be shown that:
 %
 \begin{equation}\label{eq:sp-sd-rad}
 c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
@@ -509,7 +510,7 @@ Tds^* = de^* + P^*d \rho^{-1} \ .
 %
 Note that $e^* = \hat{e}$ and $P^* = \hat{P}$ in the equilibrium-diffusion limit.
  
-In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the $1$-D grey non-equilibrium Radiation-Hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives by introducing the radiative pressure $P_{rad}$.
+In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the Grey non-equilibrium Radiation-Hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives by introducing the radiative pressure $P_{rad}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A definition for the viscosity coefficients}
@@ -794,24 +795,24 @@ The computational domain is of size $L=0.08$ $cm$ and the initial step is at $x_
 \end{figure}
 The energy transfer between the material and radiation fields is not large enough to form a shock in the material. Thus, all of the material variables are smooth (\fig{fig:Mach105_temp} and \fig{fig:Mach105_density}) as well as the radiation temperature $\theta$. Because of the smoothness of the solution, the viscosity coefficient $\kappa$ is three order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$ (\fig{fig:Mach105_viscosity}).
 
-We also investigate the frozen in limit where the diffusion coefficient $D = \frac{c}{3\sigma_t}$ artificially goes to zero by setting the total cross section to a very large value ($\sigma_t = 10^8 cm^{-1}$). The objective is to investigate whether the viscous regularization can efficiently stabilize the radiation equation when the diffusion term vanishes. The initial conditions and parameters are unchanged but for the total cross section that is set to $10^8 cm^{-1}$. The simulation is run with three different meshes, $50$, $100$ and $200$ cells, and the temperature, velocity, density, and, viscosity and diffusion coefficients profiles are plotted in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_visc}.
+We also investigate the frozen in limit where the diffusion coefficient $D = \frac{c}{3\sigma_t}$ artificially goes to zero by setting the total cross section to a very large value ($\sigma_t = 10^8 cm^{-1}$). The objective is to investigate whether the viscous regularization can efficiently stabilize the radiation equation when the diffusion term vanishes. The initial conditions and parameters are unchanged but for the total cross section that is now set to $10^8 cm^{-1}$. The simulation is run with three different meshes, $50$, $100$ and $200$ cells, and the temperature, velocity, density, and, viscosity and diffusion coefficients profiles are plotted in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_visc}.
 %
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_velocity.png}
-        \caption{Material velocity profile.}
+        \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_velocity.png}
+        \caption{Material velocity profile zoomed in the strong variation region.}
         \label{fig:Mach_1p05_frozen_density}
 \end{figure}%
 \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_density.png}
-            \caption{Material density profile.}
+            \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_density.png}
+            \caption{Material density profile zoomed in the strong variation region.}
             \label{fig:Mach_1p05_frozen_velocity}
 \end{figure}
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_temperatures.png}
-        \caption{Material temperature profile.}
+        \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_temperatures.png}
+        \caption{Material temperature profile zoomed in the strong variation region..}
         \label{fig:Mach_1p05_frozen_temp}
 \end{figure}        
 \begin{figure}[H]
@@ -822,7 +823,7 @@ We also investigate the frozen in limit where the diffusion coefficient $D = \fr
 \end{figure}
 %\caption{Solution profiles at steady-state for Mach 1.05 test in the frozen in limit.}\label{fig:1d_frozen_in}
 %
-The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any oscillation in the shock region, and as the mesh is refined, the shock becomes stiffer. In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked and dominates the diffusion coefficient in the shock region: the viscous regularization efficiently stabilizes the radiation profile.
+The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any unstability. In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked and dominates the diffusion coefficient $D$ in the strong variation region: the viscous regularization efficiently stabilizes the radiation profile along with the material variables. Note that the viscosity coefficients $\kappa_{max}$ and $\kappa$ are defined proportional to the grid size, and thus will eventually becomes smaller than the diffusion coefficient as the mesh gets refined. \tcb{ I do not really know what to say here. I have to think of it.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A $1.2$ Mach hydrodynamic shock}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1008,7 +1009,7 @@ The authors would like to acknowledge Jim Ferguson for providing the semi-analyt
 \label{app:appendixA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given. This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the multi-D Euler equations by using the entropy minimum principle.\\
+In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is achieved for the $1$-D version of the equations but can be easily generalized to multi-dimension). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the multi-D Euler equations by using the entropy minimum principle.\\
 We start with the hyperbolic system given in \eqt{eq:GHR_hyperbolic} and add dissipative terms to each equation as follows:
 \begin{equation}
 \label{eq:app_equ1bis}
