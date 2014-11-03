@@ -810,35 +810,37 @@ The computational domain is of size $L=0.08$ $cm$ and the initial step is at $x_
 \end{figure}
 The energy transfer between the material and radiation fields is not large enough to form a shock in the material. Thus, all of the material variables are smooth (\fig{fig:Mach105_temp} and \fig{fig:Mach105_density}) as well as the radiation temperature $\theta$. Because of the smoothness of the solution, the viscosity coefficient $\kappa$ is three order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$ (\fig{fig:Mach105_viscosity}).
 
-We also investigate the frozen in limit where the diffusion coefficient $D = \frac{c}{3\sigma_t}$ artificially goes to zero by setting the total cross section to a very large value ($\sigma_t = 10^8 cm^{-1}$). The objective is to investigate whether the viscous regularization can efficiently stabilize the radiation equation when the diffusion term vanishes. The initial conditions and parameters are unchanged but for the total cross section that is now set to $10^8 cm^{-1}$. The simulation is run with three different meshes, $50$, $100$ and $200$ cells, and the temperature, velocity, density, and, viscosity and diffusion coefficients profiles are plotted in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_visc}.
+We also investigate the frozen in limit where the diffusion coefficient $D = \frac{c}{3\sigma_t}$ tends to zero by employing a very large value for the total opacity ($\sigma_t = 10^8 cm^{-1}$). The objective is to investigate whether the viscous regularization can efficiently stabilize the radiation equation when the physical diffusion term vanishes. The initial conditions and parameters are unchanged except for the total cross section that is now set to $10^8 cm^{-1}$. The simulation is run with three different spatial meshes (50, 100 and 200 spatial cells); the temperature, velocity, density, and, viscosity and diffusion coefficients profiles are plotted in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_visc}.
 %
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_velocity.png}
-        \caption{Material velocity profile zoomed in the strong variation region.}
+        \caption{Material velocity profile (zoom in the region of strong spatial variation).}
         \label{fig:Mach_1p05_frozen_density}
 \end{figure}%
 \begin{figure}[H]
             \centering
             \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_density.png}
-            \caption{Material density profile zoomed in the strong variation region.}
+            \caption{Material density profile (zoom in the region of strong spatial variation).}
             \label{fig:Mach_1p05_frozen_velocity}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_temperatures.png}
-        \caption{Material temperature profile zoomed in the strong variation region..}
+        \caption{Material temperature profile (zoom in the region of strong spatial variation).}
         \label{fig:Mach_1p05_frozen_temp}
 \end{figure}        
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_viscosity_coeffs.png}
-        \caption{Numerical viscosity and diffusion coefficients profiles for a mesh with $100$ cells.}
+        \caption{Numerical viscosity and diffusion coefficients profiles with 100 spatial cells.}
         \label{fig:Mach_1p05_frozen_visc}
 \end{figure}
 %\caption{Solution profiles at steady-state for Mach 1.05 test in the frozen in limit.}\label{fig:1d_frozen_in}
 %
-The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any instability in the strong variation region (for $x \in \left[ -0.1;\  0.1 \right]$). In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked but does not saturate to the first-order viscosity $\kappa_{max}$ since it is not a shock, and dominates the diffusion coefficient $D$ in the strong variation region: the viscous regularization efficiently stabilizes the radiation profile along with the material variables. Note that the viscosity coefficients $\kappa_{max}$ and $\kappa$ are defined proportional to the grid size, and thus will eventually becomes smaller than the diffusion coefficient as the mesh gets refined. \tcb{ I do not really know what to say here. I have to think of it.}
+The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any instability in the region of strong spatial variation
+($x \in \left[ -0.1;\  0.1 \right]$). In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked but does not saturate to the first-order viscosity $\kappa_{max}$ (no shocks are present in that simulation). We note that the artificial viscosity value is always larger than the diffusion coefficient $D$ in the zone of strong variation; the viscous regularization efficiently stabilizes the radiation profile along with the material variables. Note that the viscosity coefficients $\kappa_{max}$ and $\kappa$ are defined proportional to the grid size and the square of the grid size, respectively, and thus will eventually become smaller than the diffusion coefficient as the mesh is refined. % \tcb{ I do not really know what to say here. I have to think of it.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A $1.2$ Mach hydrodynamic shock}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1299,7 +1301,7 @@ The viscous flux $f$ in the regularized non-equilibrium GRH will be equivalent t
 \begin{equation} 
 \tilde h^* = \kappa^* \partial_x (\rho e^*) \, .
 \end{equation}
-The viscous flux $\tilde h$ in the regularized non-equilibrium GRH will be equivalent to $\tilde h^*$ if both $\kappa$ and $\kappa^*$ and $\hat e = e+\epsilon/\rho$ and $e^*$ are equivalent (the latter was shown in \sect{sect:ent-asym-limit}). \tcr{need more?}
+The viscous flux $\tilde h$ in the regularized non-equilibrium GRH will be equivalent to $\tilde h^*$ if both $\kappa$ and $\kappa^*$ and $\hat e = e+\epsilon/\rho$ and $e^*$ are equivalent (the latter was shown in \sect{sect:ent-asym-limit}). %\tcr{need more?}
 
 To demonstrate that the viscosity coefficients are equivalent, we inspect the first-order viscosity and entropy viscosity expressions. The first-order formulae require the vale $|u| + c_m$ and we have shown that the soundspeed of the non-equilibrium equations tend to be EDL soundspeed,  \eqt{eq:soundspeed} and  \eqt{eq:soundspeedEDL}; this establishes equivalency of the first-order viscosities.
 
