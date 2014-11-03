@@ -88,6 +88,8 @@
 \newcommand{\tcr}[1]{\textcolor{red}{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 %
+\newcommand{\matder}[1]{\frac{D #1}{Dt}}
+%
 \bibliographystyle{elsarticle-num}
 %%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -273,8 +275,8 @@ s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s(\rho, e
 \end{equation}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
-$s_{rad}(\epsilon)$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The entropy $s_{Euler}$ stands for the entropy function that is obtained from Euler equations, and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$ given by the second law of thermodynamics. The functional form of $s_{rad} = \beta \rho^{-1} \epsilon^\frac{3}{4}$ is derived later, in \sect{sect:equ-diff}. $\beta$ is a constant. 
-The entropy $s(\rho,e,\epsilon)$ can also be obtained through a relation analogous to the second law of thermodynamics. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_4_equ}, a modified entropy relation is obtained:
+$s_{rad}(\epsilon)$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The entropy function $s_{Euler}$ stands for the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GHR_hyperbolic} with no radiation terms) and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$ given by the second law of thermodynamics. The functional form of $s_{rad} = \beta \rho^{-1} \epsilon^\frac{3}{4}$ is derived later, in \sect{sect:equ-diff}; $\beta$ is a constant. 
+The entropy $s(\rho,e,\epsilon)$ can also be obtained through a relation analogous to the second law of thermodynamics. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_equ}, a radiation-modified entropy relation is obtained:
 %
 \begin{equation}\label{eq:ent_relation}
 Tds = d\hat{e} + \left[ d\hat{P} + \epsilon \left( \frac{T \beta}{\epsilon^\frac{1}{4}} -\frac{4}{3} \right) \right] d \rho^{-1} + \rho^{-1}\left( \frac{3 T \beta}{4 \epsilon^\frac{1}{4}} -1 \right) d \epsilon
@@ -286,13 +288,13 @@ where $\hat{e}$ and $\hat{P}$ are the radiation-modified internal energy and pre
 \hat{e} = e + \frac{\epsilon}{\rho} \ \text{and} \ \hat{P} = P + \frac{\epsilon}{3} \,.
 \end{equation}
 %
-In Section \ref{sect:ent-asym-limit}, we will draw an equivalence with the above expression, valid for any regime, and previously published expressions valid in the equilibrium-diffusion limit (EDL).
+In Section \ref{sect:ent-asym-limit}, we will draw an equivalence with the above expression, valid for any regime, and previously published expressions valid in the Equilibrium-Diffusion Limit (EDL).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{The equilibrium-diffusion limit}\label{sect:equ-diff}
+\subsection{The Equilibrium-Diffusion Limit (EDL)}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (\eqt{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. We compare the asymptotic results against the equilibrium-diffusion limit Radiation-Hydrodynamic equations which can be found in Section $4$ of Reference \cite{LowrieMorel}, for instance. 
+Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (\eqts{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. We compare the asymptotic results against the equilibrium-diffusion limit Radiation-Hydrodynamic equations which can be found in Section $4$ of Reference \cite{LowrieMorel}, for instance. 
 %
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
 %
@@ -316,7 +318,7 @@ The full GRH equations \emph{with} the viscous regularization derived in \sect{s
 \end{subequations}
 %
 
-To derive the scaled version of \eqt{eq:equation-visc-reg}, we consider the following non-dimensionalization:
+To derive the scaled version of \eqts{eq:equation-visc-reg}, we consider the following non-dimensionalization:
 %
 \begin{equation}
 \label{eq:norm_param}
@@ -403,7 +405,7 @@ Next, we assume that each variable is expanded in a power series in $\varepsilon
 \varphi = \sum_i \varphi_i \varepsilon^i \ ,
 \end{equation}
 %
-where $\varphi$ denotes any given variable. By substituting the power series expansion for each variable in \eqt{eq:equation-visc-reg-scaled} and using the scaling of the non-dimensional numbers, the leading-, first- and second-order equations are obtained. The leading-order of \eqt{eq:equation-visc-reg-scaled} is:
+where $\varphi$ denotes any given variable. By substituting the power series expansion for each variable in \eqts{eq:equation-visc-reg-scaled} and using the scaling of the non-dimensional numbers, the leading-, first- and second-order equations are obtained. The leading-order of \eqts{eq:equation-visc-reg-scaled} is:
 %
 \begin{subequations}
 \label{eq:first-order}
@@ -429,7 +431,7 @@ where $\varphi$ denotes any given variable. By substituting the power series exp
 \partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right]_0 = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x \epsilon \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0
 \end{equation}
 %
-where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the radiation-modified pressure and internal energy and match the definitions given in \cite{LowrieMorel}; recall that $\Re$ is $O(1)$. The equilibrium-diffusion system of equations is obtained by taking the leading-order continuity and momentum equations, and the second-order total energy equation, e.g.,
+where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the radiation-modified pressure and internal energy and match the definitions given in \cite{LowrieMorel}; recall that $\Re$ is $O(1)$. The equilibrium-diffusion system of equations is obtained by taking the leading-order continuity and momentum equations, and the second-order total energy equation, i.e.,
 %
 \begin{subequations}
 \label{eq:equip-diff-equ}
@@ -448,10 +450,10 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 \end{subequations}
 %\tcr{say that this is exactly the viscous reg one would have obtained when starting from the EDL\\} \tcb{added something at the end of the paragraph below}
 %
-The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqt{eq:equip-diff-equ}, i.e., by yielding well-scaled dissipative terms in each equation of \eqt{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqt{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
+The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqts{eq:equip-diff-equ}, i.e., by yielding well-scaled dissipative terms in each equation of \eqts{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in equilibrium-diffusion in limit}\label{sect:ent-asym-limit}
+\subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit}\label{sect:ent-asym-limit}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 We also investigate how the asymptotic limit affects the entropy function $s(\rho, e, \epsilon)$, given in \eqt{eq:visc_reg_assumptions} and derived when only considering the hyperbolic terms of the Grey non-equilibrium RHD. We first derive the non-dimensionalized entropy by scaling the entropy with $\frac{c_{m,\infty}^2}{T_\infty}$ which yields:
@@ -1012,12 +1014,12 @@ The authors would like to acknowledge Jim Ferguson for providing the semi-analyt
 \begin{appendices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proof of the entropy minimum principle for the Radiation-Hydrodynamic equations with dissipative terms:}
+\section{Proof of the entropy minimum principle for the Radiation-Hydrodynamic equations with viscous regularization}
 \label{app:appendixA}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is achieved for the $1$-D version of the equations but can be easily generalized to multi-dimension). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the multi-D Euler equations by using the entropy minimum principle.\\
+In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is achieved for the 1-D version of the equations but can easily be generalized to multi-dimensions). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the GRH equations based on the entropy minimum principle.\\
 We start with the hyperbolic system given in \eqt{eq:GHR_hyperbolic} and add dissipative terms to each equation as follows:
 \begin{equation}
 \label{eq:app_equ1bis}
@@ -1154,8 +1156,139 @@ where $s\left( e, \rho, \epsilon \right) = s_{Euler} + \frac{\beta}{\rho} \epsil
 %$s_{rad}(\epsilon) = \rho^{(0)} \epsilon^\frac{3}{4}$, where $\rho^{(0)}$ is a constant. The sign of $\rho^{(0)}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} s_{rad} \leq 0$, derived above, so that $\rho^{(0)}\geq0$.
 %\end{remark}
 \begin{remark}
-The viscous regularization derived in this appendix, has two viscosity coefficients: $\mu$ and $\kappa$. For the purpose of this paper, these coefficients are set equal. Under this assumption, the above viscous regularization is equivalent to a parabolic regularization of \cite{Parabolic}.
+The viscous regularization derived in this Appendix, has two viscosity coefficients: $\mu$ and $\kappa$. For the purpose of this paper, these coefficients are set equal. Under this assumption, the above viscous regularization is equivalent to a parabolic regularization  \cite{Parabolic}.
 \end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof of the entropy minimum principle for the Equilibrium-Diffusion Limit Radiation-Hydrodynamic equations with viscous regularization}
+\label{app:appendixB}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In the main body of this paper, we have shown that the non-equilibrium GRH equations \emph{with} viscous regularization asymptotically result in the equilibrium-diffusion limit system of equation with the same regularization (dissipative) terms. We have also shown that the entropy function $s(\rho, e, \epsilon)$ of non-equilibrium system of equations tends to the equilibrium-diffusion limit entropy function $s^*(\rho, e^*)$ in the EDL. However, we have not yet shown that the same entropy minimum principle applies to both the non-equilibrium and equilibrium systems of equations. In essence, we would like to demonstrate that the two operations (i) ``apply a viscous regularization'' and (ii) ``derive the asymptotic equilibrium-diffusion limit equations'' commute. In this Appendix, we start from the equilibrium-diffusion limit equations, apply a viscous regularization, and show that one obtains the same entropy minimum principle. 
+
+For completeness, the Equilibrium-Diffusion Limit Radiation-Hydrodynamic equations given in \eqts{eq:equip-diff-equ} are recalled below:
+%
+\begin{subequations}
+\label{eq:equil-diff-equ_no_reg}
+%
+\begin{equation}
+\partial_t \rho + \partial_x \left( \rho u \right) = 0  \, ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P^* \right) = 0 \, , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right) + \partial_x \left( \rho u E^* + u P^* \right) = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right) \, ,
+\end{equation}
+\tcr{where's $c$?}
+%
+\end{subequations}
+%
+where $e^* = e + T^4/\rho$ and $P^* = P + T^4/3$ are the radiation-modified equations of state. Note that the left-hand side of the system given by \eqts{eq:equil-diff-equ_no_reg} is hyperbolic and in the form of Euler equations. The entropy function for \eqts{eq:equil-diff-equ_no_reg} is defined through the relation
+\begin{equation}
+\label{eq:entro_EDL}
+T d s^* = d e^* + P^* d \rho^{-1} \,.
+\end{equation}
+Note that \eqt{eq:entro_EDL} implies that the following relationships hold:
+%
+\begin{subequations}
+\begin{equation}
+s^*_{e^*} = \frac 1 T \,,
+\end{equation}
+\begin{equation} \label{eq:secondlawTD}
+P^* s^*_{e^*} + \rho^2 s^*_{\rho} = 0 \,.
+\end{equation}
+\end{subequations}
+
+Next, we stabilize the hyperbolic parts of \eqts{eq:equil-diff-equ_no_reg}
+%
+\begin{subequations}
+\label{eq:equil-diff-equ_with_reg}
+%
+\begin{equation}
+\partial_t \rho + \partial_x \left( \rho u \right) = \partial_x f^* \, ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P^* \right) = \partial_x g^* \, , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right) + \partial_x \left( \rho u E^* + u P^* \right) =  \partial_x \left( h^* + g^* u \right) \, . 
+\end{equation}
+%
+\end{subequations}
+%
+where $f^*$, $g^*$, $h^*$ are viscous fluxes yet to be determined. We proceed as in \app{app:appendixA} to obtain equations in terms of the primitives variables $\rho$, $u$, and $e^*$:
+%
+\begin{subequations}
+\label{eq:equil-diff-equ_with_reg_prim}
+%
+\begin{equation} \label{eq:equil-diff-equ_with_reg_prim_rho}
+\matder \rho + \rho \partial_x  u  = \partial_x f^* \ ,
+\end{equation}
+%
+\begin{equation}
+\rho \matder u + u  + \partial_x  P^*  = \partial_x g^* - u \partial_x f^* \ , 
+\end{equation}
+%
+\begin{equation} \label{eq:equil-diff-equ_with_reg_prim_e}
+\rho \matder {e^*}  +  P^* \partial_x u  =  \partial_x h^* + g^* \partial_x u - \left( e^* - \tfrac 1 2 u^2 \right) \partial_x  f^*\, . 
+\end{equation}
+%
+\end{subequations}
+
+Since $s^*$ is function of $\rho$ and $e^*$, an equation for $s^*$  is obtained by multiplying 
+\eqt{eq:equil-diff-equ_with_reg_prim_rho} with $\rho s^*_\rho$  and 
+\eqt{eq:equil-diff-equ_with_reg_prim_e}   with $s^*_{e^*}$ and adding the result. This yields:
+\begin{multline} \label{eq:entro_ELD_1}
+\rho \matder {s^*}  +  \left( P^* s^*_{e^*} + \rho^2 s^*_{\rho} \right) \partial_x u  = 
+ \rho s^*_\rho \partial_x f^*
++ s^*_{e^*} \left(  \partial_x h^* + g^* \partial_x u - \left( e^* - \tfrac 1 2 u^2 \right) \partial_x  f^* \right) 
+\\
+=
+\left( \rho s^*_\rho  - e^* s^*_{e^*}\right) \partial_x f^*
++ s^*_{e^*} \left(  g^* - f^* u \right) \partial_x u 
++ s^*_{e^*} \partial_x \left( h^* +  \tfrac 1 2 u^2  f^* \right) 
+\, . 
+\end{multline}
+Owning to \eqt{eq:secondlawTD},  we have $ P^* s^*_{e^*} + \rho^2 s^*_{\rho}  = 0$. As in \app{app:appendixA}, we further 
+simplify \eqt{eq:entro_ELD_1} by choosing: $ g^* = \rho \mu \partial_x u + f^* u$ and $\tilde h^* = h^* + \tfrac 1 2 u^2 f^*$ :
+\begin{equation} \label{eq:entro_ELD_2}
+\rho \matder {s^*}  
+=
+\left( \rho s^*_\rho  - e^* s^*_{e^*}\right) \partial_x f^*
++ s^*_{e^*} \rho \mu \left( \partial_x u \right)^2
++ s^*_{e^*} \partial_x \tilde h^* 
+\, . 
+\end{equation}
+
+Finally, we choose 
+\begin{equation} 
+f^* = \kappa^* \partial_x \rho \, .
+\end{equation}
+The viscous flux $f$ in the regularized non-equilibrium GRH will be equivalent to $f^*$ if $\kappa$ and $\kappa^*$ are equivalent.
+The functional form of $f^*$ automatically determines the function form for $\tilde h^*$:
+\begin{equation} 
+\tilde h^* = \kappa^* \partial_x (\rho e^*) \, .
+\end{equation}
+The viscous flux $\tilde h$ in the regularized non-equilibrium GRH will be equivalent to $\tilde h^*$ if both $\kappa$ and $\kappa^*$ and $\hat e = e+\epsilon/\rho$ and $e^*$ are equivalent (the latter was shown in \sect{sect:ent-asym-limit}). \tcr{need more?}
+
+To demonstrate that the viscosity coefficients are equivalent, we inspect the first-order viscosity and entropy viscosity expressions. The first-order formulae require the vale $|u| + c_m$ and we have shown that the soundspeed of the non-equilibrium equations tend to be EDL soundspeed, \eqt{}, so we have equivalence between the first-order viscosities.
+
+For the entropy viscosities to be equivalent, we need to show that the entropy residual are equivalent.
+
+ 
+%The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqts{eq:equip-diff-equ}, i.e., by yielding well-scaled dissipative terms in each equation of \eqts{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
+%%
+%
+ %
+%In this section, we demonstrated that the viscous regularization derived for the hyperbolic terms of the Grey non-equilibrium Radiation-Hydrodynamic equations yields the correct asymptotic limit in the equilibrium-diffusion limit, and that the entropy function $s(\rho, e, \epsilon)$ degenerate to the entropy $s^*$ introduced in \cite{LowrieMorel} in the leading-order. Also, we were able to recast the definition of the sound speed in terms of partial derivatives by introducing the radiative pressure $P_{rad}$.
+%
 
 \end{appendices}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
