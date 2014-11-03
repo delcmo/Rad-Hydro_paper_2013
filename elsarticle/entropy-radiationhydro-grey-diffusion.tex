@@ -270,7 +270,7 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 %
 where the functional form of the entropy is
 %
-\begin{equation}\label{eq:ent_4_equ}
+\begin{equation}\label{eq:ent_equ}
 s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s(\rho, e)_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4} \,.
 \end{equation}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
@@ -1275,7 +1275,7 @@ Since $s^*$ is function of $\rho$ and $e^*$, an equation for $s^*$  is obtained 
 Owing to \eqt{eq:secondlawTD},  we have $ P^* s^*_{e^*} + \rho^2 s^*_{\rho}  = 0$. As in \app{app:appendixA}, we further 
 simplify \eqt{eq:entro_ELD_1} by choosing: $ g^* = \rho \mu \partial_x u + f^* u$ and $\tilde h^* = h^* + \tfrac 1 2 u^2 f^*$ :
 %
-\begin{equation} \label{eq:entro_ELD_2}
+\begin{equation} \label{eq:entro_EDL_2}
 \rho \matder {s^*}  
 =
 \left( \rho s^*_\rho  - e^* s^*_{e^*}\right) \partial_x f^*
@@ -1305,9 +1305,9 @@ The viscous flux $\tilde h$ in the regularized non-equilibrium GRH will be equiv
 
 To demonstrate that the viscosity coefficients are equivalent, we inspect the first-order viscosity and entropy viscosity expressions. The first-order formulae require the vale $|u| + c_m$ and we have shown that the soundspeed of the non-equilibrium equations tend to be EDL soundspeed,  \eqt{eq:soundspeed} and  \eqt{eq:soundspeedEDL}; this establishes equivalency of the first-order viscosities.
 
-For the entropy viscosities to be equivalent, we need to show that the entropy residuals are equivalent. Starting from \eqt{eq:entro_ELD_2}, along with the definitions of \eqts{eq:functional_forms}, one obtains:
+For the entropy viscosities to be equivalent, we need to show that the entropy residuals are equivalent. Starting from \eqt{eq:entro_EDL_2}, along with the definitions of \eqts{eq:functional_forms}, one obtains:
 %
-\begin{equation} \label{eq:entro_ELD_2}
+\begin{equation} \label{eq:entro_EDL_3}
 \rho \matder {s^*}  
 = \partial_x \left( \kappa^* \partial_x s^* \right) 
 +
