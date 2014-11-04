@@ -1,0 +1,117 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb}
+% more math
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsbsy}
+
+\usepackage{color}
+\newcommand{\mt}[1]{\marginpar{\small #1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% new commands
+\newcommand{\nc}{\newcommand}
+% operators
+\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
+\newcommand{\grad}{\vec{\nabla}}
+% latex shortcuts
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bal}{\begin{align}}
+\newcommand{\eali}{\end{align}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+% DGFEM commands
+\newcommand{\jmp}[1]{[\![#1]\!]}                     % jump
+\newcommand{\mvl}[1]{\{\!\!\{#1\}\!\!\}}             % mean value
+\newcommand{\keff}{\ensuremath{k_{\textit{eff}}}\xspace}
+% shortcut for domain notation
+\newcommand{\D}{\mathcal{D}}
+% vector shortcuts
+\newcommand{\vo}{\vec{\Omega}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vn}{\vec{n}}
+\newcommand{\vnk}{\vec{\mathbf{n}}}
+\newcommand{\vj}{\vec{J}}
+% extra space
+\newcommand{\qq}{\quad\quad}
+% common reference commands
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
+\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
+\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
+
+\newcommand{\ud}{\,\mathrm{d}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{ \Large Answers to Reviewer \#2}
+\end{center}
+
+\bigskip
+
+\noindent Ms. Ref. No. JCOMP-D-14-00443\\
+Title: `Numerical solution of the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations with an entropy-based artificial viscosity technique \\
+{\it Journal of Computational Physics},\\
+
+\bigskip
+\bigskip
+
+{
+\color{blue}
+In this paper, the authors present an adaptation of the entropy viscosity technique, originally developed for hyperbolic problems such as the Euler equations, to the solution of the 1-D grey radiation-diffusion hydrodynamics equations. The method is derived by first assuming an infinite opacity, rendering  the 1D system hyperbolic. Under this assumption, the authors propose the addition of diffusive source terms to each of the variables of the 1D hyperbolic system of equations with a special diffusion coefficient based on entropy production. In particular, the diffusion coefficient is based on a non-linear combination (taking the minimum) of a 1st order term (proportional to h)  and a second order term (proportional to $h^2$) which tends to large values in the vicinity of shocks and is small otherwise. The authors then apply this approach for the 1D radiation-diffusion+hydrodynamics system. They demonstrate 2nd order accuracy of the method using a manufactured
+solution and show the effectiveness of the technique for strong radiating shock problems using the 1D benchmark of Lowrie-Edwards.
+
+This is a well written and interesting paper that presents a valuable contribution to the field of radiation hydrodynamics. The approach is technically sound and the results are compelling and thorough. I believe the paper is suitable for publication with only some very minor typographical edi
+}
+
+Thank you. 
+\bigskip
+
+{
+\color{blue}
+\noindent
+TYPOGRAPHICAL EDITS:
+
+Page 12, Line 157, first sentence, change "dimensional 1-D" to "1-D"
+Page 15, Line 199, change to either "a Dirichlet boundary condition" or  "Dirichlet boundary conditions"
+Page 15,  Line 200, change "flow become" to "flow becomes"}
+
+We corrected all of the above typos.
+\bigskip
+
+
+{
+\color{blue}
+\noindent
+GENERAL COMMENTS: \\
+1. The process described here seems directly applicable to the equations of restive magnetohydrodynamics (MHD) as well. The approach taken by the authors of assuming infinite opacity is directly analogous to assuming infinite electrical conductivity and having a "frozen" magnetic flux (the so called "ideal MHD" approximation) which modifies the hydrodynamic pressure of the Euler equations with an additional term proportional to the magnetic flux density. Likewise, in 1D, the non-ideal case involves a diffusion equation for a single component of the magnetic flux density similar in nature to the radiation-diffusion equation. It would be interesting for the authors to extend this approach to MHD as well.}
+\bigskip
+
+
+{
+\color{blue}
+2. The technique of merging both the radiation diffusion and the entropy viscosity diffusion operators into a single operator with a coefficient based on the maximum is very interesting to me, and something I have not seen before in any other multi-physics setting. It seems like this approach is applicable to other multi-physics settings as well (for example, the MHD equations as mentioned above). The results from the radiating shock test problems suggest that this approach works well in practice. It certainly has some appealing numerical properties as it avoids "double counting" of numerical diffusion. I think it would be very interesting to continue exploring this approach in multi-dimensional settings.
+}
+\bigskip
+
+
+{
+\color{blue}
+3. The entropy viscosity technique employed in this paper is based on a non-linear combination of a 1st order (proportional to h) term and a 2nd order (proportional to $h^2$) term. There is a class of methods known as "hyper-viscosity" (see Cook and Cabot 2005) where the goal is to blend, in a non-linear way, 1st order terms and terms that are higher powers of h ( $h^{2n}$ for$ n = 1,2,3$...). The approach is very similar to that outlined here, namely it involves adding diffusive source terms to the right hand side of each state variable equation and defining a special non-linear diffusion coefficient. The benefit of these approaches is that it enables greater than 2nd order accurate convergence when the underlying discretization scheme is high-order in nature. Such an approach would not offer any benefit for the 2nd order accurate Galerkin method the authors have used in their study, however, it would be interesting to see the ideas of entropy-viscosity merged with the ideas of
+hyper-visocsity to achieve greater than 2nd order accuracy for higher order discretizations, including high-order finite element discretizations in 1D.
+
+Cook and Cabot 2005, "Hyperviscosity for shock-turbulence interactions", J. Comp. Phys., Volume 203, Issue 2, 1 March 2005, Pages 379-385
+}
+\bigskip
+
+We want to thank the reviewer for his useful comments and ideas of future work.
+
+\end{document}
+
