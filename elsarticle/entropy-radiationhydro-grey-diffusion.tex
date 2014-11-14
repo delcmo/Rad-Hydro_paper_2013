@@ -97,21 +97,22 @@
 %
 \begin{frontmatter}
 %
-\title{Numerical solution of the 1-D Grey non-equilibrium Radiation-Hydrodynamics equations with an entropy-based artificial viscosity technique}
+\title{Numerical solution of the 1-D non-equilibrium Grey Radiation-Hydrodynamics equations with an entropy-based artificial viscosity technique\\
+\tcr{?Entropy-based artificial viscosity stabilization for non-equilibrium Grey Radiation-Hydrodynamics?}}
 %-------------------------
 %-------------------------
 \author{Marc O. Delchini\fnref{label1}}
 \ead{delchinm@email.tamu.edu}
-
-\author{Jean C. Ragusa\corref{cor1}\fnref{label1}}
+%
+\author{Jean C. Ragusa$^*$\footnote{$^*$Corresponding author}\fnref{label1}}
 \ead{jean.ragusa@tamu.edu}
-
+%
 \author{Jim Morel\fnref{label1}}
 \ead{jim.morel@tamu.edu}
 
 \address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
 
-\cortext[cor1]{Corresponding author}
+%\cortext[cor1]{Corresponding author}
 %-------------------------
 %-------------------------
 \begin{abstract}
@@ -1028,13 +1029,13 @@ The authors would like to acknowledge Jim Ferguson for providing the semi-analyt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is achieved for the 1-D version of the equations but can easily be generalized to multi-dimensions). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the GRH equations based on the entropy minimum principle.\\
+In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is carried out for the 1-D version of the equations and can easily be generalized to multiple dimensions). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the GRH equations based on the entropy minimum principle.\\
 We start with the hyperbolic system given in \eqt{eq:GHR_hyperbolic} and add dissipative terms to each equation as follows:
 \begin{equation}
 \label{eq:app_equ1bis}
 \left\{
 \begin{array}{llll}
-\frac{D \rho}{Dt} + \rho \partial_x u = \partial_x f \\
+\partial_t (\rho  ) + \partial_x (\rho u)  = \partial_x f \\
 \partial_t (\rho u) + \partial_x \left(\rho u^2 +  P + \frac{\epsilon}{3} \right) = \partial_x g  \\
 \partial_t (\rho E) + \partial_x \left[ u \left( \rho E +P \right) \right] + \frac{u}{3} \partial_x \epsilon = \partial_x \left( h + ug \right) \\
 \partial_t \epsilon + u \partial_x \epsilon + \frac{4}{3} \epsilon \partial_x u = \partial_x l
@@ -1052,9 +1053,10 @@ where $f$, $g$, $h$ and $l$ are dissipative terms to be determined.
 \rho \frac{De}{Dt} + P \partial_x u = \partial_x h + g \partial_x u + \left( 0.5 u^2 - e \right) \partial_x f \\
 \frac{D\epsilon}{Dt} + \frac{4}{3} \epsilon \partial_x u = \partial_x l
 \end{array}
-\right. \,.
+\right. 
 \end{equation}
-The right-hand side of the internal energy equation can be simplified by choosing the dissipative terms $g$ and $h$ as follows: $h = \tilde{h} -0.5 u^2 f$ and $g = \rho \mu \partial_x u + uf$ where $\mu \geq 0$ is a dissipative coefficient. Using these definitions, the system of equations given in \eqt{eq:app_equ1} becomes:
+where we recall that $\matder{(\cdot)} = \partial_t (\cdot) + u \partial_x (\cdot)$. 
+The right-hand side of the internal energy equation can be simplified by choosing the dissipative terms $g$ and $h$ as follows: $h = \tilde{h} -0.5 u^2 f$ and $g = \rho \mu \partial_x u + uf$ where $\mu \geq 0$ is a viscosity coefficient. Using these definitions, the system of equations given in \eqt{eq:app_equ1} becomes:
 \begin{equation}
 \label{eq:app_equ1ter}
 \left\{
@@ -1066,12 +1068,12 @@ The right-hand side of the internal energy equation can be simplified by choosin
 \end{array}
 \right. \,.
 \end{equation}
-This system of equations admits an entropy function $s$ that depends on density $\rho$, internal energy $e$ and radiation energy density $\epsilon$. In order to prove the entropy minimum principle, a conservation statement satisfied by the entropy is needed. This equation which is referred to as an entropy residual $D_e(x,t)$, can be obtained by a combination of the equations given in \eqt{eq:app_equ1ter}. This process is motivated by the following (chain rule) 
+This system of equations admits an entropy function $s$ that depends on density $\rho$, internal energy $e$, and radiation energy density $\epsilon$. In order to prove the entropy minimum principle, a conservation statement satisfied by the entropy is needed. This equation which is referred to as the entropy residual $D_e(x,t)$, can be obtained by a combination of the equations given in \eqt{eq:app_equ1ter}. This process is motivated by the following (chain rule) 
 \begin{equation}
 \label{eq:app_equ2}
 \partial_{\alpha} s = \partial_{\rho} s \partial_{\alpha} \rho +  \partial_{e} s \partial_{\alpha}e +  \partial_{\epsilon} s \partial_{\alpha} \epsilon \text{,}
 \end{equation}
- which holds for any independent variable $\alpha=x,t$. It is also required to define the dissipative terms $\tilde{h}$, $f$ and $l$. The following definitions are chosen:
+ which holds for any independent variable $\alpha=x,t$. We introduce the following viscous fluxes:
  \begin{equation}
  \left\{
  \begin{array}{ccc}
@@ -1081,12 +1083,12 @@ l &= \kappa \partial_x \epsilon
  \end{array}
  \right. \,,
  \end{equation}
- where $\kappa$ is another positive dissipative coefficient. \\
- Thus, using the continuity, the internal energy and the radiation equations of \eqt{eq:app_equ1ter} and using \eqt{eq:app_equ2} along with the definition of the dissipative terms, a conservation statement satisfied by the entropy $s$ is obtained:
+ where $\kappa$ is another positive viscosity coefficient. \\
+ Thus, using the continuity, internal energy, and radiation equations of \eqt{eq:app_equ1ter} and the relationship \eqt{eq:app_equ2}, the following conservation statement satisfied by the entropy $s$ is obtained:
  \begin{multline}
  \label{eq:app_entr_eq_non_equil}
-\rho \frac{Ds}{Dt} + \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_x \rho \partial_x s \\- \rho \kappa \underbrace{X A X^T}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)}
- \end{multline} \,,
+\rho \frac{Ds}{Dt} = - \underbrace{\left( P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s \right) \partial_x u}_\textrm{(a)} + \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \partial_x \rho \partial_x s \\- \rho \kappa \underbrace{X A X^T}_\textrm{(b)} + \underbrace{ s_e \rho \mu (\partial_x u)^2}_\textrm{(c)} \,,
+ \end{multline} 
  where $X$ is a row vector defined as $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3 \times 3$ symmetric matrix
  \begin{equation}
  A = 
@@ -1098,9 +1100,11 @@ l &= \kappa \partial_x \epsilon
  \end{array}
  \right] .
  \end{equation}
- In order to show that an entropy minimum principle holds, the signs of the terms $(a)$, $(b)$ and $(c)$ in \eqt{eq:app_entr_eq_non_equil} need to be studied.\\
-Regarding $(a)$, it is assumed that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. The motivation for this is two-fold: First, in order to have a negative sign for the term $(a)$, it would require $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s$ to have a sign of opposite to that $\partial_x u$. The thermodynamic variables cannot be a function of the material velocity or its derivative under a non-relativistic assumption. Such a statement would not be true when dealing with relativistic equations of state. Second, a similar assumption was made in \cite{jlg} for multi-D Euler equations (without the radiation energy): $P \partial_e s + \rho^2 \partial_{\rho} s = 0$.\\
-The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simply looking at the positiveness of the matrix $A$ \cite{Evans}. Here we need to prove that $A$ is negative-definite which is equivalent to showing the three following inequalities:
+ In order to show that the entropy minimum principle holds, the signs of the terms $(a)$, $(b)$ and $(c)$ in \eqt{eq:app_entr_eq_non_equil} need to be studied.\\
+Regarding term $(a)$, we assume that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. The motivation for this is two-fold. First, for term $(a)$ to always be positive would require that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s$ be constantly of the opposite sign of $\partial_x u$; however, the thermodynamic variables cannot be a function of the material velocity or its derivative under a non-relativistic assumption. 
+% Such a statement would not be true when dealing with relativistic equations of state. 
+Second, a similar relationship, $P \partial_e s + \rho^2 \partial_{\rho} s = 0$, holds for the standard Euler equations (i.e., without the radiation energy); see \cite{jlg}. \\
+The term $(b)$, $XAX^T$, is a quadratic form and its sign is determined by looking at the positiveness of matrix $A$ \cite{Evans}. Here we need to prove that $A$ is negative-definite which is equivalent to showing the three following inequalities:
 \begin{equation}
  \left\{
  \begin{array}{ccc}
@@ -1115,7 +1119,7 @@ The term $(b)$, $XAX^t$, is a quadratic form and its sign is determined by simpl
 \label{eq:app_equ4}
 s(\rho, e, \epsilon) = s_{Euler}(\rho,e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho,e) + \frac{\rho^{(0)}}{\rho}\tilde{s}_{rad}(\epsilon) \text{. } 
 \end{equation}
-where $s_{Euler}$ and $\tilde{s}_{rad}$ are two functions whose properties will be provided later, and $\rho^{(0)}$ is a constant of same unit as the density and assumed positive to ensure positivity of $s(\rho,e,\epsilon)$.
+where $s_{Euler}$ and $\tilde{s}_{rad}$ are two functions whose properties will be provided later, and $\rho^{(0)}$ is a constant of same units as density and is assumed positive to ensure positivity of $s(\rho,e,\epsilon)$.
 Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$ becomes:
  \begin{equation}
  A = 
@@ -1128,6 +1132,7 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
  \right]  \,.
  \end{equation}
  Proving that the matrix $A$ is  negative-definite is now straightforward by inspecting the sign of the leading principal minors:
+\tcr{signs are opposite of Eq.46?}
  \begin{equation}
  \label{eq:A_matrix}
  \left\{
@@ -1138,12 +1143,15 @@ Next, using the expression of the entropy given in \eqt{eq:app_equ4}, matrix $A$
  \end{array}
  \right.  \,.
  \end{equation} 
-This is easily achieved when assuming that the entropy $s_{Euler}$ is concave with respect to $e$ and $1/ \rho$, and $\tilde{s}_{rad}$ is concave with respect to $\epsilon$. Thus, the sign of $(b)$ is now determined. \\
-Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \mu (\partial_x u)^2$. The density $\rho$ and the viscosity coefficient $\mu$ are both positive: the latest proof for positivity of the density can be found in \cite{jlg}. Then, only the sign of $\partial_e s$ remains unknown but it can be determined by studying $(a)$. It was assumed earlier in this appendix that $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$. This equation is now recast and split into two equations using \eqt{eq:app_equ4}. Separation of variables yields:
+This is easily achieved when assuming that the entropy $s_{Euler}$ is concave with respect to $e$ and $1/ \rho$, and $\tilde{s}_{rad}$ is concave with respect to $\epsilon$. 
+\tcr{where is the concavity of $\tilde{s}_{rad}$ assumed. I know it was mentioned for Euler's entropy. But where did we make the similar assumption for radiation. Ici, ca tombe un peu comme un cheveu sur la soupe}
+Thus, the sign of $(b)$ is now determined. \\
+%
+Finally, it remains to determine the sign of term $(c) = \partial_e s \rho \mu (\partial_x u)^2$. The density $\rho$ and the viscosity coefficient $\mu$ are both positive (proof of positivity for density can be found in \cite{jlg}). The sign of $\partial_e s$ can be determined from the relationship $P \partial_e s + \rho^2 \partial_{\rho} s + \frac{4}{3} \rho \epsilon \partial_{\epsilon} s=0$.  This expression is now recast and split into two equations using \eqt{eq:app_equ4} and separation of variables to yield:
  \begin{equation}
- P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{ and } \tilde{s}_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} \tilde{s}_{rad} = \frac{\alpha}{\rho^{(0)}}  \,,
+ P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = \alpha \text{  and  } \tilde{s}_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} \tilde{s}_{rad} = \frac{\alpha}{\rho^{(0)}}  \,,
  \end{equation}
- where $\alpha$ is a constant to determine. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = 0$. Then, following \cite{jlg}, definitions for $\partial_e s_{Euler}$ and $\partial_{\rho} s_{Euler}$ are obtained:
+ where $\alpha$ is a constant. If one sets $\alpha=0$, then the two physics are decoupled, which allows us to reconnect to the result derived in \cite{jlg} for the multi-D Euler equations: $P \partial_e s_{Euler} + \rho^2 \partial_{\rho} s_{Euler} = 0$. Then, following \cite{jlg}, definitions for $\partial_e s_{Euler}$ and $\partial_{\rho} s_{Euler}$ are obtained:
  \begin{equation}
  \label{eq:definition}
  \left\{
@@ -1153,12 +1161,12 @@ Finally, it remains to determine the sign of the term $(c) = \partial_e s \rho \
  \end{array}
  \right.  \,,
  \end{equation} 
- where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. In addition, using the ODE $\tilde{s}_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} \tilde{s}_{rad} = 0$, an expression for the radiation entropy is obtained by performing an integration which yields: $\tilde{s}_{rad}(\epsilon)  = \tilde{s}_{rad}^{(0)} \left(\frac{\epsilon}{\epsilon^{(0)}}\right)^\frac{3}{4}$. The sign of $\beta = \tilde{s}_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} \tilde{s}_{rad}(\epsilon) \leq 0$, derived above, so that $\beta = \tilde{s}_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}\geq0$.\\
-From the above results, the entropy minimum principle follows, so that the sign of the entropy residual is known:
+ where $T$ is the material temperature which ensures positivity of $\partial_e s$. Thus, $(c)$ is positive. In addition, integrating the ODE $\tilde{s}_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} \tilde{s}_{rad} = 0$, an expression for the radiation entropy is derived: $\tilde{s}_{rad}(\epsilon)  = \tilde{s}_{rad}^{(0)} \left(\frac{\epsilon}{\epsilon^{(0)}}\right)^\frac{3}{4}$. The sign of $\beta = \tilde{s}_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}$ is determined by using the condition, $\partial_{\epsilon,\epsilon} \tilde{s}_{rad}(\epsilon) \leq 0$, derived above, so that $\beta = \tilde{s}_{rad}^{(0)} / \left(\epsilon^{(0)}\right)^\frac{3}{4}\geq0$.\\
+From the above results, the entropy minimum principle follows, so that the sign of the entropy residual is known to be:
 \begin{equation}
 \boxed{\frac{Ds}{Dt} = \partial_t s + u \partial_x s \geq 0} \ ,
 \end{equation}
-where $s\left( e, \rho, \epsilon \right) = s_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4}$ and $\rho^{(0)}$ is set to one.
+where $s\left( \rho, e, \epsilon \right) = s_{Euler}( \rho, e) + \frac{\beta}{\rho} \epsilon^\frac{3}{4}$. % and $\rho^{(0)}$ is set to one.
  %%%%%%%%%%%%%%%
 %\begin{remark}
 %By assuming $\alpha=0$, an expression for the $s_{rad}$ can be derived by solving the ODE, $s_{rad} - \frac{4\epsilon}{3} \partial_{\epsilon} s_{rad} = 0$, which yields:
