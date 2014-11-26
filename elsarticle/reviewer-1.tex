@@ -46,6 +46,8 @@
 \newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
 
 \newcommand{\ud}{\,\mathrm{d}}
+
+\newcommand{\tcr}[1]{\textcolor{red}{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -56,40 +58,40 @@
 
 \bigskip
 
-\noindent Ms. Ref. No. JCOMP-S-14-00576\\
-Title: `Numerical solution of the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations with an entropy-based artificial viscosity technique \\
-{\it Journal of Computational Physics},\\
+\noindent Ms. Ref. No. JCOMP-D-14-00443\\
+Title: ``Numerical solution of the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations with an entropy-based artificial viscosity technique'', \\
+{\it Journal of Computational Physics}\\
 
 \bigskip
 \bigskip
 
 {
 \color{blue}
-The authors extend the entropy-based artificial viscosity method (Refs. 2,3) to non-equilibrium diffusion, radiation hydrodynamics. This is certainly novel research. However, I have some very serious issues with the theory de- velopment and its applicability. I also don’t believe that the results demon- strate, for this particular radiation model, the need for any more regulariza- tion than would for hydro alone when the shock transition layer is resolved, or is the correct regularization when it’s unresolved. Therefore, before con- sidering publication, I believe this paper must address these concerns.
-My feeling is that, unfortunately, the changes I require are such that the authors may consider withdrawing this paper. I do hope they continue to pursue the entropy viscosity approach, as I believe it has merit. There’s also nothing wrong with the numerical solution technique chosen. But for rad-hydro, the arguments for the particuar entropy viscosity used has serious issues, and I believe will lead to confusion in the community. The authors may come up with a way around my concerns here that I have not thought of, or I could simply be wrong. If so, I look forward to their response.
+The authors extend the entropy-based artificial viscosity method (Refs. 2,3) to non-equilibrium diffusion, radiation hydrodynamics. This is certainly novel research. However, I have some very serious issues with the theory development and its applicability. I also don't believe that the results demonstrate, for this particular radiation model, the need for any more regularization than would for hydro alone when the shock transition layer is resolved, or is the correct regularization when it's unresolved. Therefore, before considering publication, I believe this paper must address these concerns.
+My feeling is that, unfortunately, the changes I require are such that the authors may consider withdrawing this paper. I do hope they continue to pursue the entropy viscosity approach, as I believe it has merit. There's also nothing wrong with the numerical solution technique chosen. But for rad-hydro, the arguments for the particular entropy viscosity used has serious issues, and I believe will lead to confusion in the community. The authors may come up with a way around my concerns here that I have not thought of, or I could simply be wrong. If so, I look forward to their response.
 The details of my comments and concerns are given below.\\
 
-1. After eq. (1), the constant a is more commonly referred to as the “radiation constant.” It’s related to the Steffan-Boltzmann (or Steffan) constant ? by the relation a = 4?/c. The Boltzmann constant is usually written as k or kB, such as the “kT” term in the Planck function. Note that there’s also a “Boltzmann number” used in the rad-hydro literature, which is different from all of these.
+1. After eq. (1), the constant a is more commonly referred to as the radiation constant. It's related to the Stefan-Boltzmann (or Stefan) constant by the relation a = 4/c. The Boltzmann constant is usually written as k or k$_B$, such as the kT term in the Planck function. Note that there's also a Boltzmann number used in the rad-hydro literature, which is different from all of these.
 }
 
-Corrected. 
+This has been corrected. Thank you.
 \bigskip
 
 
 {
 \color{blue}
-2. For references with multiple authors, only the initials for some of the authors are given (including for the surnames) and in the wrong order. As example, the authors of Ref. 4 should be “Dai, W. W. and Woodard, P. R.” but in this paper are given as “W. P. R. Dai W.”}
+2. For references with multiple authors, only the initials for some of the authors are given (including for the surnames) and in the wrong order. As example, the authors of Ref. 4 should be Dai, W. W. and Woodard, P. R. but in this paper are given as W. P. R. Dai W.}
 
-Corrected.
+This has been corrected.  Thank you.
 \bigskip
 
 
 {
 \color{blue}
-3. It should be emphasized that the radiation model is grey non-equilibrium diffusion. Non-equilibrium diffusion (NED) should definitely should be mentioned in the abstract, and I would strongly suggest also in the title. As my comments below will hopefully make clear, the approach used in this study may at best be restricted to non-equilibrium diffusion. Specifically, it’s not at all clear whether the approach will work for full transport (such as discrete ordinates), or for that matter, whether difficulties will be encountered in the equilibrium-diffusion limit, even though the NED equations reduce to the equilibrium-diffusion rad- hydro equations in the optically-thick limit. More details below.
+3. It should be emphasized that the radiation model is grey non-equilibrium diffusion. Non-equilibrium diffusion (NED) should definitely should be mentioned in the abstract, and I would strongly suggest also in the title. As my comments below will hopefully make clear, the approach used in this study may at best be restricted to non-equilibrium diffusion. Specifically, it's not at all clear whether the approach will work for full transport (such as discrete ordinates), or for that matter, whether difficulties will be encountered in the equilibrium-diffusion limit, even though the NED equations reduce to the equilibrium-diffusion rad- hydro equations in the optically-thick limit. More details below.
 }
 
-We changed the model name in the title and wherever required in the remaining of the paper to grey non-equilibrium diffusion.
+We have modified the title and the manuscript to reflect this (grey non-equilibrium diffusion is now stated wherever needed).
 \bigskip
 
 
@@ -102,64 +104,67 @@ The main issue I have with this paper is using the system (3) as the hyperbolic 
 
 {
 \color{blue}
-4. I disagree that the system (3) is the “frozen” approximation for NED. It cannot be found through some limiting value of the opacity. The authors state that (3) is found in the limit of infinite opacity. This is incorrect. In this limit, the relaxation term dominates, leading to radiative equilibrium and the “strong equilibrium” limit (equilibrium- diffusion rad-hydro without diffusion; Lowrie, Morel, Hittinger ApJ 1999). This is not the system (3).
+4. I disagree that the system (3) is the frozen approximation for NED. It cannot be found through some limiting value of the opacity. The authors state that (3) is found in the limit of infinite opacity. This is incorrect. In this limit, the relaxation term dominates, leading to radiative equilibrium and the strong equilibrium limit (equilibrium- diffusion rad-hydro without diffusion; Lowrie, Morel, Hittinger ApJ 1999). This is not the system (3).
 }
 
-The reviewer is correct: the system (3) is not the frozen approximation. We corrected it but kept the system (3) the same.
+The reviewer is correct: the system (3) is not the frozen approximation and should not be referred to as such. We have corrected this. 
 \bigskip
 
 
 {
 \color{blue}
 5. Moreover, if (3) applied, then in Ref [11] sect. 4.2, the shock-jump relations would have to include the nonconservative product $u \partial_x \epsilon$. But
-I believe Ref. [11] is correct, in that this product does not contribute to the shock-jump relation, because $\epsilon$ is continuous through the (hydro) shock as a result of the regularization of the radiation diffusion. But this result is not true of the system (3), which has dropped the diffusion term. As discussed in Ref. [11], shocks that are embedded in the shock profile satisfy the unmodified hydro-jump relations. This is also true for rad-hydro using full transport. At least for the Eulerian frame, the “frozen” problem decouples radiation and hydro. In that case, it makes sense to develop entropy-based viscosities separately for the radiation and hydro (and the hydro-alone case has already been done in the References). If the authors feel that the system (3) is appropriate, they need a much stronger argument that it is.
+I believe Ref. [11] is correct, in that this product does not contribute to the shock-jump relation, because $\epsilon$ is continuous through the (hydro) shock as a result of the regularization of the radiation diffusion. But this result is not true of the system (3), which has dropped the diffusion term. As discussed in Ref. [11], shocks that are embedded in the shock profile satisfy the unmodified hydro-jump relations. This is also true for rad-hydro using full transport. At least for the Eulerian frame, the frozen problem decouples radiation and hydro. In that case, it makes sense to develop entropy-based viscosities separately for the radiation and hydro (and the hydro-alone case has already been done in the References). If the authors feel that the system (3) is appropriate, they need a much stronger argument that it is.
 }
+
+\tcr{not finished.}
 \bigskip
 
 
 {
 \color{blue}
-6. On a related note, if system (3) is the frozen system, then shocks em- bedded in the shock transition layer should satisfy its jump relations, whatever those may be. Deriving the jump relations for a nonconservative system is not straightforward. This would also imply that the jump relations in Ref. [11], sect 4.2 are wrong, and so its overall solutions are wrong. The authors need to make that case, if they believe that’s true.
+6. On a related note, if system (3) is the frozen system, then shocks em- bedded in the shock transition layer should satisfy its jump relations, whatever those may be. Deriving the jump relations for a nonconservative system is not straightforward. This would also imply that the jump relations in Ref. [11], sect 4.2 are wrong, and so its overall solutions are wrong. The authors need to make that case, if they believe that's true.
 }
 
-See 4.
+See \# 4.
 \bigskip
 
 
 {
 \color{blue}
-7. As further evidence of the inappropriateness of the system (3), consider its sound speed, given by eq. (6). The importance of the sound speed is that typically artificial viscosities scale with some power of the sound speed (such in eq. (9)), so that a bad choice can mean either too much or too little regularization. A dispersion analysis of rad-hydro using P1 (Lowrie, Morel, \& Hittinger, ApJ 1999), which certainly is closely related to NED, shows 3 regimes based on their sound speeds: the unmodified material sound speed (“frozen” for P1, full transport, and I believe also NED), isothermal sound speed, and the equilibrium- diffusion modified sound speed (see sect. 4.1 of Ref 10). Generally, none of these sound speeds match eq. (6), except for the equilibrium- diffusion speed for the very special case of a $\gamma$-law gas with $\gamma = 4/3$. So it’s not clear that the sound speed (6) will result in a sufficient viscosity in the equilibrium diffusion limit, and may be too much in the streaming limit. Again, these facts also call into question the appropriateness of basing an entropy and entropy viscosity on the hyperbolic system (3).
+7. As further evidence of the inappropriateness of the system (3), consider its sound speed, given by eq. (6). The importance of the sound speed is that typically artificial viscosities scale with some power of the sound speed (such in eq. (9)), so that a bad choice can mean either too much or too little regularization. A dispersion analysis of rad-hydro using P1 (Lowrie, Morel, \& Hittinger, ApJ 1999), which certainly is closely related to NED, shows 3 regimes based on their sound speeds: the unmodified material sound speed (frozen for P1, full transport, and I believe also NED), isothermal sound speed, and the equilibrium- diffusion modified sound speed (see sect. 4.1 of Ref 10). Generally, none of these sound speeds match eq. (6), except for the equilibrium- diffusion speed for the very special case of a $\gamma$-law gas with $\gamma = 4/3$. So it’s not clear that the sound speed (6) will result in a sufficient viscosity in the equilibrium diffusion limit, and may be too much in the streaming limit. Again, these facts also call into question the appropriateness of basing an entropy and entropy viscosity on the hyperbolic system (3).
 }
 
-We added a section entitled "Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit"  to show that the definition of the sound speed we use in the definition of the first-order viscosity coefficient corresponds to the maximum value of the sound speed (obtained for $\Gamma = 1/3$) derived in Ref. [11] and recalled in Equ. (25a).
+We added a section titled ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit''  to show that the definition of the sound speed we use in the definition of the first-order viscosity coefficient corresponds to the maximum value of the sound speed (obtained for $\Gamma = 1/3$) derived in Ref. [11] and recalled in Equ. (25a).
 \bigskip
 
 
 {
 \color{blue}
-8. The system (3) cannot be written conservation form, as the authors state in the paragraph that follows. Mass (first equation), momentum (second), and total energy (add the last two equations) can be written in conservation form, but one of the last two equations must be retained to form a complete system. Nevertheless, it’s hyperbolic (although the authors don’t show this or need to). It’s a nonconservative system, which might be fine, if this system was appropriate. I don’t believe it’s true that conservation form “allows us to assume the existence of an entropy function,” as stated after eq. (5). Conservation form is not a requirement to define an entropy. But all this is a moot point, because I don’t believe the system (3) is the appropriate hyperbolic system on which to develop an entropy.
+8. The system (3) cannot be written conservation form, as the authors state in the paragraph that follows. Mass (first equation), momentum (second), and total energy (add the last two equations) can be written in conservation form, but one of the last two equations must be retained to form a complete system. Nevertheless, it's hyperbolic (although the authors don't show this or need to). It's a nonconservative system, which might be fine, if this system was appropriate. I don't believe its true that conservation form ``allows us to assume the existence of an entropy function,'' as stated after eq. (5). Conservation form is not a requirement to define an entropy. But all this is a moot point, because I don't believe the system (3) is the appropriate hyperbolic system on which to develop an entropy.
 }
 
-The reviewer is right: the system (3) cannot be written in a conservation form. Nevertheless, the system (3) is proved to be hyperbolic in the paper since its eigenvalues, given in Equ. 4, are unconditionally real which allows us to assume the existence of an entropy function.
+The reviewer is correct when stating that the system (3) cannot be written in a conservation form. Nevertheless, the system (3) is proved to be hyperbolic in the paper since its eigenvalues, given in Equ. 4, are unconditionally real which allows us to assume the existence of an entropy function.
+\tcr{not finished.}
 \bigskip
 
 
 {
 \color{blue}
-9. Sect. 4.1 of Ref. 10 developed an entropy function for the equilibrium diffusion limit. The authors don’t address why the entropy they have selected instead is appropriate in this limit, even though the NED system reduces to equilibrium diffusion in the optically-thick limit.
+9. Sect. 4.1 of Ref. 10 developed an entropy function for the equilibrium diffusion limit. The authors don't address why the entropy they have selected instead is appropriate in this limit, even though the NED system reduces to equilibrium diffusion in the optically-thick limit.
 }
 
-In the section "Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit", an asymptotic limit is performed to show that the entropy we selected for the system (3) match the entropy $s^*$ derived in Ref. [11] in the equilibrium-diffusion limit.
+In the section ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit'', an asymptotic limit is performed to demonstrate that the entropy we selected for the system (3) match the entropy $s^*$ derived in Ref. [11] in the equilibrium-diffusion limit. \tcr{We believe this is a strong argument for using system (3) (the hyperbolic portion of system (1))}
 \bigskip
 
 
 {
 \color{blue}
 10. Finally, related to the last point, the radiative shock numerical solutions shown in this study all resolve the transition layer from the left to right states. Specifically, they resolve radiation diffusion term. When the transition layer is resolved, entropy viscosity is needed only to regularize the embedded hydro shocks that might occur, such as for the Mach 2 and 5 cases. But hydro shocks only need a viscosity appropriate for hydro-only shocks, developed in the entropy viscosity approach in earlier work. Of course, this is assuming the solutions of Ref. [11] are correct.
-For the cases in this study, the left and right states are in radiative equilibrium. The jump relations are given in Ref [11] sect. 4.2 and the entropy in Sect. 4.1 of Ref. 10, which again, differs from the entropy in the current study. A numerical shock regularization is required when the transition layer is unresolved. Referring to Fig. 7, a spacing of 0.02 cm would not resolve the transition layer for this case. A spacing of 0.2 cm would be a challenge for the Mach 50 case (Fig. 14). The entropy viscosity would have to regularize the overall jumps in these cases, or else numerical oscillations would occur. Such cases must be explored, or else it’s not clear whether the entropy viscosity is appropriate. It would also seem that the entropy developed in Sect. 5.1 of Ref. 10 would be more appropriate in such cases, and this should be addressed.
+For the cases in this study, the left and right states are in radiative equilibrium. The jump relations are given in Ref [11] sect. 4.2 and the entropy in Sect. 4.1 of Ref. 10, which again, differs from the entropy in the current study. A numerical shock regularization is required when the transition layer is unresolved. Referring to Fig. 7, a spacing of 0.02 cm would not resolve the transition layer for this case. A spacing of 0.2 cm would be a challenge for the Mach 50 case (Fig. 14). The entropy viscosity would have to regularize the overall jumps in these cases, or else numerical oscillations would occur. Such cases must be explored, or else it's not clear whether the entropy viscosity is appropriate. It would also seem that the entropy developed in Sect. 5.1 of Ref. 10 would be more appropriate in such cases, and this should be addressed.
 }
 
-We added a test case in the section "An equilibrium-diffusion test" to account for the case described by the reviewer. 
+We added a test case in the section ``An equilibrium-diffusion test'' in the results section to discuss the test case described by the reviewer. \tcr{why so smooth???}
 \bigskip
 
 \end{document}
