@@ -536,7 +536,7 @@ Next, we define the local first- and entropy viscosity coefficients $\kappa_{max
 \end{equation}  
 where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient.
 
-The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) which is recast as a function of pressure $P$, density $\rho$ and radiation energy density $\epsilon$:
+The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) which is recast as a function of total pressure $\hat{P}$, density $\rho$ and sound speed (see \app{app:appendixC} for details):
 \begin{equation}
 \label{eq:equation9}
 \tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{D\hat{P}}{Dt} - c_m^2 \frac{D\rho}{Dt} \right)}_\textrm{$\hat{D}_e(x,t)$} \,.
@@ -1326,7 +1326,95 @@ $A^*$ is definite negative (due to the concavity of $s^*$).
 %\tcr{Marco: you may be missing $\rho{-2}$ in $A(1,1)$ in Appendix A}
  
 We can now conclude: the non-equilibrium entropy equation, \eqt{eq:app_entr_eq_non_equil}, and the above entropy equation \eqt{eq:entr_eq_EDL}, obtained in the equilibrium-diffusion limit, prove the minimum entropy principle: at any spatial position where $\partial_x s =0$, the remainder terms on the right-hand sides of these equations are positive (note that $\partial_{x,x} s \geq0$ at the minimum of entropy), which ensures that $\matder{s} \ge 0$. Since we have shown that (i) the non-equilibrium entropy function $s(\rho,e,\epsilon)$ is asymptotically equivalent to the entropy $s^*(\rho,e^*)$ in the EDL (see \sect{sect:ent-asym-limit}) and that (ii) the entropy residual equations are equivalent in the EDL, the viscosity coefficients $\kappa$ and $\kappa^*$ are also equivalent.
-
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Derivation of the entropy residual as a function of total pressure (material and radiation pressures), density and speed of sound}
+\label{app:appendixC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+The entropy residual is defined as follows:
+\begin{equation}\label{app:ent}
+D_e(x,t) = \frac{D s}{Dt} = \partial_t s + u \partial_x s
+\end{equation}
+where all variables were defined previously and $\frac{D}{Dt}$ denotes the material derivative. In this appendix, we recast the entropy residual $D_e(x,t)$ as a function of total pressure (material and radiation pressures), density and speed of sound. The first step of this derivation is to use the chain rule, recalling that the entropy is a function of the internal energy $e$, the density $\rho$ and the radiation density energy $\epsilon$ yielding
+%
+\begin{equation}\label{app:ent2}
+D_e(x,t) = s_e \frac{D e}{Dt} + s_\rho \frac{D \rho}{Dt} + s_\epsilon \frac{D \epsilon}{Dt} \nonumber
+\end{equation}
+% 
+where $s_x$ denotes the partial derivative of $s$ with respect to the variable $x$. Since the internal energy $e$ is function of pressure $P$ and density $\rho$ (through the equation of state), we use again the chain rule to re-express the previous equation as a function of the material derivatives in $P$, $\rho$ and $\epsilon$:
+%
+\begin{align}
+D_e(x,t) = s_e e_P \frac{D P}{Dt} + ( s_e e_\rho + s_\rho ) \frac{D \rho}{Dt} + s_\epsilon \frac{D \epsilon}{Dt} \nonumber
+\end{align}
+%
+Recalling that the entropy $s$ is required to be of the form $s(e,\rho,\epsilon) = s_{Euler}(e,\rho) + s_{rad}(\rho,\epsilon)$ and noting that $s_e = (s_{Euler})_e$, the above equation becomes:
+%
+\begin{multline}\label{app:ent3}
+D_e(x,t) = (s_{Euler})_e e_P \frac{D P}{Dt} + \Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \\ + \Big( (s_{rad})_\rho + (s_{rad})_\epsilon \Big) \frac{D \epsilon}{Dt} \\
+= (s_{Euler})_e e_P\left[ \frac{D P}{Dt} + \frac{1}{(s_{Euler})_e e_P}\Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \right] \\ + \Big[ (s_{rad})_\rho \frac{D \rho}{Dt} + (s_{rad})_\epsilon \frac{D \epsilon}{Dt} \Big]
+\end{multline}
+%
+The above equation can be split into terms: the first term in the bracket corresponds to the Euler equations contribution to the entropy residual, whereas the second term comes from the radiation coupling. Owing the result from Appendix A of \cite{Marco_paper_low_mach}, the first term in the bracket of \eqt{app:ent3} is recast as follows:
+%
+\begin{multline}
+(s_{Euler})_e e_P\left[ \frac{D P}{Dt} + \frac{1}{(s_{Euler})_e e_P}\Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \right]  = \\ (s_{Euler})_e e_P\left[ \frac{D P}{Dt} -c^2_{Euler} \frac{D \rho}{Dt} \right] \nonumber
+\end{multline}
+% 
+which yields the following expression for the entropy residual $D_e$:
+%
+\begin{multline}\label{app:ent5}
+D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D P}{Dt} -c^2_{Euler} \frac{D \rho}{Dt} \right] + \Big[ (s_{rad})_\rho \frac{D \rho}{Dt} + (s_{rad})_\epsilon \frac{D \epsilon}{Dt} \Big]
+\end{multline}
+%
+We now recast \eqt{app:ent5} in terms of $\hat{P} = P + \frac{\epsilon}{3}$ and $c^2_m = c^2_{Euler} + c^2_{rad}$ as follows:
+%
+\begin{multline}\label{app:ent6}
+D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right] \\ + (s_{Euler})_e e_P \Big[ c^2_{rad}\frac{D \rho}{Dt} - \frac{1}{3}\frac{D \epsilon}{Dt} \Big] +  \Big[ (s_{rad})_\rho \frac{D \rho}{Dt} + (s_{rad})_\epsilon \frac{D \epsilon}{Dt} \Big]
+\end{multline}
+%
+At this point, we need to derive a relationship between the material derivatives of density $\rho$ and radiation density energy $\epsilon$. The continuity and the radiation equations from \eqt{eq:GHR_hyperbolic} are first recast as a function of the material derivatives $\frac{D \rho}{D t}$ and $\frac{D \epsilon}{D t}$:
+%
+\begin{align}
+&\partial_t \rho +  \partial_x (\rho u) = 0 \rightarrow \frac{D \rho}{D t} = - \rho \partial_x u \nonumber \\
+\text{and }
+&\partial_t \epsilon + \frac{4}{3}\partial_x (u \epsilon) - u \partial_x \epsilon = 0 \rightarrow \frac{D \epsilon}{D t} = -\frac{4 \epsilon}{3} \partial_x u \, , \nonumber
+\end{align}
+%
+which leads to the following relationship between $\frac{D \rho}{D t}$ and $\frac{D \epsilon}{D t}$:
+%
+\begin{equation}\label{eq:app7}
+\frac{1}{3} \frac{D \epsilon}{D t} =  \frac{4 \epsilon}{9\rho} \frac{D \rho}{D t} = c^2_{rad}\frac{D \rho}{D t}
+\end{equation}
+%
+Note that we used the definition of the radiation contribution to the sound speed defined in \eqt{eq:soundspeed}: $c_{rad}^2 = \frac{4 \epsilon}{9 \rho}$. Then, using the above relationship, the second term in \eqt{app:ent6} cancels out and the entropy residual now yields:
+%
+\begin{multline}\label{app:ent8}
+D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right]  +  \Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]  \frac{D \rho}{Dt}
+\end{multline}
+%
+We now investigate the term $\Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]$. By using the definition of the radiation entropy $s_{rad}$ derived in \app{app:appendixB} and \sect{sect:equ-diff}, $s_{rad}(\rho, \epsilon) = \frac{4 a^\frac{1}{4}}{3 \rho} \epsilon^\frac{3}{4}$, it can be shown after some algebra that:
+%
+\begin{equation}
+\Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big] = 0 \, .\nonumber
+\end{equation}
+% 
+Recalling that $(s_{Euler})_e = s_e$, it follows:
+%
+\begin{equation}
+D_e(x,t) = \frac{D s}{D t} = s_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right] \, . \nonumber
+\end{equation}
+% 
+\begin{remark}
+Note that we also have:
+%
+\begin{equation}
+D_e(x,t) = \frac{D s}{D t} = s_e e_P\left[ \frac{D P}{Dt} - c^2_{Euler} \frac{D \rho}{Dt} \right] \, . \nonumber
+\end{equation}
+%
+\end{remark}
 %The viscous regularization proposed in \sect{sec:visc-reg} conserves the equilibrium-diffusion limit and also ensures the stability of \eqts{eq:equip-diff-equ}, i.e., by yielding well-scaled dissipative terms in each equation of \eqts{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. This parabolic regularization corresponds to the viscous regularization that would have been obtained if we had studied the hyperbolic terms of the equilibrium-diffusion system of equations.
 %%
 %
