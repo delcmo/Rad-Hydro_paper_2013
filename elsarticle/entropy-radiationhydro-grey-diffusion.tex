@@ -785,17 +785,17 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $1.6642117$ $10^{-6}$\\
 The computational domain is of size $L=0.08$ $cm$ and the initial step is at $x_0 = 0.015$ $cm$. The numerical solutions at steady state are given in \fig{fig:Mach105_temp}, \fig{fig:Mach105_density} and \fig{fig:Mach105_viscosity}. 
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_1p05_nel_500_temperature.png}
+                \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_temperature.png}
         \caption{Material and radiation temperature profiles at steady state for Mach 1.05 test.}\label{fig:Mach105_temp}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_1p05_nel_500_density}
+                \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_density}
         \caption{Material density profile at steady state for Mach 1.05 test.}\label{fig:Mach105_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_1p05_nel_500_viscosity.png}
+                \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state for Mach 1.05 test (logarithm scale).}\label{fig:Mach105_viscosity}
 \end{figure}
 The energy transfer between the material and radiation fields is not large enough to form a shock in the material. Thus, all of the material variables are smooth (\fig{fig:Mach105_temp} and \fig{fig:Mach105_density}) as well as the radiation temperature $\theta$. Because of the smoothness of the solution, the viscosity coefficient $\kappa$ is three order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$ (\fig{fig:Mach105_viscosity}).
@@ -804,25 +804,25 @@ We also investigate the frozen in limit where the diffusion coefficient $D = \fr
 %
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_velocity.png}
+        \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_velocity.png}
         \caption{Material velocity profile (zoom in the region of strong spatial variation).}
         \label{fig:Mach_1p05_frozen_density}
 \end{figure}%
 \begin{figure}[H]
             \centering
-            \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_density.png}
+            \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_density.png}
             \caption{Material density profile (zoom in the region of strong spatial variation).}
             \label{fig:Mach_1p05_frozen_velocity}
 \end{figure}
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{Mach_1p05_zoom_in_temperatures.png}
+        \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_temperatures.png}
         \caption{Material temperature profile (zoom in the region of strong spatial variation).}
         \label{fig:Mach_1p05_frozen_temp}
 \end{figure}        
 \begin{figure}[H]
         \centering
-        \includegraphics[width=\textwidth]{Mach_1p05_frozen_in_viscosity_coeffs.png}
+        \includegraphics[width=\textwidth]{figs/Mach_1p05_frozen_in_viscosity_coeffs.png}
         \caption{Numerical viscosity and diffusion coefficients profiles with 100 spatial cells.}
         \label{fig:Mach_1p05_frozen_visc}
 \end{figure}
@@ -853,19 +853,19 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 The slab thickness is set to $L=0.045$ $cm$ and the initial step was located at $x_0 = 0$ $cm$. 
 \begin{figure}[H]
        \centering
-       \includegraphics[width=\textwidth]{Mach_1p2_nel_1000_temperature.png}
+       \includegraphics[width=\textwidth]{figs/Mach_1p2_nel_1000_temperature.png}
        \caption{Material and radiation temperature profiles at steady state for Mach 1.2 test.}\label{fig:Mach12_temp}
 \end{figure}
 The radiation and material temperatures have two different behaviors (\fig{fig:Mach12_temp}): the later experiences an embedded hydrodynamic shock, whereas the radiation temperature is smooth because of the diffusion term. The material temperature profile does not show any pre- and post-shock oscillations. In \fig{fig:Mach12_density}, the material density profile has a shock as well. The viscosity coefficient (\fig{fig:Mach12_viscosity}) is peaked in the shock as expected but does not saturate to the first-order viscosity. It is conjectured that the diffusion term in the radiation equation brings extra stability to the system. \\
 Overall, the numerical solution behaves as expected in the shock and the entropy-based viscosity method seems to efficiently stabilize the numerical scheme.  
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_1p2_nel_1000_density.png}
+                \includegraphics[width=\textwidth]{figs/Mach_1p2_nel_1000_density.png}
         \caption{Material density profile at steady state for Mach 1.2 test.}\label{fig:Mach12_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_1p2_nel_1000_viscosity.png}
+                \includegraphics[width=\textwidth]{figs/Mach_1p2_nel_1000_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state for Mach 1.2 test (logarithm scale).}\label{fig:Mach12_viscosity}
 \end{figure}
 
@@ -890,7 +890,7 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_2_nel_2000_temperature.png}
+                \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_temperature.png}
         \caption{Material and radiation temperature profiles at steady-state for Mach 2 test.}\label{fig:Mach2_temp}
 \end{figure}
 Once again, the radiation temperature profile is smooth and the material temperature experiences an embedded hydrodynamic shock and a peak as shown in \fig{fig:Mach2_temp}. In \fig{fig:Mach2_density}, the shock is well resolved. The viscosity coefficient profile is given in \fig{fig:Mach2_viscosity} and is peaked, once again, in the shock region. 
@@ -898,17 +898,17 @@ Once again, the radiation temperature profile is smooth and the material tempera
 For comparison purpose, the same simulation was run with the first-order viscosity only, i.e., $\kappa$ was set equal to $\kappa_{max}$ for the whole domain in order to see the advantage of using a entropy viscosity coefficient. The results are given in \fig{fig:Mach2_tempEVandFO} for the material density and temperature. Numerical solutions with first- and entropy viscosity coefficients are graphed. The radiation temperature profile (not shown here) is not affected much by the first-order viscosity and the curves are coincident. This is expected because of the way the artificial viscosity term is treated in the radiation equation (\sect{sec:entropy-visc-meth}). However, on the same figure, the shock and peak in the material temperature profile are smoothed out: the shock is not as sharp and the peak amplitude is reduced because of the larger amount of viscosity added to the system. This test shows the benefits of using a high-order viscosity coefficient in order to avoid over-dissipation.
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_2_nel_2000_density.png}
+                \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_density.png}
         \caption{Material density profile at steady-state for Mach 2 test.}\label{fig:Mach2_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_2_nel_2000_viscosity.png}
+                \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state for Mach 2 test.}\label{fig:Mach2_viscosity}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_2_fo_ev.png}
+                \includegraphics[width=\textwidth]{figs/Mach_2_fo_ev.png}
         \caption{Comprarison between the material density and temperature profiles run with the high-order and first-order viscosity coefficients.}\label{fig:Mach2_tempEVandFO}
 \end{figure}
 
@@ -933,23 +933,23 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_5_nel_1000_temperature.png}
+                \includegraphics[width=\textwidth]{figs/Mach_5_nel_1000_temperature.png}
         \caption{Material and radiation temperature profiles at steady state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_temp}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_5_comparison.png}
+                \includegraphics[width=\textwidth]{figs/Mach_5_comparison.png}
         \caption{Material temperature profiles at steady state for the Mach 5 test in the neighborhood spike.}\label{fig:Mach5_comparison}
 \end{figure}
 In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer exhibits an embedded hydrodynamic shock but shows a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike. In \fig{fig:Mach5_comparison}, the Zeldovich spike region is plotted for different mesh resolutions, using from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size when appropriately refined. The density profile, \fig{fig:Mach5_density}, shows a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any numerical oscillations. 
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_5_nel_2000_density.png}
+                \includegraphics[width=\textwidth]{figs/Mach_5_nel_2000_density.png}
         \caption{Material density profile at steady state for Mach 5 test.}\label{fig:Mach5_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_5_nel_2000_viscosity.png}
+                \includegraphics[width=\textwidth]{figs/Mach_5_nel_2000_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state for Mach 5 test.}\label{fig:Mach5_viscosity}
 \end{figure}
 
@@ -974,18 +974,18 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-2}$ & $7.33726$ $10^{5}$\\
 \end{table}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_50_nel_1000_temperature.png}
+                \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_temperature.png}
         \caption{Material and radiation temperature profiles at steady state for Mach 50 test.}\label{fig:Mach50_temp}
 \end{figure}
 At Mach $50$, there is no embedded hydrodynamic shock forming as shown in \fig{fig:Mach50_temp}. The density profile is smooth as shown in \fig{fig:Mach50_density}. In \fig{fig:Mach50_temp}, the material and radiation temperatures overlap on all of the computational domain except for a small region located between $x=-0.2$ and $x=-0.18$ $cm$. In this particular region, the viscosity coefficient saturates to the first-order viscosity (see \fig{fig:Mach50_viscosity}) because of the inflection point in the material temperature profile. The artificial dissipative terms correctly stabilize the material temperature profile without altering the physical solution: the radiation temperature is expected to increase ahead of the material temperature.
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_50_nel_1000_density.png}
+                \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_density.png}
         \caption{Material density profile at steady-state for Mach 50 test.}\label{fig:Mach50_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
-                \includegraphics[width=\textwidth]{Mach_50_nel_1000_viscosity.png}
+                \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_viscosity.png}
         \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady-state for Mach 50 test.}\label{fig:Mach50_viscosity}
 \end{figure}
 
