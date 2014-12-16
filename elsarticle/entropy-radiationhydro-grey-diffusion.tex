@@ -117,7 +117,7 @@
 %-------------------------
 \begin{abstract}
 The entropy viscosity method is extended to the non-equilibrium Grey Radiation-Hydrodynamic equations. 
-The method employs a viscous regularization to stabilize the numerical solution with an artificial viscosity coefficient modulated by the entropy production which exhibits peaks in shock regions. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the Radiation-Hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks. The frozen in limit is also investigated with a Mach $1.05$ test case.
+The method employs a viscous regularization to stabilize the numerical solution with an artificial viscosity coefficient modulated by the entropy production which exhibits peaks in shock regions. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the Radiation-Hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks. The equilibrium diffusion limit is also investigated with a Mach $1.05$ test case.
 \end{abstract}
 %
 \begin{keyword}
@@ -170,23 +170,15 @@ The 1-D Grey non-equilibrium Radiation-Hydrodynamic equations are recalled in \e
 \end{equation}
 \end{subequations}
 where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
-The material temperature and pressure are computed with the ideal gas equation of state (IGEOS):
-\begin{equation}
-\label{eq:IGEOS}
-\left\{
-\begin{array}{ll}
-P = (\gamma-1) C_v \rho T \\
-e = C_v T 
-\end{array}
-\right. ,
-\end{equation}
+The material temperature and pressure are computed with the ideal gas equation of state (IGEOS): 
+$ P = (\gamma-1) C_v \rho T$ and $e = C_v T$,
 where  $e = E - 0.5 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
 
 %The objective of this paper is to extend the entropy-based viscosity method to the Grey non-equilibrium Radiation-Hydrodynamic equations. 
 The approach followed in this paper is similar to those of \cite{Balsara, LowrieMorel} where the relaxation and diffusion terms in the radiation and material energy equations are omitted in order to analyze only the hyperbolic parts of \eqt{eq:GRH}. 
 %Then, an entropy equation is derived and used to obtain the functional forms of the viscous stabilization terms. Definitions for the viscosity coefficients are provided. 
 
-This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy viscosity method is extended to the non-equilibrium Grey Radiation-Hydrodynamic equations; details regarding the derivation of the adequate dissipative terms and definitions for the new viscosity coefficients are provided. Spatial and temporal discretization schemes are discussed in \sect{sec:num-scheme} along with the solution algorithm employed to solve the discretized equations. Numerical results are presented in \sect{sec:num-res} where the second-order accuracy of the scheme is demonstrated in both the equilibrium-diffusion and streaming limits, using the method of manufactured solutions. Then, several numerical test cases, taken from the published literature \cite{LowrieEdwards}, are provided; in these simulations, the Mach number varies from $1.05$ to $50$. Conclusions are presented in \sect{sec:ccl}.
+This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy viscosity method is extended to the non-equilibrium Grey Radiation-Hydrodynamic equations. Details regarding the derivation of the adequate dissipative terms and definitions for the new viscosity coefficients are provided. Spatial and temporal discretization schemes are discussed in \sect{sec:num-scheme} along with the solution algorithm employed to solve the discretized equations. Numerical results are presented in \sect{sec:num-res} where the second-order accuracy of the scheme is demonstrated in both the equilibrium-diffusion and streaming limits, using the method of manufactured solutions. Then, several numerical test cases, taken from the published literature \cite{LowrieEdwards}, are provided; in these simulations, the Mach number varies from $1.05$ to $50$. Conclusions are presented in \sect{sec:ccl}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -195,13 +187,13 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations, i.e., with viscous dissipative terms present; we show that the equilibrium-diffusion limit is retrieved for the regularized GHR equations. The frozen in limit is also investigated and an equivalence is shown between the results presented in this paper and previously obtained results (for instance, the ones in \cite{LowrieMorel}). Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations, i.e., with viscous dissipative terms present; we show that the equilibrium-diffusion limit is preserved for the regularized GHR equations. The frozen in limit is also investigated and an equivalence is shown between the results presented in this paper and previously obtained results (for instance, the ones in \cite{LowrieMorel}). Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivation of a viscous regularization for the non-equilibrium Grey Radiation-Hydrodynamic equations}\label{sec:visc-reg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the Radiation-Hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the study of their hyperbolic parts \cite{Balsara, LowrieMorel}. Following the same rationale, we omit the relaxation and the diffusion terms in the radiation and material energy equations, \eqt{eq:GRHrad} and \eqt{eq:GRHenerg}; this yields the following hyperbolic system:
+We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the Radiation-Hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the characteristics of their hyperbolic parts \cite{Balsara, LowrieMorel}. Following the same rationale, we omit the relaxation and the diffusion terms in the radiation and material energy equations, \eqt{eq:GRHrad} and \eqt{eq:GRHenerg}; this yields the following hyperbolic system:
 \begin{subequations}
 \label{eq:GHR_hyperbolic}
 \begin{equation}
@@ -227,15 +219,15 @@ The eigenvalues of the system of equations, \eqts{eq:GHR_hyperbolic}, are:
 \lambda_1 = u-c_m \text{, } \lambda_{2,3} = u \text{ and } \lambda_4 = u+c_m ,
 \end{equation}
 %
-where $c_m$ is a radiation-modified material speed of sound and is as follows:
+where $c_m$ is a radiation-modified material speed of sound:
 %
 \begin{equation}
 \label{eq:soundspeed}
-c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \ .
+c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \,,
 \end{equation}
 %
-$P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only Euler equations and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$.
-Because the above system is hyperbolic, we can assume the existence of an entropy function $s$ \cite{Lax} that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables). After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
+where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$. \tcr{euler? not m?}
+Because the system giuven in \eqts{eq:GHR_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:entropy_equation}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) \geq 0 \ ,
@@ -272,10 +264,12 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 where the functional form of the entropy is
 %
 \begin{equation}\label{eq:ent_equ}
-s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s(\rho, e)_{Euler} + \frac{\beta}{\rho} \epsilon^\frac{3}{4} \,.
+s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{\beta}{\rho} \epsilon^\frac{3}{4} \,.
 \end{equation}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
+%
+The entropy function obtained is the sum of (i) $s_{Euler}(\rho, e)$, the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GHR_hyperbolic} with no radiation terms) and (ii) $s_{rad}(\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$, the radiation contribution to the entropy. 
 $s_{rad}(\epsilon)$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The entropy function $s_{Euler}$ stands for the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GHR_hyperbolic} with no radiation terms) and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$ given by the second law of thermodynamics. The functional form of $s_{rad} = \beta \rho^{-1} \epsilon^\frac{3}{4}$ is derived later, in \sect{sect:equ-diff}; $\beta$ is a constant. 
 The entropy $s(\rho,e,\epsilon)$ can also be obtained through a relation analogous to the second law of thermodynamics. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_equ}, a radiation-modified entropy relation is obtained:
 %
