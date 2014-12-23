@@ -117,7 +117,7 @@
 %-------------------------
 \begin{abstract}
 The entropy viscosity method is extended to the non-equilibrium Grey Radiation-Hydrodynamic equations. 
-The method employs a viscous regularization to stabilize the numerical solution with an artificial viscosity coefficient modulated by the entropy production which exhibits peaks in shock regions. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the Radiation-Hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are computed to establish the ability of the technique to capture and resolve shocks. The equilibrium diffusion limit is also investigated with a Mach $1.05$ test case.
+The method employs a viscous regularization to stabilize the numerical solution. The artificial viscosity coefficient is modulated by the entropy production and peaks at shock locations. The added dissipative terms are consistent with the entropy minimum principle.  A new functional form of the entropy residual, suitable for the Radiation-Hydrodynamic equations, is derived. We demonstrate that the viscous regularization preserves the equilibrium diffusion limit. The equations are discretized with a standard Continuous Galerkin Finite Element Method and a fully implicit temporal integrator within the MOOSE multiphysics framework. The method of manufactured solutions is employed to demonstrate second-order accuracy in both the equilibrium diffusion and streaming limits. Several typical 1-D radiation-hydrodynamic test cases with shocks (from Mach 1.05 to Mach 50) are presented to establish the ability of the technique to capture and resolve shocks. % The equilibrium diffusion limit is also investigated with a Mach $1.05$ test case.
 \end{abstract}
 %
 \begin{keyword}
@@ -187,7 +187,7 @@ This paper is organized as follows. In \sect{sec:entropy-visc-meth}, the entropy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations, i.e., with viscous dissipative terms present; we show that the equilibrium-diffusion limit is preserved for the regularized GHR equations. The frozen in limit is also investigated and an equivalence is shown between the results presented in this paper and previously obtained results (for instance, the ones in \cite{LowrieMorel}). Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
+In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valentin} to the Radiation-Hydrodynamic equations in a staged process. First, the reader is guided through the main steps that lead to the derivation of the viscous regularization based on the entropy minimum principle \cite{entropy}. Then, an asymptotic study is performed for the regularized GRH equations, i.e., with viscous dissipative terms present; we show that the equilibrium-diffusion limit is preserved for the regularized GRH equations. The frozen-in limit is also investigated and an equivalence is shown between the results presented in this paper and previously obtained results (for instance, the ones in \cite{LowrieMorel}). Finally, a definition for the entropy viscosity coefficient is presented along with the viscous regularization of the GRH equations.
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Derivation of a viscous regularization for the non-equilibrium Grey Radiation-Hydrodynamic equations}\label{sec:visc-reg}
@@ -195,7 +195,7 @@ In this section, we extend the entropy viscosity method \cite{jlg1, jlg2, valent
 
 We recall that the entropy viscosity method was developed for hyperbolic system of equations. However, the Radiation-Hydrodynamic equations are not strictly hyperbolic but several numerical techniques are based on the characteristics of their hyperbolic parts \cite{Balsara, LowrieMorel}. Following the same rationale, we omit the relaxation and the diffusion terms in the radiation and material energy equations, \eqt{eq:GRHrad} and \eqt{eq:GRHenerg}; this yields the following hyperbolic system:
 \begin{subequations}
-\label{eq:GHR_hyperbolic}
+\label{eq:GRH_hyperbolic}
 \begin{equation}
 \partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 
 \end{equation}
@@ -213,7 +213,7 @@ We recall that the entropy viscosity method was developed for hyperbolic system 
 \end{equation}
 \end{subequations}
 %
-The eigenvalues of the system of equations, \eqts{eq:GHR_hyperbolic}, are: 
+The eigenvalues of the system of equations, \eqts{eq:GRH_hyperbolic}, are: 
 \begin{equation}
 \label{eq:eigenvalues_hyperbolicGRH}
 \lambda_1 = u-c_m \text{, } \lambda_{2,3} = u \text{ and } \lambda_4 = u+c_m ,
@@ -223,18 +223,19 @@ where $c_m$ is a radiation-modified material speed of sound:
 %
 \begin{equation}
 \label{eq:soundspeed}
-c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \frac{4 \epsilon}{9\rho} = c_{Euler}^2 + c^2_{rad} \,,
+c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \underbrace{\frac{4 \epsilon}{9\rho}}_{c^2_{rad}} 
+= c_{Euler}^2 + c^2_{rad} \,,
 \end{equation}
 %
-where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the definition of the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$. \tcr{euler? not m?}
-Because the system giuven in \eqts{eq:GHR_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
+where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$. \tcr{why euler when you say ``material speed of sound''?}
+Because the system given in \eqts{eq:GRH_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:entropy_equation}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) \geq 0 \ ,
 \end{equation}
 where $\frac{D \cdot}{Dt}$ denotes the total or material derivative ($\frac{Ds}{Dt} = 0$  for smooth solutions). \eqt{eq:entropy_equation} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy}. 
 
-Because the solutions of \eqts{eq:GHR_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms to each equation of \eqts{eq:GHR_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:entropy_equation}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} is as follows:
+Because the solutions of \eqts{eq:GRH_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms in \eqts{eq:GRH_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:entropy_equation}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} is as follows:
 \begin{subequations}
 \label{eq:regularized_hyperbolic_GRH}
 \begin{equation}
@@ -254,7 +255,7 @@ Because the solutions of \eqts{eq:GHR_hyperbolic} can develop shocks, dissipativ
 \end{equation}
 \end{subequations}
 %
-where $\kappa$ is a positive locally defined viscosity coefficient. The following conditions were assumed to hold:
+where $\kappa$ is a positive and locally defined viscosity coefficient. The following conditions were assumed to hold:
 \begin{subequations}
 \label{eq:visc_reg_assumptions}
 \begin{equation}
@@ -269,9 +270,10 @@ s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
 %
-The entropy function obtained is the sum of (i) $s_{Euler}(\rho, e)$, the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GHR_hyperbolic} with no radiation terms) and (ii) $s_{rad}(\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$, the radiation contribution to the entropy. 
-$s_{rad}(\epsilon)$ is concave with respect to the radiation energy density $\epsilon$ and $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$. The entropy function $s_{Euler}$ stands for the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GHR_hyperbolic} with no radiation terms) and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$ given by the second law of thermodynamics. The functional form of $s_{rad} = \beta \rho^{-1} \epsilon^\frac{3}{4}$ is derived later, in \sect{sect:equ-diff}; $\beta$ is a constant. 
-The entropy $s(\rho,e,\epsilon)$ can also be obtained through a relation analogous to the second law of thermodynamics. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_equ}, a radiation-modified entropy relation is obtained:
+The entropy function obtained is the sum of (i) $s_{Euler}(\rho, e)$, the entropy function obtained when considering only the Euler equations (i.e., \eqts{eq:GRH_hyperbolic} with no radiation terms) and (ii) $s_{rad}(\rho,\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$, the radiation contribution to the entropy. 
+$s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $1/\rho$ and is defined through the entropy relation $Tds_{Euler} = de + P d \rho^{-1}$ given by the second law of thermodynamics. 
+$s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. Its functional form of is derived later, in \sect{sect:equ-diff}; $\beta$ is a constant. 
+The entropy $s(\rho,e,\epsilon)$ can also be obtained through a relation analogous to the second law of thermodynamics, as explained next. Starting from $Tds$ and using the expression of the entropy given in \eqt{eq:ent_equ}, a radiation-modified entropy relation is obtained:
 %
 \begin{equation}\label{eq:ent_relation}
 Tds = d\hat{e} + \left[ d\hat{P} + \epsilon \left( \frac{T \beta}{\epsilon^\frac{1}{4}} -\frac{4}{3} \right) \right] d \rho^{-1} + \rho^{-1}\left( \frac{3 T \beta}{4 \epsilon^\frac{1}{4}} -1 \right) d \epsilon
@@ -289,7 +291,9 @@ In Section \ref{sect:ent-asym-limit}, we will draw an equivalence with the above
 \subsection{The Equilibrium-Diffusion Limit (EDL)}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (\eqts{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. We compare the asymptotic results against the equilibrium-diffusion limit Radiation-Hydrodynamic equations which can be found in Section $4$ of Reference \cite{LowrieMorel}, for instance. 
+Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (\eqts{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. \tcr{By correct asymptotic equations, we mean the equilibrium diffusion limit equations \emph{with} viscous regularization present; furthermore, the dissipative terms should not depend upon the scaling parameter in that limit.  
+Note that, even in the equilibrium-diffusion limit, the radiation hydrodynamic equations can develop shocks and thus require adequate stabilization.}
+We compare the asymptotic results against the equilibrium-diffusion limit Radiation-Hydrodynamic equations which can be found in Section 4 of Reference \cite{LowrieMorel}, for instance. 
 %
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
 %
@@ -315,6 +319,7 @@ The full GRH equations \emph{with} the viscous regularization derived in \sect{s
 
 To derive the scaled version of \eqts{eq:equation-visc-reg}, we consider the following non-dimensionalization:
 %
+\tcr{Morel circled P'. I do not see anything wrong, do you?}
 \begin{equation}
 \label{eq:norm_param}
 \begin{array}{llll}
@@ -370,7 +375,7 @@ dimensionless quantities are of order one. Note that $\sigma_a$ will be expresse
 \end{multline}
 \end{subequations}
 %
-where we introduced the following scaling parameters
+where we introduced the following non-dimensional parameters
 %
 \begin{multline}\label{eq:scaled-nb}
 \Ls = L_\infty \sigma_{t,\infty} \ , 
@@ -388,15 +393,19 @@ The parameter $\Lsi$ represents the ratio of the total mean-free-path to the sca
 %
 $\Re$ is a measure of the ratio of the radiation energy to the material energy; it is scaled as $O(1)$. 
 %
-Finally, the P\'eclet number $\Pe$ measures the ratio of the viscous term to the advection term and its scaling will be chosen so that the equilibrium-diffusion equations are recovered; when this is achieved, the dissipative terms will be characterized as well scalled. Note that even in the equilibrium-diffusion limits, the radiation hydrodynamic equations can develop shocks and thus require adequate stabilization. The scaling of the P\'eclet number can be inferred from the scaled continuity equation, for instance. If we assume that $\Pe$ scales as $O(\varepsilon)$, then the leading-order continuity equation does not have any stabilization terms which may lead to the formation of spurious oscillations in shock regions. The same argument shows the same effect when assuming $\Pe = O(\varepsilon^{-1})$. Thus, the P\'eclet number must be chosen to scale as one (i.e., $\Pe = O(1)$) in order to yield well-scaled dissipative terms. 
+Finally, the P\'eclet number $\Pe$ measures the ratio of the viscous term to the advection term. When it is scaled as $O(1)$, the equilibrium-diffusion equations with viscous stabilization are recovered. 
 %
+The adequate scaling of the P\'eclet number can be inferred from the scaled continuity equation, for instance. If one assumes that $\Pe$ scales as $O(\varepsilon)$, then the leading-order continuity equation does not have any stabilization terms. If one assumes $\Pe = O(\varepsilon^{-1})$, completely erroneous leading-order equations are obtained. Hence, the proper scaling is $\Pe = O(1)$ in order to yield well-scaled dissipative terms. 
+
+\tcr{Hereafter, we omit the superscript $'$ for the non-dimensional variables.}
 Next, we assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
 %
 \begin{equation}\label{eq:expansion-series}
 \varphi = \sum_i \varphi_i \varepsilon^i \ ,
 \end{equation}
 %
-where $\varphi$ denotes any given variable. By substituting the power series expansion for each variable in \eqts{eq:equation-visc-reg-scaled} and using the scaling of the non-dimensional numbers, the leading-, first- and second-order equations are obtained. The leading-order of \eqts{eq:equation-visc-reg-scaled} is:
+where $\varphi$ denotes any given variable. By substituting the power series expansion for each variable into the non-dimensional
+radiation-hydrodynamics equations, \eqts{eq:equation-visc-reg-scaled}, we obtain a hierarchy of asymptotic equations. By collecting all terms multiplying each power of $\varepsilon$, the leading-, first- and second-order equations are obtained. The leading-order results from \eqts{eq:equation-visc-reg-scaled} are:
 %
 \begin{subequations}
 \label{eq:first-order}
@@ -440,7 +449,7 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 %
 \end{subequations}
 %
-The viscous regularization proposed in \sect{sec:visc-reg} for the non-equilibrium GRH equations conserves the equilibrium-diffusion limit and ensures the stability of the resulting \eqts{eq:equip-diff-equ} by yielding dissipative terms that scale appropriately in each equation of \eqts{eq:equip-diff-equ}. Also, when removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yields a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. The viscous regularization we obtain here in the equilibrium-diffusion limit is the one that would have been obtained, had we studied the hyperbolic parts of the equilibrium-diffusion system of equations. This proof is provided in \app{app:appendixB} where we demonstrate that the same viscous regularization is also obtained by starting directly with the equilibrium-diffusion equations.
+The viscous regularization proposed in \sect{sec:visc-reg} for the non-equilibrium GRH equations conserves the equilibrium-diffusion limit and ensures the stability of the resulting \eqts{eq:equip-diff-equ} by yielding dissipative terms that scale appropriately in each equation of \eqts{eq:equip-diff-equ}. When removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yield a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. The viscous regularization obtained here in the equilibrium-diffusion limit is the one that would have been obtained had we studied the hyperbolic parts of the equilibrium-diffusion system of equations. This proof is provided in \app{app:appendixB} where we demonstrate that the same viscous regularization can also \tcr{be obtained by stabilizing the equilibrium-diffusion limit equations.}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit}\label{sect:ent-asym-limit}
@@ -452,14 +461,14 @@ We also investigate how the asymptotic limit affects the entropy function $s(\rh
 s' \left( \rho', e', \epsilon' \right) = s'_{Euler} \left( \rho', e' \right)+ \Re \frac{\beta_\infty}{a\frac{1}{4}} \frac{\beta'}{\rho'} \epsilon^{\prime,3/4} \,.
 \end{equation}
 %
-Note that the non-dimensionalized $\beta'$ is equal to one since $\beta$ is a constant. $\beta_\infty$ is the reference value for $\beta$ and has the same unit as $s_0 / \epsilon^\frac{3}{4}$ as shown in \app{app:appendixA}. Recalling that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy term is (the superscripts are omitted for brevity):
+Note that the non-dimensionalized $\beta'$ is equal to one since $\beta$ is a constant. $\beta_\infty$ is the reference value for $\beta$ and has the same units as $s_0 / \epsilon^\frac{3}{4}$ as shown in \app{app:appendixA}. Recalling that $\Re = O(1)$ and $T_0^4 = \epsilon_0$, the leading-order entropy term is (the superscripts are omitted for brevity):
 %\tcr{the $_0$ seem mis-placed} \tcb{ done}
 %
 \begin{equation}\label{eq:ent-scaled-2}
 s_0 \left( \rho, e \right) = s_{Euler,0}\left( \rho, e \right) + \frac{\beta_\infty}{a\frac{1}{4}} \frac{1}{\rho_0} T_0^3 \ .
 \end{equation}
 %
-We compare \eqt{eq:ent-scaled-2} against the non-dimensionalized entropy $s^*$ obtained in the equilibrium-diffusion limit with the radiation-modified Equations of State (REOS) given in Section 4 of \cite{LowrieMorel}, e.g.:
+We compare \eqt{eq:ent-scaled-2} against the non-dimensionalized entropy $s^*$ obtained in the equilibrium-diffusion limit with the radiation-modified Equations of State (REOS) given in Section 4 of \cite{LowrieMorel}:
 %
 \begin{equation}\label{eq:ent-reos}
 s^*(\rho,e) = s_{Euler}(\rho,e) + \frac{4T^3}{3\rho} \ .
@@ -472,7 +481,7 @@ s \left( \rho, e, \epsilon \right) = s_{Euler}\left( \rho, e \right) + s_{rad}(\
 \end{equation}
 %
 %The constant $\beta$ is now fully determined and the final expression of the entropy 
-\eqt{eq:entropy}) can now be used for two purposes: (i) to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:soundspeed} under the form of a partial derivative as with the definition of the speed of sound for the standard Euler equations and (ii) to derive an expression for the entropy relation (\eqt{eq:ent_relation}) in a form analogous to the second law of thermodynamics. We start with (i): Using the definition of the radiation entropy, $s_{rad}$, given in \eqt{eq:entropy}, it can be shown that:
+\eqt{eq:entropy} can now be used for two purposes: (i) to recast the radiation contribution to the definition of the speed of sound given in \eqt{eq:soundspeed} under the form of a partial derivative as with the definition of the speed of sound for the standard Euler equations and (ii) to derive an expression for the entropy relation (\eqt{eq:ent_relation}) in a form analogous to the second law of thermodynamics. We start with (i): Using the definition of the radiation entropy, $s_{rad}$, given in \eqt{eq:entropy}, it can be shown that:
 %
 \begin{equation}\label{eq:sp-sd-rad}
 c^2_{rad} = \frac{4 \epsilon}{9 \rho} = \left. \frac{\partial P_{rad}}{\partial \rho}\right|_{s_{rad}} \ ,
@@ -488,7 +497,7 @@ In \cite{LowrieMorel}, Lowrie and Morel show that the radiation-modified soundsp
 \begin{equation} 
 c_m^2 = c_{Euler}^2 + \frac{4}{3}\frac{\mathbb{P} T^4}{\rho}\frac{\Gamma(2-3\Gamma) + \frac{4\mathbb{P} T^4 g}{3P}}{1+\frac{4\mathbb{P} T^4 g}{P}}
 \end{equation}
-which is maximum for $\Gamma=1/3$, in which case Lowrie and Morel's expression becomes
+which is maximum for $\Gamma=1/3$. In this case, Lowrie and Morel's expression becomes
 \begin{equation} \label{eq:soundspeedEDL}
 c_m^2 = c_{Euler}^2  + \frac{4}{9} \frac{\mathbb{P}T^4}{\rho} \,,
 \end{equation}
@@ -520,7 +529,7 @@ Now that the dissipative terms have been obtained and shown to scale appropriate
 \begin{itemize}
 \item Since the entropy residual is a measure of the entropy production, it is natural to define a viscosity coefficient proportional to the entropy residual. This will enable shock detection and shock tracking as well as provide a measure of the viscosity required to stabilize the scheme. This viscosity coefficient is referred to as the \emph{entropy viscosity coefficient} and is denoted by $\kappa_e(x,t)$.
 \item An upper bound for $\kappa$ is to be set since entropy production can be very large in shocks. For explicit time discretization, the maximum value of the viscosity coefficient is related to the Courant-Friedrichs-Lewy number (CFL). The upper bound on  $\kappa$  is defined by analogy to the standard upwind (Godunov) scheme that is known to efficiently smooth out oscillations (but is only first-order accurate). With implicit temporal integrators, the same reasoning is used even if the CFL number may not need to be strictly respected. This upper bound will be referred to as the \emph{first-order viscosity} and is denoted by $\kappa_{max}(x,t)$.  
-\item The actual viscosity coefficient $\kappa$ used in the dissipative terms of \eqt{eq:GHR_hyperbolic} is then taken to be the minimum of the above two viscosities:  $\kappa(x,t) = \min ( \kappa_e(x,t), \kappa_{max}(x,t) )$. With such a definition, the viscosity added to the system of equations will saturate to the first-order viscosity in shock regions; elsewhere, the entropy production and thus the viscosity coefficient $\kappa$ are expected to be small.
+\item The actual viscosity coefficient $\kappa$ used in the dissipative terms of \eqt{eq:GRH_hyperbolic} is then taken to be the minimum of the above two viscosities:  $\kappa(x,t) = \min ( \kappa_e(x,t), \kappa_{max}(x,t) )$. With such a definition, the viscosity added to the system of equations will saturate to the first-order viscosity in shock regions; elsewhere, the entropy production and thus the viscosity coefficient $\kappa$ are expected to be small.
 \end{itemize}
 
 Next, we define the local first- and entropy viscosity coefficients $\kappa_{max}(x,t)$ and $\kappa_e(x,t)$, respectively. Following \cite{valentin}, the first-order viscosity definition is based on the local largest eigenvalue that is known to be $|u| + c_m$ in 1-D:
@@ -528,26 +537,27 @@ Next, we define the local first- and entropy viscosity coefficients $\kappa_{max
 \label{eq:equation8}
 \kappa_{max} = \frac{h}{2} \left( |u| + c_m \right) \,,
 \end{equation}  
-where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient.
+where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient. \tcr{Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the soundspeed of the equilibrium-diffusion equations (see previous Section, \sect{sect:ent-asym-limit}), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not}.
 
-The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) which is recast as a function of total pressure $\hat{P}$, density $\rho$ and sound speed (see \app{app:appendixC} for details):
+The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) which is recast as a function of total pressure $\hat{P}$, density $\rho$ and soundspeed (see \app{app:appendixC} for details):
 \begin{equation}
 \label{eq:equation9}
 \tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{D\hat{P}}{Dt} - c_m^2 \frac{D\rho}{Dt} \right)}_\textrm{$\hat{D}_e(x,t)$} \,.
 \end{equation}
-The term $s_e$ is the inverse of the material temperature (see \app{app:appendixA}) and $P_e$ is computed from the equation of state. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:entropy_equation} which would require an analytical expression for the entropy function. Note that when deriving the adimensional expression of $\tilde{D}_e(x,t)$ using the reference variables of \eqt{eq:norm_param}, the adimensional entropy residual is function of the scaling parameter $\Re$ that scales as one, and thus does not depend on $\varepsilon$. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. By using these jump terms, one can also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), and stabilize such waves when needed. \\
+The term $s_e$ is the inverse of the material temperature (see \app{app:appendixA}) and $P_e$ is computed from the equation of state. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:entropy_equation} which would require an analytical expression for the entropy function. Note that when deriving the non-dimensional expression of $\tilde{D}_e(x,t)$ using the reference variables of \eqt{eq:norm_param}, the adimensional entropy residual is function of the scaling parameter $\Re$ that scales as one, and thus does not depend on $\varepsilon$. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. By using these jump terms, one can also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), and stabilize such waves when needed. \\
 Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
 \begin{equation}
 \label{eq:equation12}
 \kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\norm_P}
 \end{equation} 
-where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$. The normalization factor $\norm_P$ (of units of pressure) is to be chosen such that the viscosity coefficient $\kappa$ (units of $m^2/s$) scale adequately in the equilibrium-diffusion limit and yield the correct asymptotic behavior. Using the definition of the viscosity coefficient given in \eqt{eq:equation12} and the scaling of \eqt{eq:norm_param}, it can be shown that:
+where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$. The normalization factor $\norm_P$ (of units of pressure) is to be chosen such that the viscosity coefficient $\kappa$ (units of $m^2/s$) scale adequately in the equilibrium-diffusion limit and yields the correct asymptotic behavior. Using the definition of the viscosity coefficient given in \eqt{eq:equation12} and the scaling of \eqt{eq:norm_param}, it can be shown that:
 %
+\tcr{$u_\infty$ was removed below and a $^3$ added}
 \begin{equation}\label{eq:kappa_infty}
-\kappa_\infty = \frac{\rho_\infty c^2_{m,\infty} u_\infty L_\infty}{\norm_{P,\infty}} \ .
+\kappa_\infty = \frac{\rho_\infty c^3_{m,\infty}  L_\infty}{\norm_{P,\infty}} \ .
 \end{equation}
 %
-The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'eclet number $\Pe$ defined in \eqt{eq:scaled-nb}. We demonstrated that $\Pe$ should scale as one in order to preserve the equilibrium-diffusion limit, from which we conclude that (using the definition of the P\'eclet number) 
+The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'eclet number $\Pe$ defined in \eqt{eq:scaled-nb}. We demonstrated that $\Pe$ should scale as one in order to preserve the equilibrium-diffusion limit. From this, we conclude that (using the definition of the P\'eclet number) 
 %
 \begin{equation}
 \norm_{P,\infty} = \rho_\infty c^2_{m,\infty} \nonumber \ ,
@@ -558,20 +568,25 @@ Thus, the final definition for the viscosity coefficient $\kappa$ is as follows:
 \label{eq:equation12bis}
 \kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2} \ .
 \end{equation} 
-The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for Continuous Galerkin FEM: 
-\begin{equation}
+% In practice, the viscosity coefficients are only evaluated at quadrature points. 
+The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for a continuous Galerkin FEM: 
+\begin{subequations}
 \label{eq:equation12ter}
-\left\{
-\begin{array}{lll}
-J_{\hat{P}}(x_i,t) = |u| [[\partial_x \hat{P}]]\\
-J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \\
+\begin{equation}
 J(x_i,t) = \max( J_{\rho}(x_i,t), J_{\hat{P}}(x_i,t) )
-\end{array}
-\right.
 \end{equation}
+with
+\begin{equation}
+J_{\hat{P}}(x_i,t) = |u| [[\partial_x \hat{P}]]
+\end{equation}
+and
+\begin{equation}
+J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \,.
+\end{equation}
+\end{subequations}
 The symbol $[[ \cdot ]]$ denotes the jump at the cell interface.
 
-The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:GHR_hyperbolic} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
+The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:GRH_hyperbolic} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
 \begin{equation}
  \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right) 
  \Longrightarrow
@@ -751,7 +766,7 @@ For both manufactured solutions the error is divided by four as the time step an
 \label{sec:simulations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can accurately resolve shocks occurring in radiation-hydrodynamic simulations. Multiple test cases are considered, with Mach numbers of $1.05$, $1.2$, $2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ spatial cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions for each test case will be recalled in a table and plots of the density, $\rho (x)$, the radiation temperature, $\theta (x)$, and material temperature, $T(x)$,  at steady-state will be given as well as those of the viscosity coefficients, $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a 1-D slab of thickness $L$. The initial discontinuity between the left and right states is located at $x_0$ and will be specified for all test cases. For all of the test cases presented in this paper, the cross sections $\sigma_t$ and $\sigma_a$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$.
+The purpose of this section is to show that the entropy-based viscosity method (\sect{sec:entropy-visc-meth}) can accurately resolve shocks occurring in radiation-hydrodynamic simulations. Multiple test cases are considered, with Mach numbers of $1.05$, $1.2$, $2$, $5$ and $50$ \cite{LowrieEdwards}. All of the simulations are run with $500$ spatial cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state (even if the scheme employed here is fully implicit, a CFL number can still be computed and is a good reference for comparison against semi-implicit or fully explicit codes). Linear Lagrange polynomials and the second-order temporal integrator BDF2 are once again used. For clarity, the initial conditions for each test case will be recalled in a table and plots of the density, $\rho (x)$, the radiation temperature, $\theta (x)$, and material temperature, $T(x)$,  at steady-state will be given as well as those of the viscosity coefficients, $\kappa(x)$ and $\kappa_{max}(x)$. The computational domain consists of a 1-D slab of thickness $L$. The initial discontinuity between the left and right states is located at $x_0$ and will be specified for all test cases. For all of the test cases presented in this paper, the cross sections $\sigma_t$ and $\sigma_a$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively, if not otherwise specified. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$ (we recall that 1 $jerks = 10^9\ Joules$).
 
 For the Mach $2$ simulation, results will also be shown when employing only the first-order viscosity $(\kappa(x,t) = \kappa_{max}(x,t))$ in order to show the benefits of using a high-order viscosity coefficient. 
 
@@ -780,17 +795,17 @@ The computational domain is of size $L=0.08$ $cm$ and the initial step is at $x_
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_temperature.png}
-        \caption{Material and radiation temperature profiles at steady state for Mach 1.05 test.}\label{fig:Mach105_temp}
+        \caption{Material and radiation temperature profiles at steady state (Mach 1.05 test).}\label{fig:Mach105_temp}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_density}
-        \caption{Material density profile at steady state for Mach 1.05 test.}\label{fig:Mach105_density}
+        \caption{Material density profile at steady state (Mach 1.05 test).}\label{fig:Mach105_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_1p05_nel_500_viscosity.png}
-        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state for Mach 1.05 test (logarithm scale).}\label{fig:Mach105_viscosity}
+        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state for the Mach 1.05 test (logarithm scale).}\label{fig:Mach105_viscosity}
 \end{figure}
 The energy transfer between the material and radiation fields is not large enough to form a shock in the material. Thus, all of the material variables are smooth (\fig{fig:Mach105_temp} and \fig{fig:Mach105_density}) as well as the radiation temperature $\theta$. Because of the smoothness of the solution, the viscosity coefficient $\kappa$ is three order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$ (\fig{fig:Mach105_viscosity}).
 
@@ -799,19 +814,19 @@ We also investigate the frozen in limit where the diffusion coefficient $D = \fr
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_velocity.png}
-        \caption{Material velocity profile (zoom in the region of strong spatial variation).}
+        \caption{Material velocity profile (Mach 1.05 test, zoom in the region of strong spatial variations).}
         \label{fig:Mach_1p05_frozen_density}
 \end{figure}%
 \begin{figure}[H]
             \centering
             \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_density.png}
-            \caption{Material density profile (zoom in the region of strong spatial variation).}
+            \caption{Material density profile (Mach 1.05 test, zoom in the region of strong spatial variations).}
             \label{fig:Mach_1p05_frozen_velocity}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=\textwidth]{figs/Mach_1p05_zoom_in_temperatures.png}
-        \caption{Material temperature profile (zoom in the region of strong spatial variation).}
+        \caption{Material temperature profile (Mach 1.05 test, zoom in the region of strong spatial variation).}
         \label{fig:Mach_1p05_frozen_temp}
 \end{figure}        
 \begin{figure}[H]
@@ -829,7 +844,7 @@ The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_
 \subsubsection{A $1.2$ Mach hydrodynamic shock}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this test, the material experiences a shock and the radiation energy density remains smooth. The initial conditions, corresponding to a Mach number of $1.2$ at the inlet, are as follows: 
+In this test, the material experiences a shock. The initial conditions, corresponding to a Mach number of $1.2$ at the inlet, are as follows: 
 \begin{table}[H]
 \caption{\label{tbl:table4} Initial conditions for Mach $1.2$.}
 \begin{center}
@@ -848,7 +863,7 @@ The slab thickness is set to $L=0.045$ $cm$ and the initial step was located at 
 \begin{figure}[H]
        \centering
        \includegraphics[width=\textwidth]{figs/Mach_1p2_nel_1000_temperature.png}
-       \caption{Material and radiation temperature profiles at steady state for Mach 1.2 test.}\label{fig:Mach12_temp}
+       \caption{Material and radiation temperature profiles at steady state (Mach 1.2 test).}\label{fig:Mach12_temp}
 \end{figure}
 The radiation and material temperatures have two different behaviors (\fig{fig:Mach12_temp}): the later experiences an embedded hydrodynamic shock, whereas the radiation temperature is smooth because of the diffusion term. The material temperature profile does not show any pre- and post-shock oscillations. In \fig{fig:Mach12_density}, the material density profile has a shock as well. The viscosity coefficient (\fig{fig:Mach12_viscosity}) is peaked in the shock as expected but does not saturate to the first-order viscosity. It is conjectured that the diffusion term in the radiation equation brings extra stability to the system. \\
 Overall, the numerical solution behaves as expected in the shock and the entropy-based viscosity method seems to efficiently stabilize the numerical scheme.  
@@ -860,7 +875,7 @@ Overall, the numerical solution behaves as expected in the shock and the entropy
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_1p2_nel_1000_viscosity.png}
-        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state for Mach 1.2 test (logarithm scale).}\label{fig:Mach12_viscosity}
+        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state (Mach 1.2 test, logarithm scale).}\label{fig:Mach12_viscosity}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -885,7 +900,7 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_temperature.png}
-        \caption{Material and radiation temperature profiles at steady-state for Mach 2 test.}\label{fig:Mach2_temp}
+        \caption{Material and radiation temperature profiles at steady-state (Mach 2 test).}\label{fig:Mach2_temp}
 \end{figure}
 Once again, the radiation temperature profile is smooth and the material temperature experiences an embedded hydrodynamic shock and a peak as shown in \fig{fig:Mach2_temp}. In \fig{fig:Mach2_density}, the shock is well resolved. The viscosity coefficient profile is given in \fig{fig:Mach2_viscosity} and is peaked, once again, in the shock region. 
 
@@ -893,17 +908,17 @@ For comparison purpose, the same simulation was run with the first-order viscosi
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_density.png}
-        \caption{Material density profile at steady-state for Mach 2 test.}\label{fig:Mach2_density}
+        \caption{Material density profile at steady-state (Mach 2 test).}\label{fig:Mach2_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_2_nel_2000_viscosity.png}
-        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state for Mach 2 test.}\label{fig:Mach2_viscosity}
+        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa$ profiles at steady state (Mach 2 test).}\label{fig:Mach2_viscosity}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_2_fo_ev.png}
-        \caption{Comprarison between the material density and temperature profiles run with the high-order and first-order viscosity coefficients.}\label{fig:Mach2_tempEVandFO}
+        \caption{Effect of the viscosity option on the material density and temperature profiles (Mach 2 test).}\label{fig:Mach2_tempEVandFO}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -928,23 +943,23 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_5_nel_1000_temperature.png}
-        \caption{Material and radiation temperature profiles at steady state for Mach 5 test. Zoom at the location go the peak using different mesh resolutions.}\label{fig:Mach5_temp}
+        \caption{Material and radiation temperature profiles at steady state for the Mach 5 test (zoom at the location of the peak).}\label{fig:Mach5_temp}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_5_comparison.png}
-        \caption{Material temperature profiles at steady state for the Mach 5 test in the neighborhood spike.}\label{fig:Mach5_comparison}
+        \caption{Material temperature profiles at steady state for the Mach 5 test in the neighborhood of the spike.}\label{fig:Mach5_comparison}
 \end{figure}
 In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature no longer exhibits an embedded hydrodynamic shock but shows a Zeldovich spike. The mesh with $500$ elements is not fine enough to correctly resolve the Zeldovich spike. In \fig{fig:Mach5_comparison}, the Zeldovich spike region is plotted for different mesh resolutions, using from $500$ to $5000$ elements: the peak is better resolved when using large numbers of elements and its position seems to be independent of the mesh size when appropriately refined. The density profile, \fig{fig:Mach5_density}, shows a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any numerical oscillations. 
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_5_nel_2000_density.png}
-        \caption{Material density profile at steady state for Mach 5 test.}\label{fig:Mach5_density}
+        \caption{Material density profile at steady state for the Mach 5 test.}\label{fig:Mach5_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_5_nel_2000_viscosity.png}
-        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state for Mach 5 test.}\label{fig:Mach5_viscosity}
+        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady state for the Mach 5 test.}\label{fig:Mach5_viscosity}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -969,18 +984,18 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-2}$ & $7.33726$ $10^{5}$\\
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_temperature.png}
-        \caption{Material and radiation temperature profiles at steady state for Mach 50 test.}\label{fig:Mach50_temp}
+        \caption{Material and radiation temperature profiles at steady state for the Mach 50 test.}\label{fig:Mach50_temp}
 \end{figure}
 At Mach $50$, there is no embedded hydrodynamic shock forming as shown in \fig{fig:Mach50_temp}. The density profile is smooth as shown in \fig{fig:Mach50_density}. In \fig{fig:Mach50_temp}, the material and radiation temperatures overlap on all of the computational domain except for a small region located between $x=-0.2$ and $x=-0.18$ $cm$. In this particular region, the viscosity coefficient saturates to the first-order viscosity (see \fig{fig:Mach50_viscosity}) because of the inflection point in the material temperature profile. The artificial dissipative terms correctly stabilize the material temperature profile without altering the physical solution: the radiation temperature is expected to increase ahead of the material temperature.
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_density.png}
-        \caption{Material density profile at steady-state for Mach 50 test.}\label{fig:Mach50_density}
+        \caption{Material density profile at steady-state for the Mach 50 test.}\label{fig:Mach50_density}
 \end{figure}
 \begin{figure}[H]
                 \centering
                 \includegraphics[width=\textwidth]{figs/Mach_50_nel_1000_viscosity.png}
-        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady-state for Mach 50 test.}\label{fig:Mach50_viscosity}
+        \caption{First-order viscosity $\kappa_{max}$ and entropy viscosity $\kappa_e$ profiles at steady-state for the Mach 50 test.}\label{fig:Mach50_viscosity}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -989,7 +1004,7 @@ At Mach $50$, there is no embedded hydrodynamic shock forming as shown in \fig{f
 \label{sec:ccl}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\tcr{ I need to re-write them to better summarize the additions we wrote}
 In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations. A theoretical derivation is given for the derivation of a viscous regularization that is consistent with the entropy minimum principle and valid for all equation of states with a concave entropy function. An asymptotic study showed that the viscous regularization conserves the equilibrium-diffusion limit and allows to recover the results initially obtained with the radiation-modified equation of state (REOS) \cite{LowrieMorel}. The viscosity coefficient $\kappa$ is defined proportional to the entropy residual that measures the local entropy production allowing detection of shocks. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. 
 
 The entropy-based numerical scheme also behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich spike are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock region only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient that is computed on the fly. The addition of dissipative terms to the set of equations requires more computational work but is rather simple to implement.
@@ -1013,7 +1028,7 @@ The authors would like to acknowledge Jim Ferguson for providing the semi-analyt
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this appendix, a demonstration of the entropy minimum principle for the system of equations \eqt{eq:regularized_hyperbolic_GRH} is given (the demonstration is carried out for the 1-D version of the equations and can easily be generalized to multiple dimensions). This proof, inspired by \cite{jlg}, details the steps that lead to the derivation of the dissipative terms for the GRH equations based on the entropy minimum principle.\\
-We start with the hyperbolic system given in \eqt{eq:GHR_hyperbolic} and add dissipative terms to each equation as follows:
+We start with the hyperbolic system given in \eqt{eq:GRH_hyperbolic} and add dissipative terms to each equation as follows:
 \begin{equation}
 \label{eq:app_equ1bis}
 \left\{
@@ -1323,35 +1338,35 @@ We can now conclude: the non-equilibrium entropy equation, \eqt{eq:app_entr_eq_n
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Derivation of the entropy residual as a function of total pressure (material and radiation pressures), density and speed of sound}
+\section{Derivation of the entropy residual as a function of total pressure (material and radiation pressures), density, and speed of sound}
 \label{app:appendixC}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-The entropy residual is defined as follows:
+We recall that the entropy residual is defined as follows:
 \begin{equation}\label{app:ent}
 D_e(x,t) = \frac{D s}{Dt} = \partial_t s + u \partial_x s
 \end{equation}
-where all variables were defined previously and $\frac{D}{Dt}$ denotes the material derivative. In this appendix, we recast the entropy residual $D_e(x,t)$ as a function of total pressure (material and radiation pressures), density and speed of sound. The first step of this derivation is to use the chain rule, recalling that the entropy is a function of the internal energy $e$, the density $\rho$ and the radiation density energy $\epsilon$ yielding
+where all variables were defined previously and $\frac{D}{Dt}$ denotes the material derivative. In this appendix, we recast the entropy residual $D_e(x,t)$ as a function of total pressure (material and radiation pressures), density, and speed of sound. The first step of this derivation is to use the chain rule, recalling that the entropy is a function of the internal energy $e$, the density $\rho$, and the radiation density energy $\epsilon$:
 %
 \begin{equation}\label{app:ent2}
 D_e(x,t) = s_e \frac{D e}{Dt} + s_\rho \frac{D \rho}{Dt} + s_\epsilon \frac{D \epsilon}{Dt} \nonumber
 \end{equation}
 % 
-where $s_x$ denotes the partial derivative of $s$ with respect to the variable $x$. Since the internal energy $e$ is function of pressure $P$ and density $\rho$ (through the equation of state), we use again the chain rule to re-express the previous equation as a function of the material derivatives in $P$, $\rho$ and $\epsilon$:
+where $s_x$ denotes the partial derivative of $s$ with respect to the variable $x$. Since the internal energy $e$ depends upon pressure and density (through the equation of state), we use again the chain rule to re-express the previous equation as a function of the material derivatives in $P$, $\rho$ and $\epsilon$:
 %
 \begin{align}
 D_e(x,t) = s_e e_P \frac{D P}{Dt} + ( s_e e_\rho + s_\rho ) \frac{D \rho}{Dt} + s_\epsilon \frac{D \epsilon}{Dt} \nonumber
 \end{align}
 %
-Recalling that the entropy $s$ is required to be of the form $s(e,\rho,\epsilon) = s_{Euler}(e,\rho) + s_{rad}(\rho,\epsilon)$ and noting that $s_e = (s_{Euler})_e$, the above equation becomes:
+Recalling that the entropy $s$ is of the form $s(e,\rho,\epsilon) = s_{Euler}(e,\rho) + s_{rad}(\rho,\epsilon)$ and noting that $s_e = (s_{Euler})_e$, the above equation becomes:
 %
 \begin{multline}\label{app:ent3}
 D_e(x,t) = (s_{Euler})_e e_P \frac{D P}{Dt} + \Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \\ + \Big( (s_{rad})_\rho + (s_{rad})_\epsilon \Big) \frac{D \epsilon}{Dt} \\
 = (s_{Euler})_e e_P\left[ \frac{D P}{Dt} + \frac{1}{(s_{Euler})_e e_P}\Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \right] \\ + \Big[ (s_{rad})_\rho \frac{D \rho}{Dt} + (s_{rad})_\epsilon \frac{D \epsilon}{Dt} \Big]
 \end{multline}
 %
-The above equation can be split into terms: the first term in the bracket corresponds to the Euler equations contribution to the entropy residual, whereas the second term comes from the radiation coupling. Owing the result from Appendix A of \cite{Marco_paper_low_mach}, the first term in the bracket of \eqt{app:ent3} is recast as follows:
+The expression in the brackets in the above equation can be split into two terms: the first term is the contribution the Euler equations to the entropy residual, whereas the second term stems from the radiation coupling. Owing the result from Appendix A in \cite{Marco_paper_low_mach}, the first term in the bracket of \eqt{app:ent3} is recast as follows:
 %
 \begin{multline}
 (s_{Euler})_e e_P\left[ \frac{D P}{Dt} + \frac{1}{(s_{Euler})_e e_P}\Big( (s_{Euler})_e e_\rho + (s_{Euler})_\rho \Big) \frac{D \rho}{Dt} \right]  = \\ (s_{Euler})_e e_P\left[ \frac{D P}{Dt} -c^2_{Euler} \frac{D \rho}{Dt} \right] \nonumber
@@ -1369,7 +1384,7 @@ We now recast \eqt{app:ent5} in terms of $\hat{P} = P + \frac{\epsilon}{3}$ and 
 D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right] \\ + (s_{Euler})_e e_P \Big[ c^2_{rad}\frac{D \rho}{Dt} - \frac{1}{3}\frac{D \epsilon}{Dt} \Big] +  \Big[ (s_{rad})_\rho \frac{D \rho}{Dt} + (s_{rad})_\epsilon \frac{D \epsilon}{Dt} \Big]
 \end{multline}
 %
-At this point, we need to derive a relationship between the material derivatives of density $\rho$ and radiation density energy $\epsilon$. The continuity and the radiation equations from \eqt{eq:GHR_hyperbolic} are first recast as a function of the material derivatives $\frac{D \rho}{D t}$ and $\frac{D \epsilon}{D t}$:
+At this point, we need to derive a relationship between the material derivatives of density $\rho$ and radiation energy $\epsilon$. The continuity and the radiation equations from \eqt{eq:GRH_hyperbolic} are first recast as a function of the material derivatives $\frac{D \rho}{D t}$ and $\frac{D \epsilon}{D t}$:
 %
 \begin{align}
 &\partial_t \rho +  \partial_x (\rho u) = 0 \rightarrow \frac{D \rho}{D t} = - \rho \partial_x u \nonumber \\
@@ -1380,22 +1395,22 @@ At this point, we need to derive a relationship between the material derivatives
 which leads to the following relationship between $\frac{D \rho}{D t}$ and $\frac{D \epsilon}{D t}$:
 %
 \begin{equation}\label{eq:app7}
-\frac{1}{3} \frac{D \epsilon}{D t} =  \frac{4 \epsilon}{9\rho} \frac{D \rho}{D t} = c^2_{rad}\frac{D \rho}{D t}
+\frac{1}{3} \frac{D \epsilon}{D t} =  \frac{4 \epsilon}{9\rho} \frac{D \rho}{D t} = c^2_{rad}\frac{D \rho}{D t} \,.
 \end{equation}
 %
-Note that we used the definition of the radiation contribution to the sound speed defined in \eqt{eq:soundspeed}: $c_{rad}^2 = \frac{4 \epsilon}{9 \rho}$. Then, using the above relationship, the second term in \eqt{app:ent6} cancels out and the entropy residual now yields:
+Note that we used the definition of the radiation contribution to the sound speed defined in \eqt{eq:soundspeed}: $c_{rad}^2 = \frac{4 \epsilon}{9 \rho}$. Then, using the above relationship, the second term in \eqt{app:ent6} cancels out and the entropy residual now reads:
 %
 \begin{multline}\label{app:ent8}
-D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right]  +  \Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]  \frac{D \rho}{Dt}
+D_e(x,t) = (s_{Euler})_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right]  +  \Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]  \frac{D \rho}{Dt} \,.
 \end{multline}
 %
-We now investigate the term $\Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]$. By using the definition of the radiation entropy $s_{rad}$ derived in \app{app:appendixB} and \sect{sect:equ-diff}, $s_{rad}(\rho, \epsilon) = \frac{4 a^\frac{1}{4}}{3 \rho} \epsilon^\frac{3}{4}$, it can be shown after some algebra that:
+We now investigate the term $\Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big]$. By using the definition of the radiation entropy $s_{rad}$ derived in \app{app:appendixB} and \sect{sect:equ-diff}, $s_{rad}(\rho, \epsilon) = \frac{4 a^\frac{1}{4}}{3 \rho} \epsilon^\frac{3}{4}$, it can be shown, after some algebra, that:
 %
 \begin{equation}
-\Big[ (s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon\Big] = 0 \, .\nonumber
+(s_{rad})_\rho +  \frac{4 \epsilon}{3\rho} (s_{rad})_\epsilon = 0 \, .\nonumber
 \end{equation}
 % 
-Recalling that $(s_{Euler})_e = s_e$, it follows:
+Recalling that $(s_{Euler})_e = s_e$, it follows that:
 %
 \begin{equation}
 D_e(x,t) = \frac{D s}{D t} = s_e e_P\left[ \frac{D \hat{P}}{Dt} - c^2_m \frac{D \rho}{Dt} \right] \, . \nonumber
