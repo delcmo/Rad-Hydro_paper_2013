@@ -117,7 +117,8 @@ The reviewer is correct: the system (3) is not the frozen approximation and shou
 I believe Ref. [11] is correct, in that this product does not contribute to the shock-jump relation, because $\epsilon$ is continuous through the (hydro) shock as a result of the regularization of the radiation diffusion. But this result is not true of the system (3), which has dropped the diffusion term. As discussed in Ref. [11], shocks that are embedded in the shock profile satisfy the unmodified hydro-jump relations. This is also true for rad-hydro using full transport. At least for the Eulerian frame, the frozen problem decouples radiation and hydro. In that case, it makes sense to develop entropy-based viscosities separately for the radiation and hydro (and the hydro-alone case has already been done in the References). If the authors feel that the system (3) is appropriate, they need a much stronger argument that it is.
 }
 
-\tcr{not finished.}
+\tcr{not finished.\\
+we have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion. If this is not enough for the reviewer, what do you suggest we add?. We can also add a pointer to Item \#9 of our reply as well.}
 \bigskip
 
 
@@ -135,7 +136,7 @@ See \# 4.
 7. As further evidence of the inappropriateness of the system (3), consider its sound speed, given by eq. (6). The importance of the sound speed is that typically artificial viscosities scale with some power of the sound speed (such in eq. (9)), so that a bad choice can mean either too much or too little regularization. A dispersion analysis of rad-hydro using P1 (Lowrie, Morel, \& Hittinger, ApJ 1999), which certainly is closely related to NED, shows 3 regimes based on their sound speeds: the unmodified material sound speed (frozen for P1, full transport, and I believe also NED), isothermal sound speed, and the equilibrium- diffusion modified sound speed (see sect. 4.1 of Ref 10). Generally, none of these sound speeds match eq. (6), except for the equilibrium- diffusion speed for the very special case of a $\gamma$-law gas with $\gamma = 4/3$. So it’s not clear that the sound speed (6) will result in a sufficient viscosity in the equilibrium diffusion limit, and may be too much in the streaming limit. Again, these facts also call into question the appropriateness of basing an entropy and entropy viscosity on the hyperbolic system (3).
 }
 
-We added a section titled ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit''  to show that the definition of the sound speed we use in the definition of the first-order viscosity coefficient corresponds to the maximum value of the sound speed (obtained for $\Gamma = 1/3$) derived in Ref. [11] and recalled in Equ. (25a).
+We added a section titled ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit''  to show that the sound speed we use in the definition of the first-order viscosity coefficient corresponds to the maximum value of the sound speed (obtained for $\Gamma = 1/3$) derived in Ref. [11] and recalled in Eq.\tcr{(25a)}.
 \bigskip
 
 
@@ -144,8 +145,8 @@ We added a section titled ``Scaling of the entropy function derived for the non-
 8. The system (3) cannot be written conservation form, as the authors state in the paragraph that follows. Mass (first equation), momentum (second), and total energy (add the last two equations) can be written in conservation form, but one of the last two equations must be retained to form a complete system. Nevertheless, it's hyperbolic (although the authors don't show this or need to). It's a nonconservative system, which might be fine, if this system was appropriate. I don't believe its true that conservation form ``allows us to assume the existence of an entropy function,'' as stated after eq. (5). Conservation form is not a requirement to define an entropy. But all this is a moot point, because I don't believe the system (3) is the appropriate hyperbolic system on which to develop an entropy.
 }
 
-The reviewer is correct when stating that the system (3) cannot be written in a conservation form. Nevertheless, the system (3) is proved to be hyperbolic in the paper since its eigenvalues, given in Equ. 4, are unconditionally real which allows us to assume the existence of an entropy function.
-\tcr{not finished.}
+The reviewer is correct when stating that the system (3) cannot be written in a conservation form. Nevertheless, the system (3) is proved to be hyperbolic in the paper since its eigenvalues, given in Eq.\tcr{(4)}, are unconditionally real which allows us to assume the existence of an entropy function.
+\tcr{\\not finished. I think we need to add that we recover the EDL entropy of Ref.xx and ...}
 \bigskip
 
 
@@ -168,4 +169,3 @@ We added a test case in the section ``An equilibrium-diffusion test'' in the res
 \bigskip
 
 \end{document}
-
