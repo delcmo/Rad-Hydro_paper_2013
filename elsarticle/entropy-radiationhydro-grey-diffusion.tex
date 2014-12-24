@@ -1004,12 +1004,34 @@ At Mach $50$, there is no embedded hydrodynamic shock forming as shown in \fig{f
 \label{sec:ccl}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tcr{ I need to re-write them to better summarize the additions we wrote} \tcb{ok}
-In this paper, we have shown that the entropy-based viscosity method is a valid candidate for solving the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations. A theoretical derivation is given for the derivation of a viscous regularization that is consistent with the entropy minimum principle and valid for all equation of states with a concave entropy function. An asymptotic study showed that the viscous regularization conserves the equilibrium-diffusion limit and allows to recover the results initially obtained with the radiation-modified equation of state (REOS) \cite{LowrieMorel}. The viscosity coefficient $\kappa$ is defined proportional to the entropy residual that measures the local entropy production allowing detection of shocks. Through the manufactured solution method, it is demonstrated, firstly, that second-order accuracy is achieved when the solution is smooth, and secondly, that the artificial dissipative terms do not affect the physical solution in the equilibrium-diffusion limit. 
 
-The entropy-based numerical scheme also behaves well in the tests performed for Mach numbers ranging from $1.05$ to $50$. The main features such as the embedded hydrodynamic shock and the Zeldovich spike are resolved accurately without spurious oscillations. The viscosity coefficient is peaked in the shock region only and behaves as expected. All of these results were obtained by using an unique definition of the viscosity coefficient that is computed on the fly. The addition of dissipative terms to the set of equations requires more computational work but is rather simple to implement.
+The entropy viscosity method, an artificial viscosity shock-capturing technique, has been presented 
+and applied to stabilize the 1-D non-equilibrium Grey Radiation-Hydrodynamic equations. 
+We demonstrate that the viscous regularization terms of the entropy viscosity method are consistent with 
+the entropy minimum principle and are valid for any equation of state with a concave entropy function. 
+%
+An asymptotic analysis shows that this viscous regularization preserves the equilibrium-diffusion limit 
+and we recover equilibrium-diffusion results previously obtained in \cite{LowrieMorel} with a radiation-modified equation of state. 
+Specifically, the viscous regularization of the non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations 
+is asymptotically equivalent to the viscous regularization of the equilibrium-diffusion limit (EDL) equation. 
+Moreover, the entropy function derived for the GRH equations is proven to be asymptotically equivalent to 
+the entropy function of the EDL equations.
 
-As future work, extension to the multi-D equations could be considered: all of the derivations presented in this paper hold. The definition of the viscosity coefficients $\kappa$ and $\kappa_{max}$ do not need to be modified. It would be interesting to model the radiation equation with an $S_n$ transport approximation and apply the entropy based artificial viscosity to the resultant Radiation-Hydrodynamics equations. Given the advective nature of the $S_n$ equations, dissipation would need to be added to these equations as well.
+
+%we have shown that the entropy-based viscosity method is a valid candidate for solving the 1-D Grey non-equilibrium Radiation-Hydrodynamic equations. A theoretical derivation is given for the derivation of a viscous regularization that is consistent with the entropy minimum principle and valid for all equation of states with a concave entropy function. 
+%An asymptotic study showed that the viscous regularization conserves the equilibrium-diffusion limit and allows to recover the results initially obtained with the radiation-modified equation of state (REOS) \cite{LowrieMorel}. 
+
+In the entropy viscosity method, the viscosity coefficient is defined proportionally to the entropy residual, measuring 
+the local entropy production and thus enabling shock detection and tracking. 
+%
+Using manufactured solutions, we show second-order convergence rates for smooth solutions. The artificial dissipative terms do not affect the physical solution in the streaming and equilibrium-diffusion limits. 
+
+Using standard radiation-hydrodynamic test cases with Mach numbers ranging from 1.05 to 50, we have shown that the entropy viscosity method behaves very satisfactorily. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the shock region and remains small elsewhere, as expected. 
+%All of these results were obtained by using an unique definition of the viscosity coefficient that is computed on the fly. 
+The addition of the viscous regularization terms to the set of equations is rather straightforward to implement in an existing code.
+
+As future work, an extension to the multi-dimensional non-equilibrium grey radiation hydrodynamic equations is considered: all of the derivations presented in this paper hold in higher dimensions (the definitions for the viscous regularization fluxes and the viscosity coefficients need not to be modified). Furthermore, it can be of interest to model the radiation equation with an $S_n$ transport approximation and to apply the entropy-based artificial viscosity to the resultant radiation-hydrodynamics equations. 
+% Given the advective nature of the $S_n$ equations, numerical stabilization would need to be added to these equations as well.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
