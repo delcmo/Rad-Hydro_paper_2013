@@ -227,7 +227,7 @@ c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \underbrace{
 = c_{Euler}^2 + c^2_{rad} \,,
 \end{equation}
 %
-where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real material speed of sound $c_{Euler}$. \tcr{why euler when you say ``material speed of sound''?}\tcb{Because this is the same sound speed as the one from Euler equations. And the material obeys Euler equations}
+where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real-valued material speed of sound $c_{Euler}$. 
 Because the system given in \eqts{eq:GRH_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
 \begin{equation}
 \label{eq:entropy_equation}
@@ -291,8 +291,10 @@ In Section \ref{sect:ent-asym-limit}, we will draw an equivalence with the above
 \subsection{The Equilibrium-Diffusion Limit (EDL)}\label{sect:equ-diff}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (\eqts{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. \tcr{By correct asymptotic equations, we mean the equilibrium diffusion limit equations \emph{with} viscous regularization present; furthermore, the dissipative terms should not depend upon the scaling parameter in that limit.  
-Note that, even in the equilibrium-diffusion limit, the radiation hydrodynamic equations can develop shocks and thus require adequate stabilization.} \tcb{agreed}
+Here, we carry out of an asymptotic limit for the (non-equilibrium) Grey Radiation-Hydrodynamic equations with viscous regularization present (i.e., starting from \eqts{eq:equation-visc-reg}) and investigate whether we recover the correct asymptotic equations. By correct asymptotic equations, we mean the equilibrium diffusion limit equations \emph{with} viscous regularization present. \tcr{Furthermore, we will call the dissipative terms well-scaled in that limit if they 
+do not depend upon the scaling parameter.}  \tcr{I rephrased this.}
+% \tcr{after the asymptotic analysis has been carried out}, should 
+Note that, even in the equilibrium-diffusion limit, the radiation hydrodynamic equations can develop shocks and thus require adequate stabilization.
 We compare the asymptotic results against the equilibrium-diffusion limit Radiation-Hydrodynamic equations which can be found in Section 4 of Reference \cite{LowrieMorel}, for instance. 
 %
 The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
@@ -319,7 +321,6 @@ The full GRH equations \emph{with} the viscous regularization derived in \sect{s
 
 To derive the scaled version of \eqts{eq:equation-visc-reg}, we consider the following non-dimensionalization:
 %
-\tcr{Morel circled P'. I do not see anything wrong, do you?} \tcb{No I do not. But if I remember correctly this is something he added when we were in his office}
 \begin{equation}
 \label{eq:norm_param}
 \begin{array}{llll}
@@ -397,7 +398,7 @@ Finally, the P\'eclet number $\Pe$ measures the ratio of the viscous term to the
 %
 The adequate scaling of the P\'eclet number can be inferred from the scaled continuity equation, for instance. If one assumes that $\Pe$ scales as $O(\varepsilon)$, then the leading-order continuity equation does not have any stabilization terms. If one assumes $\Pe = O(\varepsilon^{-1})$, completely erroneous leading-order equations are obtained. Hence, the proper scaling is $\Pe = O(1)$ in order to yield well-scaled dissipative terms. 
 
-\tcr{Hereafter, we omit the superscript $'$ for the non-dimensional variables.} \tcb{ok}
+Hereafter, we omit the superscript $'$ for the non-dimensional variables.
 Next, we assume that each variable is expanded in a power series in $\varepsilon$, e.g.,
 %
 \begin{equation}\label{eq:expansion-series}
@@ -449,7 +450,7 @@ where $P^* = P + \Re \frac{T^4}{3}$ and $e^* = e + \Re \frac{T^4}{\rho}$ are the
 %
 \end{subequations}
 %
-The viscous regularization proposed in \sect{sec:visc-reg} for the non-equilibrium GRH equations conserves the equilibrium-diffusion limit and ensures the stability of the resulting \eqts{eq:equip-diff-equ} by yielding dissipative terms that scale appropriately in each equation of \eqts{eq:equip-diff-equ}. When removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yield a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. The viscous regularization obtained here in the equilibrium-diffusion limit is the one that would have been obtained had we studied the hyperbolic parts of the equilibrium-diffusion system of equations. This proof is provided in \app{app:appendixB} where we demonstrate that the same viscous regularization can also \tcr{be obtained by stabilizing the equilibrium-diffusion limit equations.}\tcb{ok}
+The viscous regularization proposed in \sect{sec:visc-reg} for the non-equilibrium GRH equations conserves the equilibrium-diffusion limit and ensures the stability of the resulting \eqts{eq:equip-diff-equ} by yielding dissipative terms that scale appropriately in each equation of \eqts{eq:equip-diff-equ}. When removing the diffusion term, $\partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0$, \eqts{eq:equip-diff-equ} yield a hyperbolic system of equations stabilized by a parabolic regularization \cite{Parabolic} which ensures that the entropy minimum principle holds. The viscous regularization obtained here in the equilibrium-diffusion limit is the one that would have been obtained had we studied the hyperbolic parts of the equilibrium-diffusion system of equations. This proof is provided in \app{app:appendixB} where we demonstrate that the same viscous regularization can also be obtained by stabilizing the equilibrium-diffusion limit equations.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit}\label{sect:ent-asym-limit}
@@ -537,7 +538,7 @@ Next, we define the local first- and entropy viscosity coefficients $\kappa_{max
 \label{eq:equation8}
 \kappa_{max} = \frac{h}{2} \left( |u| + c_m \right) \,,
 \end{equation}  
-where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient. \tcr{Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the soundspeed of the equilibrium-diffusion equations (see previous Section, \sect{sect:ent-asym-limit}), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not}. \tcb{agreed}
+where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient. Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the soundspeed of the equilibrium-diffusion equations (see previous Section, \sect{sect:ent-asym-limit}), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not.
 
 The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (\eqt{eq:entropy_equation}) which is recast as a function of total pressure $\hat{P}$, density $\rho$ and soundspeed (see \app{app:appendixC} for details):
 \begin{equation}
@@ -552,7 +553,6 @@ Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportiona
 \end{equation} 
 where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$. The normalization factor $\norm_P$ (of units of pressure) is to be chosen such that the viscosity coefficient $\kappa$ (units of $m^2/s$) scale adequately in the equilibrium-diffusion limit and yields the correct asymptotic behavior. Using the definition of the viscosity coefficient given in \eqt{eq:equation12} and the scaling of \eqt{eq:norm_param}, it can be shown that:
 %
-\tcr{$u_\infty$ was removed below and a $^3$ added} \tcb{Yes, because you use the sound speed reference value for the velocity}
 \begin{equation}\label{eq:kappa_infty}
 \kappa_\infty = \frac{\rho_\infty c^3_{m,\infty}  L_\infty}{\norm_{P,\infty}} \ .
 \end{equation}
@@ -838,7 +838,7 @@ We also investigate the frozen in limit where the diffusion coefficient $D = \fr
 %\caption{Solution profiles at steady-state for Mach 1.05 test in the frozen in limit.}\label{fig:1d_frozen_in}
 %
 The profiles presented in \fig{fig:Mach_1p05_frozen_density}-\ref{fig:Mach_1p05_frozen_temp} does not display any instability in the region of strong spatial variation
-($x \in \left[ -0.1;\  0.1 \right]$). In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked but does not saturate to the first-order viscosity $\kappa_{max}$ (no shocks are present in that simulation). We note that the artificial viscosity value is always larger than the diffusion coefficient $D$ in the zone of strong variation; the viscous regularization efficiently stabilizes the radiation profile along with the material variables. Note that the viscosity coefficients $\kappa_{max}$ and $\kappa$ are defined proportional to the grid size and the square of the grid size, respectively, and thus will eventually become smaller than the diffusion coefficient as the mesh is refined. % \tcb{ I do not really know what to say here. I have to think of it.}
+($x \in \left[ -0.1;\  0.1 \right]$). In \fig{fig:Mach_1p05_frozen_visc}, the viscosity coefficient is peaked but does not saturate to the first-order viscosity $\kappa_{max}$ (no shocks are present in that simulation). We note that the artificial viscosity value is always larger than the diffusion coefficient $D$ in the zone of strong variation; the viscous regularization efficiently stabilizes the radiation profile along with the material variables. Note that the viscosity coefficients $\kappa_{max}$ and $\kappa$ are defined proportional to the grid size and the square of the grid size, respectively, and thus will eventually become smaller than the diffusion coefficient as the mesh is refined. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{A $1.2$ Mach hydrodynamic shock}
