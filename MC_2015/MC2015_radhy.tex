@@ -224,7 +224,7 @@ The entropy function is the sum of (i) the entropy for the Euler system of equat
 $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics $Tds_{Euler} = de + P d \rho^{-1}$. $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. 
 %
 
-At any spatial position where the entropy is minimum, we have, be definition of the minimum,, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ingore
+At any spatial position where the entropy is minimum, we have, be definition of the minimum,, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
 locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
 %
 The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
@@ -284,8 +284,34 @@ and thus linearly combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRH
 \end{equation}
 %
 Note that we invoked \eqt{eq:visc_reg_assumptions1}.
-If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is positive, than the proposed viscous regularization shown in the hyperbolic portion of the GRH equations, \eqt{eq:regularized_hyperbolic_GRH}, will
-also be entropy-minimum satisfying for the full blown GRH equations. 
+If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is positive, than the proposed viscous regularization, shown in the hyperbolic portion of the GRH equations in \eqt{eq:regularized_hyperbolic_GRH}, will
+also be entropy-minimum satisfying for the full GRH equations. 
+
+The right-hand side of \eqt{eq:entro_eq_all_terms} contains two terms which we analyze separately. Using the entropy function given in \eqt{eq:ent_equ}, the first term becomes
+\begin{equation} 
+\Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
+= \left( \left( \frac{a}{\epsilon}\right)^\frac{1}{4} - \frac{1}{T} \right)   \sigma_a c \left( a T^4 - \epsilon \right) 
+\end{equation}
+Using the identity $(x-1)(x^4-1) = (x-1)^2(x+1)(x^2+1)$, the above terms can be rewritten as
+\begin{equation} 
+\Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
+= \frac{\sigma_a c}{T \epsilon}  (x-1)^2(x+1)(x^2+1) \geq 0
+\end{equation}
+with $x=  \left(\frac{aT^4}{\epsilon}\right)^\frac{1}{4}$ \geq 0.
+
+The second term on the right-hand side of \eqt{eq:entro_eq_all_terms} can be recast by noting that $s_\epsilon = \frac{1}{\rho} \frac{d\tilde{s}(\epsilon)}{d \epsilon}$ which yields:
+%
+\begin{equation}
+R_1 = \frac{d \tilde{s}}{d \epsilon} \partial_x \left( D \partial_x \epsilon \right) = \tilde{s}' \partial_x \left( D \partial_x \epsilon \right) 
+\end{equation}
+%
+Integrating by part, we obtain:
+%
+\begin{align}\label{eq:R1}
+R_1 &= \partial_x \left( \tilde{s}' D \partial_x \epsilon \right) - D \partial_x \epsilon \ \partial_x \tilde{s}'  \nonumber \\
+R_1 &= \partial_x \left( D \partial_x \tilde{s} \right) - D \tilde{s}'' \left( \partial_x \epsilon \right)^2
+\end{align}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Radiation-hydrodynamic shock results}\label{sec:rez}
