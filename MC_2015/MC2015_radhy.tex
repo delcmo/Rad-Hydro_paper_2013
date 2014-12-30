@@ -215,7 +215,7 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 and the functional form of the entropy is given by
 %
 \begin{equation}\label{eq:ent_equ}
-s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{\beta}{\rho} \epsilon^\frac{3}{4} \,.
+s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \,.
 \end{equation}
 %\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
@@ -284,7 +284,7 @@ and thus linearly combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRH
 \end{equation}
 %
 Note that we invoked \eqt{eq:visc_reg_assumptions1}.
-If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is positive, than the proposed viscous regularization, shown in the hyperbolic portion of the GRH equations in \eqt{eq:regularized_hyperbolic_GRH}, will
+If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is positive, then the proposed viscous regularization, shown in the hyperbolic portion of the GRH equations in \eqt{eq:regularized_hyperbolic_GRH}, will
 also be entropy-minimum satisfying for the full GRH equations. 
 
 The right-hand side of \eqt{eq:entro_eq_all_terms} contains two terms which we analyze separately. Using the entropy function given in \eqt{eq:ent_equ}, the first term becomes
@@ -297,99 +297,48 @@ Using the identity $(x-1)(x^4-1) = (x-1)^2(x+1)(x^2+1)$, the above terms can be 
 \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
 = \frac{\sigma_a c}{T \epsilon}  (x-1)^2(x+1)(x^2+1) \geq 0
 \end{equation}
-with $x=  \left(\frac{aT^4}{\epsilon}\right)^\frac{1}{4}$ \geq 0.
+with $x=  \left(\frac{aT^4}{\epsilon}\right)^\frac{1}{4} \geq 0.$
 
-The second term on the right-hand side of \eqt{eq:entro_eq_all_terms} can be recast by noting that $s_\epsilon = \frac{1}{\rho} \frac{d\tilde{s}(\epsilon)}{d \epsilon}$ which yields:
-%
+The second term on the right-hand side of \eqt{eq:entro_eq_all_terms} can be recast by noting that $s_\epsilon = \frac{a^{1/4}}{\rho} \epsilon^{-1/4}$. Rewriting $s_{rad}(\rho, \epsilon) = \frac{4a^{1/4}}{3\rho} \epsilon^{3/4}$ as  $s_{rad}(\rho, \epsilon) = \frac{\tilde{s}_{rad}(\epsilon)}{\rho}$, we have
+$ \rho s_\epsilon = \tilde{s}^\prime_{rad}(\epsilon)$. Hence, 
+%  \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
 \begin{equation}
-R_1 = \frac{d \tilde{s}}{d \epsilon} \partial_x \left( D \partial_x \epsilon \right) = \tilde{s}' \partial_x \left( D \partial_x \epsilon \right) 
+\rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+=
+ \tilde{s}^\prime_{rad}(\epsilon) \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
 \end{equation}
 %
-Integrating by part, we obtain:
+Integrating by parts, we obtain
 %
-\begin{align}\label{eq:R1}
-R_1 &= \partial_x \left( \tilde{s}' D \partial_x \epsilon \right) - D \partial_x \epsilon \ \partial_x \tilde{s}'  \nonumber \\
-R_1 &= \partial_x \left( D \partial_x \tilde{s} \right) - D \tilde{s}'' \left( \partial_x \epsilon \right)^2
-\end{align}
+\begin{multline} \label{eq:final_form_second_term}
+\rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+=
+ \partial_x \left(  \tilde{s}^\prime_{rad}  \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+-
+\frac{c}{3 \sigma_t} \left(  \partial_x \epsilon \right)  \left( \partial_x \tilde{s}^\prime_{rad}  \right) \\
+=
+ \partial_x \left(   \frac{c}{3 \sigma_t} \partial_x \tilde{s}_{rad}  \right) 
+-
+\frac{c}{3 \sigma_t} \tilde{s}^{\prime\prime}_{rad}  \left(  \partial_x \epsilon \right)^2   \qquad  \qquad  \qquad \ 
+\end{multline}
+%
+The first term in \eqt{eq:final_form_second_term} a conservative term (it only yields boundary terms when integrating over time and space and thus plays no role in entropy production of the system, \cite{leveque}). The second term  in \eqt{eq:final_form_second_term} is positive 
+since $s_{rad}$ (and thus $\tilde{s}_{rad}$) is, by definition, concave with respect to $\epsilon$, i.e., $\tilde{s}^{\prime\prime}_{rad} \leq 0$.
 
+In conclusion, we have 
+\begin{equation} 
+\rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) \geq 0 \,,
+\end{equation}
+which demonstrates that the full GRH equations are entropy-minimum satisfying. Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Radiation-hydrodynamic shock results}\label{sec:rez}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tcr{at M\&C, they will complaint if we do not show a COMPUTATION. It is the theme of the conference and they check closely for that. So, I will we need to add 1 numerical results. I do not want to copy/paste one from the JCP paper, though we could since the paper has not been published yet....\\}
+%
+We present 1-D numerical for several radiative shock problems for the published literature. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_paper}. The governing equations are spatially discretized using continuous linear finite elements and a fully-implicit BDF2 time integrator is employed. The resulting nonlinear equations are solved using a Newton technique to determine the solution values at the end of each time step. 
 
-%
-In this section, we briefly describe the spatial and temporal discretizations and the solution techniques 
-used to solve the system of equations presented in \sct{sec:single-model} and \sct{sec:two-phase-model}. The two systems of 
-equations can be recast under the following form for conciseness:
-\begin{equation}
-\label{eq:form}
-\partial_t \mathbf{U} + \div \mathbf{F} \left( \mathbf{U} \right) = \mathbf{R} \left( \mathbf{U} \right) + \mathbf{N} \left( \mathbf{U} \right) + \div \mathbf{D} (\mathbf{U}) \grad \mathbf{U}
-\end{equation}
-where $\mathbf{U}$ is the solution vector, $\mathbf{F}$ denotes the inviscid flux, $\div D (\mathbf{U}) \grad \mathbf{U}$ is the dissipative flux and $\mathbf{N} \left( \mathbf{U} \right)$ and $\mathbf{R} \left( \mathbf{U} \right)$ contain the non-conservative and relaxation terms. The terms $\mathbf{N} \left( \mathbf{U} \right)$ and $\mathbf{R} \left( \mathbf{U} \right)$ only appear in the two-phase flow model described in \sct{sec:two-phase-model}. 
-%
-%===================================================================================================
-\subsection{Spatial and Temporal Discretizations} \label{sec:spatial-disc}
-%===================================================================================================
-%
-The system of equations given in \eqt{eq:form} is discretized using a continuous Galerkin finite element 
-method and temporal integrators available through the MOOSE multiphysics framework \cite{MOOSE}.
-%
-%---------------------------------------------------------------------------------------------------
-\subsubsection{Continuous Finite Elements} 
-%---------------------------------------------------------------------------------------------------
-%
-In order to apply the continuous finite element method, \eqt{eq:form} is multiplied by a test function 
-$\mathbf W(\vec{r})$, integrated by parts and each integral is decomposed into a sum of integrals over 
-each element $K$ of the discrete mesh $\Omega$. The following weak form is obtained:
-\begin{multline}\label{eq:cfem}
-\sum_K \int_{K} \partial_t \mathbf U \, \mathbf W - \sum_K \int_{K} \vec{\mathbf F}(\mathbf U) \cdot \grad \mathbf W + \int_{\partial \Omega} \vec{\mathbf F}(\mathbf U) \cdot \vec{n} \, \mathbf W - \sum_K \int_{K} \mathbf S \, \mathbf W  \\
-+ \sum_K \int_{K} D(\mathbf U) \grad \mathbf U \cdot \grad \mathbf W 
-- \int_{\partial \Omega} D(\mathbf U) \grad \mathbf U \cdot \vec{n} \, \mathbf W = 0 \,.
-\end{multline}
-The integrals over the elements $K$ are evaluated using a numerical quadrature rule. The MOOSE framework 
-provides a wide range of test functions and quadrature rules. Linear Lagrange polynomials are employed 
-as test functions in the results section.
-%
-%---------------------------------------------------------------------------------------------------
-\subsubsection{Temporal integration} 
-%---------------------------------------------------------------------------------------------------
-%
-The MOOSE framework offers both first- and second-order explicit and implicit temporal integrators. 
-In all of the numerical examples presented in \sct{sec:results}, the temporal derivative  will be 
-evaluated using the second-order, backward difference temporal integrator BDF2. By considering three 
-consecutive solutions, $\mathbf U^{n-1}$, $\mathbf U^n$ and $\mathbf U^{n+1}$, at times $t^{n-1}$, $t^n$ and $t^{n+1}$, respectively, BDF2 can be expressed as:
-\begin{equation}
-\label{eq:BDF2}
-\int_{K} \partial_t \mathbf U \, \mathbf  W = \int_{K} \left( \omega_0 \mathbf U^{n+1}  + \omega_1 \mathbf U^n + \omega_2 \mathbf U^{n-1} \right) \mathbf W \,,
-\end{equation}
-with
-\begin{multline}
-\omega_0 =\frac{2\Delta t^{n+1}+\Delta t^n}{\Delta t^{n+1} \left( \Delta t^{n+1}+\Delta t^n \right)} \, , \ 
-\omega_1 = -\frac{\Delta t^{n+1}+\Delta t^n}{\Delta t^{n+1} \Delta t^n}  \, , \\
-\text{ and } \omega_2 = \frac{\Delta t^{n+1}}{\Delta t^n \left( \Delta t^{n+1} + \Delta t^n \right)} \nonumber
-\end{multline}
-where $\Delta t^{n} = t^n-t^{n-1}$ and $\Delta t^{n+1} = t^{n+1}-t^{n}$.
-%
-%
-%---------------------------------------------------------------------------------------------------
-\subsection{Solver} \label{sec:solver}
-%---------------------------------------------------------------------------------------------------
-%
-A Jacobian-free-Newton-Krylov (JFNK) method is used to solve for the solution at the end of each time step. 
-An approximate Jacobian matrix of the discretized equations was derived and implemented. Obtaining the 
-matrix entries requires that the partial derivatives of pressure with respect to the conservative variables 
-be known (this is relatively simple for the stiffened and ideal gas equations of state but may be more 
-complex for general equations of state). The contributions of the artificial dissipative terms to the 
-Jacobian matrix are approximated by lagging the viscosity coefficients (computing them with the previous solution). 
-For instance, this is shown in \eqt{eq:jac_diss_term} for the dissipative terms present in the continuity equation:
-\begin{equation}
-\label{eq:jac_diss_term}
-\frac{\partial}{\partial \mathbf U} \left( \kappa \div \rho \grad W \right) \simeq \kappa \frac{\partial}{\partial \mathbf U} \left( \div \rho \grad W \right),
-\end{equation}  
-where $\mathbf  U$ denotes any of the conservative variables and $W$ denotes the component of $\mathbf  W$ associated with the 
-continuity equation. In the above, we have neglected $\frac{\partial \kappa}{\partial \mathbf U}$.
-%
-%
+\tcr{can you add some SHORT text for 1 or 2 examples and add a few graphs. For the figures, I would prefer that we use some of your older figures so that they do not look identical tot he JCP paper. The main reason I wanted to write this conference proceedings was to show the results of the JCP paper to the radiation transport community ...}
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -398,6 +347,10 @@ continuity equation. In the above, we have neglected $\frac{\partial \kappa}{\pa
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+\tcr{I will add the conclusions. I estimate 3 more pages for the results, 1 for conclusions+refs = total of 10. that's enough}
+
+
+\tcr{can you add the reference file?}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
