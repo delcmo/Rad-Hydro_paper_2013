@@ -143,7 +143,8 @@ Substantial research efforts have focused on Riemann solvers for both the radiat
 Edwards and al. \cite{EdwardsMorelLowrie} proposed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations. A Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with semi-analytical solutions. 
 
 \tcr{check for redundancies in text below}
-In this article we propose to solve the non-equilibrium Grey Radiation-Hydrodynamics (GRH) equations by stabilizing the numerical discretization using \emph{the Entropy Viscosity Method} (EVM). This EVM, developed by Guermond et al. for hyperbolic systems of equations \cite{jlg1, jlg2}, consists in adding appropriate dissipative terms to the governing equations.  The artificial viscosity coefficient in these terms is modulated by the local entropy production. These dissipative terms are devised to stabilize the numerical scheme and to remove the non-physical oscillations appearing at the shock locations. Since entropy production is peaked in shocks \cite{Toro}, the  viscosity coefficient in the EVM is set proportional to the entropy production \tcb{that is computed on the fly}. In doing so, shocks can be detected and tracked and an adequate amount of viscosity is added locally to stabilize the numerical scheme. \tcb{TO REMOVE: The entropy production is computed on the fly, by evaluating the entropy residual. This residual is strongly peaked in shocks and small elsewhere.} 
+In this article we propose to solve the non-equilibrium Grey Radiation-Hydrodynamics (GRH) equations by stabilizing the numerical discretization using \emph{the Entropy Viscosity Method} (EVM). This EVM, developed by Guermond et al. for hyperbolic systems of equations \cite{jlg1, jlg2}, consists in adding appropriate dissipative terms to the governing equations.  The artificial viscosity coefficient in these terms is modulated by the local entropy production. These dissipative terms are devised to stabilize the numerical scheme and to remove the non-physical oscillations appearing at the shock locations. Since entropy production is peaked in shocks \cite{Toro}, the  viscosity coefficient in the EVM is set proportional to the entropy production \tcb{that is computed on the fly}. In doing so, shocks can be detected and tracked and an adequate amount of viscosity is added locally to stabilize the numerical scheme. 
+%\tcb{TO REMOVE: The entropy production is computed on the fly, by evaluating the entropy residual. This residual is strongly peaked in shocks and small elsewhere.} 
 The entropy viscosity method was shown to achieve high-order accuracy away from the shock regions, was successfully applied to non-linear hyperbolic equations using various discretization methods (finite volume, continuous and discontinuous finite elements, spectral method) and yielded high-order accuracy on non-uniform meshes and complex geometries \cite{jlg2, valentin}. Because of the similarity between Euler equations and the radiation-hydrodynamic equations, it is conjectured that the entropy viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
 
 The 1-D non-equilibrium Grey Radiation-Hydrodynamic equations are recalled in \eqts{eq:GRH}:
@@ -229,14 +230,22 @@ c_m^2 = \underbrace{P_{\rho} + \frac{P}{\rho^2}P_e}_{c_{Euler}^2} + \underbrace{
 \end{equation}
 %
 where $P_x$ is the standard shorthand notation for $\partial_x P$, $c^2_{Euler}$ denotes the speed of sound when considering only Euler equations, and $c^2_{rad}$ is the radiation contribution to the sound speed $c_m^2$. The eigenvalues given in \eqt{eq:eigenvalues_hyperbolicGRH} are unconditionally real as long as the chosen equation of state ensures a real-valued material speed of sound $c_{Euler}$. 
-Because the system given in \eqts{eq:GRH_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
+Because the system given in \eqts{eq:GRH_hyperbolic} is hyperbolic, one can assume the existence of an entropy function $s$ that depends upon the internal energy $e$, the density $\rho$, and the radiation energy density $\epsilon$ (three primitive variables)  \cite{Lax}. 
+%After some algebra, given in \app{app:appendixA}, an equation satisfied by the entropy $s$ is obtained:
+%\begin{equation}
+%\label{eq:entropy_equation}
+%\rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) \geq 0 \ ,
+%\end{equation}
+%where $\frac{D \cdot}{Dt}$ denotes the total or material derivative ($\frac{Ds}{Dt} = 0$  for smooth solutions). \eqt{eq:entropy_equation} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy}. 
+
+Because the solutions of \eqts{eq:GRH_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms in \eqts{eq:GRH_hyperbolic}, the entropy residual equation, that is used to prove the entropy minimum principle \cite{entropy}, is modified and some additional terms will appear in the right-hand side. The sign of these additional terms needs to be studied for the entropy minimum principle to hold which requires positivity of the entropy residual (\eqt{eq:entropy_equation}). 
+%
 \begin{equation}
 \label{eq:entropy_equation}
 \rho \frac{Ds}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) \geq 0 \ ,
 \end{equation}
-where $\frac{D \cdot}{Dt}$ denotes the total or material derivative ($\frac{Ds}{Dt} = 0$  for smooth solutions). \eqt{eq:entropy_equation} is often referred as the entropy residual and is used to prove the entropy minimum principle \cite{entropy}. 
-
-Because the solutions of \eqts{eq:GRH_hyperbolic} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. When adding dissipative terms in \eqts{eq:GRH_hyperbolic}, the entropy residual equation is modified and some additional terms will appear in the right-hand side of \eqt{eq:entropy_equation}. The sign of these additional terms needs to be studied for the entropy minimum principle to hold. As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} is as follows:
+%
+As such, the entropy minimum principle is invoked to guide in the derivation of appropriate expressions for each of the dissipative terms. Deriving the final expressions for the dissipative terms requires a few algebraic manipulations and only the final result and the key assumptions are stated here. The reader is referred to \app{app:appendixA} for the details of the derivation. The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} is as follows:
 \begin{subequations}
 \label{eq:regularized_hyperbolic_GRH}
 \begin{equation}
@@ -507,7 +516,7 @@ from which we conclude that their soundspeed is less than or equal to our expres
 \end{subequations}
 
 %We now give the final expression for the entropy relation by s
-Regarding (ii), we substitute the definition of the constant $\beta = \frac{4a^\frac{1}{4}}{3}$ \tcr{why 3/4 here? I changed to 4/3} in \eqt{eq:ent_relation} to obtain
+Regarding (ii), we substitute the definition of the constant $\beta = \frac{4a^\frac{1}{4}}{3}$ \tcr{why 3/4 here? I changed to 4/3} \tcb{you are right} in \eqt{eq:ent_relation} to obtain
 %
 \begin{equation}\label{eq:ent_relation2}
 Tds = d\hat{e} + \left[ \hat{P} + \frac{4}{3}\epsilon \mathbb{D} \right] d \rho^{-1} + \rho^{-1}\mathbb{D} \ d \epsilon \,,
@@ -587,14 +596,16 @@ J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \,.
 \end{subequations}
 The symbol $[[ \cdot ]]$ denotes the jump at the cell interface.
 
-The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:GRH_hyperbolic} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows:
+The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:GRH_hyperbolic} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. This effect can be studied by deriving the entropy residual from the system given in \eqt{eq:GRH_hyperbolic} that accounts for the relaxation term and the physical diffusion term. Using the definition of the entropy function given in \eqt{eq:ent_equ} and following the same steps as in \app{app:appendixA}, it can be shown that the entropy minimum principle still holds for the full system of equations given in \eqt{eq:GRH_hyperbolic}.
+
+When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows (this is the implementation we opted for obtaining the numerical results presented in \sect{sec:num-res}):
 \begin{equation}
  \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right) 
  \Longrightarrow
  \partial_x \left[ \max\left(\frac{c}{3 \sigma_t} \text{, } \kappa \right) \partial_x \epsilon \right]
 \end{equation}
-\tcb{TO REMOVE: Thus, as long as the artificial viscosity coefficient $\kappa$ is locally smaller that the physical diffusive coefficient $D=\frac{c}{3 \sigma_t}$, no artificial viscosity is required to ensure stability of the numerical scheme. As the diffusive coefficient $D$ goes to zero, shocks can form in the radiation energy density profile and will require a certain amount of viscosity in order to prevent oscillations from appearing.}
-\tcr{text seems redundant here}
+%\tcb{TO REMOVE: Thus, as long as the artificial viscosity coefficient $\kappa$ is locally smaller that the physical diffusive coefficient $D=\frac{c}{3 \sigma_t}$, no artificial viscosity is required to ensure stability of the numerical scheme. As the diffusive coefficient $D$ goes to zero, shocks can form in the radiation energy density profile and will require a certain amount of viscosity in order to prevent oscillations from appearing.}
+%\tcr{text seems redundant here}
 
 The effect of the relaxation source terms onto the entropy viscosity method can become problematic in the equilibrium diffusion limit $(\sigma_a c \to \infty)$: the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. In \cite{ShiJin}, a study on the impact of various artificial viscosity methods for hyperbolic systems with relaxation terms was carried out. It was shown that high-order viscosity coefficients are more suitable since they do not alter the physical solution as much as first-order viscosity terms (upwind scheme). A manufactured  solution is employed in \sect{sec:MMS} to test the convergence of the numerical solution in the equilibrium-diffusion limit.  
 %
