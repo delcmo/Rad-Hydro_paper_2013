@@ -96,7 +96,7 @@ viscosity coefficient.
 Because of the similarity between Euler equations and the radiation-hydrodynamic equations, we conjectured in \cite{our_jcp_radhy_paper} that the entropy 
 viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
 
-The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any spatial minimum, the entropy of a system is equal to or greater than 0. \tcb{I think the entropy minimum principle does not ensure positivity of the entropy unless the initial entropy is positive. With the entropy minimum principle, the entropy is showed to increase over time. This is my understanding.} When
+The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any spatial minimum, the rate of entropy change of a system is equal to or greater than 0. When
 adding dissipative terms to the governing laws, one must verify that the entropy minimum principle still holds. Indeed, the functional form of these dissipation terms
 is actually chosen such that this principle is verified. In \cite{our_jcp_radhy_paper}, we followed an approach similar to that of \cite{Balsara, LowrieMorel} 
 where the relaxation and diffusion terms in the radiation and material energy equations were omitted in order to analyze only the hyperbolic parts of 
@@ -152,7 +152,7 @@ Because the solutions of \eqt{eq:GRH} can develop shocks, dissipative terms are 
 The presence of these additional terms will modify the entropy residual equation for which we must ensure that the entropy minimum holds. As stated earlier, 
 an earlier demonstration omitted the diffusion and relaxation terms present in \eqt{eq:GRH} and only considered the hyperbolic parts of \eqt{eq:GRH}. We briefly reviews these
 prior results here.
-The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} \tcb{in the right-hand side} is as follows:
+The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} on the right-hand side is as follows:
 \begin{subequations}
 \label{eq:regularized_hyperbolic_GRH}
 \begin{equation}
@@ -224,7 +224,7 @@ The entropy function is the sum of (i) the entropy for the Euler system of equat
 $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics $Tds_{Euler} = de + P d \rho^{-1}$. $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. 
 %
 
-At any spatial position where the entropy is minimum, we have, be definition of the minimum,, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
+At any spatial position where the entropy is minimum, we have, be definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
 locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
 %
 The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
@@ -235,7 +235,7 @@ The effect of the relaxation source terms may need to be investigated in the equ
 \section{Entropy minimum principle for the complete GRH equations}\label{sec:VR_new}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We have reviewed in the previous Section the effect of the viscous regularization on the hyperbolic parts of the GRH equations, where relaxation and diffusion terms have been omitted. Numerical results confirmed that the proposed viscous regularization was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification why the definitions of the dissipative viscous fluxes would remain the same for the complete system of GRH equations. As we demonstrate below, the relaxation and diffusion terms further contributed to the verification of the entropy minimum principle for the full GRH equations with viscous regularization. Since we have already established that the dissipative terms yield the terms shown on the right-hand side of \eqt{eq:app_entr_eq_non_equil}, we omit them in the derivation below under the assumption that their functional form remains unchanged.
+In the previous Section, we have reviewed the effect of the viscous regularization on the hyperbolic parts of the GRH equations, where relaxation and diffusion terms have been omitted. Numerical results confirmed that the proposed viscous regularization was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification to explain why the definitions of the dissipative viscous fluxes should remain the same for the complete system of GRH equations. As we demonstrate below, the relaxation and diffusion terms further contribute to the verification of the entropy minimum principle for the full GRH equations with viscous regularization. Since we have already established that the dissipative terms yield the terms shown on the right-hand side of \eqt{eq:app_entr_eq_non_equil}, we omit them in the derivation below since their final functional form will remain unchanged.
 
 Hence, we follow the same procedure as in \sct{sec:VR_old} to establish an entropy equation. First, we start with the full system of GRH equations, \eqt{eq:GRH}, and re-cast it in terms of primitive variables. This becomes
 \begin{subequations}
@@ -270,14 +270,14 @@ The primitive form of the radiation energy equation is:
 \end{equation}
 \end{subequations}
 
-
+\noindent
 For the next step, we note that (chain rule)
 %
 \begin{equation}
 \rho \matder{s} = \rho \Bigg( s_\rho \matder{\rho} + s_e \matder{e} +s_\epsilon \matder{\epsilon} \Bigg)
 \end{equation}
 %
-and thus linearly combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRHrad_} to have
+and thus linearly combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRHrad_} to obtain
 %
 \begin{equation} \label{eq:entro_eq_all_terms}
 \rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
@@ -292,7 +292,7 @@ The right-hand side of \eqt{eq:entro_eq_all_terms} contains two terms which we a
 \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
 = \left( \left( \frac{a}{\epsilon}\right)^\frac{1}{4} - \frac{1}{T} \right)   \sigma_a c \left( a T^4 - \epsilon \right) 
 \end{equation}
-Using the identity $(x-1)(x^4-1) = (x-1)^2(x+1)(x^2+1)$, the above terms can be rewritten as
+Using the identity $(x-1)(x^4-1) = (x-1)^2(x+1)(x^2+1)$, the above equation can be rewritten as
 \begin{equation} 
 \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
 = \frac{\sigma_a c}{T \epsilon}  (x-1)^2(x+1)(x^2+1) \geq 0
@@ -336,10 +336,10 @@ which demonstrates that the full GRH equations are entropy-minimum satisfying. C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\tcr{at M\&C, they will complaint if we do not show a COMPUTATION. It is the theme of the conference and they check closely for that. So, I will we need to add 1 numerical results. I do not want to copy/paste one from the JCP paper, though we could since the paper has not been published yet....\\}
 %
-We present 1-D numerical results for a Mach 5 radiative shock problem from the published literature. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_radhy_paper}. The governing equations are spatially discretized using continuous linear finite elements and a fully-implicit BDF2 time integrator is employed. The resulting nonlinear equations are solved using a Newton technique to determine the solution values at the end of each time step. The numerical results are obtained with a mesh of $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state. The boundary conditions for the Euler equations and radiation equation are considered independently since the latter one is parabolic. At the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment: a static boundary condition is implemented by only specifying the back pressure and computing the other variables from the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet. \\
+We present 1-D numerical results for a Mach 5 radiative shock test case taken from the published literature \cite{EdwardsMorelLowrie}. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_radhy_paper}. The governing equations are spatially discretized using continuous linear finite elements and a fully-implicit BDF2 time integrator is employed. The resulting nonlinear equations are solved using a Newton technique to determine the solution values at the end of each time step. The numerical results are obtained with a mesh of $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state. The boundary conditions for the hydrodynamics equations and radiation equation are considered independently since the latter one is of parabolic nature. For the hydrodynamics equations, we use the following: at the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment: a static boundary condition is implemented by only specifying the back pressure and computing the other variables from the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet. \\
 %\tcr{can you add some SHORT text for 1 or 2 examples and add a few graphs. For the figures, I would prefer that we use some of your older figures so that they do not look identical tot he JCP paper. The main reason I wanted to write this conference proceedings was to show the results of the JCP paper to the radiation transport community ...}
 %
-The Mach $5$ test consists of a 1-D slab of thickness $L=0.05$ $cm$ run with the initial conditions of \tbl{tbl:table6} until steady-state. The initial discontinuity between the left and right states is located at $x_0 = 0  \ cm$. The cross sections $\sigma_t$ and $\sigma_a$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively,. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$ (we recall that 1 $jerks = 10^9\ Joules$). Steady-state results are shown in \fig{fig:Mach5_temp}, \fig{fig:Mach5_dens}, and \fig{fig:Mach5_visc} for the material and radiation temperatures, the density and the viscosity coefficients, respectively. The exact solutions is also plotted for comparison and was obtained from a semi-analytical solve.
+The Mach $5$ test consists of a 1-D slab of thickness $L=0.05$ $cm$, with the initial conditions given in \tbl{tbl:table6}, and is run until a steady state has been reached. The initial discontinuity between the left and right states is located at $x_0 = 0  \ cm$. The opacities $\sigma_t$ and $\sigma_a$ are assumed constant and set to $853.144$ $cm^{-1}$ and $390.711$ $cm^{-1}$, respectively,. The heat capacity at constant specific volume is set to $C_v = 0.12348$ $jerks/(g-keV)$ (we recall that 1 $jerks = 10^9\ Joules$). Steady-state results are shown in \fig{fig:Mach5_temp}, \fig{fig:Mach5_dens}, and \fig{fig:Mach5_visc} for the material and radiation temperatures, the density and the viscosity coefficients, respectively. The exact solution is also plotted for comparison and was obtained from a semi-analytical technique.
 %
 \begin{table}[H]
 \caption{\label{tbl:table6} Initial conditions for Mach $5$.}
@@ -375,7 +375,7 @@ $\epsilon$ $(jerks/cm^3)$ & $1.372$ $10^{-6}$ & $2.7955320$ $10^{-6}$\\
 \end{subfigure}
 \end{figure}
 %
-In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature does not exhibit an embedded hydrodynamic shock but shows a Zeldovich spike. The density profile, \fig{fig:Mach5_dens}, shows a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any numerical oscillations and match the exact solutions.
+In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The material temperature does not exhibit an embedded hydrodynamic shock but shows a Zeldovich spike. The density profile, \fig{fig:Mach5_dens}, displays a shock located at the same position as the Zeldovich spike of the material temperature profile. The viscosity coefficient $\kappa$ is also peaked in the shock region, as expected. The material and radiation variables do not present any numerical oscillations and match the exact solutions.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
