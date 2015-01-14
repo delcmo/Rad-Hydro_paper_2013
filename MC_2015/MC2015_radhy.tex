@@ -173,7 +173,7 @@ The hyperbolic portion of the GRH system of equations \emph{with dissipative ter
 \end{subequations}
 %
 where $\kappa$ is a positive and locally defined viscosity coefficient. The functional form of the dissipative viscous fluxes was informed
-that the derivation of the entropy residual equation. We provide below the main steps leading to that equation and \tcb{given} in \cite{our_jcp_radhy_paper}.
+that the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}.
 The same procedure will be followed in \sct{sec:VR_new} when diffusion and relaxation terms are incorporated back in the system of equations. 
 Some of the algebraic manipulation may be lengthy and only the final results are provided but no information has been withheld such that the interested
 reader should be able to reproduce these results. The entropy function $s$ for the GRH system is assumed to depend upon density $\rho$, internal energy $e$, and radiation 
@@ -217,14 +217,13 @@ and the functional form of the entropy is given by
 \begin{equation}\label{eq:ent_equ}
 s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \,.
 \end{equation}
-%\tcb{We need to keep the form $s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + \frac{\rho^{(0)}}{\rho }s_{rad}(\epsilon)$, otherwise the non-diagonal terms of the last row and column of the $3 \times 3$ matrix do not zero out, and we have to be consistent with the appendix.}
 \end{subequations}
 %
 The entropy function is the sum of (i) the entropy for the Euler system of equations $s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$. 
 $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics $Tds_{Euler} = de + P d \rho^{-1}$. $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. 
 %
 
-At any spatial position where the entropy is minimum, we have, \tcb{by} definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
+At any spatial position where the entropy is minimum, we have, by definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
 locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
 %
 The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
