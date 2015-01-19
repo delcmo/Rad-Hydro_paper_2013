@@ -116,8 +116,8 @@ The reviewer is correct: the system (2) is not the frozen approximation and shou
 \color{blue}
 5. Moreover, if (2) applied, then in Ref [11] sect. 4.2, the shock-jump relations would have to include the nonconservative product $u \partial_x \epsilon$. But
 I believe Ref. [11] is correct, in that this product does not contribute to the shock-jump relation, because $\epsilon$ is continuous through the (hydro) shock as a result of the regularization of the radiation diffusion. But this result is not true of the system (2), which has dropped the diffusion term. As discussed in Ref. [11], shocks that are embedded in the shock profile satisfy the unmodified hydro-jump relations. This is also true for rad-hydro using full transport. At least for the Eulerian frame, the frozen problem decouples radiation and hydro. In that case, it makes sense to develop entropy-based viscosities separately for the radiation and hydro (and the hydro-alone case has already been done in the References). If the authors feel that the system (2) is appropriate, they need a much stronger argument that it is.
-}
-
+\\}
+We have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion which justifies the use of system (2) as a starting point. System (2) is used to derive the viscous regularization and also a functional form of the entropy function. Then, we proved that with the same entropy function, the entropy minimum principle still holds when accounting for the source terms that were initially omitted. 
 \tcr{not finished.\\
 we have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion. If this is not enough for the reviewer, what do you suggest we add?. We can also add a pointer to Item \#9 of our reply as well.}
 \bigskip
@@ -166,7 +166,7 @@ In the section ``Scaling of the entropy function derived for the non-equilibrium
 For the cases in this study, the left and right states are in radiative equilibrium. The jump relations are given in Ref [11] sect. 4.2 and the entropy in Sect. 4.1 of Ref. 10, which again, differs from the entropy in the current study. A numerical shock regularization is required when the transition layer is unresolved. Referring to Fig. 7, a spacing of 0.02 cm would not resolve the transition layer for this case. A spacing of 0.2 cm would be a challenge for the Mach 50 case (Fig. 14). The entropy viscosity would have to regularize the overall jumps in these cases, or else numerical oscillations would occur. Such cases must be explored, or else it's not clear whether the entropy viscosity is appropriate. It would also seem that the entropy developed in Sect. 5.1 of Ref. 10 would be more appropriate in such cases, and this should be addressed.
 }
 
-We added a test case in the section ``An equilibrium-diffusion test'' in the results section to discuss the test case described by the reviewer. \tcr{why so smooth???}
+We added a test case in the section ``An equilibrium-diffusion test'' in the results section to discuss the test case described by the reviewer and showed that the viscous regularization efficiently stabilize the scheme when the viscous coefficient becomes larger than the diffusion coefficient. \tcr{why so smooth???}
 \bigskip
 
 \end{document}
