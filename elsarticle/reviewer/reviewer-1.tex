@@ -117,9 +117,10 @@ The reviewer is correct: the system (2) is not the frozen approximation and shou
 5. Moreover, if (2) applied, then in Ref [11] sect. 4.2, the shock-jump relations would have to include the nonconservative product $u \partial_x \epsilon$. But
 I believe Ref. [11] is correct, in that this product does not contribute to the shock-jump relation, because $\epsilon$ is continuous through the (hydro) shock as a result of the regularization of the radiation diffusion. But this result is not true of the system (2), which has dropped the diffusion term. As discussed in Ref. [11], shocks that are embedded in the shock profile satisfy the unmodified hydro-jump relations. This is also true for rad-hydro using full transport. At least for the Eulerian frame, the frozen problem decouples radiation and hydro. In that case, it makes sense to develop entropy-based viscosities separately for the radiation and hydro (and the hydro-alone case has already been done in the References). If the authors feel that the system (2) is appropriate, they need a much stronger argument that it is.
 \\}
-We have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion which justifies the use of system (2) as a starting point. System (2) is used to derive the viscous regularization and also a functional form of the entropy function. Then, we proved that with the same entropy function, the entropy minimum principle still holds when accounting for the source terms that were initially omitted. 
-\tcr{not finished.\\
-we have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion. If this is not enough for the reviewer, what do you suggest we add?. We can also add a pointer to Item \#9 of our reply as well.}
+We have emphasized that several techniques are based on the analysis of the characteristics of the hyperbolic portion which justifies the use of system (2) as a starting point. System (2) was originally used to derive the viscous regularization (functional form of the dissipative terms and proof of the entropy minimum principle) and also a functional form for the entropy function for the non-equilibrium GRH equations.\\
+
+However, the reviewer's remark made us dig deeper into this question. Following the same steps shown in Appendix A, we can demonstrate that, with the same entropy function, the entropy minimum principle holds when including the diffusion relaxation source terms that appear on the RHS of the full GRH equations (not just their hyperbolic parts). We believe this to be an very important new result and it should answer the concerns expressed in the reviewer's remark. 
+
 \bigskip
 
 
@@ -134,7 +135,7 @@ See \# 4.
 
 {
 \color{blue}
-7. As further evidence of the inappropriateness of the system (2), consider its sound speed, given by eq. (6). The importance of the sound speed is that typically artificial viscosities scale with some power of the sound speed (such in eq. (9)), so that a bad choice can mean either too much or too little regularization. A dispersion analysis of rad-hydro using P1 (Lowrie, Morel, \& Hittinger, ApJ 1999), which certainly is closely related to NED, shows 3 regimes based on their sound speeds: the unmodified material sound speed (frozen for P1, full transport, and I believe also NED), isothermal sound speed, and the equilibrium- diffusion modified sound speed (see sect. 4.1 of Ref 10). Generally, none of these sound speeds match eq. (6), except for the equilibrium- diffusion speed for the very special case of a $\gamma$-law gas with $\gamma = 4/3$. So it’s not clear that the sound speed (6) will result in a sufficient viscosity in the equilibrium diffusion limit, and may be too much in the streaming limit. Again, these facts also call into question the appropriateness of basing an entropy and entropy viscosity on the hyperbolic system (2).
+7. As further evidence of the inappropriateness of the system (2), consider its sound speed, given by eq. (6). The importance of the sound speed is that typically artificial viscosities scale with some power of the sound speed (such in eq. (9)), so that a bad choice can mean either too much or too little regularization. A dispersion analysis of rad-hydro using P1 (Lowrie, Morel, \& Hittinger, ApJ 1999), which certainly is closely related to NED, shows 3 regimes based on their sound speeds: the unmodified material sound speed (frozen for P1, full transport, and I believe also NED), isothermal sound speed, and the equilibrium- diffusion modified sound speed (see sect. 4.1 of Ref 10). Generally, none of these sound speeds match eq. (6), except for the equilibrium- diffusion speed for the very special case of a $\gamma$-law gas with $\gamma = 4/3$. So it's not clear that the sound speed (6) will result in a sufficient viscosity in the equilibrium diffusion limit, and may be too much in the streaming limit. Again, these facts also call into question the appropriateness of basing an entropy and entropy viscosity on the hyperbolic system (2).
 }
 
 We added a section titled ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit''  to show that the sound speed we use in the definition of the first-order viscosity coefficient corresponds to the maximum value of the sound speed (obtained for $\Gamma = 1/3$) derived in Ref. [11] and recalled in Eq.(24a).
@@ -146,8 +147,22 @@ We added a section titled ``Scaling of the entropy function derived for the non-
 8. The system (2) cannot be written conservation form, as the authors state in the paragraph that follows. Mass (first equation), momentum (second), and total energy (add the last two equations) can be written in conservation form, but one of the last two equations must be retained to form a complete system. Nevertheless, it's hyperbolic (although the authors don't show this or need to). It's a nonconservative system, which might be fine, if this system was appropriate. I don't believe its true that conservation form ``allows us to assume the existence of an entropy function,'' as stated after eq. (5). Conservation form is not a requirement to define an entropy. But all this is a moot point, because I don't believe the system (2) is the appropriate hyperbolic system on which to develop an entropy.
 }
 
-The reviewer is correct when stating that the system (2) cannot be written in a conservation form. Nevertheless, the system (2) is proved to be hyperbolic in the paper since its eigenvalues, given in Eq.(2), are unconditionally real which allows us to assume the existence of an entropy function.
-\tcr{\\not finished. I think we need to add that we recover the EDL entropy of Ref.xx and ...}
+The reviewer is correct when stating that the system (2) cannot be written in a conservation form. Nevertheless, the system (2) is proved to be hyperbolic in the paper since its eigenvalues, given in Eq.(2), are unconditionally real which allows us to assume the existence of an entropy function.\\
+
+Furthermore, we have added a section on the equilibrium-diffusion limit of the regularized non-equilibrium GRH equations and we show that  
+\begin{enumerate}
+\item we recover the equilibrium-diffusion limit equations of Lowrie \& Morel (JQSR 2001; Ref. [13] in our revised manuscript) with dissipative terms
+\item we recoverthe entropy function of Lowrie \& Morel (JQSR 2001; Ref. [13])
+\item the regularized GRH equations possess the proper asymptotic limit.
+\end{enumerate}
+This further reinforces our opinion that the viscous regularization and the entropy function derived for the non-equil. GRH are the correct ones.\\
+
+We have also shown that the following two operations commute:
+\begin{enumerate}
+\item regularize the non-equil. GRH and then perform an asymptotic limit
+\item start with the equilibrium-diffusion limit equations and then add a viscous regularization
+\end{enumerate}
+ 
 \bigskip
 
 
@@ -156,7 +171,7 @@ The reviewer is correct when stating that the system (2) cannot be written in a 
 9. Sect. 4.1 of Ref. 10 developed an entropy function for the equilibrium diffusion limit. The authors don't address why the entropy they have selected instead is appropriate in this limit, even though the NED system reduces to equilibrium diffusion in the optically-thick limit.
 }
 
-In the section ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit'', an asymptotic limit is performed to demonstrate that the entropy we selected for the system (2) match the entropy $s^*$ derived in Ref. [11] in the equilibrium-diffusion limit. \tcr{We believe this is a strong argument for using system (2) (the hyperbolic portion of system (1))}
+In the section ``Scaling of the entropy function derived for the non-equilibrium RHD equation in the Equilibrium-Diffusion Limit'', an asymptotic limit is performed to demonstrate that the entropy we selected for the system (2) match the entropy $s^*$ derived in Ref. [13]\footnote{13 is the reference number in the revised version} in the equilibrium-diffusion limit. We believe this to be a strong argument for the validity of our approach.
 \bigskip
 
 
@@ -166,7 +181,7 @@ In the section ``Scaling of the entropy function derived for the non-equilibrium
 For the cases in this study, the left and right states are in radiative equilibrium. The jump relations are given in Ref [11] sect. 4.2 and the entropy in Sect. 4.1 of Ref. 10, which again, differs from the entropy in the current study. A numerical shock regularization is required when the transition layer is unresolved. Referring to Fig. 7, a spacing of 0.02 cm would not resolve the transition layer for this case. A spacing of 0.2 cm would be a challenge for the Mach 50 case (Fig. 14). The entropy viscosity would have to regularize the overall jumps in these cases, or else numerical oscillations would occur. Such cases must be explored, or else it's not clear whether the entropy viscosity is appropriate. It would also seem that the entropy developed in Sect. 5.1 of Ref. 10 would be more appropriate in such cases, and this should be addressed.
 }
 
-We added a test case in the section ``An equilibrium-diffusion test'' in the results section to discuss the test case described by the reviewer and showed that the viscous regularization efficiently stabilize the scheme when the viscous coefficient becomes larger than the diffusion coefficient. \tcr{why so smooth???}
+We added a test case in the section ``An equilibrium-diffusion test'' in the results section to discuss the test case described by the reviewer and showed that the viscous regularization efficiently stabilize the scheme when the viscous coefficient becomes larger than the diffusion coefficient. 
 \bigskip
 
 \end{document}
