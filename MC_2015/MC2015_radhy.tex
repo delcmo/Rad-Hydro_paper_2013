@@ -73,7 +73,7 @@ hydrodynamic shock simulations.
 \section{Introduction}\label{sec:intro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-Accurately solving the radiation and hydrodynamic equations is the topic on ongoing research. 
+Accurately solving the radiation and hydrodynamic equations is the topic of ongoing research. 
 Substantial research efforts have focused on Riemann solvers. In
 \cite{Balsara},  a Riemann solver is developed for the Radiation-Hydrodynamic equations by considering the frozen approximation 
 that uncouples the two physics, radiation and hydrodynamics, components but the validity of such an approximation may be questionable 
@@ -96,7 +96,7 @@ viscosity coefficient.
 Because of the similarity between Euler equations and the radiation-hydrodynamic equations, we conjectured in \cite{our_jcp_radhy_paper} that the entropy 
 viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
 
-The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any spatial minimum, the rate of entropy change of a system is equal to or greater than 0. When
+The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any entropy spatial minimum, the rate of entropy change of a system is equal to or greater than 0. When
 adding dissipative terms to the governing laws, one must verify that the entropy minimum principle still holds. Indeed, the functional form of these dissipation terms
 is actually chosen such that this principle is verified. In \cite{our_jcp_radhy_paper}, we followed an approach similar to that of \cite{Balsara, LowrieMorel} 
 where the relaxation and diffusion terms in the radiation and material energy equations were omitted in order to analyze only the hyperbolic parts of 
@@ -106,7 +106,7 @@ yielded very satisfactory results.
 The aim of this paper is to enhance the theoretical grounds for using the EVM to solve the  Radiation-Hydrodynamic equations by proving that the omitted diffusion
 and relaxation terms do not negatively affect the previously obtained dissipative terms. The remainder of the paper is as follows: in \sct{sec:GRH}, we recall
 the 1-D non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations. The viscous regularization of the GRH equations based on their hyperbolic parts is recalled in \sct{sec:VR_old}.
-In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum principle when consider the full GRH equations.
+In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum principle when one considers the full GRH equations.
 Numerical results are given in \sct{sec:rez}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,10 +137,14 @@ The 1-D  non-equilibrium Grey Radiation-Hydrodynamic equations are recalled in \
 \partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \underline{\underline{\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)}} 
 + \underline{\underline{\sigma_a c \left( a T^4 - \epsilon \right)}}
 \end{equation}
+%
+\begin{equation}
+\label{eq:EOS}
+P = \left( \gamma-1 \right) \rho e
+\end{equation}
 \end{subequations}
 where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
-The material temperature and pressure are computed with the ideal gas equation of state (IGEOS): 
-$ P = (\gamma-1) \rho e$ and $e = C_v T$,
+The material temperature and pressure are computed with the ideal gas equation of state (IGEOS) given in \eqt{eq:EOS} and $e = C_v T$,
 where  $e = E - \tfrac 1 2 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
 In \eqt{eq:GRH}, we have underlined the diffusion and relaxation terms for future reference.
 
