@@ -8,33 +8,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
-%% To change the style, put a % in front of the second line of the current style and
-%% remove the % from the second line of the style you would like to use.
-%%%%%%%%%%%%%%%%%%%%%%%
-%% Math Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amsfonts}
-\usepackage{amsfonts}
-\usepackage{color}
-\usepackage{setspace}
-%\usepackage{listings}
-%\lstset{language=C++}
-%\usepackage{lscape} 
-\usepackage{float}
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage[titletoc,toc]{appendix}
-\usepackage{xspace}
-%\usepackage{color}
-%\textwidth = 450pt
-\def\fxnote#1{\marginpar{\textcolor{green}{#1}}}
-\def\fxwarning#1{\marginpar{\textcolor{red}{#1}}}
-%\usepackage[a4paper]{geometry}
-\newtheorem{remark}{Remark}[section]
-%\usepackage{supertabular}
-%
+\input{inputs/packages.tex}
+\input{inputs/definitions.tex}
+\bibliographystyle{elsarticle-num}
 %% Numbered
 %\bibliographystyle{model1-num-names}
 %
@@ -55,42 +31,6 @@
 %
 %% AMA style
 %\usepackage{numcompress}\bibliographystyle{model6-num-names}
-%
-% common reference commands
-\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
-\newcommand{\eqts}[1]{Eqs.~(\ref{#1})}                     % equation
-\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
-\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
-\newcommand{\sect}[1]{Section~\ref{#1}}                     % section
-\newcommand{\subsect}[1]{Subsection~\ref{#1}}                     % subsection
-\newcommand{\app}[1]{Appendix~\ref{#1}}                     % appendix
-%
-\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
-\newcommand{\grad}{\vec{\nabla}}
-\newcommand{\norm}{\textrm{norm}}
-\renewcommand{\Re}{\textrm{Re}}
-\newcommand{\Us}{\textrm{U}}
-\newcommand{\Ls}{\textrm{L}}
-\newcommand{\Pe}{\textrm{P\'e}}
-%
-\renewcommand{\Re}{\mathbb{P}_\infty}
-\renewcommand{\Us}{\mathbb{C}_\infty}
-\renewcommand{\Pe}{\mathbb{V}_\infty}
-\renewcommand{\Ls}{\mathbb{L}_\infty}
-\newcommand{\Lsi}{\mathbb{L}_{s,\infty}}
-%
-\newcommand{\ie}{i.e.,\@\xspace}
-\newcommand{\eg}{e.g.,\@\xspace}
-\newcommand{\psc}[1]{{\sc {#1}}}
-\newcommand{\rs}{\psc{R7}\xspace}
-%
-\newcommand{\comment}[1]{{\textcolor{red}{#1}}}
-\newcommand{\tcr}[1]{\textcolor{red}{#1}}
-\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
-%
-\newcommand{\matder}[1]{\frac{D #1}{Dt}}
-%
-\bibliographystyle{elsarticle-num}
 %%%%%%%%%%%%%%%%%%%%%%%
 %
 \begin{document}
@@ -110,16 +50,21 @@
 \ead{jim.morel@tamu.edu}
 
 \address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
-
-%\cortext[cor1]{Corresponding author}
 %-------------------------
 %-------------------------
 \begin{abstract}
-\end{abstract}
+In \cite{our_jcp_radhy_paper}, we extended the entropy viscosity method, a viscous regularization to stabilize the numerical solution, 
+to the non-equilibrium Grey Radiation-Hydrodynamic equations. 
+In this method, the artificial viscosity coefficient is modulated by the entropy production and peaks at shock locations. 
+The dissipative terms added by the viscous regularization are consistent with the entropy minimum principle. 
+However, the demonstration in \cite{our_jcp_radhy_paper} omitted the relaxation and diffusion terms 
+present in the material energy and radiation energy equations. Since then, we have found how to include such terms 
+in the derivation of the entropy minimum principle for the regularized non-equilibrium Grey Radiation Hydrodynamic Equations. 
+This further strengthens the potential of the entropy viscosity method as a stabilization technique for numerical radiation 
+hydrodynamic shock simulations.\\
 %
-\begin{keyword}
-radiation-hydrodynamics \sep shock-capturing scheme \sep entropy viscosity method \sep viscous stabilization method.
-\end{keyword}
+\emph{Key Words}: radiation-hydrodynamics ; shock-capturing scheme ; entropy viscosity method ; viscous stabilization method.
+\end{abstract}
 %
 \end{frontmatter}
 %
@@ -128,18 +73,447 @@ radiation-hydrodynamics \sep shock-capturing scheme \sep entropy viscosity metho
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------------------------------------------------------
+%------------------------------------------------------------------
 \section{Introduction}
-\section{The non-equilibrium grey Radiation-Hydrodynamic equations}
-Give the system of equations and define the variables.
-\section{A viscous regularization for the GRH based on their hyperbolic parts (REF)}
-Recall the previous results.
-\section{Entropy minimum principle for the complete GRH equations}
-New parts: show that the entropy minimum principle is still verified when using the functional form of the entropy derived in the previous section.
-\section{1-D Radiation-Hydrodynamic shock results}
-\subsection{An entropy-based definition of the viscosity coefficients (REF)}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+Accurately solving the radiation and hydrodynamic equations is the topic of ongoing research. 
+Substantial research efforts have focused on Riemann solvers. In
+\cite{Balsara},  a Riemann solver is developed for the Radiation-Hydrodynamic equations by considering the frozen approximation 
+that uncouples the two physics, radiation and hydrodynamics, components but the validity of such an approximation may be questionable 
+in the equilibrium diffusion limit. 
+Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the relaxation terms. 
+Edwards and al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations. 
+%A Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with semi-analytical solutions. 
+%
+% If one assumes the strong equilibrium diffusion limit in which radiation diffusion is negligible and the radiation simply advects at the material velocity, 
+% the radiation hydrodynamics equation can be re-cast in the form of the Euler equations with a radiation-modified equation of state (REOS)  \cite{Woodward}. 
+%
+In \cite{our_jcp_radhy_paper}, we proposed to solve the non-equilibrium Grey Radiation-Hydrodynamics (GRH) equations by stabilizing the numerical discretization 
+using the Entropy Viscosity Method (EVM), developed by Guermond et al. for hyperbolic systems of equations \cite{jlg1, jlg2}. 
+%
+The EVM is a viscous regularization technique where adequate dissipation terms (viscous fluxes) are added to the governing laws while ensuring 
+that the entropy minimum principle holds. Viscosity coefficients modulate the magnitude of the added dissipation such that it is large in shock regions and vanishingly 
+small elsewhere. In doing so, shocks can be detected and tracked and an adequate amount of viscosity is added locally to stabilize the numerical scheme. 
+Thus, the entropy viscosity coefficients are taken proportional to the entropy production while, at the same time, being bounded from above by a first-order 
+viscosity coefficient.
+Because of the similarity between Euler equations and the radiation-hydrodynamic equations, we conjectured in \cite{our_jcp_radhy_paper} that the entropy 
+viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
+
+The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any entropy spatial minimum, the rate of entropy change of a system is equal to or greater than 0. When
+adding dissipative terms to the governing laws, one must verify that the entropy minimum principle still holds. Indeed, the functional form of these dissipation terms
+is actually chosen such that this principle is verified. In \cite{our_jcp_radhy_paper}, we followed an approach similar to that of \cite{Balsara, LowrieMorel} 
+where the relaxation and diffusion terms in the radiation and material energy equations were omitted in order to analyze only the hyperbolic parts of 
+the non-equilibrium Grey Radiation-Hydrodynamic equations. Numerical results showed that the functional form of the viscous dissipation hence obtained 
+yielded very satisfactory results. 
+
+The aim of this paper is to enhance the theoretical grounds for using the EVM to solve the  Radiation-Hydrodynamic equations by proving that the omitted diffusion
+and relaxation terms do not negatively affect the previously obtained dissipative terms. The remainder of the paper is as follows: in \sct{sec:GRH}, we recall
+the 1-D non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations. The viscous regularization of the GRH equations based on their hyperbolic parts is recalled in \sct{sec:VR_old}.
+In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum principle when one considers the full GRH equations.
+After detailing the discretization and solution techniques in \sct{sec:discr}, 1-D numerical results are given in \sct{sec:num-rslt}.
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{The non-equilibrium grey Radiation-Hydrodynamic equations}\label{sec:GRH}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+The 1-D  non-equilibrium Grey Radiation-Hydrodynamic equations are recalled in \eqt{eq:GRH}:
+\begin{subequations}
+\label{eq:GRH}
+%
+\begin{equation}
+\label{eq:GRHmass}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 
+\end{equation}
+%
+\begin{equation}
+\label{eq:GRHmom}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 
+\end{equation}
+%
+\begin{equation}
+\label{eq:GRHenerg}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \underline{\underline{ \sigma_a c \left( a T^4 - \epsilon \right) }}
+\end{equation}
+%
+\begin{equation}
+\label{eq:GRHrad}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \underline{\underline{\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)}} 
++ \underline{\underline{\sigma_a c \left( a T^4 - \epsilon \right)}}
+\end{equation}
+%
+\begin{equation}
+\label{eq:EOS}
+P = \left( \gamma-1 \right) \rho e
+\end{equation}
+\end{subequations}
+where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
+The material temperature and pressure are computed with the ideal gas equation of state (IGEOS) given in \eqt{eq:EOS} and $e = C_v T$,
+where  $e = E - \tfrac 1 2 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
+In \eqt{eq:GRH}, we have underlined the diffusion and relaxation terms for future reference.
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{A viscous regularization for the GRH based on their hyperbolic parts (REF)}\label{sec:VR_old}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+Because the solutions of \eqt{eq:GRH} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. 
+The presence of these additional terms will modify the entropy residual equation for which we must ensure that the entropy minimum holds. As stated earlier, 
+an earlier demonstration omitted the diffusion and relaxation terms present in \eqt{eq:GRH} and only considered the hyperbolic parts of \eqt{eq:GRH}. We briefly reviews these
+prior results here.
+The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} on the right-hand side is as follows:
+\begin{subequations}
+\label{eq:regularized_hyperbolic_GRH}
+\begin{equation}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \partial_x \left( \kappa \partial_x \rho \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \partial_x \left( \kappa \partial_x \rho u \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] + \frac{u}{3} \partial_x \epsilon = \partial_x \left( \kappa \partial_x(\rho E) \right)
+\end{equation}
+%
+\begin{equation}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = \partial_x \left( \kappa \partial_x \epsilon \right)
+\end{equation}
+\end{subequations}
+%
+where $\kappa$ is a positive and locally defined viscosity coefficient. The functional form of the dissipative viscous fluxes was informed
+that the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}.
+The same procedure will be followed in \sct{sec:VR_new} when diffusion and relaxation terms are incorporated back in the system of equations. 
+Some of the algebraic manipulation may be lengthy and only the final results are provided but no information has been withheld such that the interested
+reader should be able to reproduce these results. The entropy function $s$ for the GRH system is assumed to depend upon density $\rho$, internal energy $e$, and radiation 
+energy $\epsilon$, i.e., $s( \rho, e, \epsilon)$. Invoking the chain rule
+\begin{equation}
+\label{eq:app_equ2}
+\partial_{\alpha} s = \partial_{\rho} s \partial_{\alpha} \rho +  \partial_{e} s \partial_{\alpha}e +  \partial_{\epsilon} s \partial_{\alpha} \epsilon \,,
+\end{equation}
+ which holds for any independent variable $\alpha=x,t$, we note that a partial differential equation for the entropy can be obtained. This requires
+re-casting  \eqt{eq:regularized_hyperbolic_GRH} in terms of the primitive variables $\rho$ (from  the continuity equation), $u$  (from  the momentum equation),
+$e$ (from the total specific energy equation minus the specific kinetic energy equation), and $\epsilon$ (from the radiation energy equation). Note that 
+the specific kinetic energy equation is simply obtained by multiplying by $u$ the momentum equation expressed in terms of primitive variables. After some algebra,
+the following entropy residual equation is obtained:
+%
+\begin{equation} \label{eq:app_entr_eq_non_equil}
+\rho \frac{Ds}{Dt} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s\right) - \rho \kappa X A X^T  + s_e \rho \kappa (\partial_x u)^2 .
+\end{equation} 
+% 
+where the material derivation notation was used $\frac{Ds}{Dt} := \partial_t s + u \partial_x s$. $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3 \times 3$ symmetric matrix
+ \begin{equation}
+ A = 
+ \left[
+ \begin{array}{ccc}
+\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
+ \partial_{\rho,e} s & \partial_{e,e} s & \partial_{e,\epsilon} s \\
+ \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e,\epsilon} s & \partial_{\epsilon,\epsilon} s
+ \end{array}
+ \right] .
+ \end{equation}
+The quadratic form $ X A X^T$ is shown to be negative-definite.
+%
+The following conditions were assumed to hold:
+\begin{subequations}
+\label{eq:visc_reg_assumptions}
+\begin{equation} \label{eq:visc_reg_assumptions1}
+P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 \,,
+\end{equation}
+%
+and the functional form of the entropy is given by
+%
+\begin{equation}\label{eq:ent_equ}
+s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \,.
+\end{equation}
+\end{subequations}
+%
+The entropy function is the sum of (i) the entropy for the Euler system of equations $s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$. 
+$s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics $Tds_{Euler} = de + P d \rho^{-1}$. $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. 
+%
+
+At any spatial position where the entropy is minimum, we have, by definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
+locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
+%
+The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{Entropy minimum principle for the complete GRH equations}\label{sec:VR_new}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+In the previous Section, we have reviewed the effect of the viscous regularization on the hyperbolic parts of the GRH equations, where relaxation and diffusion terms have been omitted. Numerical results confirmed that the proposed viscous regularization was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification to explain why the definitions of the dissipative viscous fluxes should remain the same for the complete system of GRH equations. As we demonstrate below, the relaxation and diffusion terms further contribute to the verification of the entropy minimum principle for the full GRH equations with viscous regularization. Since we have already established that the dissipative terms yield the terms shown on the right-hand side of \eqt{eq:app_entr_eq_non_equil}, we omit them in the derivation below since their final functional form will remain unchanged.
+
+Hence, we follow the same procedure as in \sct{sec:VR_old} to establish an entropy equation. First, we start with the full system of GRH equations, \eqt{eq:GRH}, and re-cast it in terms of primitive variables. This becomes
+\begin{subequations}
+\label{eq:GRH_primitive}
+%
+\begin{equation}
+\label{eq:GRHmass_}
+\matder{\rho} + \rho  \partial_x u = 0 
+\end{equation}
+%
+\begin{equation}
+\label{eq:GRHmom_}
+\rho\matder{u} + \partial_x  P + \frac{1}{3} \partial_x \epsilon = 0 
+\end{equation}
+%
+From \eqt{eq:GRHmom_}, we establish the specific kinetic energy equation:
+\begin{equation}
+\label{eq:GRH_KE}
+\rho\matder{\tfrac{u^2}{2}} + u\partial_x  P +\frac{u}{3} \partial_x \epsilon = 0 
+\end{equation}
+%
+Then, an equation for the specific internal energy (recall that $e=E-\tfrac 1 2 u^2$) is
+\begin{equation}
+\label{eq:GRHenerg_}
+\rho\matder{e}  + \partial_x P = \sigma_a c \left( a T^4 - \epsilon \right) 
+\end{equation}
+%
+The primitive form of the radiation energy equation is:
+\begin{equation}
+\label{eq:GRHrad_}
+\matder{\epsilon} + \frac{4}{3} \epsilon \partial_x u = \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right)
+\end{equation}
+\end{subequations}
+
+\noindent
+For the next step, we note that (chain rule)
+%
+\begin{equation}
+\rho \matder{s} = \rho \Bigg( s_\rho \matder{\rho} + s_e \matder{e} +s_\epsilon \matder{\epsilon} \Bigg)
+\end{equation}
+%
+and thus linearly combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRHrad_} to obtain
+%
+\begin{equation} \label{eq:entro_eq_all_terms}
+\rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+\end{equation}
+%
+Note that we invoked \eqt{eq:visc_reg_assumptions1}.
+If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is positive, then the proposed viscous regularization, shown in the hyperbolic portion of the GRH equations in \eqt{eq:regularized_hyperbolic_GRH}, will
+also be entropy-minimum satisfying for the full GRH equations. 
+
+The right-hand side of \eqt{eq:entro_eq_all_terms} contains two terms which we analyze separately. Using the entropy function given in \eqt{eq:ent_equ}, the first term becomes
+\begin{equation} 
+\Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
+= \left( \left( \frac{a}{\epsilon}\right)^\frac{1}{4} - \frac{1}{T} \right)   \sigma_a c \left( a T^4 - \epsilon \right) 
+\end{equation}
+Using the identity $(x-1)(x^4-1) = (x-1)^2(x+1)(x^2+1)$, the above equation can be rewritten as
+\begin{equation} 
+\Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) 
+= \frac{\sigma_a c}{T \epsilon}  (x-1)^2(x+1)(x^2+1) \geq 0
+\end{equation}
+with $x=  \left(\frac{aT^4}{\epsilon}\right)^\frac{1}{4} \geq 0.$
+
+The second term on the right-hand side of \eqt{eq:entro_eq_all_terms} can be recast by noting that $s_\epsilon = \frac{a^{1/4}}{\rho} \epsilon^{-1/4}$. Rewriting $s_{rad}(\rho, \epsilon) = \frac{4a^{1/4}}{3\rho} \epsilon^{3/4}$ as  $s_{rad}(\rho, \epsilon) = \frac{\tilde{s}_{rad}(\epsilon)}{\rho}$, we have
+$ \rho s_\epsilon = \tilde{s}^\prime_{rad}(\epsilon)$. Hence, 
+%  \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+\begin{equation}
+\rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+=
+ \tilde{s}^\prime_{rad}(\epsilon) \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+\end{equation}
+%
+Integrating by parts, we obtain
+%
+\begin{multline} \label{eq:final_form_second_term}
+\rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+=
+ \partial_x \left(  \tilde{s}^\prime_{rad}  \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+-
+\frac{c}{3 \sigma_t} \left(  \partial_x \epsilon \right)  \left( \partial_x \tilde{s}^\prime_{rad}  \right) \\
+=
+ \partial_x \left(   \frac{c}{3 \sigma_t} \partial_x \tilde{s}_{rad}  \right) 
+-
+\frac{c}{3 \sigma_t} \tilde{s}^{\prime\prime}_{rad}  \left(  \partial_x \epsilon \right)^2   \qquad  \qquad  \qquad \ 
+\end{multline}
+%
+The first term in \eqt{eq:final_form_second_term} a conservative term (it only yields boundary terms when integrating over time and space and thus plays no role in entropy production of the system, \cite{Leveque}). The second term  in \eqt{eq:final_form_second_term} is positive 
+since $s_{rad}$ (and thus $\tilde{s}_{rad}$) is, by definition, concave with respect to $\epsilon$, i.e., $\tilde{s}^{\prime\prime}_{rad} \leq 0$.
+
+In conclusion, we have 
+\begin{equation} 
+\rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) \geq 0 \,,
+\end{equation}
+which demonstrates that the full GRH equations are entropy-minimum satisfying. Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{An entropy-based definition of the viscosity coefficients (REF)}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+Now that the dissipative terms have been obtained and shown to scale appropriately in the EDL, we define the local viscosity coefficient $\kappa(x,t)$. Following \cite{jlg1, jlg2}, we require the following to hold:
+\begin{itemize}
+\item Since the entropy residual is a measure of the entropy production, it is natural to define a viscosity coefficient proportional to the entropy residual. This will enable shock detection and shock tracking as well as provide a measure of the viscosity required to stabilize the scheme. This viscosity coefficient is referred to as the \emph{entropy viscosity coefficient} and is denoted by $\kappa_e(x,t)$.
+\item An upper bound for $\kappa$ is to be set since entropy production can be very large in shocks. For explicit time discretization, the maximum value of the viscosity coefficient is related to the Courant-Friedrichs-Lewy number (CFL). The upper bound on  $\kappa$  is defined by analogy to the standard upwind (Godunov) scheme that is known to efficiently smooth out oscillations (but is only first-order accurate). With implicit temporal integrators, the same reasoning is used even if the CFL number may not need to be strictly respected. This upper bound will be referred to as the \emph{first-order viscosity} and is denoted by $\kappa_{max}(x,t)$.  
+\item The actual viscosity coefficient $\kappa$ used in the dissipative terms of \eqt{eq:regularized_hyperbolic_GRH} is then taken to be the minimum of the above two viscosities:  $\kappa(x,t) = \min ( \kappa_e(x,t), \kappa_{max}(x,t) )$. With such a definition, the viscosity added to the system of equations will saturate to the first-order viscosity in shock regions; elsewhere, the entropy production and thus the viscosity coefficient $\kappa$ are expected to be small.
+\end{itemize}
+
+Next, we define the local first- and entropy viscosity coefficients $\kappa_{max}(x,t)$ and $\kappa_e(x,t)$, respectively. Following \cite{valentin}, the first-order viscosity definition is based on the local largest eigenvalue that is known to be $|u| + c_m$ in 1-D:
+\begin{equation}
+\label{eq:equation8}
+\kappa_{max} = \frac{h}{2} \left( |u| + c_m \right) \,,
+\end{equation}  
+where $h$ is the local grid size. This definition is derived based on the upwind scheme and a simple derivation can be found in \cite{jlg1} in the case of a scalar hyperbolic equation. Through the definition of the radiation-modified speed of sound $c_m$, both the material and radiation properties are accounted for in the definition of the first-order viscosity coefficient. Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the speed of sound of the equilibrium-diffusion equations (see (REF)), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not.
+
+The definition of the entropy viscosity coefficient $\kappa_e(x,t)$ is based upon the entropy residual (EQUATION) which is recast as a function of total pressure $\hat{P}$, density $\rho$ and soundspeed (see (REF) for details):
+\begin{equation}
+\label{eq:equation9}
+\tilde{D}_e(x,t) = \frac{s_e}{P_e} \underbrace{ \left( \frac{D\hat{P}}{Dt} - c_m^2 \frac{D\rho}{Dt} \right)}_\textrm{$\hat{D}_e(x,t)$} \,.
+\end{equation}
+The term $s_e$ is the inverse of the material temperature (see REF) and $P_e$ is computed from the equation of state. These two terms are positive so that the sign of the entropy residual $\tilde{D}_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\hat{D}_e(x,t)$. Such an expression is easier to compute than the one given in EQUATION which would require an analytical expression for the entropy function. Note that when deriving the non-dimensional expression of $\tilde{D}_e(x,t)$ using the reference variables of EQUATION, the adimensional entropy residual is function of the scaling parameter $\Re$ that scales as one, and thus does not depend on $\varepsilon$. In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J$, are also accounted for. By using these jump terms, one can also detect discontinuities that are not shocks, such as contact waves (there is no entropy production in a contact wave), and stabilize such waves when needed. \\
+Thus, the entropy viscosity coefficient $\kappa_e(x,t)$ is set to be proportional to $\hat{D}_e(x,t)$ and $J$ with the following form: 
+\begin{equation}
+\label{eq:equation12}
+\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\norm_P}
+\end{equation} 
+where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at cell interface $x_i$. The normalization factor $\norm_P$ (of units of pressure) is to be chosen such that the viscosity coefficient $\kappa$ (units of $m^2/s$) scales adequately in the equilibrium-diffusion limit and yields the correct asymptotic behavior. Using the definition of the viscosity coefficient given in \eqt{eq:equation12} and the scaling of EQUATION, it can be shown that:
+%
+\begin{equation}\label{eq:kappa_infty}
+\kappa_\infty = \frac{\rho_\infty c^3_{m,\infty}  L_\infty}{\norm_{P,\infty}} \ .
+\end{equation}
+%
+The scaling of the viscosity coefficient, $\kappa_\infty$, is tied to the P\'eclet number $\Pe$ defined in EQUATION. We demonstrated that $\Pe$ should scale as one in order to preserve the equilibrium-diffusion limit. From this, we conclude that (using the definition of the P\'eclet number) 
+%
+\begin{equation}
+\norm_{P,\infty} = \rho_\infty c^2_{m,\infty} \nonumber \,.
+\end{equation}
+%
+Thus, the final definition for the viscosity coefficient $\kappa$ is as follows:
+\begin{equation}
+\label{eq:equation12bis}
+\kappa_e(x,t) = h^2 \frac{\max (|\hat{D}_e(x,t)|, J)}{\rho c_m^2} \ .
+\end{equation} 
+%
+The jump $J$ in the definition of $\kappa(x,t)$ is piecewise-constant. Its definition is discretization-dependent and defined as follows for a continuous Galerkin FEM: 
+\begin{subequations}
+\label{eq:equation12ter}
+\begin{equation}
+J(x_i,t) = \max( J_{\rho}(x_i,t), J_{\hat{P}}(x_i,t) )
+\end{equation}
+with
+\begin{equation}
+J_{\hat{P}}(x_i,t) = |u| [[\partial_x \hat{P}]]
+\end{equation}
+and
+\begin{equation}
+J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \,.
+\end{equation}
+\end{subequations}
+The symbol $[[ \cdot ]]$ denotes the jump at the cell interface.
+
+The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:regularized_hyperbolic_GRH} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. This effect can be studied by deriving the entropy residual from the system given in \eqt{eq:regularized_hyperbolic_GRH} that accounts for the relaxation term and the physical diffusion term. Using the definition of the entropy function given in \eqt{eq:ent_equ} and following the same steps as in SECTION, it can be shown that the entropy minimum principle still holds for the full system of equations given in \eqt{eq:regularized_hyperbolic_GRH}.
+
+When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows (this is the implementation we opted for obtaining the numerical results presented in \sct{sec:num-rslt}):
+\begin{equation}
+ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right) 
+ \Longrightarrow
+ \partial_x \left[ \max\left(\frac{c}{3 \sigma_t} \text{, } \kappa \right) \partial_x \epsilon \right] \,.
+\end{equation}
+The effect of the relaxation source terms onto the entropy viscosity method can become problematic in the equilibrium diffusion limit $(\sigma_a c \to \infty)$: the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. In \cite{ShiJin}, a study on the impact of various artificial viscosity methods for hyperbolic systems with relaxation terms was carried out. It was shown that high-order viscosity coefficients are more suitable since they do not alter the physical solution as much as first-order viscosity terms (upwind scheme). A manufactured  solution was employed in (REF) to test the convergence of the numerical solution in the equilibrium-diffusion limit.  
+%
+ \begin{remark}
+The reader will notice that, except for the definition of the jumps, the whole method is independent of the spatial discretization employed. The technique could be used with discontinuous Galerkin finite element or finite volume methods. In both cases, an adequate  definition of the jump terms can be found in \cite{valentin}.
+ \end{remark}
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{Discretization and solution techniques}\label{sec:discr}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+The 1-D Radiation-Hydrodynamic equations \eqt{eq:GRH} are discretized with the continuous Galerkin finite element method (CGFEM) with the MOOSE multiphysics framework \cite{Moose}. To obtain a weak form, the following generic form of \eqt{eq:GRH} is considered:
+\begin{equation}
+\label{eq:form}
+\partial_t U + \partial_x F \left( U \right) = S + \partial_x H \left(U\right) \,
+\end{equation}
+where $U$ is the solution vector, $F$ is a conservative vector flux, $S$ is a vector containing the relaxation source terms and non-conservative terms, and $H$ is the artificial viscosity dissipative flux:
+\begin{eqnarray*}
+&&U = 
+\begin{bmatrix}
+\rho \\
+\rho u \\
+\rho E \\
+\epsilon
+\end{bmatrix}
+,\
+F(U) = 
+\begin{bmatrix}
+\rho u \\
+\rho u^2 + P + \frac{\epsilon}{3} \\
+u \left( \rho E + P \right) \\
+\frac{4}{3} u \epsilon
+\end{bmatrix}
+,\ \\
+&&S = 
+\begin{bmatrix}
+0 \\
+0 \\
+-\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) \\
+\frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right)
+\end{bmatrix}
+,
+\\
+&&\text{ and } 
+H(U) = 
+\begin{bmatrix}
+\kappa \partial_x \rho \\
+\kappa \partial_x (\rho u) \\
+\kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u \\
+\max \big( 0, \kappa- c/(3 \sigma_t) \big) \partial_x \epsilon 
+\end{bmatrix} \,.
+\end{eqnarray*}
+
+In order to apply the continuous finite element method, \eqt{eq:form} is multiplied by a test function $\phi$, integrated by parts over the discrete mesh $\Omega$ bounded by $\partial \Omega$, to obtain the weak formulation:
+\begin{multline}
+\sum_e \int_{e} \partial_t U \phi - \sum_e \int_{e} F(U) \partial_x \phi + \int_{\partial \Omega} F(U) \mathbf{n} \phi - 
+ \sum_e \int_{e} S \phi \\
+ + \sum_e \int_{e} H(U) \partial_x \phi - \int_{\partial \Omega}H \left( U \right) \mathbf{n} \phi= 0
+\end{multline}
+where $e$ represents the cells of $\Omega$ and $\mathbf{n}$ is the outward normal vector on the boundary of the computational domain. 
+The integrals over the elements $e$ are evaluated using a third-order Gauss quadrature rule. The time-dependent term will be evaluated using the implicit second-order temporal integrator BDF2 \cite{Leveque}. Only linear test functions are considered in this paper.
+The integral on $\partial \Omega$ requires computation of the inviscid and viscous fluxes $F(U)$ and $H(U)$ on the boundary. We have opted to treat the boundary for each physics component independently and details on how to compute $F(U)$ are given in (REF). The dissipative flux $H(U)$ is set to zero on the boundaries since the viscosity coefficients $\kappa$ and $\mu$ are set to zero \cite{jlg1, jlg2, valentin}. 
+
+The Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the nonlinear system of equations at each time step.
+% : Newton's and Krylov methods are used for the outer nonlinear and inner linear solves, respectively. 
+An approximate full Jacobian matrix is used as a preconditioner and is computed by finite difference: (this is one of the options available in MOOSE and is reasonably efficient for 1-D simulations). 
+
+\begin{remark}
+The entropy residual expression is not integrated over the cell volume as it is usually done in the Galerkin finite element method. The variable values and their gradients are available at quadrature points and at different times, and, thus, can be used to evaluate the entropy residual. 
+\end{remark}
+%
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+\section{1-D Radiation-Hydrodynamic shock results}\label{sec:num-rslt}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
+%
+We present 1-D numerical results for a Mach 5 radiative shock test case taken from the published literature \cite{EdwardsMorelLowrie}. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_radhy_paper}. The numerical results are obtained with a uniform mesh (details regarding the number of degree of freedom will be provided for each test) and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state. The boundary conditions for the hydrodynamics equations and radiation equation are considered independently since the latter one is of parabolic nature. For the hydrodynamics equations, we use the following: at the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment: a static boundary condition is implemented by only specifying the back pressure and computing the other variables from the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet. 
+%
+%------------------------------------------------------------------
 \subsection{1-D Mach $3$ shock test with constant cross sections}
+%------------------------------------------------------------------
+%
+%------------------------------------------------------------------
 \subsection{1-D Mach $3$ shock test with temperature-dependent cross sections}
+%------------------------------------------------------------------
+%
+\begin{itemize}
+\item numerical results using definition of the viscosity coefficient provided in previous section: density, temperature, cross section and viscosity coefficient profiles.
+\item eyeball convergence study when refining the mesh.
+\item investigate the influence of the jumps in the definition of the viscosity coefficients: run the same numerical test with and without jumps.
+\end{itemize}
+%------------------------------------------------------------------
+%------------------------------------------------------------------
 \section{Conclusions and future work}
+%------------------------------------------------------------------
 %------------------------------------------------------------------
 %\section{Introduction}
 %\label{sec:section1}
