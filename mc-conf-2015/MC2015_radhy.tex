@@ -107,7 +107,7 @@ The aim of this paper is to enhance the theoretical grounds for using the EVM to
 and relaxation terms do not negatively affect the previously obtained dissipative terms. The remainder of the paper is as follows: in \sct{sec:GRH}, we recall
 the 1-D non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations. The viscous regularization of the GRH equations based on their hyperbolic parts is recalled in \sct{sec:VR_old}.
 In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum principle when one considers the full GRH equations.
-Numerical results are given in \sct{sec:rez}. 
+Numerical results are given in \sct{sec:rez}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The non-equilibrium Grey Radiation-Hydrodynamic equations}\label{sec:GRH}
@@ -337,7 +337,6 @@ which demonstrates that the full GRH equations are entropy-minimum satisfying. C
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Radiation-hydrodynamic shock results}\label{sec:rez}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\tcr{at M\&C, they will complaint if we do not show a COMPUTATION. It is the theme of the conference and they check closely for that. So, I will we need to add 1 numerical results. I do not want to copy/paste one from the JCP paper, though we could since the paper has not been published yet....\\}
 %
 We present 1-D numerical results for a Mach 5 radiative shock test case taken from the published literature \cite{EdwardsMorelLowrie}. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_radhy_paper}. The governing equations are spatially discretized using continuous linear finite elements and a fully-implicit BDF2 time integrator is employed. The resulting nonlinear equations are solved using a Newton technique to determine the solution values at the end of each time step. The numerical results are obtained with a mesh of $500$ cells and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state. The boundary conditions for the hydrodynamics equations and radiation equation are considered independently since the latter one is of parabolic nature. For the hydrodynamics equations, we use the following: at the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment: a static boundary condition is implemented by only specifying the back pressure and computing the other variables from the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet. \\
 %\tcr{can you add some SHORT text for 1 or 2 examples and add a few graphs. For the figures, I would prefer that we use some of your older figures so that they do not look identical tot he JCP paper. The main reason I wanted to write this conference proceedings was to show the results of the JCP paper to the radiation transport community ...}
