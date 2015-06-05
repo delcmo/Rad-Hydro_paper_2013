@@ -35,26 +35,6 @@
 \newtheorem{remark}{Remark}[section]
 %\usepackage{supertabular}
 %
-%% Numbered
-%\bibliographystyle{model1-num-names}
-%
-%% Numbered without titles
-%\bibliographystyle{model1a-num-names}
-%
-%% Harvard
-%\bibliographystyle{model2-names.bst}\biboptions{authoryear}
-%
-%% Vancouver numbered
-%\usepackage{numcompress}\bibliographystyle{model3-num-names}
-%
-%% Vancouver name/year
-%\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
-%
-%% APA style
-%\bibliographystyle{model5-names}\biboptions{authoryear}
-%
-%% AMA style
-%\usepackage{numcompress}\bibliographystyle{model6-num-names}
 %
 % common reference commands
 \newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
@@ -93,12 +73,19 @@
 \bibliographystyle{elsarticle-num}
 %%%%%%%%%%%%%%%%%%%%%%%
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 \begin{frontmatter}
 %
 %\title{Numerical solution of the 1-D non-equilibrium Grey Radiation-Hydrodynamics equations with an entropy-based artificial viscosity technique\\
-\title{Entropy-based artificial viscosity stabilization for non-equilibrium Grey Radiation-Hydrodynamics}
+%\title{Entropy-based artificial viscosity stabilization for non-equilibrium Grey Radiation-Hydrodynamics}
+%\title{A viscous regularization technique for non-equilibrium Grey Radiation-Hydrodynamics. Part I: theoretical considerations}
+\title{An entropy-minimum-satisfying viscous regularization technique for non-equilibrium Grey Radiation-Hydrodynamics. Part I: theoretical considerations}
+%\title{An entropy-minimum-satisfying viscous regularization technique for non-equilibrium Grey Radiation-Hydrodynamics. Part II: numerical results}
 %-------------------------
 %-------------------------
 \author{Marc O. Delchini\fnref{label1}}
@@ -112,7 +99,6 @@
 
 \address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
 
-%\cortext[cor1]{Corresponding author}
 %-------------------------
 %-------------------------
 \begin{abstract}
@@ -1146,4 +1132,6 @@ D_e(x,t) = \frac{D s}{D t} = s_e e_P\left[ \frac{D P}{Dt} - c^2_{Euler} \frac{D 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{References}
 \bibliography{mybibfile}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
