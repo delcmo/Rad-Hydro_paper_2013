@@ -498,24 +498,24 @@ The entropy residual expression is not integrated over the cell volume as it is 
 We present 1-D numerical results for a Mach 5 radiative shock test case taken from the published literature \cite{EdwardsMorelLowrie}. The artificial viscosity coefficient $\kappa$ present in the viscous regularization of the GRH is computed using the entropy viscosity method \cite{jlg1,jlg2,our_jcp_radhy_paper}. The numerical results are obtained with a uniform mesh (details regarding the number of degree of freedom will be provided for each test) and with a Courant-Friedrichs-Lewy (CFL number) of $10$ until steady-state. The boundary conditions for the hydrodynamics equations and radiation equation are considered independently since the latter one is of parabolic nature. For the hydrodynamics equations, we use the following: at the inlet, the flow is supersonic and, therefore, no physical information exits the system. Thus, Dirichlet boundary conditions can be used. At the outlet, the flow becomes subsonic which requires a particular treatment: a static boundary condition is implemented by only specifying the back pressure and computing the other variables from the characteristic equations. For the radiation equation, vacuum boundary conditions are used at both inlet and outlet. 
 %
 %------------------------------------------------------------------
-\subsection{1-D Mach $3$ shock test with constant cross section}
+\subsection{1-D Mach 3 shock test with constant cross section}
 %------------------------------------------------------------------
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/cst-xs/mach-3-dens-1000-cells.png}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
     \caption{Steady-state solution of the material density for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-dens}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/cst-xs/mach-3-temp-1000-cells.png}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
     \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-temp}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/cst-xs/mach-3-visc-1000-cells.png}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-visc}
 \end{figure}
 %
@@ -531,19 +531,25 @@ We present 1-D numerical results for a Mach 5 radiative shock test case taken fr
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/dpt-xs/mach-3-temp-dpt-xs-density-1000.png}
+    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
     \caption{Steady-state solution of the material density for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-dens}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/dpt-xs/mach-3-temp-dpt-xs-temperature-1000.png}
+    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
     \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-temp}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../figures/dpt-xs/mach-3-temp-dpt-xs-viscosity-1000.png}
+    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
+    \caption{Steady-state solution of the total cross section for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
+\end{figure}
+%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
 \end{figure}
 %
