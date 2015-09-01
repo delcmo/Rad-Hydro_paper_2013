@@ -47,3 +47,15 @@ tamuthesis.pdf
 *.sty
 *.pdf
 elsarticle/entropy-radiationhydro-grey-diffusion.pdf
+
+elsarticle - Copy/*
+elsarticle - Copy/*/*
+elsarticle - Copy/*/*/*
+elsarticle - Copy/*/*/*/*
+elsarticle - Copy\*
+elsarticle - Copy\*\*
+elsarticle - Copy\*\*\*
+elsarticle - Copy\*\*\*\*
+
+elsarticle\revised\*
+elsarticle\revised\*\*
