@@ -74,7 +74,7 @@ hydrodynamic shock simulations.\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
@@ -116,55 +116,76 @@ After detailing the discretization and solution techniques in \sct{sec:discr}, 1
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-\section{The non-equilibrium grey Radiation-Hydrodynamic equations}\label{sec:GRH}
+\section{The non-equilibrium grey Radiation-Hydrodynamic equations: viscous regularization and entropy condition}\label{sec:GRH}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-The 1-D  non-equilibrium Grey Radiation-Hydrodynamic equations are recalled in \eqt{eq:GRH}:
-\begin{subequations}
-\label{eq:GRH}
+This section is dedicated to recall some of the main results presented and derived in \cite{our_jcp_radhy_paper}, and to be used in \sct{sec:VR_new}. First, the 1-D  non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are given in \eqt{eq:GRH}. Then, the reader is guided through the main steps that were detailed in \cite{our_jcp_radhy_paper} to derive the viscous regularization using an entropy condition. At last, the \emph{regularized} 1-D non-equilibrium grey Radiation-Hydrodynamic equation \emph{with} viscous regularization are recalled.
+
+%The 1-D non-equilibrium grey Radiation-Hydrodynamic equations consist of the coupling between the 1-D Euler equations and a radiation-diffusion equation. The 1-D Euler equations simulates the material or fluid behavior and requires an equation of state, denoted by eos below, to compute the material pressure $P$ as a function of the material density $\rho$ and the material specific internal energy $e$. The radiation-diffusion equation is derived from the transport equation by performing an asymptotic diffusion limit (REF). The coupling between the two physics yield source terms that are given in the righthand-side of \eqt{eq:GRH}. 
+%------------------------------------------------------------------
+\subsection{The 1-D non-equilibrium grey Radiation-Hydrodynamic equation}\label{sec:GRH-inviscid}
+%------------------------------------------------------------------
+The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are as follow:
+%
+\begin{subequations}\label{eq:GRH}
 %
 \begin{equation}
 \label{eq:GRHmass}
-\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 \, ,
 \end{equation}
 %
 \begin{equation}
 \label{eq:GRHmom}
-\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P\right) = - \partial_x \frac{\epsilon}{3} \, ,
 \end{equation}
 %
 \begin{equation}
 \label{eq:GRHenerg}
-\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \underline{\underline{ \sigma_a c \left( a T^4 - \epsilon \right) }}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) \, ,
 \end{equation}
 %
 \begin{equation}
 \label{eq:GRHrad}
-\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \underline{\underline{\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)}} 
-+ \underline{\underline{\sigma_a c \left( a T^4 - \epsilon \right)}}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
++ \sigma_a c \left( a T^4 - \epsilon \right) \, ,
 \end{equation}
 %
 \begin{equation}
 \label{eq:EOS}
-P = \left( \gamma-1 \right) \rho e
+P = eos(\rho, e) \, ,
 \end{equation}
 \end{subequations}
-where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
-The material temperature and pressure are computed with the ideal gas equation of state (IGEOS) given in \eqt{eq:EOS} and $e = C_v T$,
-where  $e = E - \tfrac 1 2 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
-In \eqt{eq:GRH}, we have underlined the diffusion and relaxation terms for future reference.
+%
+where $\rho$, $\rho u$ and $\rho E$ are the material density, material momentum and material total energy, respectively, and $\epsilon$ denotes the radiation energy density. In order to close the system of equations given in \eqt{eq:GRH} (the system consists of five variables and four partial differential equations), a closure relation is required to compute the material pressure $P$ (see \eqt{eq:GRHmom} and \eqt{eq:GRHenerg}) under the form of an equation of state denoted by eos in this paper. This equation of state is function of the material density $\rho$ and the material specific internal energy $e = E - \tfrac 1 2 u^2$ as shown in \eqt{eq:EOS}. The equation of state is also used to compute the material temperature $T$ that is required in the relaxation source term $\sigma_a c \left( a T^4 - \epsilon \right)$, where $c$ and $\sigma_a$ denote the speed of light and absorption cross section, respectively, and $a$ is the radiation constant. The radiation energy density equation, \eqt{eq:GRHrad}, contains a diffusion term function of the total cross section $\sigma_t$. Note that the cross sections $\sigma_a$ and $\sigma_t$ can be either constant or function of the material properties, typically the material density and temperature. Even if all of the results presented and derived in this paper and in \cite{our_jcp_radhy_paper} are independent of the equation of state (as long as the equation of state yields a concave entropy with respect to $e$ and $1/ \rho$), the Ideal Gas equation of state (IGEOS) is considered in the remaining of this paper for simplicity, with the relations given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
+%
+\begin{equation}\label{eq:IGEOS}
+P = (\gamma-1) \rho e \text{ and } e = C_v T \, ,
+\end{equation}
+%
+where the heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
+
+From \eqt{eq:GRH} and assuming a smooth solution i.e. without shocks, en entropy residual equation can be derived by considering an entropy variable function of the material density, the material specific internal energy and the radiation density energy $s(\rho, e, \epsilon)$. The steps leading to the final result given in \eqt{eq:GRH-entropy} can be found in \cite{our_jcp_radhy_paper}.
+%
+\begin{equation}\label{eq:GRH-entropy}
+\partial_t s + u \partial_x s = 0
+\end{equation}
+%
+%The material pressure $P$ in the material momentum and energy equations is computed from an equation of state, denoted by eos, function of the material density $\rho$ and the material specific internal energy $e$
+%where $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively. The symbols $\partial_t$ and $\partial_x$ denote the temporal and spatial partial derivatives, respectively. 
+%The material temperature and pressure are computed with the ideal gas equation of state (IGEOS) given in \eqt{eq:EOS} and $e = C_v T$,
+%where  $e = E - \tfrac 1 2 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
+%In \eqt{eq:GRH}, we have underlined the diffusion and relaxation terms for future reference.
 %
 %------------------------------------------------------------------
-%------------------------------------------------------------------
-\section{A viscous regularization for the GRH based on their hyperbolic parts (REF)}\label{sec:VR_old}
-%------------------------------------------------------------------
+\subsection{A viscous regularization for the GRH based on their hyperbolic parts (REF)}\label{sec:VR_old}
 %------------------------------------------------------------------
 %
-Because the solutions of \eqt{eq:GRH} can develop shocks, dissipative terms are added to each equation to prevent oscillatory behaviors in the numerical solution. 
-The presence of these additional terms will modify the entropy residual equation for which we must ensure that the entropy minimum holds. As stated earlier, 
-an earlier demonstration omitted the diffusion and relaxation terms present in \eqt{eq:GRH} and only considered the hyperbolic parts of \eqt{eq:GRH}. We briefly reviews these
-prior results here.
+Because of its hyperbolic nature, the GRH can develop shocks which can lead to the formation of spurious oscillations in the numerical solutions. To prevent oscillations from forming, a numerical method is employed when solving the GRH (REFS). In \cite{our_jcp_radhy_paper}, a numerical method was proposed under the form of a viscous regularization. 
+%This section aims at recalling the main assumptions and steps in the derivation of the viscous regularization from \cite{our_jcp_radhy_paper} that will be used later in \sct{sec:VR_new}.
+The crue of the method consists in adding dissipative terms to each equation to prevent oscillatory behaviors in the numerical solution. The presence of these additional terms will modify the entropy residual equation (\eqt{eq:GRH-entropy}) for which we must ensure that the entropy condition or entropy minimum holds, which requires positivity of the entropy residual equation. 
+As stated earlier, an earlier demonstration omitted the diffusion and relaxation terms present in \eqt{eq:GRH} and only considered the hyperbolic parts of \eqt{eq:GRH}. We briefly reviews these prior results here that will be later used in \sct{sec:VR_new}. 
+
 The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} on the right-hand side is as follows:
 \begin{subequations}
 \label{eq:regularized_hyperbolic_GRH}
@@ -185,12 +206,8 @@ The hyperbolic portion of the GRH system of equations \emph{with dissipative ter
 \end{equation}
 \end{subequations}
 %
-where $\kappa$ is a positive and locally defined viscosity coefficient. The functional form of the dissipative viscous fluxes was informed
-that the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}.
-The same procedure will be followed in \sct{sec:VR_new} when diffusion and relaxation terms are incorporated back in the system of equations. 
-Some of the algebraic manipulation may be lengthy and only the final results are provided but no information has been withheld such that the interested
-reader should be able to reproduce these results. The entropy function $s$ for the GRH system is assumed to depend upon density $\rho$, internal energy $e$, and radiation 
-energy $\epsilon$, i.e., $s( \rho, e, \epsilon)$. Invoking the chain rule
+where $\kappa$ is a positive and locally defined viscosity coefficient that will be later defined in SECTION. The functional form of the dissipative viscous fluxes was informed from the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}. The same procedure will be followed in \sct{sec:VR_new} when diffusion and relaxation terms are incorporated back in the system of equations. Some of the algebraic manipulation may be lengthy and only the final results are provided but no information has been withheld such that the interested reader should be able to reproduce these results. The entropy function $s$ for the GRH system is assumed to depend upon density $\rho$, internal energy $e$, and radiation energy $\epsilon$, i.e., $s( \rho, e, \epsilon)$. Invoking the chain rule
+%
 \begin{equation}
 \label{eq:app_equ2}
 \partial_{\alpha} s = \partial_{\rho} s \partial_{\alpha} \rho +  \partial_{e} s \partial_{\alpha}e +  \partial_{\epsilon} s \partial_{\alpha} \epsilon \,,
@@ -198,14 +215,20 @@ energy $\epsilon$, i.e., $s( \rho, e, \epsilon)$. Invoking the chain rule
  which holds for any independent variable $\alpha=x,t$, we note that a partial differential equation for the entropy can be obtained. This requires
 re-casting  \eqt{eq:regularized_hyperbolic_GRH} in terms of the primitive variables $\rho$ (from  the continuity equation), $u$  (from  the momentum equation),
 $e$ (from the total specific energy equation minus the specific kinetic energy equation), and $\epsilon$ (from the radiation energy equation). Note that 
-the specific kinetic energy equation is simply obtained by multiplying by $u$ the momentum equation expressed in terms of primitive variables. After some algebra,
-the following entropy residual equation is obtained:
+the specific kinetic energy equation is simply obtained by multiplying by $u$ the momentum equation expressed in terms of primitive variables. After some algebra and the use of \eqt{eq:app_equ2}, the following entropy residual equation is obtained:
 %
 \begin{equation} \label{eq:app_entr_eq_non_equil}
-\rho \frac{Ds}{Dt} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s\right) - \rho \kappa X A X^T  + s_e \rho \kappa (\partial_x u)^2 .
+\rho \frac{Ds}{Dt} = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s\right) - \rho \kappa X A X^T  + s_e \rho \kappa (\partial_x u)^2 \, ,
 \end{equation} 
 % 
-where the material derivation notation was used $\frac{Ds}{Dt} := \partial_t s + u \partial_x s$. $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3 \times 3$ symmetric matrix
+where the material derivation notation was used $\frac{Ds}{Dt} := \partial_t s + u \partial_x s$ and the following condition was assumed to hold:
+%
+\begin{equation} \label{eq:visc_reg_assumptions}
+P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 \,. 
+\end{equation}
+%
+The vector $X$ is defined as $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the $3 \times 3$ symmetric matrix
+%
  \begin{equation}
  A = 
  \left[
@@ -216,30 +239,26 @@ where the material derivation notation was used $\frac{Ds}{Dt} := \partial_t s +
  \end{array}
  \right] .
  \end{equation}
-The quadratic form $ X A X^T$ is shown to be negative-definite.
-%
-The following conditions were assumed to hold:
-\begin{subequations}
-\label{eq:visc_reg_assumptions}
-\begin{equation} \label{eq:visc_reg_assumptions1}
-P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \frac{4}{3} \rho \epsilon \frac{\partial s}{\partial \epsilon} = 0 \,,
-\end{equation}
-%
-and the functional form of the entropy is given by
+ %
+ For the demonstration to be complete, positivity of the last two terms in \eqt{eq:app_entr_eq_non_equil} has to be proven which was done in \cite{our_jcp_radhy_paper}. For the term $- \rho \kappa X A X^T$ to be positive, the quadratic form $ X A X^T$ is required to be negative-definite since the material density $\rho$ and the viscosity coefficient $\kappa$ are both positive (positivity of the material density was proven in \cite{jlg}). This is achieved by assuming the following functional form for the entropy function:
 %
 \begin{equation}\label{eq:ent_equ}
-s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \,.
+s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \, ,
 \end{equation}
-\end{subequations}
 %
-The entropy function is the sum of (i) the entropy for the Euler system of equations $s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$. 
-$s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics $Tds_{Euler} = de + P d \rho^{-1}$. $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. 
+which is the sum of (i) the entropy for the Euler system of equations $s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{\beta}{\rho} \epsilon^\frac{3}{4}$. 
+The entropy function $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume $\rho^{-1}$ and is defined through the second law of thermodynamics recalled in \eqt{eq:scn-law-th}.
 %
-
-At any spatial position where the entropy is minimum, we have, by definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms (underlined in \eqt{eq:GRH} are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore
-locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
+\begin{equation}\label{eq:scn-law-th}
+Tds_{Euler} = de + P d \rho^{-1}
+\end{equation}
 %
-The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
+The entropy function $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$. Positivity of the last term, $s_e \rho \kappa (\partial_x u)^2$, in the righthand-side of \eqt{eq:app_entr_eq_non_equil} depends on the sign of $s_e$ that can be determined in two simple steps: first, using the functional form given in \eqt{eq:ent_equ} we devise $s_e = (s_{Euler})_e$. Then, using the previous result and \eqt{eq:scn-law-th}, we infer that $s_e = T^{-1} \leq 0$. Recalling that the material density $\rho$ and the viscosity coefficient $\kappa$ are positive, positivity of the term $s_e \rho \kappa (\partial_x u)^2$ is now trivial.
+%
+The minimum entropy principle follows: at any spatial position where the entropy is minimum, we have, by definition of the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for the GRH equations when the diffusion and relaxation terms are omitted. In \cite{our_jcp_radhy_paper}, we dealt with the omission of the physical diffusion term $\partial_x( \tfrac{c}{3 \sigma_t} \partial_x \epsilon)$ by noting that the viscous regularization adds its own numerical diffusion term $\partial_x \left( \kappa \partial_x \epsilon \right)$ and we opted to ignore locally the numerical diffusion term as long as $\frac{c}{3 \sigma_t}$ was larger than the viscosity coefficient $\kappa$. 
+%
+We now propose to investigate in \sct{sec:VR_new} the minimum entropy principle for the full GRH equations, i.e. when accounting for the diffusion term, $\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$, and the relaxation source terms, $\sigma_a c \left( a T^4 - \epsilon \right)$.
+%The effect of the relaxation source terms may need to be investigated in the equilibrium diffusion limit as $\sigma_a c \to \infty$. In this limit, the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. 
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
@@ -247,9 +266,9 @@ The effect of the relaxation source terms may need to be investigated in the equ
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In the previous Section, we have reviewed the effect of the viscous regularization on the hyperbolic parts of the GRH equations, where relaxation and diffusion terms have been omitted. Numerical results confirmed that the proposed viscous regularization was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification to explain why the definitions of the dissipative viscous fluxes should remain the same for the complete system of GRH equations. As we demonstrate below, the relaxation and diffusion terms further contribute to the verification of the entropy minimum principle for the full GRH equations with viscous regularization. Since we have already established that the dissipative terms yield the terms shown on the right-hand side of \eqt{eq:app_entr_eq_non_equil}, we omit them in the derivation below since their final functional form will remain unchanged.
+In the previous Section, we have reviewed the effect of the viscous regularization on the hyperbolic parts of the GRH equations, where relaxation and diffusion terms have been omitted. Numerical results presented in \cite{our_jcp_radhy_paper} confirmed that the proposed viscous regularization was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification to explain why the definitions of the dissipative viscous fluxes should remain the same for the complete system of GRH equations. As we demonstrate below, the relaxation and diffusion terms further contribute to the verification of the entropy minimum principle for the full GRH equations with viscous regularization. Since we have already established that the dissipative terms yield the terms shown on the right-hand side of \eqt{eq:app_entr_eq_non_equil}, we omit them in the derivation below since their final functional form will remain unchanged.
 
-Hence, we follow the same procedure as in \sct{sec:VR_old} to establish an entropy equation. First, we start with the full system of GRH equations, \eqt{eq:GRH}, and re-cast it in terms of primitive variables. This becomes
+Hence, we follow the same procedure as in \sct{sec:VR_old} to establish an entropy equation. First, we start with the full system of GRH equations, \eqt{eq:GRH}, omit the viscous regularization terms and re-cast it in terms of primitive variables. This becomes
 \begin{subequations}
 \label{eq:GRH_primitive}
 %
@@ -544,7 +563,7 @@ We present 1-D numerical results for a Mach 5 radiative shock test case taken fr
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
-    \caption{Steady-state solution of the total cross section for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
+    \caption{Steady-state solution of the total cross section $\sigma_t$ for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
 \end{figure}
 %
 \begin{figure}[H]
