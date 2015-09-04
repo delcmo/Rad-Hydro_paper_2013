@@ -92,7 +92,7 @@ Substantial research efforts have focused on Riemann solvers. In
 that uncouples the two physics, radiation and hydrodynamics, components but the validity of such an approximation may be questionable 
 in the equilibrium diffusion limit. 
 Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the relaxation terms. 
-Edwards and al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations. 
+Edwards et al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations. 
 %A Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with semi-analytical solutions. 
 %
 % If one assumes the strong equilibrium diffusion limit in which radiation diffusion is negligible and the radiation simply advects at the material velocity, 
@@ -190,7 +190,7 @@ The hyperbolic portion of the GRH system of equations \emph{with dissipative ter
 \end{subequations}
 %
 where $\kappa$ is a positive and locally defined viscosity coefficient. The functional form of the dissipative viscous fluxes was informed
-that the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}.
+by the derivation of the entropy residual equation. We provide below the main steps leading to that equation and given in \cite{our_jcp_radhy_paper}.
 The same procedure will be followed in \sct{sec:VR_new} when diffusion and relaxation terms are incorporated back in the system of equations. 
 Some of the algebraic manipulation may be lengthy and only the final results are provided but no information has been withheld such that the interested
 reader should be able to reproduce these results. The entropy function $s$ for the GRH system is assumed to depend upon density $\rho$, internal energy $e$, and radiation 
@@ -398,14 +398,14 @@ In \fig{fig:Mach5_temp}, the radiation temperature profile is smooth. The materi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-In this paper, we have demonstrated the the viscous regularization, previously derived
+In this paper, we have demonstrated that the viscous regularization, previously derived
 for the hyperbolic portion of the non-equilibrium grey radiation hydrodynamic equations,
 is fully compatible with the full grey radiation hydrodynamic equations, i.e., when
 relaxation source terms and diffusion terms are included in the derivation. That is to say that we have
 proven that the proposed viscous regularization of the grey radiation hydrodynamic equations
 is entropy-minimum satisfying. 1-D numerical results were presented for a Mach-5 test case.
 
-This regularization has intrinsic mathematical properties of interest for the development of numerical scheme
+This regularization has intrinsic mathematical properties of interest for the development of numerical schemes
 (e.g., stabilization of numerical discretization schemes by letting the viscosity coefficients be proportional 
 to the entropy residual, as in the entropy-viscosity method \cite{jlg1})
 and we envision possible applications to larger scale numerical simulations of radiation hydrodynamic processes.
