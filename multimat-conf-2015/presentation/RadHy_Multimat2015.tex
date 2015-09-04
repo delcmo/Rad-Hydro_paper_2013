@@ -19,7 +19,8 @@
 \usepackage{url}
 \usepackage{subfigure}
 \usepackage{caption}
-%\usepackage{subcaption}
+\usepackage{subcaption}
+%\usepackage[caption=false]{subfig}
 
 \usepackage{graphicx}
 \usepackage{tabls}
@@ -67,6 +68,8 @@
 \newcommand{\tcr}[1]{\textcolor{red}{#1}}
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\tcm}[1]{\textcolor{magenta}{#1}}
+
+\newcommand{\hili}[1]{\underline{\bf \textcolor{red}{#1}}}
 
 %=================================================================================================
 
@@ -131,11 +134,10 @@ Radiation-Hydrodynamics}
 \subsection{Grey Radiation-Hydrodynamics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}{Grey Radiation-Hydrodynamics (GRHD)}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame} 
-\frametitle{Grey Radiation-Hydrodynamics (GRHD)}
+\begin{columns}
+    \begin{column}{0.65\textwidth}
 
 \begin{block}{GRHD system of equations }
 \begin{align}
@@ -147,16 +149,36 @@ Radiation-Hydrodynamics}
 &\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = {\color{blue}\frac{u}{3} \partial_x \epsilon} + {\color{magenta}\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)} + {\color{blue}\sigma_a c \left( a T^4 - \epsilon \right)} \nonumber
 \nonumber
 \end{align}
- $\rho$, $u$, $E$, $\epsilon$, $P$ and $T$ are the material density, material velocity, material specific total energy, radiation energy density, material pressure and temperature, respectively. The total and absorption cross sections, $\sigma_t$ and $\sigma_a$, are either constant or are expressed as a function of material density and temperature. The variables $a$ and $c$ are the radiation constant and the speed of light, respectively.
 \end{block}
+
+    \end{column}
+
+    \begin{column}{0.35\textwidth}
+
+        \begin{itemize}
+            \item $\rho$ material density
+            \item $u$ material velocity
+            \item $E$ material specific total energy
+            \item $\epsilon$ radiation energy density
+            \item $P$ material pressure
+            \item $T$ material temperature
+        \end{itemize}
+
+    \end{column}
+\end{columns}
+ %The variables $a$ and $c$ are the radiation constant and the speed of light, respectively.
 
 \begin{block}{A few remarks:}
 \begin{itemize}
-\setlength{\itemsep}{10pt}
+%\setlength{\itemsep}{10pt}
 \item Relaxation term in the energy and radiation equations: ${\color{blue}\sigma_a c \left( a T^4 - \epsilon \right)}$.% behaves like a diffusion term when $\sigma_a \to \infty$ \cite{ShiJin}.
 \item Diffusion term: ${\color{magenta}\partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)}$.
-\item The above system of equations is NOT hyperbolic, and yet ...
+\item The above system of equations is NOT hyperbolic.
 \end{itemize}
+\end{block}
+
+\begin{block}{Proposed goal}
+To stabilize the above system with a high-order artificial viscosity method based on the local entropy production
 \end{block}
 
 \end{frame}
@@ -164,117 +186,12 @@ Radiation-Hydrodynamics}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Steady-state solution for Mach 1.05}
-
-\begin{figure}[H]
-\centering
-\subfigure[Temperatures]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_1p05_nel_500_temperature.png}
-}
-\subfigure[Material density]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_1p05_nel_500_density.png}
-}
-\subfigure[Viscosity coefficient]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_1p05_nel_500_viscosity.png}
-}
-\end{figure}
-
-\end{frame}
+\subsection{A Brief Review of the Entropy Viscosity Method for Conservation Laws}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Steady-state solution for Mach 2}
-
-\begin{figure}[H]
-\centering
-\subfigure[Temperatures]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_2_nel_2000_temperature.png}
-}
-\subfigure[Material density]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_2_nel_2000_density.png}
-}
-\subfigure[Viscosity coefficient]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_2_nel_2000_viscosity.png}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Steady-state solution for Mach 5}
-
-\begin{figure}[H]
-\centering
-\subfigure[Temperatures]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_5_nel_1000_temperature.png}
-}
-\subfigure[Material density]{
-includegraphics[width=0.3\textwidth]{figures/Mach_5_nel_2000_density.png}
-}
-\subfigure[Viscosity coefficient]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_5_nel_2000_viscosity.png}
-}
-\subfigure[Zoom at the Z spike]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_5_comparison.png}
-}
-\end{figure}
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Steady-state solution for Mach 50}
-
-\begin{figure}[H]
-\centering
-\subfigure[Temperatures]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_50_nel_1000_temperature.png}
-}
-\subfigure[Material density]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_50_nel_1000_density.png}
-}
-\subfigure[Viscosity coefficient]{
-\includegraphics[width=0.3\textwidth]{figures/Mach_50_nel_1000_viscosity.png}
-}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\label{lastslide}
-\centering
-Thank you 
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.33]{./crunching.png}
-\end{figure}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{A Brief Review of the Entropy Viscosity Method for Conservation Laws}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Basic Idea}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame} 
-\frametitle{Quick overview of the entropy-based artificial viscosity formalism}
+\begin{frame}{Quick overview of the entropy-based artificial viscosity formalism}
 
 General scalar conservation law: $\boxed{\partial_t u + \div \vec{f}(u) = 0}$.
 
@@ -282,14 +199,14 @@ General scalar conservation law: $\boxed{\partial_t u + \div \vec{f}(u) = 0}$.
 \item 
 Add viscous fluxes $\boxed{\partial_t u + \div \vec{f}(u) = \div \mu \grad u}$
 \item 
-Let the amount of {\bf artificial viscosity} $\mu$ be $\propto$ the {\bf local entropy production}
+Let the amount of \hili{artificial viscosity} $\mu$ be \hili{$\propto$} the \hili{local entropy production}
 \begin{itemize}
 \item 
 Determine an entropy pair ($s(u),\, \vec{\Psi}(u)$) for the PDE under consideration
 \item 
 Compute the entropy residual $\boxed{R_e:=\partial_t s(u_h) + \div \Psi(u_h)}$, in each cell $K$, at each quadrature point $x_q$
 \item 
-Compute the speed and kinematic viscosity associated with this residual
+Compute the speed and kinematic \hili{entropy viscosity} associated with this residual
 \be
 v^K_e(x_q)  := h_K \frac{|R_e(x_q)|_K}{|s-\overline{s}|_\infty}
 \quad \text{and} \quad 
@@ -299,9 +216,9 @@ v^K_e(x_q)  := h_K \frac{|R_e(x_q)|_K}{|s-\overline{s}|_\infty}
 %. It is the deviation of $E(u)$ from the domain average $\overline{E}$.
 \end{itemize}
 \item 
-Limit the viscosity upper bound to the LLF viscosity
+Limit the viscosity upper bound to the \hili{Local Lax-Friedrichs} (LLF) viscosity
 \be
-\mu^K(x_q) := \min \Big( \frac{h_K}{2} \max_{x\in K}|\vec{f}'(u(x))|, \, \mu^K_e(x_q) \Big)
+\mu^K(x_q) := \min \Big( \tcr{\frac{h_K}{2} \max_{x\in K}|\vec{f}'(u(x))|}, \, \tcb{\mu^K_e(x_q)} \Big)
 \ee
 \item 
 Plug in the standard Galerkin weak form as a \tcm{viscous regularization} %(\tcm{it is really a straightforward technique})
@@ -351,48 +268,64 @@ and the first-order viscosity is $\frac{\beta h}{2}$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame} 
-%\frametitle{Example: Burgers equation}
-%\begin{figure}
-%	\includegraphics[height=7cm, keepaspectratio=true]{figs/burgers0000.png}
-%\end{figure}
-%\end{frame}
-%
-%\begin{frame} 
-%\begin{figure}
-%	\includegraphics[height=7cm, keepaspectratio=true]{figs/burgers20000.png}
-%\end{figure}
-%\end{frame}
+\begin{frame}{Example: Burgers equation $\partial_t u + \tfrc{1}{2}\partial_x u^2 = 0$}
+\begin{figure}
+	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers0000.png}
+\end{figure}
+\end{frame}
+
+\begin{frame} 
+\begin{figure}
+	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers20000.png}
+\end{figure}
+\end{frame}
 
 \begin{frame}
-\frametitle{Example: Burgers equation}
+%\frametitle{Example: Burgers equation}
+%\begin{figure}
+        %\centering
+        %\begin{subfigure}[b]{0.37\textwidth}
+                %\centering
+                %\includegraphics[width=\textwidth]{figures_burgers/1D_sol_free.png}
+                %\caption{Without stabilization.}
+        %\end{subfigure}%
+        %\begin{subfigure}[b]{0.37\textwidth}
+                %\centering
+                %\includegraphics[width=\textwidth]{figures_burgers/1D_sol_fo.png}
+                %\caption{With first-order viscosity.}
+        %\end{subfigure}
+        %
+        %\begin{subfigure}[b]{0.37\textwidth}
+                %\centering
+                %\includegraphics[width=\textwidth]{figures_burgers/1D_sol_ev.png}
+                %\caption{With the EVM.}
+        %\end{subfigure}
+        %\begin{subfigure}[b]{0.37\textwidth}
+                %\centering
+                %\includegraphics[width=\textwidth]{figures_burgers/1D_visc.png}
+                %\caption{Viscosity coefficient profiles.}
+        %\end{subfigure}
+%\end{figure}
 \begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.37\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/1D_sol_free.png}
-                \caption{Without stabilization.}
-        \end{subfigure}%
-        \begin{subfigure}[b]{0.37\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/1D_sol_fo.png}
-                \caption{With first-order viscosity.}
-        \end{subfigure}
-        
-        \begin{subfigure}[b]{0.37\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/1D_sol_ev.png}
-                \caption{With the EVM.}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.37\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{figs/1D_visc.png}
-                \caption{Viscosity coefficient profiles.}
-        \end{subfigure}
+\centering
+\subfigure[Without stabilization]{
+\includegraphics[width=0.37\textwidth]{figures_burgers/1D_sol_free.png}
+}
+\subfigure[With first-order viscosity]{
+\includegraphics[width=0.37\textwidth]{figures_burgers/1D_sol_fo.png}
+}
+\subfigure[With entropy viscosity]{
+\includegraphics[width=0.37\textwidth]{figures_burgers/1D_sol_ev.png}
+}
+\subfigure[Viscosity coefficient profiles \tcr{(log scale!)}]{
+\includegraphics[width=0.37\textwidth]{figures_burgers/1D_visc.png}
+}
 \end{figure}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Application to the Entropy Viscosity Method to the Euler Equations}
@@ -551,6 +484,109 @@ Note that if $\mu = \kappa$ (and one selects $\grad \vec{u} $ instead of $\grad^
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Steady-state solution for Mach 1.05}
+\setcounter{subfigure}{0}% Reset subfigure counter
+
+\begin{figure}[H]
+\centering
+\subfigure[Temperatures]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_1p05_nel_500_temperature.png}
+}
+\subfigure[Material density]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_1p05_nel_500_density.png}
+}
+\subfigure[Viscosity coefficient]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_1p05_nel_500_viscosity.png}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Steady-state solution for Mach 2}
+\setcounter{subfigure}{0}% Reset subfigure counter
+
+\begin{figure}[H]
+\centering
+\subfigure[Temperatures]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_2_nel_2000_temperature.png}
+}
+\subfigure[Material density]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_2_nel_2000_density.png}
+}
+\subfigure[Viscosity coefficient]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_2_nel_2000_viscosity.png}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Steady-state solution for Mach 5}
+\setcounter{subfigure}{0}% Reset subfigure counter
+
+\begin{figure}[H]
+\centering
+\subfigure[Temperatures]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_5_nel_1000_temperature.png}
+}
+\subfigure[Material density]{
+includegraphics[width=0.3\textwidth]{figures_jcp/Mach_5_nel_2000_density.png}
+}
+\subfigure[Viscosity coefficient]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_5_nel_2000_viscosity.png}
+}
+\subfigure[Zoom at the Z spike]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_5_comparison.png}
+}
+\end{figure}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Steady-state solution for Mach 50}
+\setcounter{subfigure}{0}% Reset subfigure counter
+
+\begin{figure}[H]
+\centering
+\subfigure[Temperatures]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_50_nel_1000_temperature.png}
+}
+\subfigure[Material density]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_50_nel_1000_density.png}
+}
+\subfigure[Viscosity coefficient]{
+\includegraphics[width=0.3\textwidth]{figures_jcp/Mach_50_nel_1000_viscosity.png}
+}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+\label{lastslide}
+\centering
+Thank you 
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.33]{./crunching.png}
+\end{figure}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
