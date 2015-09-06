@@ -14,7 +14,7 @@
 \usepackage{graphicx}
 %\usepackage[section]{placeins} % force à mettre l'image où on veut
 %\usepackage{float} %utiliser H pour forcer à mettre l'image où on veut
-\usepackage{lscape} %utilisation du mode paysage
+%\usepackage{lscape} %utilisation du mode paysage
 %\usepackage{pslatex}
 \usepackage{url}
 \usepackage{subfigure}
@@ -26,8 +26,8 @@
 \usepackage{tabls}
 \usepackage{afterpage}
 
-%\usepackage[]{media9}
-\usepackage{multimedia}
+\usepackage[]{media9}
+%\usepackage{multimedia}
 
 \usepackage{amsthm}
 \usepackage{amssymb}
@@ -56,6 +56,7 @@
 \renewcommand{\Re}{\textrm{Re}}
 \newcommand{\Pe}{\textrm{P\'e}}
 \renewcommand{\Pr}{\textrm{Pr}}
+\newcommand{\Euler}{\textit{Euler}}
 
 \newcommand{\resi}{R_e}
 %\newcommand{\resinew}{\tilde{D}_e}
@@ -103,7 +104,7 @@
 \urldef{\delchini}\url{delcmo@tamu.edu}
 \urldef{\morel}\url{morel@tamu.edu}
 
-\title{Entropy-based artificial viscosity stabilization for non-equilibrium Grey
+\title{Entropy-based artificial viscosity stabilization for non-equilibrium Grey 
 Radiation-Hydrodynamics}
 
 \author{Marc O. Delchini, \underline{Jean C. Ragusa}, Jim E. Morel}
@@ -233,54 +234,7 @@ Plug in the standard Galerkin weak form as a \tcm{viscous regularization} %(\tcm
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Why an upper bound for viscosity?}
-
-\begin{block}{}
-Large entropy residual in shocks $\longrightarrow$ large entropy viscosity $\mu_e$ \\
-\begin{center}
-There is such a thing as too much of a good thing ...\\
-{\it Il ne faut point \^{e}tre plus royaliste que le Roy}
-\end{center}
-\end{block}
-
-
-\begin{block}{Upper bound for $\mu$}
-First-order upwind scheme is monotone but over dissipative. We should not exceed the amount of stabilization that such a scheme provides.\\
-\medskip
-upwinding = \textcolor{blue}{centered approximation (Galerkin)} $-$ \textcolor{magenta}{numerical diffusion}\\
-\underline{Example: linear advection} $\partial_t u + \beta \partial_x u =0$
-\be
-\beta \frac{u_i - u_{i-1}}{h} = \textcolor{blue}{\beta\frac{ u_{i+1}- u_{i-1}}{2h}} - \textcolor{red}{\frac{\beta h}{2}}
-\textcolor{magenta}{\frac{ u_{i+1}-2u_i +u_{i-1}}{h^2}}
-\ee
-So, the dissipative term is $\frac{\beta h}{2}\partial_{xx} u$
-and the first-order viscosity is $\frac{\beta h}{2}$
-\end{block}
-
-\begin{block}{First-order viscosity}
-\hspace{0.5cm} $\bullet$ scalar conservation law: $\frac{h}{2}|f'(u)|$
-\hspace{0.5cm} $\bullet$ system: $\frac{h}{2} \max \left( \text{eig}( \partial_u f) \right) $
-\end{block}
-
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Example: Burgers equation $\partial_t u + \tfrc{1}{2}\partial_x u^2 = 0$}
-\begin{figure}
-	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers0000.png}
-\end{figure}
-\end{frame}
-
-\begin{frame} 
-\begin{figure}
-	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers20000.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}
+\begin{frame}{Example: Burgers equation $\partial_t u + \tfrac{1}{2}\partial_x u^2 = 0$}
 %\frametitle{Example: Burgers equation}
 %\begin{figure}
         %\centering
@@ -325,19 +279,36 @@ and the first-order viscosity is $\frac{\beta h}{2}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers0000.png}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame} 
+\begin{figure}
+	\includegraphics[height=7cm, keepaspectratio=true]{figures_burgers/burgers20000.png}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %\end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Application to the Entropy Viscosity Method to the Euler Equations}
+%\subsection{Application to the Entropy Viscosity Method to the Euler Equations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %************************************************
-\subsection{Entropy-viscosity method: original supersonic formulation}
+%\subsection{Entropy-viscosity method: original supersonic formulation}
 %%************************************************
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}{Viscous regularization of Euler equations}
+
 \begin{block}{\tcr{Regularized} Euler equations}
 \begin{subequations}
 \label{eq:euler_visc}
@@ -361,11 +332,11 @@ How to determine the \tcr{artificial viscous fluxes}?
 
 \smallskip
 
-By proving that the regularized equations satisfy a minimum principle on the specific entropy
+By proving that the \tcr{regularized} equations satisfy a minimum principle on the specific entropy, \tcr{$s(e,\rho)$}  \tcb{[Guermond/Popov/Pasquetti (JCP 2011)]}
 
 \end{block}
 
-\begin{block}{Minimum entropy principle}
+\begin{block}{Entropy minimum  principle}
 \be
 \inf_{x\in \mathbb{R}^d} s(x,t) \ge \inf_{x\in \mathbb{R}^d} s_0(x) \qquad \forall t \ge 0
 \ee
@@ -376,9 +347,9 @@ By proving that the regularized equations satisfy a minimum principle on the spe
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Idea of the derivation}
+\begin{frame}{General idea of the derivation}
 
-\begin{block}{Entropy relationship: $\partial_t s + \vec{u} \cdot \grad s = \ldots $}
+\begin{block}{Entropy relationship: $\rho ( \partial_t s + \vec{u} \cdot \grad s ) = \ldots  \tcr{\ge 0}$}
 Entropy is a function of internal energy $e$ and density $\rho$. Using chain rule, we have
 \[
 \partial_\alpha s = s_\rho \partial_\alpha \rho + s_e \partial_\alpha e \quad \text{ with } \alpha={t,x}
@@ -409,9 +380,9 @@ X =
        \partial_{\rho,e} s & \partial_{e,e} s           \\[0.3em]
 \end{bmatrix} \nonumber 
 \end{equation}
-The form $Q$ is negative definite if and only if $-s$ is convex with respect to $e$ and $\rho^{-1}$.
+The form $\mathbf{Q}$ is negative definite if and only if $-s$ is convex with respect to $e$ and $\rho^{-1}$.
 \end{block}
-\tcr{QED} \ \ (recall: $s_e = 1/T > 0 $)
+\tcr{QED}  \ \ (recall: $s_e = 1/T > 0 $)
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -444,7 +415,15 @@ The form $Q$ is negative definite if and only if $-s$ is convex with respect to 
 where $\kappa$ and $\mu$ are positive viscosity coefficients.
 \end{block}
 
-Note that if $\mu = \kappa$ (and one selects $\grad \vec{u} $ instead of $\grad^s \vec{u} $), we recover a parabolic regularization (on $\rho$, $\rho \vec{u}$, and $\rho E$).
+\begin{block}{}
+\begin{itemize}
+\item As before, $\mu = \min (\mu^{LLF}, \mu^\textit{entr})$ and $\kappa = \min (\kappa^{LLF}, \kappa^\textit{entr})$ 
+\item Entropy viscosities $\propto$ entropy production
+\item All-speed (from low-Mach to supersonic) extension by \tcb{Delchini/Ragusa/Berry, Computers \& Fluids, 2015} 
+%\item
+%Note that if $\mu = \kappa$ (and one selects $\grad \vec{u} $ instead of $\grad^s \vec{u} $), we recover a parabolic regularization (on $\rho$, $\rho \vec{u}$, and $\rho E$).
+\end{itemize}
+\end{block}
 
 %\begin{block}{}
 %\hspace{0.5cm} $\bullet$ Multi-wave problem: $\lambda_1 = \vec{u} \cdot \vec{n} - c $, $\lambda_2 = \vec{u} \cdot \vec{n} + c $ and $\lambda_{3, \dots, 3+D} = \vec{u} \cdot \vec{n}$. \\
@@ -456,26 +435,37 @@ Note that if $\mu = \kappa$ (and one selects $\grad \vec{u} $ instead of $\grad^
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame} 
-\frametitle{Mach-3 forward facing step: density contour}
+\begin{frame}{Euler example: Mach-3 forward facing step}
 
 \begin{center}
 \movie[width=6cm,height=4cm,showcontrols=true,externalviewer]{\includegraphics[width=6cm,height=4cm]{engr.pdf}}{movs/forward_facing_step_density_movie.mpeg}\\
 \end{center}
 
-%\begin{center}
-  %\begin{columns}
-    %\column{.5\textwidth}
-       %\includemedia[addresource=compression_corner.mp4, activate=pageopen, deactivate=pageclose, width=6.5cm, height=5cm, flashvars={source=mov/compression_corner.mp4 & autoPlay=true & loop=true }]{}{VPlayer.swf}
-    %\column{.5\textwidth}
-      %\includemedia[addresource=compression_corner_viscosity.mp4, activate=pageopen, deactivate=pageclose, width=6.5cm, height=5cm, flashvars={source=mov/compression_corner_viscosity.mp4 & autoPlay=true & loop=true }]{}{VPlayer.swf}
-  %\end{columns}
-%\end{center}
+\begin{center}
+\begin{columns}
+\column{.5\textwidth}
+\includemedia[addresource=compression_corner.mp4, activate=pageopen, deactivate=pageclose, width=6.5cm, height=5cm, flashvars={source=mov/compression_corner.mp4 & autoPlay=true & loop=true }]{}{VPlayer.swf}
+\column{.5\textwidth}
+\includemedia[addresource=compression_corner_viscosity.mp4, activate=pageopen, deactivate=pageclose, width=6.5cm, height=5cm, flashvars={source=mov/compression_corner_viscosity.mp4 & autoPlay=true & loop=true }]{}{VPlayer.swf}
+\end{columns}
+\end{center}
 
 
 \end{frame}
-\begin{frame} 
-\frametitle{Mach-3 forward facing step: viscosity contour}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mach-3 forward facing step: density contour}
+
+\begin{center}
+\movie[width=6cm,height=4cm,showcontrols=true,externalviewer]{\includegraphics[width=6cm,height=4cm]{engr.pdf}}{movs/forward_facing_step_density_movie.mpeg}\\
+\end{center}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mach-3 forward facing step: viscosity contour}
 
 \begin{center}
 \movie[width=6cm,height=4cm,showcontrols=true,externalviewer]{\includegraphics[width=6cm,height=4cm]{engr.pdf}}{movs/forward_facing_step_viscosity.mpeg}\\
@@ -484,6 +474,279 @@ Note that if $\mu = \kappa$ (and one selects $\grad \vec{u} $ instead of $\grad^
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Development of entropy-based artificial viscosity for the GRHD}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Questions to answer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Entropy-based artificial viscosity technique for the GRHD}
+
+\begin{block}{Questions to answer}
+\begin{enumerate}
+\item 
+the GRHD equations are not hyperbolic
+\item
+What is an appropriate functional form for the entropy of the GRHD, $s(\rho,e,\epsilon) = \ldots$? 
+\item
+What is an appropriate expression for the viscous fluxes so that the \tcr{regularized} GRHD eqs satisfy 
+the entropy minimum principle?
+\item
+Is the viscous regularization well-behaved in the equilibrium-diffusion limit?
+\end{enumerate}
+\end{block}
+
+\begin{block}{Study of the hyperbolic part of the GRHD}
+Several numerical techniques are based on the characteristics of the hyperbolic parts of the GRHD (Balsara JQSRT 1999, Lowrie\&Morel JQSRT 2001)
+\begin{subequations}
+\label{eq:GRH_hyperbolic}
+\begin{equation}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = 0 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] +\frac{u}{3} \partial_x \epsilon = 0
+\end{equation}
+%
+\begin{equation}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = 0
+\end{equation}
+\end{subequations}
+\end{block}
+
+Sound speed ...
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Entropy-based artificial viscosity technique for the GRHD: outline of the derivation}
+
+We add viscous regularization terms:
+\begin{subequations}
+\begin{equation}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \tcr{\partial_x f}
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \tcr{\partial_x g }
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] +\frac{u}{3} \partial_x \epsilon = \tcr{\partial_x \left( h + ug \right) }
+\end{equation}
+%
+\begin{equation}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = \partial_x \ell
+\end{equation}
+\end{subequations}
+
+Use chain rule to get an entropy equation 
+\begin{equation}
+\partial_{\alpha} s = \partial_{\rho} s \partial_{\alpha} \rho +  \partial_{e} s \partial_{\alpha}e +  \partial_{\epsilon} s \partial_{\alpha} \epsilon \text{,}
+\end{equation} 
+
+After some tedious algebra, the following form of the entropy $s(\rho,e,\epsilon) is obtained
+\begin{equation}
+s(\rho, e, \epsilon) = s_{\Euler}(\rho,e) + s_{rad}(\rho, \epsilon) 
+                     = s_{\Euler}(\rho,e) + \frac{\beta}{\rho} \epsilon^\frac{3}{4}
+\end{equation}
+with the following viscous fluxes
+
+We introduce the following viscous fluxes:
+\begin{equation}
+\left\{
+ \begin{array}{ccc}
+  f &= \kappa \partial_x \rho \\
+  g &= \rho \mu \partial_x u + uf \\
+  h &= \kappa \partial_x (\rho e) - \tfrac{1}{2} u^2 f\\
+  l &= \kappa \partial_x \epsilon
+ \end{array}
+\right. 
+\end{equation}
+
+yielding
+\begin{equation}
+\boxed{\frac{Ds}{Dt} = \partial_t s + u \partial_x s \geq 0} \ ,
+\end{equation}
+
+
+The hyperbolic portion of the GRH system of equations \emph{with dissipative terms present} is as follows:
+\begin{subequations}
+\begin{equation}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \partial_x \left( \kappa \partial_x \rho \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \partial_x \left( \kappa \partial_x \rho u \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] + \frac{u}{3} \partial_x \epsilon = \partial_x \left( \kappa \partial_x(\rho E) \right)
+\end{equation}
+%
+\begin{equation}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = \partial_x \left( \kappa \partial_x \epsilon \right)
+\end{equation}
+\end{subequations}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+The full GRH equations \emph{with} the viscous regularization derived in \sect{sec:visc-reg} are as follows:
+%
+\begin{subequations}
+\begin{equation}
+\partial_t \left( \rho \right) + \partial_x\left( \rho u \right) = \partial_x \left( \kappa \partial_x \rho \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = \partial_x \left( \kappa \partial_x (\rho u) \right) 
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) + \partial_x \left( \kappa \partial_x (\rho E)\right)
+\end{equation}
+%
+\begin{equation}
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right) + \partial_x \left( \kappa \partial_x \epsilon \right)
+\end{equation}
+\end{subequations}
+%
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Equilibrium Diffusion Limit}
+
+\begin{block}{non-dimensionalization:}
+%
+\begin{equation}
+\label{eq:norm_param}
+\begin{array}{llll}
+\rho'   = \frac{\rho}{\rho_\infty}           , & 
+u'      = \frac{u}{c_{m,\infty}}                 , & 
+P'      = \frac{P}{\rho_\infty c^2_{m,\infty}}   , & 
+\epsilon'      = \frac{\epsilon}{a T_\infty^4 }              , \\
+E'      = \frac{E}{c^2_{m,\infty} }              , & 
+\sigma_t'      = \frac{\sigma_t}{\sigma_{t,\infty} }              , & 
+\sigma_a'      = \frac{\sigma_a}{\sigma_{a,\infty} }              , & 
+T'      = \frac{T}{T_\infty }              , \\
+x' = \frac{x}{L_\infty}                      , & 
+t' = \frac{t}{L_\infty / c_{m,\infty}}       , &  
+\kappa' = \frac{\kappa}{\kappa_\infty}       ,
+\end{array}
+\end{equation}
+\end{block
+
+We variables is expanded in a power series in $\varepsilon$, e.g.,
+%
+\begin{equation}\label{eq:expansion-series}
+\varphi = \sum_i \varphi_i \varepsilon^i \ ,
+\end{equation}}
+
+Leading order
+%
+\begin{subequations}
+\label{eq:first-order}
+%
+\begin{equation}
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x  \rho \right)_0  \ ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P + \frac{\epsilon}{3}\right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ ,
+\end{equation}
+%
+\begin{equation}\label{eq:expansion-series_energy}
+\epsilon_0 = T_0^4  \ .
+\end{equation}
+%
+\end{subequations}
+%
+
+FINAL
+
+leading-order continuity and momentum equations, and the second-order total energy equation, i.e.,
+%
+\begin{subequations}
+\begin{equation}
+\partial_t \rho_0 + \partial_x \left( \rho u \right)_0 = \partial_x \left( \kappa \partial_x  \rho \right)_0  \ ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right)_0 + \partial_x \left( \rho u^2 + P^* \right)_0 = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)_0  \ , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right)_0 + \partial_x \left[ u \left( \rho E^* + P^* \right) \right]_0 = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right)_0 + \partial_x \left( \kappa \partial_x \rho E^* \right)_0 \ . \end{equation}
+\end{subequations}
+%
+
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In JCP 2015, we studied the hyperbolic art of the GRHD:
+
+We obtained the following functional form of the entropy:
+
+shown that the speed of sound was  ... 
+
+And the regularized hyperbolic part of the GRHD read as follows:
+
+We shown that these equations lead to the following entropy inequality ($\geq 0$)
+
+Thus, we used this VR for the full GRHD:
+
+The viscous regularization is well behaved in the asymptotic ED limits, show EDL equations  
+
+Show that we recover the EDF entropy functional form
+
+For viscosity coefficients, we employed the same strategy as before: min LLF, entro with entro propto entro residual
+
+constant opacity results: Mach 1.05 to 50
+
+
+new theoretical results.
+
+VR satisfies entropy min principle  for full GRHD
+
+new numerical results:
+temperature-dependent opacities
+
+
+
+
+\end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1316,6 +1579,42 @@ Thank you.
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why an upper bound for viscosity?}
+
+\begin{block}{}
+Large entropy residual in shocks $\longrightarrow$ large entropy viscosity $\mu_e$ \\
+\begin{center}
+There is such a thing as too much of a good thing ...\\
+{\it Il ne faut point \^{e}tre plus royaliste que le Roy}
+\end{center}
+\end{block}
+
+
+\begin{block}{Upper bound for $\mu$}
+First-order upwind scheme is monotone but over dissipative. We should not exceed the amount of stabilization that such a scheme provides.\\
+\medskip
+upwinding = \textcolor{blue}{centered approximation (Galerkin)} $-$ \textcolor{magenta}{numerical diffusion}\\
+\underline{Example: linear advection} $\partial_t u + \beta \partial_x u =0$
+\be
+\beta \frac{u_i - u_{i-1}}{h} = \textcolor{blue}{\beta\frac{ u_{i+1}- u_{i-1}}{2h}} - \textcolor{red}{\frac{\beta h}{2}}
+\textcolor{magenta}{\frac{ u_{i+1}-2u_i +u_{i-1}}{h^2}}
+\ee
+So, the dissipative term is $\frac{\beta h}{2}\partial_{xx} u$
+and the first-order viscosity is $\frac{\beta h}{2}$
+\end{block}
+
+\begin{block}{First-order viscosity}
+\hspace{0.5cm} $\bullet$ scalar conservation law: $\frac{h}{2}|f'(u)|$
+\hspace{0.5cm} $\bullet$ system: $\frac{h}{2} \max \left( \text{eig}( \partial_u f) \right) $
+\end{block}
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering] 
