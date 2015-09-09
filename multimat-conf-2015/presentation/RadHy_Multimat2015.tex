@@ -71,6 +71,7 @@
 \newcommand{\tcm}[1]{\textcolor{magenta}{#1}}
 
 \newcommand{\hili}[1]{\underline{\bf \textcolor{red}{#1}}}
+\newcommand{\hilib}[1]{\underline{\bf \textcolor{blue}{#1}}}
 \newcommand{\mbold}[1]{\boldsymbol#1}
 \renewcommand{\mbold}[1]{\vec{#1}}
 
@@ -220,7 +221,7 @@ Determine an entropy pair ($s(u),\, \vec{\Psi}(u)$) for the PDE under considerat
 \item 
 Compute the entropy residual $\boxed{R_e:=\partial_t s(u_h) + \div \Psi(u_h)}$, in each cell $K$, at each quadrature point $x_q$
 \item 
-Compute the speed and kinematic \hili{entropy viscosity} associated with this residual
+Compute the speed and kinematic \hilib{entropy viscosity} associated with this residual
 \be
 v^K_e(x_q)  := h_K \frac{|R_e(x_q)|_K}{|s-\overline{s}|_\infty}
 \quad \text{and} \quad 
@@ -707,8 +708,8 @@ The form $X^T A X$ is negative -definite (\tcb{Delchini/Ragusa/Morel, JCP 2015})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{New developments}
-
-\begin{block}{Entropy conservation statement for the \tcm{full} GRHD equations}
+\vspace{-2mm}
+\begin{block}{Entropy conservation statement for the \underline{\tcm{\bf full}} GRHD equations}
 Recently, we have been able to show:
 \begin{multline} 
 \rho \frac{Ds}{Dt} = 
@@ -723,7 +724,7 @@ where the terms in \tcr{red} are unconditionally entropy-producing (\tcb{unpubli
 %
 \vspace{-2mm}
 %
-\begin{block}{Finally, the Regularized \tcm{full} GRHD equations are:}
+\begin{block}{Finally, the Regularized \tcm{full} GRHD equations are: (shown with $\kappa=\mu$)}
 %
 \begin{subequations}
 \begin{equation}
@@ -751,7 +752,7 @@ where the terms in \tcr{red} are unconditionally entropy-producing (\tcb{unpubli
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Equilibrium Diffusion Limit}
-
+\vspace{-2mm}
 \begin{block}{non-dimensionalization:}
 %
 %\begin{multline*}
@@ -773,7 +774,7 @@ where the terms in \tcr{red} are unconditionally entropy-producing (\tcb{unpubli
 \end{equation}
 %
 \begin{equation}
-\partial_{t'} \left( \rho' u'\right) + \partial_{x'} \left(\rho u^{2'} + P' + \Re \frac{\epsilon'}{3} \right) = \tcr{\Pe \partial_{x'} \left( \kappa' \partial_{x'} (\rho' u') \right)} 
+\partial_{t'} \left( \rho' u'\right) + \partial_{x'} \left(\rho u^{2'} + P' + \tcb{\Re} \frac{\epsilon'}{3} \right) = \tcr{\Pe \partial_{x'} \left( \kappa' \partial_{x'} (\rho' u') \right)} 
 \end{equation}
 %
 \vspace{-6mm}
@@ -781,10 +782,10 @@ where the terms in \tcr{red} are unconditionally entropy-producing (\tcb{unpubli
 \partial_{t'} \left( \rho' E'\right) + \partial_{x'} \left[ u' \left( \rho' E' + P' \right) \right] 
 = 
 -
-\Re \frac{u'}{3} \partial_{x'} \epsilon' 
+\tcb{\Re} \frac{u'}{3} \partial_{x'} \epsilon' 
 \\ 
 - 
-\Re \Us^{-1} \Ls \left( \sigma_t' - \Lsi \sigma_s' \right)  \left(T^{\prime,4} - \epsilon' \right) 
+\Re \Us^{-1} \tcb{\Ls} \left( \sigma_t' - \tcb{\Lsi} \sigma_s' \right)  \left(T^{\prime,4} - \epsilon' \right) 
 + 
  \tcr{\Pe \partial_{x'} \left( \kappa' \partial_{x'} (\rho' E')\right)  }
 \end{multline}
@@ -794,9 +795,9 @@ where the terms in \tcr{red} are unconditionally entropy-producing (\tcb{unpubli
 \partial_{t'} \epsilon' + \frac{4}{3} \partial_{x'} \left( u' \epsilon' \right) 
 = \frac{u'}{3} \partial_{x'} \epsilon' 
 + 
-\Ls^{-1} \Us^{-1} \partial_{x'} \left( \frac{1}{3 \sigma_t'} \partial_{x'} \epsilon' \right) 
+\tcb{\Ls^{-1} \Us^{-1}} \partial_{x'} \left( \frac{1}{3 \sigma_t'} \partial_{x'} \epsilon' \right) 
 \\ + 
-\Us^{-1} \Ls \left( \sigma_t' - \Lsi \sigma_s' \right) \left( T^{\prime,4} - \epsilon' \right) 
+\tcb{\Us^{-1} \Ls} \left( \sigma_t' - \tcb{\Lsi} \sigma_s' \right) \left( T^{\prime,4} - \epsilon' \right) 
 + 
  \tcr{\Pe \partial_{x'} \left( \kappa' \partial_{x'} \epsilon' \right)}
 \end{multline}
@@ -877,12 +878,20 @@ Viscous regularization scales adequately with \tcr{$\Pe=\mathcal{O}(1)$}.
 \item semi-analytical solutions provided by Jim Ferguson (LANL)
 \item Two sets of results presented today:
 \begin{enumerate}
-\item with constant opacities (Mach 1.05, 2, 5, 50)
-\item with temperature-dependent opacities (Mach 3)
+\item with \hili{constant opacities} (Mach 1.05, 2, 5, 50)
+\item with \hilib{temperature-dependent opacities} (Mach 3)
 \end{enumerate} 
 \end{itemize} 
 \end{block}
  
+\begin{block}{Additional results in the back-up slides}
+Second-order convergence for manufactured solutions in
+\begin{enumerate}
+\item streaming limit
+\item diffusion limit
+\end{enumerate}
+\end{block}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1237,7 +1246,7 @@ Now, results with temperature-dependent opacities:
 \label{lastslide}
 \centering
 Thanks to Jim Ferguson (LANL) for the semi-analytical solutions.\\
-Thanks Jean-Luc Guermond and Bojan Popov (Texas A\&M) for fruitful discussions.
+Thanks to Jean-Luc Guermond and Bojan Popov (Texas A\&M) for fruitful discussions.
 
 \begin{figure}
 	\centering
@@ -1281,6 +1290,71 @@ and the first-order viscosity is $\frac{\beta h}{2}$
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]{Manufactured solution: \tcr{equilibrium-diffusion limit}}
+
+\begin{table}[h]
+\caption{\label{tbl:table1} L$_2$ norms of the error for for the equilibrium diffusion limit case using a manufactured solution.}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{\rho E}$ & \textbf{ratio} \\ \hline
+$20$ & $10^{-1}$ &	 $0.590766$ & NA &  $1.333774$ & NA \\ \hline
+$40$ & $5$ $10^{-2}$ & $0.290626$ & $2.03$ &  $0.478819$ & $2.79$ \\ \hline
+$80$ & $2.5$ $10^{-2}$ & $0.0959801$ & $3.021$ &  $0.154119$ & $3.11$ \\ \hline
+$160$ & $1.25$ $10^{-2}$ & $0.02593738$ & $3.70$ &  $0.0405175$ & $3.80$ \\ \hline
+$320$ & $6.25$ $10^{-3}$ & $6.471444$ $10^{-3}$ & $4.00$ & $9.90446$ $10^{-3}$ & $4.09$ \\ \hline
+$640$ & $3.125$ $10^{-3}$ & $1.584158$ $10^{-3}$ & $4.01$ & $2.44727$ $10^{-3}$ & $4.04$ \\ \hline
+\hline
+\textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{\rho u}$ & \textbf{ratio} \\ \hline
+$20$ & $10^{-1}$ &  $0.00650085$ & NA & $0.910998$ & NA	\\ \hline
+$40$ & $5$ $10^{-2}$ &  $0.00124983$ & $5.20$ & $0.4090946$ & $2.23$	\\ \hline
+$80$ & $2.5$ $10^{-2}$ &  $0.000262797$ & $4.76$ & $0.125943$ & $3.25$	\\ \hline
+$160$ & $1.25$ $10^{-2}$ &  $6.17726$ $10^{-5}$ & $4.25$ & $3.381042$ $10^{-3}$ & $3.72$	\\  \hline
+$320$ & $6.25$ $10^{-3}$ & $1.509184$ $10^{-5}$ & $4.09$ & $8.373657$ $10^{-3}$ & $4.04$ \\ \hline 
+$640$ & $3.125$ $10^{-3}$  & $3.72548$ $10^{-6}$ & $4.05$ & $2.070538$ $10^{-3}$ & $4.04$ \\ \hline   
+\end{tabular}  
+\end{center}
+\end{table}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]{Manufactured solution: \tcr{streaming limit}}
+
+\begin{table}[h]
+\begin{center}
+\caption{\label{tbl:table2} L$_2$ norms of the error for for the streaming limit case using a manufactured solution.}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{\rho E}$ & \textbf{ratio} \\ \hline
+$20$ &$10^{-1}$& $1.4373$ $10^{-2}$ & NA & $5.88521$ $10^{-1}$ & NA \\ \hline
+$40$ & $5.$ $10^{-2}$& $3.760208$ $10^{-3}$ & $3.82$ & $1.4244$ $10^{-1}$ & $4.13$ \\ \hline 
+$80$ & $2.5$ $10^{-2}$& $9.91724$ $10^{-4}$ & $3.79$ & $3.2047$ $10^{-2}$ & $4.44$  \\ \hline      
+$160$ & $1.25$ $10^{-2}$ & $2.4455$ $10^{-4}$ & $4.06$ & $7.4886$ $10^{-3}$ & $4.28$  \\ \hline     
+$320$ & $6.25$ $10^{-3}$ & $6.280715$ $10^{-5}$ & $3.89$ & $1.82327$ $10^{-3}$ & $4.11$ \\ \hline 
+$640$ & $3.125$ $10^{-3}$ & $1.57920$ $10^{-5}$ & $3.98$ & $4.50463$ $10^{-4}$ & $4.05$  \\ \hline
+$1280$ & $1.5625$ $10^{-4}$ & $3.96096$ $10^{-6}$ & $3.99$ & $1.12061$ $10^{-4}$ & $4.02$ \\ \hline
+\hline
+\textbf{\# of cells} & time step size $(sh)$  & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{\rho u}$ & \textbf{ratio} \\ \hline
+$20$ &$10^{-1}$ & $3.82001$ $10^{-1}$ & NA & $2.354671$ $10^{-3}$ & NA \\ \hline
+$40$ & $5.$ $10^{-2}$ & $1.21500$ $10^{-1}$ &$3.14$& $6.138814$ $10^{-4}$& $3.84$ \\ \hline
+$80$ & $2.5$ $10^{-2}$ & $3.27966$ $10^{-2}$ &$3.70$& $1.74974$ $10^{-4}$ & $3.51$ \\ \hline
+$160$ & $1.25$ $10^{-2}$ & $8.38153$ $10^{-3}$ &$3.91$& $3.61297$ $10^{-5}$  & $4.84$ \\ \hline
+$320$ & $6.25$ $10^{-3}$ & $2.10925$ $10^{-3}$ &$3.97$& $9.03866$ $10^{-6}$ & $3.99$ \\ \hline
+$640$ & $3.125$ $10^{-3}$ & $5.28472$ $10^{-4}$ &$3.99$& $2.25649$ $10^{-6}$ & $4.01$ \\ \hline
+$1280$ & $1.5625$ $10^{-4}$ &$1.322268$ $10^{-4}$ &$3.99$& $5.69984$ $10^{-7}$ & $3.95$ \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
