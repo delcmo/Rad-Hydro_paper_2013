@@ -85,7 +85,7 @@ entropy viscosity method ; viscous stabilization method.
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations (REF) with high-order accuracy has been an area of great interest and substantial research. The GRH is a non-conservative hyperbolic multi-physics system of equations and couples the inviscid hydrodynamic equations i.e. Euler equations (REF), with a parabolic radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms (REF) that contain neither spatial nor temporal derivative terms. When the material is optically thick i.e. the absorption cross section becomes large, the GRH devolves to the Equilibrium-Diffusion (ED) system of equations which is referred to as the diffusion limit (REF). The ED are obtained from the GRH by performing a Chapman-Enskog expansion (REF) and can be written in a conservative form. Numerically solving for the GRH is challenging for at least three reasons. (i) because of the wave-dominated nature of the GRH, \emph{a numerical method} is required to preserve the solution's wave structure. (ii) the GRH cannot be written in a conservative form and thus, the notions of weak and entropy solutions cannot be defined by the theory of distributions (REF) as for the conservative case (REFs). Instead, the theory developed by Dal Maso, Le Floch and Murat (DLM) must be used to rigorously define in a weak sense the non-conservative products (REF) present in the material energy equation and radiation energy density equation. And, (iii) the \emph{numerical method} employed needs to preserve the equilibrium-diffusion limit in order to recover the ED system of equations, by ensuring well-scaled dissipative terms.
+Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations (REF) with high-order accuracy has been an area of great interest and substantial research. The GRH is a non-conservative multi-physics system of equations and couples the inviscid hydrodynamic equations i.e. Euler equations (REF), with a parabolic radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms (REF) that contain neither spatial nor temporal derivative terms. When the material is optically thick i.e. the absorption cross section becomes large, the GRH devolves to the Equilibrium-Diffusion (ED) system of equations which is referred to as the diffusion limit (REF). The ED are obtained from the GRH by performing a Chapman-Enskog expansion (REF) and can be written in a conservative form. Numerically solving for the GRH is challenging for at least three reasons. (i) because of the wave-dominated nature of the GRH, \emph{a numerical method} is required to preserve the solution's wave structure. (ii) the GRH cannot be written in a conservative form and thus, the notions of weak and entropy solutions cannot be defined by the theory of distributions (REF) as for the conservative case (REFs). Instead, the theory developed by Dal Maso, Le Floch and Murat (DLM) must be used to rigorously define in a weak sense the non-conservative products (REF) present in the material energy equation and radiation energy density equation. And, (iii) the \emph{numerical method} employed needs to preserve the equilibrium-diffusion limit in order to recover the ED system of equations, by ensuring well-scaled dissipative terms.
 
 Substantial research efforts have focused on approximate Riemann solvers. In \cite{Balsara},  an approximate Riemann solver is developed for the GRH equations by considering the frozen approximation that uncouples the two physics, radiation and hydrodynamics, components but the validity of such an approximation may be questionable in the equilibrium-diffusion limit. Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the relaxation terms. Edwards and al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations. An approximate Riemann solver along with a flux limiter is used to resolve shocks and other waves. Their results show good agreement with semi-analytical solutions. 
 
@@ -140,23 +140,25 @@ After detailing the discretization and solution techniques in \sct{sec:discr}, 1
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-\section{The non-equilibrium grey Radiation-Hydrodynamic equations: viscous regularization and entropy condition}\label{sec:GRH}
+\section{The non-equilibrium grey Radiation-Hydrodynamic equations: mathematical properties and background}\label{sec:GRH}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In this section, we recall the main results obtained in \cite{our_jcp_radhy_paper}. These will serve as the foundation for the 
-applying the viscous regularization to the full non-equilibrium grey Radiation-Hydrodynamic equations  (GRH) equations, 
+In this section, we recall the theoretical background and the main results obtained in \cite{our_jcp_radhy_paper}. These will serve as the foundation for the 
+application of the viscous regularization to the full non-equilibrium grey Radiation-Hydrodynamic equations (GRH) equations, 
 later derived in in \sct{sec:VR_new}. 
-%
 
-First, the 1-D  non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are given in \eqt{eq:GRH}. 
-Then, the reader is guided through the main steps that were detailed in \cite{our_jcp_radhy_paper} to derive the viscous regularization using an entropy condition. At last, the 1-D non-equilibrium grey Radiation-Hydrodynamic equation \emph{with} viscous regularization are recalled.
+First, the 1-D  non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are given in \eqt{eq:GRH} along with some mathematical properties of the convective systems (first-order derivative terms). We also recall theorems of interest for this paper related to weak and entropy solutions for non-conservative system of equations. Then, the reader is guided through the main steps that were detailed in \cite{our_jcp_radhy_paper} to derive the viscous regularization using an entropy condition. At last, the 1-D non-equilibrium grey Radiation-Hydrodynamic equation \emph{with} viscous regularization are recalled.
 
 %The 1-D non-equilibrium grey Radiation-Hydrodynamic equations consist of the coupling between the 1-D Euler equations and a radiation-diffusion equation. The 1-D Euler equations simulates the material or fluid behavior and requires an equation of state, denoted by eos below, to compute the material pressure $P$ as a function of the material density $\rho$ and the material specific internal energy $e$. The radiation-diffusion equation is derived from the transport equation by performing an asymptotic diffusion limit (REF). The coupling between the two physics yield source terms that are given in the righthand-side of \eqt{eq:GRH}. 
 %------------------------------------------------------------------
 \subsection{The 1-D non-equilibrium grey Radiation-Hydrodynamic equations}\label{sec:GRH-inviscid}
 %------------------------------------------------------------------
 The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are as follow:
+%
+%\begin{equation}\label{eq:GRH}
+%\partial_t \mbold U (x,t) + \partial_x \mbold F ( \mbold U ) = \mbold A ( \mbold U ) \partial_x U (x,t) + \mbold S (x,t)
+%\end{equation}
 %
 \begin{subequations}\label{eq:GRH}
 %
@@ -167,7 +169,7 @@ The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} vis
 %
 \begin{equation}
 \label{eq:GRHmom}
-\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P\right) = - \partial_x \frac{\epsilon}{3} \, ,
+\partial_t \left( \rho u\right) + \partial_x \left(\rho u^2 + P + \frac{\epsilon}{3} \right) = 0 \, ,
 \end{equation}
 %
 \begin{equation}
@@ -187,7 +189,7 @@ P = eos(\rho, e) \, ,
 \end{equation}
 \end{subequations}
 %
-where $\rho$, $\rho u$ and $\rho E$ are the material density, material momentum and material total energy, respectively, and $\epsilon$ denotes the radiation energy density. In order to close the system of equations given in \eqt{eq:GRH} (the system consists of five variables and four partial differential equations), a closure relation is required to compute the material pressure $P$ (see \eqt{eq:GRHmom} and \eqt{eq:GRHenerg}) under the form of an equation of state denoted by eos in this paper. This equation of state is function of the material density $\rho$ and the material specific internal energy $e = E - \tfrac 1 2 u^2$ as shown in \eqt{eq:EOS}. The equation of state is also used to compute the material temperature $T$ that is required in the relaxation source term $\sigma_a c \left( a T^4 - \epsilon \right)$, where $c$ and $\sigma_a$ denote the speed of light and absorption opacity, respectively, and $a$ is the radiation constant. The radiation energy density equation, \eqt{eq:GRHrad}, contains a diffusion term function of the total opacity $\sigma_t$. Note that the opacities $\sigma_a$ and $\sigma_t$ can be either constant or function of the material properties, typically the material density and temperature. Even if all of the results presented and derived in this paper and in \cite{our_jcp_radhy_paper} are independent of the equation of state (as long as the equation of state yields a concave entropy with respect to $e$ and $1/ \rho$), the Ideal Gas equation of state (IGEOS) is considered in the remaining of this paper for simplicity, with the relations given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
+where $\rho$, $\rho u$ and $\rho E$ are the material density, material momentum and material total energy, respectively, and $\epsilon$ denotes the radiation energy density. In order to close the system of equations given in \eqt{eq:GRH} (the system consists of five variables and four partial differential equations), a closure relation is required to compute the material pressure $P$ (see \eqt{eq:GRHmom} and \eqt{eq:GRHenerg}) under the form of an equation of state denoted by eos in this paper. This equation of state is function of the material density $\rho$ and the material specific internal energy $e = E - \tfrac 1 2 u^2$ as shown in \eqt{eq:EOS}. The equation of state is also used to compute the material temperature $T$ that is required in the relaxation source term $\sigma_a c \left( a T^4 - \epsilon \right)$, where $c$ and $\sigma_a$ denote the speed of light and the absorption cross section, respectively, and $a$ is the radiation constant. The radiation energy density equation, \eqt{eq:GRHrad}, contains a diffusion term function of the total cross section $\sigma_t$. Note that the cross sections $\sigma_a$ and $\sigma_t$ can be either constant or function of the material properties, typically the material density and temperature. Even if all of the results presented and derived in this paper and in \cite{our_jcp_radhy_paper} are independent of the equation of state (as long as the equation of state yields a concave entropy with respect to $e$ and $1/ \rho$), the Ideal Gas equation of state (IGEOS) is considered in the remaining of this paper for simplicity, with the relations given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
 %
 \begin{equation}\label{eq:IGEOS}
 P = (\gamma-1) \rho e \text{ and } e = C_v T \, ,
@@ -195,10 +197,12 @@ P = (\gamma-1) \rho e \text{ and } e = C_v T \, ,
 %
 where the heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
 
+When considering the GRH without the relaxation and the diffusion terms, a first-order partial differential system of equations is obtained that is showed to be hyperbolic: it admits four eigenvalues that are unconditionally real as long as the square of the speed of sound, $c$, remains positive ($\lambda_1 = u - c$, $\lambda_{2,3} = u$ and  $\lambda_4 = u + c$), and has a set of four linearly independent eigenvectors (REF).  
+
 From \eqt{eq:GRH} and assuming a smooth solution i.e. without shocks, an entropy residual equation can be derived by considering an entropy variable function of the material density, the material specific internal energy and the radiation density energy $s(\rho, e, \epsilon)$. The steps leading to the final result given in \eqt{eq:GRH-entropy} can be found in \cite{our_jcp_radhy_paper}.
 %
 \begin{equation}\label{eq:GRH-entropy}
-R_e(x,t) = \partial_t s + u \partial_x s = 0
+R_e(x,t) = \frac{D s}{Dt} = \left( \partial_t s + u \partial_x s \right) = 0
 \end{equation}
 %
 We emphasize that \eqt{eq:GRH-entropy} is only valid for smooth numerical solutions and that a different version will be presented in \sct{sec:VR_old} for numerical solutions with discontinuities. Also, in the remaining of this paper, the lefthand-side of \eqt{sec:VR_old}, $R_e$, will be referred to as the \emph{entropy residual}.
@@ -207,6 +211,12 @@ We emphasize that \eqt{eq:GRH-entropy} is only valid for smooth numerical soluti
 %The material temperature and pressure are computed with the ideal gas equation of state (IGEOS) given in \eqt{eq:EOS} and $e = C_v T$,
 %where  $e = E - \tfrac 1 2 u^2$ is the specific internal energy. The heat capacity $C_v$ and the heat ratio coefficient $\gamma$ are assumed constant. 
 %In \eqt{eq:GRH}, we have underlined the diffusion and relaxation terms for future reference.
+%
+%------------------------------------------------------------------
+\subsection{Weak and entropy solutions of non-conservative hyperbolic system of equations}\label{sec:NCSE-theorems}
+%------------------------------------------------------------------
+%
+This section is dedicated to recall some important features of non-conservative hyperbolic systems (NCSE) that are useful to the focus of this paper. As it was previously mentioned in \sct{sec:intro}, the notion of weak and entropy solutions cannot be defined in a distribution sense for NCSE as it is done for conservative systems. The approach of interest for this paper is the one developed by Bianchini and Bressan (REF) that modifies the NCSE by adding a parabolic regularization with a vanishing viscosity coefficient. In Theorem 1 on page 229 of REF, it is stated the Cauchy problem of a non-conservative systems with parabolic regularization admits an unique vanishing viscosity solution.
 %
 %------------------------------------------------------------------
 \subsection{A viscous regularization for the GRH based on their hyperbolic parts \cite{our_jcp_radhy_paper}}\label{sec:VR_old}
