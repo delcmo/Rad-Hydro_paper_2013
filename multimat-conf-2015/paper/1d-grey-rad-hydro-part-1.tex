@@ -1,56 +1,38 @@
-\documentclass[review]{elsarticle}
+% \documentclass[review]{elsarticle}
+\documentclass[times]{fldauth}
+% \documentclass[times,doublespace]{fldauth}%For paper submission
 
-\usepackage{lineno,hyperref}
-\modulolinenumbers[5]
+% \usepackage[dvips,colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
 
-\journal{Journal of Computational Physics}
+\newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\def\volumeyear{2016}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%
-%% Elsevier bibliography styles
 %%%%%%%%%%%%%%%%%%%%%%%
 \input{inputs/packages.tex}
 \input{inputs/definitions.tex}
-\bibliographystyle{elsarticle-num}
-%% Numbered
-%\bibliographystyle{model1-num-names}
-%
-%% Numbered without titles
-%\bibliographystyle{model1a-num-names}
-%
-%% Harvard
-%\bibliographystyle{model2-names.bst}\biboptions{authoryear}
-%
-%% Vancouver numbered
-%\usepackage{numcompress}\bibliographystyle{model3-num-names}
-%
-%% Vancouver name/year
-%\usepackage{numcompress}\bibliographystyle{model4-names}\biboptions{authoryear}
-%
-%% APA style
-%\bibliographystyle{model5-names}\biboptions{authoryear}
-%
-%% AMA style
-%\usepackage{numcompress}\bibliographystyle{model6-num-names}
+%%% \bibliographystyle{elsarticle-num}
+\bibliographystyle{wileyj}
+
 %%%%%%%%%%%%%%%%%%%%%%%
 %
 \begin{document}
 %
-\begin{frontmatter}
-%
-\title{Regularization of the non-equilibrium Grey Radiation-Hydrodynamic equations with an artificial viscosity method}
-%-------------------------
-%-------------------------
-\author{Marc O. Delchini\fnref{label1}}
-\ead{marco.delchini@gmail.com}
-%
-\author{Jean C. Ragusa$^*$\footnote{$^*$Corresponding author}\fnref{label1}}
-\ead{jean.ragusa@tamu.edu}
-%
-\author{Jim Morel\fnref{label1}}
-\ead{jim.morel@tamu.edu}
 
-\address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
-%-------------------------
+\runningheads{M.~O.~Delchini, J.~C.~Ragusa, and J.~E.~Morel}{Viscous Regularization for the non-equilibrium Grey Radiation-Hydrodynamics}
+
+\title{Regularization of the non-equilibrium Grey Radiation-Hydrodynamic equations with an artificial viscosity method}
+
+\author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}, Jim E. Morel\affil{1}}
+
+\address{\affilnum{1}Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA}
+
+\corraddr{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA. E-mail: jean.ragusa@tamu.edu}
+
 %-------------------------
 \begin{abstract}
 In \cite{our_jcp_radhy_paper}, 
@@ -72,14 +54,30 @@ for radiation hydrodynamic shock simulations.
 \tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp}
 Radiative shock calculations using temperature-dependent opacities are presented for various Mach numbers and 
 compared with semi-analytical reference solutions. Convergence rates are provided.
-
-\emph{Key Words}: radiation-hydrodynamics ; shock-capturing scheme ; artificial viscosity; 
-entropy viscosity method ; viscous stabilization method.
 \end{abstract}
+%-------------------------
+
+
+\keywords{radiation-hydrodynamics ; shock-capturing scheme ; artificial viscosity; 
+entropy viscosity method ; viscous stabilization method.}
+
+\maketitle
+
+%-------------------------
+%-------------------------
+%\author{Marc O. Delchini\fnref{label1}}
+%\ead{marco.delchini@gmail.com}
+%%
+%\author{Jean C. Ragusa$^*$\footnote{$^*$Corresponding author}\fnref{label1}}
+%\ead{jean.ragusa@tamu.edu}
+%%
+%\author{Jim Morel\fnref{label1}}
+%\ead{jim.morel@tamu.edu}
+%%
+%\address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
+
 %
-\end{frontmatter}
-%
-\linenumbers
+% \linenumbers
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
