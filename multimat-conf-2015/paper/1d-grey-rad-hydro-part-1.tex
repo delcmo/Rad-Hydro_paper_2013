@@ -35,6 +35,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 %-------------------------
 \begin{abstract}
+\tcb{did we have Dr Morel as a third author on the paper? I do not mind having him as a third author.}
 In \cite{our_jcp_radhy_paper}, 
 a viscous regularization technique based on the local entropy residual was
 developed to stabilize numerical solutions of the non-equilibrium Grey 
@@ -51,7 +52,7 @@ present in the material energy and radiation energy equations.
 Here, we extend the method and derive an entropy minimum principle for the full non-equilibrium Grey Radiation Hydrodynamic 
 equations. This further strengthens the potential and applicability of the entropy viscosity method as a stabilization technique 
 for radiation hydrodynamic shock simulations. 
-\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp}
+\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 Radiative shock calculations using temperature-dependent opacities are presented for various Mach numbers and 
 compared with semi-analytical reference solutions. Convergence rates are provided.
 \end{abstract}
@@ -91,22 +92,22 @@ entropy viscosity method ; viscous stabilization method.}
 according to the MultiMat-2015 email.}
 %
 Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations (REF) with 
-high-order accuracy has been an area of great interest and substantial research 
-\tcr{if so, we should demonstrate this by providing a (long) list of references here \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}}. 
+high-order accuracy has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}
+\tcr{if so, we should demonstrate this by providing a (long) list of references here } \tcb{done}. 
 The GRH equations form a non-conservative multi-physics system of equations and couples the inviscid 
-hydrodynamic equations, i.e., Euler equations (REF)\tcr{do we need a ref here?}, with a parabolic 
-radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms (REF) 
+hydrodynamic equations, i.e., Euler equations \cite{toro} \tcr{do we need a ref here?}\tcb{I added Toro but it is not required}, with a parabolic 
+radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms (REF) \tcb{I will add this ref}
 that contain neither spatial nor temporal derivative terms. When the material is optically thick, i.e., 
 the absorption opacity becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) 
-equations (REF). The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (REF).
+equations (REF). The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (REF) \tcb{I will add this ref}.
 % and can be written in a conservative form. 
 Numerically solving for the GRH equations is challenging for at least three reasons: (i) because of the 
 wave-dominated nature of the GRH equations, \emph{a numerical method} is required to preserve the 
 solution's wave structure; 
 (ii) the GRH equations cannot be written in a conservative form and thus, the notions of weak and entropy 
-solutions cannot be defined in the sense of distributions (REF) \tcr{I would remove this: as is the case for 
-conservative case (REFs)}. Instead, the theory developed by Dal Maso, Le Floch and Murat (DLM) must be used to
-rigorously define, in a weak sense, the non-conservative products (REF) present in the material energy equation 
+solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005} \tcr{I would remove this: as is the case for 
+conservative case} \tcb{ok}. Instead, the theory developed by Dal Maso, Le Floch and Murat (DLM) must be used to
+rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation 
 and radiation energy density equation;
 (iii) finally, the \emph{numerical scheme} devised needs to preserve the equilibrium-diffusion limit in order to recover the EDL system of equations by ensuring that the viscous regularization dissipative terms are also
 well-scaled in such a limit.
@@ -120,9 +121,9 @@ proposed a generalized Riemann solver that accounts for the presence of relaxati
 \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic 
 equations where an approximate Riemann solver along with a flux limiter was used to resolve shocks and other waves. 
 Their results show good agreement with semi-analytical solutions. \tcr{does not Edwards have 2 papers with Lowrie, 
-one of the EDL limit as well? not useful here maybe}
+one of the EDL limit as well? not useful here maybe} \tcb{I know he has one paper for sure}
 
-The theory developed by DLM (REF) applies to non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq}:
+The theory developed by DLM \cite{dlm} applies to non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq}:
 %
 \begin{equation}\label{eq:nc-syst-eq}
 \partial_t U + A(U) \partial_x U = 0 \, , U \in \Omega
@@ -131,10 +132,10 @@ The theory developed by DLM (REF) applies to non-conservative hyperbolic system 
 where $\Omega$ is an open convex set and $U$ is a vector solution. It is assumed that \eqt{eq:nc-syst-eq} cannot be 
 written in a conservative form, i.e. the matrix $A(U)$ is \underline{not} the jacobian matrix of vector-values function $f: 
 \mathbb{R}^n \to \mathbb{R}^n$ such as $A(U) = \frac{\partial f(U)}{\partial U}$. Systems of equations of given by  
-\eqt{eq:nc-syst-eq} are often encountered in two-phase flow models (REFs), for instance. With the above assumptions, 
-the non-conservative product $A(U) \partial_x U$ is not defined by the theory of distribution (REF) \tcr{in the sense of distribution?} when considering 
+\eqt{eq:nc-syst-eq} are often encountered in two-phase flow models \cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. With the above assumptions, 
+the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distribution \tcr{in the sense of distribution?} \tcb{you are right I modified it}when considering 
 a Riemann problem, that is, one cannot rigorously define the notions of weak and entropy solutions as it is typically done for 
-conservation laws (REFs). In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
+conservation laws \cite{Lax}. In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 $\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$. Generally speaking, the main idea is to specify the values of the 
 solution at points of discontinuity so that the non-conservative product admits a weak solution. The Borel measure of 
@@ -165,10 +166,10 @@ vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscou
 \partial_t U^\epsilon + A(U^\epsilon) \partial_x U^\epsilon = \epsilon \partial_{xx} U^\epsilon \ , \nonumber
 \end{equation}
 %
-where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. (REF) and 
-further generalized by Alouges et al. (REF). In their work, they show that the solution to the 
-vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of (REF)). Moreover, Le 
-Floch in (REF) generalized the notion of entropy condition to non-conservative system of equations, in the space of 
+where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
+further generalized by Alouges et al. \cite{alouges_merlet_2004}. In their work, they show that the solution to the 
+vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of \cite{bianchini_bressan_2005}). Moreover, Le 
+Floch in \cite{lefloch_1988} generalized the notion of entropy condition to non-conservative system of equations, in the space of 
 bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
 numerical solution to the entropy weak solution. 
 %
@@ -203,7 +204,7 @@ viscous dissipation hence obtained yielded satisfactory results.
 The aim of this paper is two-fold. First, we enhance the theoretical grounds for using the EVM to solve the 
 Radiation-Hydrodynamic equations by demonstrating that the omitted diffusion
 and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
-entropy condition for non-conservative system of equations as stated in REF. Second, we present numerical
+entropy condition for non-conservative system of equations as stated in \cite{our_jcp_radhy_paper}. Second, we present numerical
 results for temperature-dependent opacities and provide convergence rates using semi-analytical solutions.
 
 The remainder of the paper is as follows: in \sct{sec:GRH}, we recall
@@ -213,7 +214,7 @@ The viscous regularization of the GRH equations based on their hyperbolic parts 
 In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
 principle when one considers the full GRH equations.
 After describing discretization and solution techniques in \sct{sec:discr}, 1-D numerical results for Mach 1.05 and 
-3 are given in \sct{sec:num-rslt} and compared against semi-analytical solutions obtained from REF. Test cases with 
+3 are given in \sct{sec:num-rslt} and compared against semi-analytical solutions obtained from REF \tcb{I think we should use Jim's dissertation for the reference. I emailed him for a more specific paper}. Test cases with 
 constant and temperature-dependent opacities are considered. 
 Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
 (Mach 1.05) and numerical solutions with steady-state shocks (Mach 3).
@@ -283,7 +284,7 @@ constant. The radiation energy density equation, \eqt{eq:GRHrad}, contains a dif
 total opacity $\sigma_t$. Note that the opacities $\sigma_a$ and $\sigma_t$ can be either constant or function of 
 material properties, typically material density and temperature. 
 The theoretical results obtained in this paper are independent of the functional form of the equations of state 
-(as long as these a concave entropy with respect to $e$ and $1/ \rho$). However, the Ideal Gas Equations of State
+(as long as these admit a concave entropy with respect to $e$ and $1/ \rho$). However, the Ideal Gas Equations of State
 (IGEOS) will be employed in the remainder for simplicity, with the relationships given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
 %
 \begin{equation}\label{eq:IGEOS}
@@ -293,15 +294,14 @@ P = (\gamma-1) \rho e \text{  and  } e = C_v T \, ,
 where the heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
 
 When omitting the relaxation and the diffusion terms from the GRH equations, a first-order partial differential system 
-of equations is obtained; this system is hyperbolic, admits four eigenvalues that are unconditionally real as long as the square of the speed of sound, $c$, remains positive ($\lambda_1 = u - c$, $\lambda_{2,3} = u$ and  $\lambda_4 = u + c$), and possesses a set of four linearly independent eigenvectors (REF).  
-\tcr{you need to find another symbol for the speed of sound. you already used $c$ for the speed of light ...}
-
-Assuming a smooth solution, the following entropy residual equation can be derived from \eqt{eq:GRH}
+of equations is obtained; this system is hyperbolic, admits four eigenvalues that are unconditionally real as long as the square of the speed of sound, $c_m$, remains positive ($\lambda_1 = u - c_m$, $\lambda_{2,3} = u$ and  $\lambda_4 = u + c_m$), and possesses a set of four linearly independent eigenvectors (REF).  
+\tcr{you need to find another symbol for the speed of sound. you already used $c$ for the speed of light ...} \tcb{done}
+Assuming a smooth solution and the existence of an entropy function $s=s(\rho, e, \epsilon)$, the following entropy residual equation can be derived from the hyperbolic system of equations, i.e. the GRH given in \eqt{eq:GRH} without the relaxation and diffusion terms:
 \tcr{just to be clear, this equation hold for the FULL but UNREGULARIZED GRH, right? I was a bit confused
-with the progression of what you want to do here, so maybe we should emphasize this here}
+with the progression of what you want to do here, so maybe we should emphasize this here} \tcb{I modified it}
 %
 \begin{equation}\label{eq:GRH-entropy}
-R_e(x,t) = \frac{D s}{Dt} = \left( \partial_t s + u \partial_x s \right) = 0
+\rho R_e(x,t) = \rho \frac{D s}{Dt}  =\rho  \left( \partial_t s + u \partial_x s \right) = 0 \text{ where } R_e(x,t) = \partial_t s + u \partial_x s
 \end{equation}
 %
 where the entropy variable is a function of the material density, the material specific internal energy, 
@@ -323,10 +323,13 @@ Hereafter, the left-hand-side of \eqt{sec:VR_old}, $R_e$, will be referred to as
 %------------------------------------------------------------------
 %
 Some features of non-conservative hyperbolic systems (NCSE) are discussed here. As mentioned previously, 
-the notion of weak and entropy solutions cannot be defined in a distribution sense for NCSE. 
-Bianchini and Bressan (REF) proposed an approach whereby the NCSE are modified by adding a parabolic regularization 
-with a vanishing-viscosity coefficient. Then, from Theorem 1 (page 229 in REF), such non-conservative systems with 
-parabolic regularization admits an unique vanishing-viscosity solution.
+the notion of weak and entropy solutions cannot be defined in a distribution sense for NCSE. Instead, we are using the theoretical results by 
+Bianchini and Bressan \cite{bianchini_bressan_2005}, who proposed an approach whereby the NCSE are modified by adding a parabolic regularization 
+with a vanishing-viscosity coefficient (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005}). Moreover, Le Floch generalized the notion of entropy 
+condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
+and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
+entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRD devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:VR_old} as a prerequisite for \sct{sec:VR_new}.
+%the same method as in \cite{jlg1, jlg2} was followed, where an entropy condition was used to derive the artificial dissipative terms for conservative system of equations alike Euler equations.
 %
 %------------------------------------------------------------------
 \subsection{A viscous regularization for the GRH based on their hyperbolic parts}
@@ -337,7 +340,7 @@ Because of their hyperbolic nature, the GRH equation can develop shocks, leading
 in numerical solutions. To prevent such oscillations from forming, numerical schemes must be properly stabilized. 
 In \cite{our_jcp_radhy_paper}, we devised an artificial-viscosity stabilization based on an 
 \emph{entropy condition} that requires positivity of the entropy residual. This viscous regularization led to the
-addition of artificial dissipative terms (REF). \tcb{make sure that entropy condition is defined in the introduction}
+addition of artificial dissipative terms. \tcb{make sure that entropy condition is defined in the introduction.} \tcb{done}
 %This section aims at recalling the main assumptions and steps in the derivation of the viscous regularization from \cite{our_jcp_radhy_paper} that will be used later in \sct{sec:VR_new}.
 The presence of these additional terms will modify the entropy residual equation (\eqt{eq:GRH-entropy}) and one 
 must ensure that the entropy minimum principle still holds. Specifically, one uses the entropy condition as a 
@@ -445,8 +448,8 @@ steps: first, using the functional form given in \eqt{eq:ent_equ} we note that $
 \eqt{eq:scn-law-th} yields $s_e = T^{-1} \geq 0$. Since $\rho \geq 0$ and $\kappa \geq 0$, positivity of 
 $s_e \rho \kappa (\partial_x u)^2$ is now trivial.
 
-\tcr{minimum entropy principle or entropy minimum principle? I am confused again}
-The minimum entropy principle follows: at any spatial position where the entropy is minimum, we have, by definition of 
+\tcr{minimum entropy principle or entropy minimum principle? I am confused again} \tcb{It is entropy minimum principle}
+The entropy minimum principle follows: at any spatial position where the entropy is minimum, we have, by definition of 
 the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have 
 $\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for 
 the GRH equations with the diffusion and relaxation terms omitted. In \cite{our_jcp_radhy_paper}, we attempted at 
@@ -578,9 +581,9 @@ since $s_{rad}$ (and thus $\tilde{s}_{rad}$) is, by definition, concave with res
 
 In conclusion, we have: 
 \begin{equation} 
-R_e(x,t) = \rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) \geq 0 \,,
+\rho R_e(x,t) = \rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) \geq 0 \,,
 \end{equation}
-which demonstrates that the full GRH equations are entropy-minimum satisfying. Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
+which demonstrates that the full GRH equations are entropy-minimum satisfying. Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. \tcb{This is still incomplete since we need to talk about positivity of the density. I will do it tomorrow.}
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
@@ -592,7 +595,7 @@ which demonstrates that the full GRH equations are entropy-minimum satisfying. C
 Now that the dissipative terms have been obtained and showed to be consistent with an entropy condition for the full GRH
 equations, we provide the artificial viscosity coefficient $\kappa$ used in the viscous regularization to complete the 
 definition of the numerical scheme. Various concepts may be invoked to define the viscosity coefficient. The guiding principle
-in the entropy viscosity method \cite{some jlg} is to let the artificial viscosity be proportional to the local entropy
+in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity be proportional to the local entropy
 production (i.e., the entropy residual). However, the entropy residual can be excessively large, in shocks for example, leading
 to the idea of bounding (from above) the entropy viscosity with a first-order viscosity (e.g., a local Lax-Friedrichs viscosity).
 We summarize the properties for these local viscosity coefficients below:
@@ -625,11 +628,13 @@ Following \cite{our_jcp_radhy_paper}, the first-order viscosity is based on the 
 \kappa_{max} = \frac{h}{2} \left( |u| + c_m \right) \,,
 \end{equation}  
 %
-where $h$ is the local grid size and $c_m$ is the radiation-modified speed of sound
+where $h$ is the local grid size and $c_m$ is the radiation-modified speed of sound with the following definition when using the Ideal Gas equation of state (see \cite{our_jcp_radhy_paper} for a more generic definition of the radiation-modified speed of sound):
+%
 \begin{equation}
-c_m = ....
+c_m^2 = \frac{ \gamma P}{\rho} + \frac{4}{9} \frac{\epsilon}{\rho}
 \end{equation}
-\tcr{bla}
+%
+\tcr{bla} \tcb{done}
 %Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the speed of sound of the equilibrium-diffusion equations (see \cite{our_jcp_radhy_paper}), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not.
 
 The definition of the entropy viscosity $\kappa_e(x,t)$ is based upon the entropy residual $R_e$ which is recast as a function of 
@@ -637,9 +642,10 @@ total pressure $\hat{P}$, density $\rho$ and speed of sound (see \cite{our_jcp_r
 %
 \begin{equation}
 \label{eq:equation9}
-R_e(x,t) = \frac{s_e}{P_e} \left(  \underbrace{ \frac{D\hat{P}}{Dt} - c_m^2 \frac{D\rho}{Dt} }_\textrm{$\tilde{R}_e(x,t)$} \right) \,.
+R_e(x,t) = \frac{s_e}{P_e} \left(  \underbrace{ \frac{D\hat{P}}{Dt} - c_m^2 \frac{D\rho}{Dt} }_\textrm{$\tilde{R}_e(x,t)$} \right) \, ,
 \end{equation}
-\tcr{$\hat{P}$ undefined here}
+where $\hat{P} = P + \frac{\epsilon}{3}$.
+\tcr{$\hat{P}$ undefined here} \tcb{done}
 %
 %The term $s_e$ is the inverse of the material temperature as shown in \sct{sec:VR_new}, and $P_e$ is computed from the equation of state. These two terms are positive so that the sign of the entropy residual $R_e(x,t)$ can be determined by simply inspecting the terms inside the parentheses, denoted by $\tilde{R}_e(x,t)$. Such an expression is easier to compute than the one given in \eqt{eq:GRH-entropy} which would require an analytical expression for the entropy function $s$. Note that when deriving the non-dimensional expression of $\tilde{R}_e(x,t)$ using the reference variables of EQUATION, the adimensional entropy residual is function of the scaling parameter $\Re$ that scales as one, and thus does not depend on $\varepsilon$. 
 In addition to the entropy residual, inter-element jumps in the pressure and density gradients, $J_{\hat{P}}$ and $J_{\rho}$, are also accounted for. 
@@ -678,12 +684,28 @@ J_{\hat{P}}(x_i,t) = |u| [[\partial_x \hat{P}]] \quad \text{ and } \quad
 J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \,.
 \end{equation}
 The symbol $[[ \cdot ]]$ denotes the jump at the cell interface. It was shown in \cite{our_jcp_radhy_paper}, that the normalization parameter $\rho c^2_m$ 
-was chosen such that the artificial dissipative terms scale adequately in the equilibrium-diffusion limit and yields the correct asymptotic behavior. 
-\tcr{and recover the EDL equations ... write something more, show the VR for EDL equations?}
-
-
-The entropy viscosity method is now well defined for the hyperbolic system given in \eqt{eq:regularized_hyperbolic_GRH} and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH}. \tcr{this makes no sense for THIS paper. Needs updating}.
+was chosen such that the artificial dissipative terms scale adequately in the equilibrium-diffusion limit and yields the correct asymptotic behavior as shown in \eqt{eq:equip-diff-equ}:
+\tcr{and recover the EDL equations ... write something more, show the VR for EDL equations?} \tcb{done}
+%
+\begin{subequations}
+\label{eq:equip-diff-equ}
+%
+\begin{equation}
+\partial_t \rho + \partial_x \left( \rho u \right) = \partial_x \left( \kappa \partial_x  \rho \right) \ ,
+\end{equation}
+%
+\begin{equation}
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + \hat{P} \right) = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right) \ , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho \hat{E} \right) + \partial_x \left[ u \left( \rho \hat{E} + \hat{P} \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right) + \partial_x \left( \kappa \partial_x \rho \hat{E} \right) \ , \end{equation}
+%
+\end{subequations}
+%
+where $\hat{E} = E + \frac{T^4}{\rho} $ is the radiation-modified specific energy whom definition matches the definition given in REF.
 %However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. This effect can be studied by deriving the entropy residual from the system given in \eqt{eq:regularized_hyperbolic_GRH} that accounts for the relaxation term and the physical diffusion term. Using the definition of the entropy function given in \eqt{eq:ent_equ} and following the same steps as in SECTION, it can be shown that the entropy minimum principle still holds for the full system of equations given in \eqt{eq:regularized_hyperbolic_GRH}.
+
 When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows (this is the implementation we opted in \cite{our_jcp_radhy_paper} and also to obtain the numerical results presented in \sct{sec:num-rslt}):
 %
 \begin{equation}
@@ -692,6 +714,7 @@ When applying the entropy viscosity method, the radiation energy density equatio
  \partial_x \left[ \max\left(\frac{c}{3 \sigma_t} \text{, } \kappa \right) \partial_x \epsilon \right] \,.
 \end{equation}
 %
+The entropy viscosity method is now well defined and will be used to solve for the non-equilibrium Grey Radiation-Hydrodynamic equations given in \eqt{eq:GRH} using the discretization technique detailed in \sct{sec:discr}. Numerical results are presented in \sct{sec:num-rslt}. \tcr{this makes no sense for THIS paper. Needs updating} \tcb{done}.
 %The effect of the relaxation source terms onto the entropy viscosity method can become problematic in the equilibrium diffusion limit $(\sigma_a c \to \infty)$: the relaxation source terms behave as dissipative terms and make the system parabolic \cite{Leveque}. In \cite{ShiJin}, a study on the impact of various artificial viscosity methods for hyperbolic systems with relaxation terms was carried out. It was shown that high-order viscosity coefficients are more suitable since they do not alter the physical solution as much as first-order viscosity terms (upwind scheme). A manufactured  solution was employed in (REF) to test the convergence of the numerical solution in the equilibrium-diffusion limit.  
 %
  \begin{remark}
@@ -743,12 +766,12 @@ H(U) =
 \begin{bmatrix}
 \kappa \partial_x \rho \\
 \kappa \partial_x (\rho u) \\
-\kappa \partial_x \left( \rho e \right) + \frac{u^2}{2} \kappa \partial_x \rho + \rho u \mu \partial_x u \\
+\kappa \partial_x \left( \rho E \right)\\
 \max \big( 0, \kappa- c/(3 \sigma_t) \big) \partial_x \epsilon 
 \end{bmatrix} \,.
 \end{eqnarray*}
 %
-\tcr{there is no $\mu$ and thus $H$ can be much simpler}
+\tcr{there is no $\mu$ and thus $H$ can be much simpler} \tcb{done}
 To obtain the weak form, \eqt{eq:form} is multiplied by a test function $\phi$, integrated by parts over the discrete mesh $\Omega$ bounded by $\partial \Omega$:
 \begin{multline}
 \sum_K \int_{K} \partial_t U \phi - \sum_K \int_{K} F(U) \partial_x \phi + \int_{\partial \Omega} F(U) \mathbf{n} \phi - 
@@ -757,7 +780,7 @@ To obtain the weak form, \eqt{eq:form} is multiplied by a test function $\phi$, 
 \end{multline}
 where $K$ represents the cells of $\Omega$ and $\mathbf{n}$ is the outward normal vector on the boundary of the computational domain. 
 Linear test functions are considered in this paper. The integrals over the elements $K$ are evaluated using a second-order Gauss quadrature rule. 
-An implicit second-order BDF2 temporal scheme is employed \cite{Leveque} \tcr{Leveque as a ref for BDF2???}. 
+An implicit second-order BDF2 temporal scheme is employed \cite{bdf2} \tcr{Leveque as a ref for BDF2???} \tcb{done}. 
 The integral on $\partial \Omega$ requires the computation of the inviscid and viscous fluxes $F(U)$ and $H(U)$ on the boundary. 
 We have opted to treat the boundary for each physics component independently and details on how to compute $F(U)$ are given in (REF). 
 The dissipative flux $H(U)$ is set to zero on the boundaries since the viscosity coefficients $\kappa$ and $\mu$ are set to zero \cite{jlg1, jlg2, valentin}. 
@@ -781,64 +804,65 @@ are provided. BDF2 time integration, linear continuous finite elements, and unif
 used in all simulations. 
 The boundary conditions for the hydrodynamics equations and radiation equation are as follows. For hydrodynamics variables, Dirichlet boundary conditions can be used
 at the inlet since the flow is supersonic and, therefore, no physical information exits the system. At the outlet, the flow is subsonic and a static 
-\tcr{pressure} boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the characteristics). 
-For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. 
+\tcr{pressure} \tcb{ok} boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the characteristics). 
+For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions and other relevant information will be specified.
 %
 %------------------------------------------------------------------
-\subsection{Mach 3 shock test with constant opacities}
+\subsection{Mach 3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
 %------------------------------------------------------------------
 %
-\begin{table}[H]
-\caption{\label{tbl:table1} L$_1$ norms of the error for Mach 3 test.}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
-$100$ & $8.346\times 10^{6}$ & NA &  $29.675$ & NA \\ \hline
-$200$ & $3.436\times 10^{6}$ & $1.280$ &  $12.300$ & $1.271$ \\ \hline
-$400$ & $3.066\times10^{6}$ & $0.164$ &  $10.998$ & $0.161$ \\ \hline
-$800$ & $1.565\times 10^{6}$ & $0.969$ &  $5.689$ & $0.951$ \\ \hline
-$1600$ & $7.323\times 10^{5}$ & $1.096$ &  $2.741$ & $1.054$ \\ \hline
-$3200$ & $3.648\times 10^{5}$ & $1.005$ & $1.440$ & $0.928$ \\ \hline
-$6400$ & $1.823\times 10^{5}$ & $1.001$ & $0.794$ & $0.858$ \\ \hline
-\hline
-\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
-$100$ & $7.470\times 10^{6}$ & NA & $1.458\times 10^6$ & NA	\\ \hline
-$200$ & $3.075\times 10^{6}$ & $1.280$ & $6.001\times 10^5$ & $1.280$	\\ \hline
-$400$ & $2.744\times 10^{6}$ & $0.164$ & $5.3555\times 10^5$ & $0.164$	\\ \hline
-$800$ & $1.401\times 10^{6}$ & $0.969$ & $2.734\times 10^5$ & $0.969$	\\  \hline
-$1600$&$6.555\times 10^{5}$ & $1.096$ & $1.279\times 10^5$ & $1.096$ \\ \hline 
-$3200$ & $3.266\times10^{5}$  & $1.005$ & $6.372\times 10^4$ & $1.005$ \\ \hline   
-$6400$ & $1.632\times 10^{5}$  & $1.000$ & $3.184\times10^4$ & $1.001$ \\ \hline   
-\end{tabular}  
-\end{center}
-\end{table}
-%
-\begin{table}[H]
-\caption{\label{tbl:table1} L$_2$ norms of the error for Mach 3 test.}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
-$100$ & $6.087\times 10^{8}$ & NA &  $29.675$ & NA \\ \hline
-$200$ & $3.177\times 10^{8}$ & $1.280$ &  $12.300$ & $0.938$ \\ \hline
-$400$ & $3.827\times10^{8}$ & $0.164$ &  $10.998$ & $0.269$ \\ \hline
-$800$ & $2.742\times 10^{8}$ & $0.969$ &  $5.689$ & $0.481$ \\ \hline
-$1600$ & $1.811\times 10^{8}$ & $1.096$ &  $2.741$ & $0.599$ \\ \hline
-$3200$ & $1.275\times 10^{8}$ & $1.005$ & $1.440$ & $0.506$ \\ \hline
-$6400$ & $9.011\times 10^{7}$ & $1.001$ & $0.794$ & $0.501$ \\ \hline
-\hline
-\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
-$100$ & $5.448\times 10^{8}$ & NA & $1.063\times 10^9$ & NA	\\ \hline
-$200$ & $2.843\times 10^{8}$ & $0.938$ & $5.548\times 10^8$ & $0.938$	\\ \hline
-$400$ & $3.426\times 10^{8}$ & $0.269$ & $6.685\times 10^8$ & $0.269$	\\ \hline
-$800$ & $2.454\times 10^{8}$ & $0.481$ & $4.789\times 10^8$ & $0.481$	\\  \hline
-$1600$&$1.621\times 10^{8}$ & $0.599$ & $3.162\times 10^8$ & $0.599$ \\ \hline 
-$3200$ & $1.141\times10^{8}$  & $0.506$ & $2.227\times 10^8$ & $0.506$ \\ \hline   
-$6400$ & $8.064\times 10^{7}$  & $0.501$ & $1.574\times10^8$ & $0.501$ \\ \hline   
-\end{tabular}  
-\end{center}
-\end{table}
+\tcb{I will add this tomorrow}
+%\begin{table}[H]
+%\caption{\label{tbl:table1} L$_1$ norms of the error for Mach 3 test.}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+%\hline
+%\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
+%$100$ & $8.346\times 10^{6}$ & NA &  $29.675$ & NA \\ \hline
+%$200$ & $3.436\times 10^{6}$ & $1.280$ &  $12.300$ & $1.271$ \\ \hline
+%$400$ & $3.066\times10^{6}$ & $0.164$ &  $10.998$ & $0.161$ \\ \hline
+%$800$ & $1.565\times 10^{6}$ & $0.969$ &  $5.689$ & $0.951$ \\ \hline
+%$1600$ & $7.323\times 10^{5}$ & $1.096$ &  $2.741$ & $1.054$ \\ \hline
+%$3200$ & $3.648\times 10^{5}$ & $1.005$ & $1.440$ & $0.928$ \\ \hline
+%$6400$ & $1.823\times 10^{5}$ & $1.001$ & $0.794$ & $0.858$ \\ \hline
+%\hline
+%\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
+%$100$ & $7.470\times 10^{6}$ & NA & $1.458\times 10^6$ & NA	\\ \hline
+%$200$ & $3.075\times 10^{6}$ & $1.280$ & $6.001\times 10^5$ & $1.280$	\\ \hline
+%$400$ & $2.744\times 10^{6}$ & $0.164$ & $5.3555\times 10^5$ & $0.164$	\\ \hline
+%$800$ & $1.401\times 10^{6}$ & $0.969$ & $2.734\times 10^5$ & $0.969$	\\  \hline
+%$1600$&$6.555\times 10^{5}$ & $1.096$ & $1.279\times 10^5$ & $1.096$ \\ \hline 
+%$3200$ & $3.266\times10^{5}$  & $1.005$ & $6.372\times 10^4$ & $1.005$ \\ \hline   
+%$6400$ & $1.632\times 10^{5}$  & $1.000$ & $3.184\times10^4$ & $1.001$ \\ \hline   
+%\end{tabular}  
+%\end{center}
+%\end{table}
+%%
+%\begin{table}[H]
+%\caption{\label{tbl:table1} L$_2$ norms of the error for Mach 3 test.}
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+%\hline
+%\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
+%$100$ & $6.087\times 10^{8}$ & NA &  $29.675$ & NA \\ \hline
+%$200$ & $3.177\times 10^{8}$ & $1.280$ &  $12.300$ & $0.938$ \\ \hline
+%$400$ & $3.827\times10^{8}$ & $0.164$ &  $10.998$ & $0.269$ \\ \hline
+%$800$ & $2.742\times 10^{8}$ & $0.969$ &  $5.689$ & $0.481$ \\ \hline
+%$1600$ & $1.811\times 10^{8}$ & $1.096$ &  $2.741$ & $0.599$ \\ \hline
+%$3200$ & $1.275\times 10^{8}$ & $1.005$ & $1.440$ & $0.506$ \\ \hline
+%$6400$ & $9.011\times 10^{7}$ & $1.001$ & $0.794$ & $0.501$ \\ \hline
+%\hline
+%\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
+%$100$ & $5.448\times 10^{8}$ & NA & $1.063\times 10^9$ & NA	\\ \hline
+%$200$ & $2.843\times 10^{8}$ & $0.938$ & $5.548\times 10^8$ & $0.938$	\\ \hline
+%$400$ & $3.426\times 10^{8}$ & $0.269$ & $6.685\times 10^8$ & $0.269$	\\ \hline
+%$800$ & $2.454\times 10^{8}$ & $0.481$ & $4.789\times 10^8$ & $0.481$	\\  \hline
+%$1600$&$1.621\times 10^{8}$ & $0.599$ & $3.162\times 10^8$ & $0.599$ \\ \hline 
+%$3200$ & $1.141\times10^{8}$  & $0.506$ & $2.227\times 10^8$ & $0.506$ \\ \hline   
+%$6400$ & $8.064\times 10^{7}$  & $0.501$ & $1.574\times10^8$ & $0.501$ \\ \hline   
+%\end{tabular}  
+%\end{center}
+%\end{table}
 %
 \begin{figure}[H]
     \centering
@@ -859,7 +883,7 @@ $6400$ & $8.064\times 10^{7}$  & $0.501$ & $1.574\times10^8$ & $0.501$ \\ \hline
 \end{figure}
 %
 %------------------------------------------------------------------
-\subsection{Mach 3 shock test with temperature-dependent opacities}
+\subsection{Mach 3 shock test with temperature-dependent opacities}\label{sec:mach-3-no-cst-xs}
 %------------------------------------------------------------------
 %
 \begin{itemize}
@@ -883,7 +907,7 @@ $6400$ & $8.064\times 10^{7}$  & $0.501$ & $1.574\times10^8$ & $0.501$ \\ \hline
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
-    \caption{Steady-state solution of the total opacity $\sigma_t$ for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
+    \caption{Steady-state solution of the total opacity $\sigma_t$ for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-xs}
 \end{figure}
 %
 \begin{figure}[H]

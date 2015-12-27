@@ -210,11 +210,18 @@ related to weak and entropy solutions for non-conservative system of equations. 
 that lead to the viscous regularization of \cite{our_jcp_radhy_paper} using an 
 entropy condition. Finally, the 1-D non-equilibrium grey Radiation-Hydrodynamic equation \emph{with} viscous regularization derived in 
 \cite{our_jcp_radhy_paper} are recalled.
-
+%
+%
+\vspace{-6pt}
+%
 %------------------------------------------------------------------
 \subsection{The governing equations}\label{sec:GRH-inviscid}
 %------------------------------------------------------------------
-The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are as follow for any time $t \geq 0$ and spatial coordinate $x \in \mathcal{R}$:
+%
+\vspace{-2pt}
+%
+%
+The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} viscous regularization are as follow for any time $t \geq 0$ and any spatial coordinate $x \in \mathcal{R}$:
 %
 \begin{subequations}\label{eq:GRH}
 %
@@ -230,12 +237,12 @@ The 1-D non-equilibrium grey Radiation-Hydrodynamic equations \emph{without} vis
 %
 \begin{align}
 \label{eq:GRHenerg}
-\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] = -\frac{u}{3} \partial_x \epsilon - \sigma_a c \left( a T^4 - \epsilon \right) \ ,
+\partial_t \left( \rho E\right) + \partial_x \left[ u \left( \rho E + P \right) \right] + \frac{u}{3} \partial_x \epsilon = - \sigma_a c \left( a T^4 - \epsilon \right) \ ,
 \end{align}
 %
 \begin{align}
 \label{eq:GRHrad}
-\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) = \frac{u}{3} \partial_x \epsilon + \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+\partial_t \epsilon + \frac{4}{3} \partial_x \left( u \epsilon \right) - \frac{u}{3} \partial_x \epsilon = \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
 + \sigma_a c \left( a T^4 - \epsilon \right) \ ,
 \end{align}
 %
@@ -266,23 +273,34 @@ P = (\gamma-1) \rho e \text{  and  } e = C_v T \, ,
 %
 where the heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
 
-When omitting the relaxation and the diffusion terms from the GRH equations, a first-order partial differential system 
-of equations is obtained; this system is hyperbolic since (i) it admits four eigenvalues that are unconditionally real as long as the square of the speed of sound, $c_s$, remains positive ($\lambda_1 = u - c_s$, $\lambda_{2,3} = u$ and  $\lambda_4 = u + c_s$), and (ii) possesses a set of four linearly independent eigenvectors (REF).  
+When omitting the relaxation and the diffusion terms from the GRH equations, i.e. the righthand side of \eqt{eq:GRH} is zeroed out, a first-order partial differential non-conservative system of equations is obtained and will be referred to as the \emph{Hyperbolic Non-Conservative System of Equations} (HNCSE) in the remaining of this paper; this system is hyperbolic since (i) it admits four eigenvalues that are unconditionally real as long as the square of the speed of sound, $c_s^2$, remains positive ($\lambda_1 = u - c_s$, $\lambda_{2,3} = u$ and  $\lambda_4 = u + c_s$), and (ii) possesses a set of four linearly independent eigenvectors (REF). The fields associated with the waves $\lambda_1$ and $\lambda_4$ are genuinely non-linear and the fields associated with the waves $\lambda_2$ and $\lambda_3$ are linearly degenerate. 
 \tcr{you need to find another symbol for the speed of sound. you already used $c$ for the speed of light ...}
-Assuming a smooth solution, the following entropy residual equation can be derived from \eqt{eq:GRH}
+Assuming a smooth solution, the following entropy residual equation can be derived from the HNCSE
 \tcr{just to be clear, this equation hold for the FULL but UNREGULARIZED GRH, right? I was a bit confused
 with the progression of what you want to do here, so maybe we should emphasize this here}
 %
-\begin{equation}\label{eq:GRH-entropy}
-R_e(x,t) = \frac{D s}{Dt} = \left( \partial_t s + u \partial_x s \right) = 0
-\end{equation}
+\begin{align}\label{eq:GRH-entropy}
+\rho R_e(x,t) = \rho \frac{D s}{Dt} = \rho \left( \partial_t s + u \partial_x s \right) = 0
+\end{align}
 %
 where the entropy variable is a function of the material density, the material specific internal energy, 
 and the radiation density energy, i.e., $s(\rho, e, \epsilon)$. The steps leading to \eqt{eq:GRH-entropy} 
-can be found in \cite{our_jcp_radhy_paper}.
-We emphasize that \eqt{eq:GRH-entropy} is only valid for smooth numerical solutions and that a different version 
-will be presented in \sct{sec:VR_old} for numerical solutions with discontinuities. 
-Hereafter, the left-hand-side of \eqt{sec:VR_old}, $R_e$, will be referred to as the \emph{entropy residual}.
+can be found in \cite{our_jcp_radhy_paper}. We emphasize that \eqt{eq:GRH-entropy} is only valid for 
+smooth numerical solutions and that a different version will be presented in \sct{sec:VR_old} for numerical 
+solutions with discontinuities. Hereafter, the left-hand-side of \eqt{sec:VR_old}, $R_e$, will be referred 
+to as the \emph{entropy residual}.
+%
+%
+\vspace{-6pt}
+%
+%------------------------------------------------------------------
+\subsection{Weak and entropy solutions for non-conservative hyperbolic system of equations}\label{sec:ncse-theorems}
+%------------------------------------------------------------------
+%
+\vspace{-2pt}
+%
+%
+
 %
 %
 \vspace{-6pt}
