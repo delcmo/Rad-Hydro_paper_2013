@@ -800,12 +800,23 @@ An approximate Jacobian matrix is used as a preconditioner and is computed by fi
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations with constant and temperature-dependent opacities. BDF2 time integration, linear continuous finite elements, and an uniform grid of $500$ cells is used to discretize the problem. A CFL number of 10 is 
+We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations with a pure absorber material: the first test corresponds to a material with constant cross sections (\sct{sec:mach-3-cst-xs}), and the second test corresponds to a material with temperature dependent opacities (\sct{sec:mach-3-no-cst-xs}). BDF2 time integration, linear continuous finite elements, and an uniform grid of $500$ cells is used to discretize the problem. A CFL number of 10 is 
 used in all simulations until a steady-state numerical solution is obtained. 
 The boundary conditions for the hydrodynamics equations and radiation equation are as follows. For hydrodynamics variables, Dirichlet boundary conditions can be used
 at the inlet since the flow is supersonic and, therefore, no physical information exits the system. At the outlet, the flow is subsonic and a static 
 \tcr{pressure} \tcb{ok} boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the characteristics). 
-For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions are expressed as a function of four non-dimensional numbers
+For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. 
+
+For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions are computed from four non-dimensional numbers that are defined below in \eqt{eq:scaled-nb} where the symbol $\infty$ denotes the reference values (see Section 2 of \cite{LowrieEdwards} for further details).
+%
+\begin{eqnarray}\label{eq:scaled-nb}
+& M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , \\
+& \mathbb{P}_\infty = \frac{a T^4_\infty}{\rho_\infty c^2_{m,\infty} } \text{ (Ratio of radiation to material energy) } \ , \\
+& \mathbb{\Sigma} =  \frac{\sigma_a L_\infty c}{c_{m,\infty}} \text{ (Absorption cross section) } \ , \\
+& \mathbb{\Lambda} = \frac{c}{3 \sigma_t c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
+\end{eqnarray}
+%
+The 
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
@@ -863,7 +874,7 @@ For the radiation diffusion equation, vacuum boundary conditions are used at bot
 %\end{center}
 %\end{table}
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the non-dimensional numbers in \tbl{tbl:table3}.
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from four non-dimensional numbers in \tbl{tbl:table3}.
 \begin{figure}[H]
     \centering
 %    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
