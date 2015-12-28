@@ -96,10 +96,10 @@ high-order accuracy has been an area of great interest and substantial research 
 \tcr{if so, we should demonstrate this by providing a (long) list of references here } \tcb{done}. 
 The GRH equations form a non-conservative multi-physics system of equations and couples the inviscid 
 hydrodynamic equations, i.e., Euler equations \cite{toro} \tcr{do we need a ref here?}\tcb{I added Toro but it is not required}, with a parabolic 
-radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms (REF) \tcb{I will add this ref}
+radiation-diffusion equation. The coupling between the two physics is ensured through relaxation terms
 that contain neither spatial nor temporal derivative terms. When the material is optically thick, i.e., 
 the absorption opacity becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) 
-equations (REF). The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (REF) \tcb{I will add this ref}.
+equations. The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
 % and can be written in a conservative form. 
 Numerically solving for the GRH equations is challenging for at least three reasons: (i) because of the 
 wave-dominated nature of the GRH equations, \emph{a numerical method} is required to preserve the 
@@ -214,7 +214,7 @@ The viscous regularization of the GRH equations based on their hyperbolic parts 
 In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
 principle when one considers the full GRH equations.
 After describing discretization and solution techniques in \sct{sec:discr}, 1-D numerical results for Mach 1.05 and 
-3 are given in \sct{sec:num-rslt} and compared against semi-analytical solutions obtained from REF \tcb{I think we should use Jim's dissertation for the reference. I emailed him for a more specific paper}. Test cases with 
+3 are given in \sct{sec:num-rslt} and compared against semi-analytical solutions obtained from the method detailed in \cite{jim_ferguson} \tcb{I think we should use Jim's dissertation for the reference. I emailed him for a more specific paper}. Test cases with 
 constant and temperature-dependent opacities are considered. 
 Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
 (Mach 1.05) and numerical solutions with steady-state shocks (Mach 3).
@@ -301,11 +301,12 @@ Assuming a smooth solution and the existence of an entropy function $s=s(\rho, e
 with the progression of what you want to do here, so maybe we should emphasize this here} \tcb{I modified it}
 %
 \begin{equation}\label{eq:GRH-entropy}
-\rho R_e(x,t) = \rho \frac{D s}{Dt}  =\rho  \left( \partial_t s + u \partial_x s \right) = 0 \text{ where } R_e(x,t) = \partial_t s + u \partial_x s
+\rho R_e(x,t) = \rho \frac{D s}{Dt}  =\rho  \left( \partial_t s + u \partial_x s \right) = 0 \text{ where } R_e(x,t) = \partial_t s + u \partial_x s \, .
 \end{equation}
 %
-where the entropy variable is a function of the material density, the material specific internal energy, 
-and the radiation density energy, i.e., $s(\rho, e, \epsilon)$. The steps leading to \eqt{eq:GRH-entropy} 
+%where the entropy variable is a function of the material density, the material specific internal energy, 
+%and the radiation density energy, i.e., $s(\rho, e, \epsilon)$. 
+The steps leading to \eqt{eq:GRH-entropy} 
 can be found in \cite{our_jcp_radhy_paper}.
 We emphasize that \eqt{eq:GRH-entropy} is only valid for smooth numerical solutions and that a different version 
 will be presented in \sct{sec:VR_old} for numerical solutions with discontinuities. 
@@ -799,19 +800,17 @@ An approximate Jacobian matrix is used as a preconditioner and is computed by fi
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-We present 1-D numerical results for Mach 1.05 and Mach 3 radiation hydrodynamic simulations. Results with constant and temperature-dependent opacities
-are provided. BDF2 time integration, linear continuous finite elements, and uniform grids are used to discretize the problem. A CFL number of 10 is 
-used in all simulations. 
+We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations with constant and temperature-dependent opacities. BDF2 time integration, linear continuous finite elements, and an uniform grid of $500$ cells is used to discretize the problem. A CFL number of 10 is 
+used in all simulations until a steady-state numerical solution is obtained. 
 The boundary conditions for the hydrodynamics equations and radiation equation are as follows. For hydrodynamics variables, Dirichlet boundary conditions can be used
 at the inlet since the flow is supersonic and, therefore, no physical information exits the system. At the outlet, the flow is subsonic and a static 
 \tcr{pressure} \tcb{ok} boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the characteristics). 
-For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions and other relevant information will be specified.
+For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions are expressed as a function of four non-dimensional numbers
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
 %------------------------------------------------------------------
 %
-\tcb{I will add this tomorrow}
 %\begin{table}[H]
 %\caption{\label{tbl:table1} L$_1$ norms of the error for Mach 3 test.}
 %\begin{center}
@@ -864,21 +863,25 @@ For the radiation diffusion equation, vacuum boundary conditions are used at bot
 %\end{center}
 %\end{table}
 %
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the non-dimensional numbers in \tbl{tbl:table3}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
     \caption{Steady-state solution of the material density for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-dens}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
     \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-temp}
 \end{figure}
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-visc}
 \end{figure}
 %
