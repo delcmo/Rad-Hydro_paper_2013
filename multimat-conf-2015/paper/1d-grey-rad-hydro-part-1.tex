@@ -91,7 +91,7 @@ entropy viscosity method ; viscous stabilization method.}
 \tcr{we should put this paper in the IJNMF template to see if we stay under the 25-page limit. 20-21 is preferred
 according to the MultiMat-2015 email.}
 %
-Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations (REF) with 
+Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations with 
 high-order accuracy has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}
 \tcr{if so, we should demonstrate this by providing a (long) list of references here } \tcb{done}. 
 The GRH equations form a non-conservative multi-physics system of equations and couples the inviscid 
@@ -639,7 +639,7 @@ c_m^2 = \frac{ \gamma P}{\rho} + \frac{4}{9} \frac{\epsilon}{\rho}
 %Since the soundspeed of the non-equilibrium radiation hydrodynamic equation is always greater than or equal to the speed of sound of the equilibrium-diffusion equations (see \cite{our_jcp_radhy_paper}), the value used for the first-order viscosity is always large enough, whether in the equilibrium diffusion limit or not.
 
 The definition of the entropy viscosity $\kappa_e(x,t)$ is based upon the entropy residual $R_e$ which is recast as a function of 
-total pressure $\hat{P}$, density $\rho$ and speed of sound (see \cite{our_jcp_radhy_paper} for details):
+total pressure $\hat{P}$, density $\rho$ and radiation-modified speed of sound (see \cite{our_jcp_radhy_paper} for details):
 %
 \begin{equation}
 \label{eq:equation9}
@@ -704,7 +704,7 @@ was chosen such that the artificial dissipative terms scale adequately in the eq
 %
 \end{subequations}
 %
-where $\hat{E} = E + \frac{T^4}{\rho} $ is the radiation-modified specific energy whom definition matches the definition given in REF.
+where $\hat{E} = E + \frac{T^4}{\rho} $ is the radiation-modified specific energy whom definition matches the definition given in \cite{LowrieMorel}.
 %However, one may question how the relaxation source terms, $\sigma_a c (a T^4-\epsilon)$ and the physical diffusion term, $\partial_x(D\partial_x \epsilon)$, may affect the entropy viscosity method. This effect can be studied by deriving the entropy residual from the system given in \eqt{eq:regularized_hyperbolic_GRH} that accounts for the relaxation term and the physical diffusion term. Using the definition of the entropy function given in \eqt{eq:ent_equ} and following the same steps as in SECTION, it can be shown that the entropy minimum principle still holds for the full system of equations given in \eqt{eq:regularized_hyperbolic_GRH}.
 
 When applying the entropy viscosity method, the radiation energy density equation will now contain a diffusive term and a numerical dissipative term with a vanishing viscosity coefficient $\kappa$. As long as the diffusive coefficient $D=\frac{c}{3 \sigma_t}$ is larger than the viscosity coefficient $\kappa$, the numerical dissipative term should not be required. A way to ensure consistency and prevent the formation of oscillations in the frozen limit is to merge the two second-order derivative terms into one as follows (this is the implementation we opted in \cite{our_jcp_radhy_paper} and also to obtain the numerical results presented in \sct{sec:num-rslt}):
@@ -783,7 +783,7 @@ where $K$ represents the cells of $\Omega$ and $\mathbf{n}$ is the outward norma
 Linear test functions are considered in this paper. The integrals over the elements $K$ are evaluated using a second-order Gauss quadrature rule. 
 An implicit second-order BDF2 temporal scheme is employed \cite{bdf2} \tcr{Leveque as a ref for BDF2???} \tcb{done}. 
 The integral on $\partial \Omega$ requires the computation of the inviscid and viscous fluxes $F(U)$ and $H(U)$ on the boundary. 
-We have opted to treat the boundary for each physics component independently and details on how to compute $F(U)$ are given in (REF). 
+We have opted to treat the boundary for each physics component independently and details on how to compute $F(U)$ are given in \cite{our_jcp_radhy_paper}. 
 The dissipative flux $H(U)$ is set to zero on the boundaries since the viscosity coefficients $\kappa$ and $\mu$ are set to zero \cite{jlg1, jlg2, valentin}. 
 
 A Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the resulting nonlinear system of equations at each time step.
@@ -810,13 +810,13 @@ For the radiation diffusion equation, vacuum boundary conditions are used at bot
 For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions are computed from four non-dimensional numbers that are defined below in \eqt{eq:scaled-nb} where the symbol $\infty$ denotes the reference values (see Section 2 of \cite{LowrieEdwards} for further details).
 %
 \begin{eqnarray}\label{eq:scaled-nb}
-& M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , \\
-& \mathbb{P}_\infty = \frac{a T^4_\infty}{\rho_\infty c^2_{m,\infty} } \text{ (Ratio of radiation to material energy) } \ , \\
-& \mathbb{\Sigma} =  \frac{\sigma_a L_\infty c}{c_{m,\infty}} \text{ (Absorption cross section) } \ , \\
-& \mathbb{\Lambda} = \frac{c}{3 \sigma_t c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
+M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , \\
+\mathbb{P}_\infty = \frac{a T^4_\infty}{\rho_\infty c^2_{m,\infty} } \text{ (Ratio of radiation to material energy) } \ , \\
+\mathbb{\Sigma} =  \frac{\sigma_a L_\infty c}{c_{m,\infty}} \text{ (Absorption cross section) } \ , \\
+\mathbb{\Lambda} = \frac{c}{3 \sigma_t c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
 \end{eqnarray}
 %
-The 
+The values of the above non-dimensional numbers will be specified for each numerical tests presented in this paper. We recall that in the case of a pure-absorber material, the total and absorption cross sections are set equal.
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
@@ -874,27 +874,34 @@ The
 %\end{center}
 %\end{table}
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from four non-dimensional numbers in \tbl{tbl:table3}.
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$.The steady-test numerical results of the material density. the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions.
 \begin{figure}[H]
     \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
     \caption{Steady-state solution of the material density for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-dens}
 \end{figure}
 %
-\begin{figure}[H]
-    \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
-    \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-temp}
-\end{figure}
+The material density plotted in \fig{fig:mach-3-cst-xs-dens} shows good agreement with the semi-analytical solution: the shock located around $x=0 \ cm$ is well resolved and does not display any instability.
 %
 \begin{figure}[H]
     \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
+    \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-temp}
+\end{figure}
+%
+In \fig{fig:mach-3-cst-xs-temp}, the material temperature shows a Zeldovich's peak around $x=0 \ cm$ that corresponds to the shock position in the material density profile (see \fig{fig:mach-3-cst-xs-dens}). The radiation temperature remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). Both the material and radiation temperature profiles show good agreement with the semi-analytical solutions.
+%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-visc}
 \end{figure}
+%
+The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the entropy residual (see \eqt{eq:equation12}). It is noticed, however, that the viscosity coefficient $\kappa$ does not saturate to the over-dissipative viscosity coefficient $\kappa_{max}$ but still manages to efficiently stabilize the numerical solution. An explanation to this observation holds
+in the dissipative behavior of the source terms as they are entropy productive, as proved in \sct{sec:VR_new}.
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with temperature-dependent opacities}\label{sec:mach-3-no-cst-xs}
