@@ -680,7 +680,7 @@ where $J = \max_i (J(x_i,t))$, and $J(x_i,t)$ is the jump of a given quantity at
 %%
 The jump $J$ is cellwise-constant and its expression is discretization-dependent. For a continuous finite element method, $J$ is computed as the
 jump of the normal derivative at the interface: 
-\begin{equation}
+\begin{equation}\label{eq:equation13}
 J_{\hat{P}}(x_i,t) = |u| [[\partial_x \hat{P}]] \quad \text{ and } \quad 
 J_{\rho}(x_i,t) = c_m^2 |u|  [[\partial_x \rho]] \,.
 \end{equation}
@@ -800,14 +800,14 @@ An approximate Jacobian matrix is used as a preconditioner and is computed by fi
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations with a pure absorber material: the first test corresponds to a material with constant cross sections (\sct{sec:mach-3-cst-xs}), and the second test corresponds to a material with temperature dependent opacities (\sct{sec:mach-3-no-cst-xs}). BDF2 time integration, linear continuous finite elements, and an uniform grid of $500$ cells is used to discretize the problem. A CFL number of 10 is 
-used in all simulations until a steady-state numerical solution is obtained. 
+We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations with a pure absorber material: the first test corresponds to a material with constant cross sections (\sct{sec:mach-3-cst-xs}), and the second test corresponds to a material with temperature dependent opacities (\sct{sec:mach-3-no-cst-xs}). BDF2 time integration, linear continuous finite elements, and an uniform grid of $1000$ cells is used to discretize the problem. A CFL number of 10 is 
+used in all simulations until a steady-state numerical solution is obtained: the $L_2$ norm of the total residual is monitored in order to detect steady state. 
 The boundary conditions for the hydrodynamics equations and radiation equation are as follows. For hydrodynamics variables, Dirichlet boundary conditions can be used
 at the inlet since the flow is supersonic and, therefore, no physical information exits the system. At the outlet, the flow is subsonic and a static 
 \tcr{pressure} \tcb{ok} boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the characteristics). 
 For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. 
 
-For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial conditions are computed from four non-dimensional numbers that are defined below in \eqt{eq:scaled-nb} where the symbol $\infty$ denotes the reference values (see Section 2 of \cite{LowrieEdwards} for further details).
+For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial step conditions are computed from four non-dimensional numbers, that are defined below in \eqt{eq:scaled-nb}, and the Rankine-Hugoniot condition \cite{toro, LowrieEdwards}. The symbol $\infty$ denotes the reference values in \eqt{eq:scaled-nb} (see Section 2 of \cite{LowrieEdwards} for further details).
 %
 \begin{eqnarray}\label{eq:scaled-nb}
 M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , \\
@@ -816,7 +816,7 @@ M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , \\
 \mathbb{\Lambda} = \frac{c}{3 \sigma_t c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
 \end{eqnarray}
 %
-The values of the above non-dimensional numbers will be specified for each numerical tests presented in this paper. We recall that in the case of a pure-absorber material, the total and absorption cross sections are set equal.
+The values of the above non-dimensional numbers will be specified for each numerical tests presented in this section. We recall that in the case of a pure-absorber material, the total and absorption cross sections are set equal. The initial step is always set at $x = 0 \ cm$.
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
@@ -874,7 +874,7 @@ The values of the above non-dimensional numbers will be specified for each numer
 %\end{center}
 %\end{table}
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$.The steady-test numerical results of the material density. the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions.
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$.The steady-test numerical results of the material density. the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions when available.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
@@ -900,18 +900,30 @@ In \fig{fig:mach-3-cst-xs-temp}, the material temperature shows a Zeldovich's pe
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-cst-xs-visc}
 \end{figure}
 %
-The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the entropy residual (see \eqt{eq:equation12}). It is noticed, however, that the viscosity coefficient $\kappa$ does not saturate to the over-dissipative viscosity coefficient $\kappa_{max}$ but still manages to efficiently stabilize the numerical solution. An explanation to this observation holds
-in the dissipative behavior of the source terms as they are entropy productive, as proved in \sct{sec:VR_new}.
+The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the entropy residual (see \eqt{eq:equation12}). It is noticed, however, that the viscosity coefficient $\kappa$ does not saturate to the over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. An explanation to this observation holds
+in the dissipative behavior of the source terms as they are entropy productive and thus add dissipation, as proved in \sct{sec:VR_new}.
 %
 %------------------------------------------------------------------
 \subsection{Mach 3 shock test with temperature-dependent opacities}\label{sec:mach-3-no-cst-xs}
 %------------------------------------------------------------------
 %
-\begin{itemize}
-\item numerical results using definition of the viscosity coefficient provided in previous section: density, temperature, opacity and viscosity coefficient profiles.
-\item eyeball convergence study when refining the mesh.
-\item investigate the influence of the jumps in the definition of the viscosity coefficients: run the same numerical test with and without jumps.
-\end{itemize}
+\tcb{We need a reference for this test. I have the report that was emailed by Dr Morel to me but I am not sure this is sufficient} \\
+We now consider a Mach 3 test in a pure absorber material with the same non-dimensional numbers as in \sct{sec:mach-3-cst-xs}. The cross sections are no longer constant but depend on the material properties, i.e the density $\rho$ and the material temperature $T$. Expression of the \emph{non-dimensional} form of the temperature-dependent cross section, $\tilde{\sigma}$, is given in \eqt{eq:opacity}:
+%
+\begin{equation}\label{eq:opacity}
+\tilde{\sigma}_a = \tilde{\sigma}_t = \tilde{\rho} \frac{12.5}{\tilde{T}^{\frac{2}{5}}}\, ,
+\end{equation}
+%
+where the upper-script '$\ \tilde{} \ $' denotes non-dimensional variables. The dimensional cross sections can be obtained from \eqt{eq:opacity} by multiplying by a reference cross section computed from the non-dimensional numbers given in \eqt{eq:scaled-nb}.
+
+This test aims at testing the entropy viscosity method with a non-constant cross section. From a theoretical perspective as proved in \sct{sec:def-visc-coeff}, the entropy inequality still holds, meaning that the viscous regularization should efficiently stabilize any discontinuity or shock that would from in the numerical solution. 
+
+The test is run until steady state is reached. Numerical results of the material density and, the material and radiation temperatures are presented and plotted against semi-analytical solutions in \fig{fig:mach-3-dpt-xs-dens} and \fig{fig:mach-3-dpt-xs-temp}, respectively. The profile of the total/absorption cross section is given in \eqt{fig:mach-3-dpt-xs-xs}. We also plot the viscosity coefficients at steady state in \fig{fig:mach-3-dpt-xs-visc}.
+%\begin{itemize}
+%\item numerical results using definition of the viscosity coefficient provided in previous section: density, temperature, opacity and viscosity coefficient profiles.
+%\item eyeball convergence study when refining the mesh.
+%\item investigate the influence of the jumps in the definition of the viscosity coefficients: run the same numerical test with and without jumps.
+%\end{itemize}
 %
 \begin{figure}[H]
     \centering
@@ -919,11 +931,15 @@ in the dissipative behavior of the source terms as they are entropy productive, 
     \caption{Steady-state solution of the material density for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-dens}
 \end{figure}
 %
+The density profile plotted in \fig{fig:mach-3-dpt-xs-dens} does not show any instability neither in the vicinity of the shock around $x = 0 \ cm$, nor in the abrupt change located at $x = -0.01 \ cm$. The shock is well resolved and the numerical and semi-analytical solutions overlap.
+%
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
     \caption{Steady-state solution of the material and radiation temperatures for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-temp}
 \end{figure}
+%
+In \fig{fig:mach-3-dpt-xs-temp}, the material and radiation temperatures do not show any instability. The Zeldovich's pike in the material temperature profile is well resolved. The radiation temperature remains smooth as expected because of the diffusion term in the radiation equation. Overall, the numerical and semi-analytical solutions overlap. 
 %
 \begin{figure}[H]
     \centering
@@ -931,11 +947,17 @@ in the dissipative behavior of the source terms as they are entropy productive, 
     \caption{Steady-state solution of the total opacity $\sigma_t$ for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-xs}
 \end{figure}
 %
+\tcb{Plot the semi-analytical solution that can be computed from the density and temperature semi-analytical solutions}. \\ 
+The numerical profile of the cross section is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. We recall here that the material is a pure absorber and thus, the total and absorption cross sections are equal. The cross section varies by a factor $20$ in the shock region which ....
+%
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
     \caption{Steady-state solution of the artificial viscosity coefficients for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-visc}
 \end{figure}
+%
+\tcb{Shall we add a plot of the material density profile run without the jumps for comparison?} \\ 
+The profiles of the high- ($\kappa_e$) and low-order $\kappa_{max}$) viscosity coefficients are showed in \fig{fig:mach-3-dpt-xs-visc}. It is first observed that the high-order viscosity coefficient $\kappa_e$ displays two peaks at $x=-0.01 \ cm$ and at $x = 0 \ cm$. The latter peak coincides with the shock position where the entropy residual $R_e(x,t)$ is known to be peaked (see \sct{sec:def-visc-coeff} and also \cite{our_jcp_radhy_paper}). The former one, however, is due to the inclusion of the jumps in the definition of the high-order viscosity coefficient as shown in \eqt{eq:equation12} and \eqt{eq:equation13}: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation and thus a change in the material density slope. It is also observed that the high-order viscosity coefficient $\kappa_e$ does not saturate to the low-order viscosity coefficient $\kappa_{max}$ in the vicinity of the shock around $x = 0 \ cm$ which can be explained by the dissipative behavior of the source terms that add dissipation as highlighted in \sct{sec:VR_new}. Overall, the high-order viscosity coefficient behaves as expected: it is peaked in the vicinity of the shock and also in region of sharp variations, and small anywhere else.
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
