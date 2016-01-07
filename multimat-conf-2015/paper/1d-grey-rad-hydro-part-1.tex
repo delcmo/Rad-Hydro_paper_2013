@@ -36,7 +36,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \tcb{did we have Dr Morel as a third author on the paper? I do not mind having him as a third author but just wanna be consistent.}
 In \cite{our_jcp_radhy_paper}, 
 a viscous regularization technique based on the local entropy residual was
-developed to stabilize numerical solutions to the non-equilibrium Grey 
+developed to stabilize numerical solutions \tcr{to} the non-equilibrium Grey 
 Radiation-Hydrodynamic equations. 
 %the entropy viscosity method, a viscous regularization technique 
 %developed to stabilize numerical solutions of hyperbolic systems of equations, 
@@ -50,7 +50,7 @@ present in the material energy and radiation energy equations.
 Here, we extend the method and derive an entropy minimum principle for the full non-equilibrium Grey Radiation Hydrodynamic 
 equations. This further strengthens the potential and applicability of the entropy viscosity method as a stabilization technique 
 for radiation-hydrodynamic shock simulations. 
-\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit.}
+\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
 Radiative shock calculations using temperature-dependent opacities are presented for various Mach numbers and 
 compared with semi-analytical reference solutions. \tcr{Convergence rates are provided. TBD}
 \end{abstract}
@@ -58,7 +58,7 @@ compared with semi-analytical reference solutions. \tcr{Convergence rates are pr
 
 
 \keywords{radiation-hydrodynamics ; shock-capturing scheme ; artificial viscosity; 
-entropy viscosity method ; viscous stabilization method.}
+entropy viscosity method ; viscous stabilization method ; equilibrium-diffusion limit.}
 
 \maketitle
 
@@ -86,7 +86,7 @@ entropy viscosity method ; viscous stabilization method.}
 \label{sec:intro}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-Accurately solving for the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations with 
+Accurately solving \tcr{for} the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations with 
 high-order accuracy has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}
 The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid 
 hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. 
@@ -97,19 +97,19 @@ equations. The EDL can be obtained from the GRH by performing a Chapman-Enskog e
 (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
 % and can be written in a conservative form. 
 Numerically solving for the GRH equations is challenging for at least three reasons: 
-(i) because of the wave-dominated nature of the GRH equations, \emph{a numerical method} is required to preserve the 
-solution's wave structure; 
-(ii) when only considering the first-order hyperbolic terms of the GRH equations for the development of a numerical method, the resulting system equations cannot be written in a conservative form and thus, the notions of weak and entropy 
+(i) because of the wave-dominated nature of the GRH equations, the solution technique should preserve the wave structure; 
+(ii) when only considering the hyperbolic terms of the GRH equations for the development of a numerical method \tcr{because this is no longer true for the full GRH equations???}, the resulting system equations cannot be written in a conservative form and thus, the notions of weak and entropy 
 solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005} 
 Instead, the theory developed by Dal Maso, Le Floch, and Murat (DLM) must be used to
 rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation 
 and radiation energy density equation;
-(iii) finally, the \emph{numerical scheme} devised needs to preserve the equilibrium-diffusion limit. For an artificial viscosity technique,
-this means that the viscous regularization dissipative terms must be well-scaled in such a limit, i.e., that the regularized GRH equations 
-deveolve to the EDL system of equations.
+(iii) finally, the numerical scheme devised needs to preserve the equilibrium-diffusion limit (EDL). For an artificial viscosity technique,
+this means that the dissipative terms must scale appropriately in such a limit, i.e., that the regularized GRH equations 
+devolve to the EDL system of equations.
 %
 Substantial research efforts regarding the GRH equations have been devoted to the elaboration of 
-numerical solution schemes, focusing mostly on approximate Riemann solvers. In \cite{Balsara}, an 
+numerical solution schemes, focusing mostly on approximate Riemann solvers 
+\tcr{utilized in the context of discontinuous spatial discretization techniques}. In \cite{Balsara}, an 
 approximate Riemann solver is developed for the GRH equations by considering the frozen approximation that 
 uncouples the two physics, photon radiation and material hydrodynamics, but the validity of such an 
 approximation may be questionable in the equilibrium-diffusion limit. Lowrie et al. \cite{LowrieMorelHittinger} 
@@ -120,20 +120,22 @@ Their results show good agreement with semi-analytical solutions.
 %
 %In this paper, we will consider the first-order hyperbolic terms of the GRH equations which yield a non-conservative hyperbolic system of equations. This method
 %could be questioned by noticing that the radiation energy density variable cannot develop shock because of the diffusion term in the radiation energy density equation:\tcb{to finish}
-
-As highlighted above, the theory developed by DLM \cite{dlm} for non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} is needed, in order to define in a weak sense the non-conservative products $A(U) \partial_x U$:
+%
+As noted above, the GRH equations are a  non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} 
+%for which the theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$:
 %
 \begin{equation}\label{eq:nc-syst-eq}
 \partial_t U + A(U) \partial_x U = 0 \, ,\ U \in \Omega
 \end{equation}
 %
 where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be 
-written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of vector-valued function $f: 
-\mathbb{R}^n \to \mathbb{R}^n$ such as $\frac{\partial f(U)}{\partial U} \ne A(U)$, and 
-Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models 
-\cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. With the above assumptions, 
-the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
-that is, one cannot rigorously define the notions of weak and entropy solutions as it is typically done for 
+written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of vector-valued function $f(U): 
+\mathbb{R}^n \to \mathbb{R}^n$ and thus $\frac{\partial f(U)}{\partial U} \ne A(U)$.  
+Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
+\cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. 
+The theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
+%With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
+that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
 conservation laws \cite{Lax}. In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 $\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$. Generally speaking, the main idea is to specify the values of the 
@@ -152,29 +154,30 @@ if solution $U$ is continuous, and as
 %
 when the solution admits a discontinuity. The solution vectors $U_L$ and $U_R$ denote the left and the right limit values at the discontinuity. 
 This formulation for the non-conservative products leads to a generalization of the Rankine-Hugoniot jump relations 
-and the notion of shock, rarefaction, and contact waves for non-conservatie systems. The DLM theory also applies to conservative systems of 
-equations, in which case the regular Rankine-Hugoniot jump relation is recovered by letting matrix $A(U)$ be the
+and the notion of shock, rarefaction, and contact waves for non-conservative systems. The DLM theory also applies to conservative systems of 
+equations, in which case the standard Rankine-Hugoniot jump relations are recovered because $A(U)$ is the
 jacobian matrix. In other words, the case of conservative systems can be seen as a subset of the non-
 conservative systems of equations. 
 
 \tcr{that paragraph about the DLM is super long and then, here, we seem to say we switch to something else. The question for a reader would be: why?}
-Another approach, followed in this paper, consists in considering the 
-vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization as follows:
+Vanishing viscosity methods have also been developed for non-conservative systems of equations \cite{bianchini_bressan_2005,alouges_merlet_2004,lefloch_1988} 
+and we follow this approach here.
+Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization as follows:
 %
 \begin{equation}
 \label{eq:nc-syst-eq-visc}
 \partial_t U^\epsilon + A(U^\epsilon) \partial_x U^\epsilon = \epsilon \partial_{xx} U^\epsilon \ , \nonumber
 \end{equation}
 %
-where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
-further generalized by Alouges et al. \cite{alouges_merlet_2004}. In their work, they show that the solution to the 
-vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of \cite{bianchini_bressan_2005}). Moreover, Le 
-Floch in \cite{lefloch_1988} generalized the notion of entropy condition to non-conservative system of equations, in the space of 
-bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
-numerical solution to the entropy weak solution. 
+%where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
+%further generalized by Alouges et al. \cite{alouges_merlet_2004}. In their work, they show that the solution to the 
+%vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of \cite{bianchini_bressan_2005}). Moreover, Le 
+%Floch in \cite{lefloch_1988} generalized the notion of entropy condition to non-conservative system of equations, in the space of 
+%bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
+%numerical solution to the entropy weak solution. 
 %
-This generalization of the entropy inequality to non-conservative hyperbolic systems of equations is of interest 
-for the topic of this paper: in \cite{our_jcp_radhy_paper}, Delchini et al. proposed to solve the non-equilibrium Grey Radiation-Hydrodynamics 
+The generalization of the entropy inequality to non-conservative hyperbolic systems of equations in \cite{lefloch_1988} is directly applicable to
+the topic of this paper. In \cite{our_jcp_radhy_paper}, Delchini et al. proposed to solve the non-equilibrium Grey Radiation-Hydrodynamics 
 equations by stabilizing the numerical discretization using the Entropy Viscosity Method (EVM), 
 stabilization is achieved by adding appropriate dissipation terms (viscous fluxes) to the governing laws while ensuring 
 that the entropy minimum principle holds. 
