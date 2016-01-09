@@ -111,7 +111,7 @@ devolve to the EDL system of equations.
 %
 Substantial research efforts regarding the GRH equations have been devoted to the elaboration of 
 numerical solution schemes, focusing mostly on approximate Riemann solvers 
-\tcr{utilized in the context of discontinuous spatial discretization techniques}. In \cite{Balsara}, an 
+\tcr{utilized in the context of discontinuous spatial discretization techniques} \tcb{I think it is good to emphasize this}. In \cite{Balsara}, an 
 approximate Riemann solver is developed for the GRH equations by considering the frozen approximation that 
 uncouples the two physics, photon radiation and material hydrodynamics, but the validity of such an 
 approximation may be questionable in the equilibrium-diffusion limit. Lowrie et al. \cite{LowrieMorelHittinger} 
@@ -141,7 +141,7 @@ that is, one cannot rigorously define the notions of weak and entropy solutions 
 conservation laws \cite{Lax}. In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 $\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$. Generally speaking, the main idea is to specify the values of the 
-solution at points of discontinuity so that the non-conservative product admits a weak solution. The Borel measure of 
+solution at points of discontinuity so that the non-conservative product admits a weak solution. \tcb{The Borel measure of 
 the non-conservative product is denoted by $\left[ A(U) \partial_x U \right]_\phi$ and is defined as
 %
 \begin{equation}
@@ -159,9 +159,9 @@ This formulation for the non-conservative products leads to a generalization of 
 and the notion of shock, rarefaction, and contact waves for non-conservative systems. The DLM theory also applies to conservative systems of 
 equations, in which case the standard Rankine-Hugoniot jump relations are recovered because $A(U)$ is the
 jacobian matrix. In other words, the case of conservative systems can be seen as a subset of the non-
-conservative systems of equations. 
+conservative systems of equations. TO REMOVE} 
 
-\tcr{that paragraph about the DLM is super long and then, here, we seem to say we switch to something else. The question for a reader would be: why?}
+\tcr{that paragraph about the DLM is super long and then, here, we seem to say we switch to something else. The question for a reader would be: why?} \tcb{We can remove the paragraph starting at "The Borel measure .... "}
 Vanishing viscosity methods have also been developed for non-conservative systems of equations \cite{bianchini_bressan_2005,alouges_merlet_2004,lefloch_1988} 
 and we follow this approach here.
 Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization as follows:
@@ -212,7 +212,7 @@ entropy condition for non-conservative system of equations. % as stated in \cite
 Second, we present numerical results for constant and temperature-dependent opacities and provide convergence rates 
 \tcb{not yet} using semi-analytical solutions.
 \tcr{Third, we establish that a Chapman-Enskog expansion of the regularized GRH equations yield the regularized the equilibrium-diffusion limit 
-equations.}
+equations.} \tcb{We already did it in the previous paper}
 
 %\tcr{Moreover,
 %the EVM was shown to conserve the ED limit with well-scaled dissipative terms. The ED limit is obtained by performing a 
@@ -233,7 +233,7 @@ show that \tcb{add something in the introduction about the ED limit.}
 Numerical results for Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
 compared against semi-analytical solutions.
 \tcr{Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
-(Mach 1.05) and numerical solutions with steady-state shocks (Mach 3).}
+(Mach 1.05) and numerical solutions with steady-state shocks (Mach 3).} \tcb{I will keep working on this}
 
 %
 %------------------------------------------------------------------
@@ -908,7 +908,7 @@ The values of the above non-dimensional numbers will be specified for each numer
 %\end{center}
 %\end{table}
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which yields a cross section of $577.5 \ cm^{-1}$ \tcb{value to check}. The steady-test numerical results of the material density. the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions when available.
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which yields a cross section of $577.35 \ cm^{-1}$. The steady-test numerical results of the material density. the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions when available.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
@@ -941,16 +941,15 @@ in the dissipative behavior of the source terms as they are entropy productive a
 \subsection{Mach 3 shock test with temperature-dependent opacities}\label{sec:mach-3-no-cst-xs}
 %------------------------------------------------------------------
 %
-\tcb{We need a reference for this test. I have the report that was emailed by Dr Morel to me but I am not sure this is sufficient} \\
-We now consider a Mach 3 test in a pure absorber material with the same non-dimensional numbers as in \sct{sec:mach-3-cst-xs}. The cross sections are no longer constant but depend on the material properties, i.e the density $\rho$ and the material temperature $T$. Expression of the \emph{non-dimensional} form of the temperature-dependent cross section, $\tilde{\sigma}$, is given in \eqt{eq:opacity}:
+%\tcb{We need a reference for this test. I have the report that was emailed by Dr Morel to me but I am not sure this is sufficient} \\
+We now consider a Mach 3 test in a pure absorber material with the same non-dimensional numbers as in \sct{sec:mach-3-cst-xs}. The cross sections are no longer constant but depend on the material properties, i.e the density $\rho$ and the material temperature $T$. Expression of the \emph{dimensional} form of the density- and  temperature-dependent cross sections, $\tilde{\sigma}$, is given in \eqt{eq:opacity}:
 %
 \begin{equation}\label{eq:opacity}
-\tilde{\sigma}_a = \tilde{\sigma}_t = \tilde{\rho} \frac{12.5}{\tilde{T}^{\frac{2}{5}}}\, ,
+\sigma_a = \sigma_t = \rho \frac{7216.875}{T^{\frac{2}{5}}}\, ,
 \end{equation}
 %
-where the upper-script '$\ \tilde{} \ $' denotes non-dimensional variables. The dimensional cross sections can be obtained from \eqt{eq:opacity} by multiplying by the reference cross section $\sigma_{a, \infty} = \sigma_{t, \infty}$ computed from the non-dimensional numbers given in \eqt{eq:scaled-nb}.
 
-This test aims at testing the entropy viscosity method with a non-constant cross section. From a theoretical perspective as proved in \sct{sec:def-visc-coeff}, the entropy inequality still holds, meaning that the viscous regularization should efficiently stabilize any discontinuity or shock that would from in the numerical solution. 
+This test aims at testing the entropy viscosity method with a cross section that experiences strong variation in the shock region. From a theoretical perspective as proved in \sct{sec:def-visc-coeff}, the entropy inequality still holds, meaning that the viscous regularization should efficiently stabilize any discontinuity or shock that would from in the numerical solution. 
 
 The test is run until steady state is reached. Numerical results of the material density and, the material and radiation temperatures are presented and plotted against semi-analytical solutions in \fig{fig:mach-3-dpt-xs-dens} and \fig{fig:mach-3-dpt-xs-temp}, respectively. The profile of the total/absorption cross section is given in \eqt{fig:mach-3-dpt-xs-xs}. We also plot the viscosity coefficient profiles at steady state in \fig{fig:mach-3-dpt-xs-visc}.
 %\begin{itemize}
@@ -981,8 +980,7 @@ In \fig{fig:mach-3-dpt-xs-temp}, the material and radiation temperatures do not 
     \caption{Steady-state solution of the total opacity $\sigma_t$ for the Mach 3 shock test.}\label{fig:mach-3-dpt-xs-xs}
 \end{figure}
 %
-\tcb{Plot the semi-analytical solution that can be computed from the density and temperature semi-analytical solutions}. \\ 
-The numerical profile of the cross section is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. We recall here that the material is a pure absorber and thus, the total and absorption cross sections are equal. The cross section varies by a factor $20$ in the shock region which .... \tcb{Are we not in the case where the material is optically thick in the pre-shock region? If this is the case, we should write something about the interest of using the local entropy residual with a local normalization as we do for Euler equation.}
+The numerical profile of the cross section is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. We recall here that the material is a pure absorber and thus, the total and absorption cross sections are equal. The cross section varies by a factor $30$ in the shock region which .... \tcb{Are we not in the case where the material is optically thick in the pre-shock region? If this is the case, we should write something about the interest of using the local entropy residual with a local normalization as we do for Euler equation.}
 %
 \begin{figure}[H]
     \centering
@@ -1000,7 +998,7 @@ The profiles of the high- ($\kappa_e$) and low-order ($\kappa_{max}$) viscosity 
 %------------------------------------------------------------------
 In this paper, the theoretical ground for the application of the entropy viscosity method to the full non-equilibrium Grey Radiation Hydrodynamic equations, i.e. with source term, has been presented. We first highlighted the notions of weak solution and entropy condition for non-conservative hyperbolic system of equation in order to introduce our logic. Then, we demonstrate that with the formal form of the entropy function derived in \cite{our_jcp_radhy_paper}, (i) an entropy condition still holds when accounting for the relaxation and diffusion terms, (ii) the same viscous regularization can be employed to stabilize the GRH equations and, (ii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
 
-Using the above theoretical results, the definition of the low- and high-order viscosity coefficients derived in \cite{our_jcp_radhy_paper} are shown to be still valid. We then presented two Mach 3 numerical results of the 1-D GRH equation with constant and material-dependent cross sections. It was observed that the entropy viscosity method behaves very satisfactorily. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the shock region and remains small elsewhere, as expected.
+Using the above theoretical results, the definition of the low- and high-order viscosity coefficients derived in \cite{our_jcp_radhy_paper} are shown to be still valid. We then presented two Mach 3 numerical results of the 1-D GRH equation with constant and material-dependent cross sections. It was observed that the entropy viscosity method behaves very satisfactorily. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong variation, and remains small elsewhere, as expected.
 \\ \tcb{future work? Not obvious too me besides what you already mentioned in \cite{our_jcp_radhy_paper}.}
 %
 %\section{Introduction}
