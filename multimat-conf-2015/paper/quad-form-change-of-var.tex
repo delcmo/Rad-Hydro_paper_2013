@@ -1,0 +1,147 @@
+%\documentclass[times]{fldauth}
+\documentclass[times,doublespace]{fldauth}%For paper submission
+
+% \usepackage[dvips,colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=red,urlcolor=red]{hyperref}
+
+\newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+\input{inputs/packages.tex}
+\input{inputs/definitions.tex}
+\bibliographystyle{wileyj}
+
+\begin{document}
+
+\runningheads{M.~O.~Delchini, J.~C.~Ragusa}{Change of variable in the quadratic form}
+
+\title{Viscous Regularization of the non-equilibrium Grey Radiation-Hydrodynamics}
+
+\author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}}
+
+\address{\affilnum{1}Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA}
+
+\corraddr{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA. E-mail: jean.ragusa@tamu.edu}
+
+\maketitle
+
+This document aims at detailing the steps for a change of variable in the quadratic from obtained when deriving the entropy equation from the regularized non-equilibrium Radiation-Hydrodynamic equations. The quadratic from is expressed under the form $X^T A X$ where $X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right]$ is a vector function of the gradient of the material density, the material internal energy and the radiation energy density, and $A$ is a symmetric matrix as follows:
+%
+ \begin{equation}
+ A = 
+\begin{bmatrix}
+\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
+ \partial_{\rho,e} s & \partial_{e,e} s & \partial_{e,\epsilon} s \\
+ \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e,\epsilon} s & \partial_{\epsilon,\epsilon} s
+\end{bmatrix}
+\,.
+\end{equation}
+%
+In the equilibrium diffusion limit, the variable of interest when deriving the entropy residual are no longer $\left[\rho, e, \epsilon \right]$ but $\left[ \rho, e^*, \epsilon \right]$ where $e^* = e + \frac{aT^4}{\rho}$ and $T$ are the radiation-modified internal energy and material temperature, respectively. We then propose the following change of variable:
+%
+\begin{equation}\label{eq:chge_var}
+X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right], 
+\end{equation}
+%
+where $\hat{e} = e + \frac{\epsilon}{\rho}$. Note that in the equilibrium diffusion limit, $\epsilon = a T^4$ in the leading- and first-order which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$.
+
+Let assume that the Jacobian matrix associated to the change of variable proposed in \eqt{eq:chge_var} is denoted by $P$, i.e. $X=PY$, then the quadratic from in the new basis is derived as follows:
+%
+\begin{equation}
+X^T A X =  (PY)^T A (PY) = Y^T (P^T A P) Y = Y^T \hat{A} Y \, ,
+\end{equation}
+%
+where $\hat{A} = P^T A P$ is now the matrix of interest.
+
+The first task consists in deriving the Jacobian matrix $P$:
+%
+\begin{equation}
+P = \frac{\partial (\partial_x \rho, \partial_x e, \partial_x \epsilon)}{\partial (\partial_x \rho, \partial_x \hat{e}, \partial_x \epsilon)} = 
+\begin{bmatrix}
+\partial_{\partial_x \rho} \partial_x \rho & \partial_{\partial_x \hat{e}} \partial_x \rho & \partial_{\partial_x \epsilon} \partial_x \rho \\
+\partial_{\partial_x \rho} e & \partial_{\partial_x \hat{e}} e & \partial_{\partial_x \epsilon} e \\
+\partial_{\partial_x \rho} \partial_x \epsilon & \partial_{\partial_x \hat{e}} \partial_x \epsilon & \partial_{\partial_x \epsilon} \partial_x \epsilon
+\end{bmatrix}
+\end{equation}
+%
+From the definition of $\hat{e}$, it is derived that $\partial_x e = \partial_x \hat{e} - \frac{1}{\rho} \partial_x \epsilon + \frac{\epsilon}{\rho^2} \partial_x \rho$ which yields the following expression for the matrix $P$ and its transpose:
+%
+\begin{equation}\label{eq:jac}
+P =
+\begin{bmatrix}
+1 & 0 & 0 \\
+\frac{\epsilon}{\rho^2} & 1 & \frac{-1}{\rho} \\
+0 & 0 & 1
+\end{bmatrix}
+\text{ and }
+P^T =
+\begin{bmatrix}
+1 & \frac{\epsilon}{\rho^2} & 0 \\
+0 & 1 & 0 \\
+0 & \frac{-1}{\rho} & 1
+\end{bmatrix}
+\end{equation}
+%
+To simplify the derivation, the entropy functional form derived from the IGEOS is used:
+%
+\begin{equation}\label{eq:entropy}
+s(\rho, e, \epsilon) = C_v \ln \left( \frac{e}{\rho^{\gamma-1}} \right) + \frac{4}{3} \frac{a^\frac{1}{4}}{\rho} \epsilon^\frac{3}{4} \, .
+\end{equation}
+%
+Then, using the functional form of the entropy provided in \eqt{eq:entropy}, the matrix $A$ becomes:
+%
+\begin{equation}
+A = 
+\begin{bmatrix}
+-\frac{C_v (\gamma-1)}{\rho^2} & 0 & 0 \\
+0 & -\frac{C_v}{e^2} & 0 \\
+0 & 0 & -\frac{a^\frac{1}{4}}{4\rho}\epsilon^\frac{-5}{4}
+\end{bmatrix}
+\end{equation}
+%
+We now compute $\hat{A}$ by first computing $Z=AP$ and then $\hat{A} = P^T Z = P^T A P$.
+%
+\begin{equation}
+Z = 
+\begin{bmatrix}
+-\frac{C_v (\gamma-1)}{\rho^2} & 0 & 0 \\
+-\frac{\epsilon C_v}{(\rho e)^2} & -\frac{C_v}{e^2} & \frac{C_v}{\rho e^2} \\
+0 & 0 & -\frac{a^\frac{1}{4}}{4\rho}\epsilon^\frac{-5}{4}
+\end{bmatrix} \, ,
+\end{equation}
+%
+and 
+%
+\begin{equation}
+\hat{A} = 
+\begin{bmatrix}
+-\frac{C_v}{\rho^2} \left((\gamma-1)+\left(\frac{\epsilon}{\rho e}\right)^2\right) & -\frac{\epsilon C_v}{(\rho e^2)} & \frac{C_v \epsilon}{\rho^3 e^2} \\
+-\frac{\epsilon C_v}{(\rho e)^2} & -\frac{C_v}{e^2} & \frac{C_v}{\rho e^2} \\
+\frac{\epsilon C_v}{\rho^3 e^2} & \frac{C_v}{\rho e^2} & -\frac{C_v}{(\rho e)^2}-\frac{a^\frac{1}{4}}{4\rho}\epsilon^\frac{-5}{4}
+\end{bmatrix} \, .
+\end{equation}
+The matrix $\hat{A}$ is symmetric and needs to be compared against the matrix $A_{EDL}$ of the quadratic form obtained when considering the Equilibrium-Diffusion limit equations (leading-order continuity, momentum and total (material and radiation) energy equation and the second-order radiation energy density equation):
+%
+ \begin{equation}
+ A _{EDL}= 
+\begin{bmatrix}
+\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e^*} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
+ \partial_{\rho,e^*} s & \partial_{e^*,e^*} s & \partial_{e^*,\epsilon} s \\
+ \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e^*,\epsilon} s & \partial_{\epsilon,\epsilon} s
+\end{bmatrix}
+\,.
+\end{equation}
+%
+Note that to obtain the expression for $A_{EDL}$, the second-order radiation energy density is accounted for even if $\epsilon = aT^4$ at leading- and first-order.
+
+Using the functional form of the entropy expressed as a function of $(\rho, e^*, \epsilon)$, 
+%
+\begin{equation}
+s(\rho, \hat{e}, \epsilon) = C_v \ln \left( \frac{\hat{e}-\frac{\epsilon}{\rho}}{\rho^(\gamma-1)} \right) + \frac{4}{3} \frac{a^\frac{1}{4}}{\rho} \epsilon^\frac{3}{4} \, ,
+\end{equation}
+%
+it can be shown that $A_{EDL} = \hat{A}$ when assuming $\hat{e} = e^*$. In the EDL, the radiation energy density equation is substituted by the simple relation $\epsilon = a T^4$ which is equivalent to removing the last row and last columns of the matrices $A_{EDL}$ and $\hat{A}$.
+\end{document}
