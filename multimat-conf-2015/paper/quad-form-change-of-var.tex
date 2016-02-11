@@ -7,6 +7,10 @@
 \newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
+\newcommand{\sdd}{\ensuremath{\rho^2\partial_{\rho}(\rho^2 \partial_{\rho} s)}}
+\newcommand{\sde}{\ensuremath{\partial_{\rho e} s}}
+\newcommand{\see}{\ensuremath{\partial_{e e} s}}
+\newcommand{\srr}{\ensuremath{\partial_{\epsilon \epsilon} s}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -123,6 +127,25 @@ and
 \frac{\epsilon C_v}{\rho^3 e^2} & \frac{C_v}{\rho e^2} & -\frac{C_v}{(\rho e)^2}-\frac{a^\frac{1}{4}}{4\rho}\epsilon^\frac{-5}{4}
 \end{bmatrix} \, .
 \end{equation}
+
+\textcolor{red}{
+\begin{equation}
+\hat{A} = 
+\begin{bmatrix}
+\sdd + 2\frac{\sde \epsilon}{\rho^2} + \see \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
+-\frac{1}{\rho} \left( \sde  + \see \left(\frac{\epsilon}{\rho^2}\right) \right) \\
+\sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
+\see &
+-\frac{\see}{\rho} \\
+-\frac{1}{\rho} \left( \sde  + \see \left(\frac{\epsilon}{\rho^2}\right) \right) &
+-\frac{\see}{\rho} &
+\frac{\see}{\rho^2} + \srr
+\end{bmatrix} \, .
+\end{equation}
+}
+
+
 The matrix $\hat{A}$ is symmetric and needs to be compared against the matrix $A_{EDL}$ of the quadratic form obtained when considering the Equilibrium-Diffusion limit equations (leading-order continuity, momentum and total (material and radiation) energy equation and the second-order radiation energy density equation):
 %
  \begin{equation}
