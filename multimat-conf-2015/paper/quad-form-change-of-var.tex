@@ -7,7 +7,8 @@
 \newcommand\BibTeX{{\rmfamily B\kern-.05em \textsc{i\kern-.025em b}\kern-.08em
 T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-\newcommand{\sdd}{\ensuremath{\rho^2\partial_{\rho}(\rho^2 \partial_{\rho} s)}}
+\newcommand{\sdd}{\ensuremath{\rho^{-2}\partial_{\rho}(\rho^2 \partial_{\rho} s)}}
+\newcommand{\sddhat}{\ensuremath{\hat{\rho}^{-2}\partial_{\hat{\rho}}(\hat{\rho}^2 \partial_{\hat{\rho}} \hat{s})}}
 \newcommand{\sde}{\ensuremath{\partial_{\rho e} s}}
 \newcommand{\see}{\ensuremath{\partial_{e e} s}}
 \newcommand{\srr}{\ensuremath{\partial_{\epsilon \epsilon} s}}
@@ -129,10 +130,10 @@ and
 \end{equation}
 
 \textcolor{red}{
-\begin{equation}
+\begin{equation}\label{eq:gen-matrix}
 \hat{A} = 
 \begin{bmatrix}
-\sdd + 2\frac{\sde \epsilon}{\rho^2} + \see \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sdd + \sde\frac{2 \epsilon}{\rho^2} + \see \left(\frac{\epsilon}{\rho^2}\right)^2 &
 \sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
 -\frac{1}{\rho} \left( \sde  + \see \left(\frac{\epsilon}{\rho^2}\right) \right) \\
 \sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
@@ -144,7 +145,7 @@ and
 \end{bmatrix} \, .
 \end{equation}
 }
-
+\tcb{I double checked and have the same expression for the matrix $\hat{A}$ given in \eqt{eq:gen-matrix} after correcting the first entry: it is $\rho^{-2}$ instead of $\rho^2$.}
 
 The matrix $\hat{A}$ is symmetric and needs to be compared against the matrix $A_{EDL}$ of the quadratic form obtained when considering the Equilibrium-Diffusion limit equations (leading-order continuity, momentum and total (material and radiation) energy equation and the second-order radiation energy density equation):
 %
@@ -166,5 +167,55 @@ Using the functional form of the entropy expressed as a function of $(\rho, e^*,
 s(\rho, \hat{e}, \epsilon) = C_v \ln \left( \frac{\hat{e}-\frac{\epsilon}{\rho}}{\rho^(\gamma-1)} \right) + \frac{4}{3} \frac{a^\frac{1}{4}}{\rho} \epsilon^\frac{3}{4} \, ,
 \end{equation}
 %
-it can be shown that $A_{EDL} = \hat{A}$ when assuming $\hat{e} = e^*$. In the EDL, the radiation energy density equation is substituted by the simple relation $\epsilon = a T^4$ which is equivalent to removing the last row and last columns of the matrices $A_{EDL}$ and $\hat{A}$.
+it can be shown that $A_{EDL} = \hat{A}$ when assuming $\hat{e} = e^*$. In the EDL, the radiation energy density equation is substituted by the simple relation $\epsilon = a T^4$ which is equivalent to removing the last row and last columns of the matrices $A_{EDL}$ and $\hat{A}$.\\
+%
+We now want to prove that the matrix $\hat{A}$ devolves into the matrix $A_{EDL}$ when using the functional form of the entropy:
+%
+\begin{equation}
+s(\rho,e ,\epsilon) = s_E ( \rho ,e) + \frac{s_R(\epsilon)}{\rho} \text{ or }  \hat{s}(\rho,\hat{e} ,\epsilon) = \hat{s}_E ( \rho ,\hat{e}) + \frac{s_R(\epsilon)}{\rho}
+\end{equation}
+%
+We need to show that the matrices $\hat{A}$ and $A_{EDL}$ have the same entries in order to prove that they are equal. Before diving into the derivation let recall some basic chain rules results. It is assumed that the following change of variable is performed:
+%
+\begin{equation}
+\hat{f}(x,y,z) \rightarrow f(\alpha, \beta, \gamma) \nonumber \, ,
+\end{equation}
+%
+which leads to the following chain rule when computing the derivative of a function $\hat{f}(x,y,z)$ with respect to $x_i = \{x,y,z \}$:
+%
+\begin{equation}\label{eq:chain_rule_chge_var}
+\partial_{x_i} \hat{f} = \frac{\partial \alpha}{\partial x_i} \partial_\alpha f + \frac{\partial \beta}{\partial x_i} \partial_\beta f + \frac{\partial \gamma}{\partial x_i} \partial_\gamma f \, .
+\end{equation}
+%
+Note that in the case under consideration, $x=\alpha$, $z=\gamma$ and $y=f(\alpha, \beta, \gamma)$ which will lead to some simplifications and confusion in the notation. To improve the readiness of the below proof, we choose to note $(\hat{\rho}, \hat{e}, \hat{\epsilon})$ the set of variables referring to the function $\hat{s}$ and $(\rho,e,\epsilon)$ the set of variables referring to the function $s$. Under these assumptions and remembering that $\hat{e} = e + \frac{\hat{\epsilon}}{\hat{\rho}}$, the following results can be derived:
+%
+\begin{eqnarray}
+\frac{\partial \rho}{\partial \hat{\rho}} = 1 \text{, } \frac{\partial \rho}{\partial \hat{e}} = \frac{\partial \rho}{\partial \hat{\epsilon}} = 0 \nonumber \\
+\frac{\partial e}{\partial \hat{\rho}} = \frac{\epsilon}{\rho^2} \text{, } \frac{\partial e}{\partial \hat{e}} = 1 \text{, } \frac{\partial e}{\partial \hat{\epsilon}} = \frac{-1}{\rho} \nonumber \\
+\frac{\partial \epsilon}{\partial \hat{\rho}} = \frac{\partial \epsilon}{\partial \hat{e}} = 0 \text{, } \frac{\partial \epsilon}{\partial \hat{\epsilon}} = 1 \nonumber
+\end{eqnarray}
+%
+Let start with the first entry in the top left corner of the matrix $A_{EDL}$:
+%
+\begin{eqnarray}\label{eq:first_entry_A_hat}
+A_{EDL,1,1} = \sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \frac{\partial \rho}{\partial \hat{\rho}} \partial_\rho s + \frac{\partial e}{\partial \hat{\rho}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_\epsilon s \right) \right] \nonumber \\
+\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \partial_\rho s + \frac{\epsilon}{\rho^2} \partial_e s \right) \right] \nonumber \\
+\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \partial_\rho s + \epsilon \partial_e s \right] \nonumber \\
+\sddhat& =& \rho^{-2} \left[ 2\rho \partial_\rho s + \rho^2 \left( \partial_{\rho,\rho} s + \frac{\epsilon}{\rho^2} \partial_{\rho,e} s \right) + \epsilon \partial_{\rho,e} s + \frac{\epsilon^2}{\rho^2}\partial_{e,e} s \right] \nonumber \\
+\sddhat& =& \rho^{-2} \left[ \sdd + 2 \epsilon \partial_{\rho,e} + \left( \frac{\epsilon}{\rho} \right)^2 \partial_{e,e} s \right] = A_{1,1} \, ,
+\end{eqnarray}
+%
+since $\hat{\rho} = \rho$. The righthand-side of \eqt{eq:first_entry_A_hat} is identical to the first entry in the top right corner of the matrix $\hat{A}$ which yields $\hat{A}_{1,1} = A_{EDL,1,1}$. 
+
+The same procedure is followed for the entry $A_{EDL,1,2}$ of the matrix $A_{EDL}$ as follows:
+%
+\begin{eqnarray}\label{eq:scd_entry_A_hat}
+A_{EDL,1,2} = \partial_{\hat{\rho},\hat{e}} \hat{s}& =& \partial_{\hat{\rho}} \left[ \frac{\partial \rho}{\partial \hat{e}} \partial_\rho s + \frac{\partial e}{\partial \hat{e}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{e}} \partial_\epsilon s \right] \nonumber \\ 
+\partial_{\hat{\rho},\hat{e}} \hat{s}& =& \partial_{\hat{\rho}} \left( \partial_e s \right) \nonumber \\
+\partial_{\hat{\rho},\hat{e}} \hat{s}& = &\frac{\partial \rho}{\partial \hat{\rho}} \partial_{\rho,e} s + \frac{\partial e}{\partial \hat{\rho}} \partial_{e,e} s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_{\epsilon,e} s \nonumber \\
+\partial_{\hat{\rho},\hat{e}} \hat{s}& = &\partial_{\rho,e} s + \frac{\epsilon}{\rho^2} \partial_{e,e} s = A_{1,2} \, .
+\end{eqnarray}
+%
+Once again, the entries of the matrices $A_{EDL}$ and A match. The same lengthy procedure can be applied to the other entries of the matrix $A_{EDL}$ to prove that they are equal to the entries of the matrix A. It is then concluded that the matrix $A$ and $A_{EDL}$ are identical under the change of variables $(\rho, e, \epsilon) \rightarrow (\rho, e+ \frac{\epsilon}{\rho}, \epsilon)$.\\
+\tcb{I hope this is clear enough.}
 \end{document}
