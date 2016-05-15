@@ -96,7 +96,7 @@ Numerically solving for the GRH equations is challenging for at least three reas
 \item
 the solution technique for the GRH equations should preserve the wave structure of the system; 
 \item
-the system equations cannot be written in a conservative form and thus, the notions of weak and entropy 
+the system equations without the source terms cannot be written in a conservative form and thus, the notions of weak and entropy 
 solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005} 
 Instead, the theory developed by Dal Maso, Le Floch, and Murat (DLM) must be used to
 rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation 
@@ -104,7 +104,7 @@ and radiation energy density equation;
 \item
 finally, the numerical scheme devised needs to preserve the equilibrium-diffusion limit (EDL). For an artificial viscosity technique,
 this means that the dissipative terms must scale appropriately in such a limit, i.e., that the regularized GRH equations 
-devolve to the EDL system of equations.
+devolve to the EDL system of equations with well-scaled artificial dissipative terms.
 \end{enumerate}
 %
 Substantial research efforts regarding the GRH equations have been devoted to the elaboration of 
@@ -227,12 +227,12 @@ Bianchini and Bressan \cite{bianchini_bressan_2005}, who proposed an approach wh
 with a vanishing-viscosity coefficient (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005}). Moreover, Le Floch generalized the notion of entropy 
 condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
 and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
-entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:VR_old} as a prerequisite for \sct{sec:VR_new}.
+entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
 
 The remainder of the paper is as follows: in \sct{sec:GRH}, we provide
 the non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations, recall some of their mathematical properties, 
 and review some theoretical aspects pertaining to non-conservative systems of equations. 
-The viscous regularization of the GRH equations {\it based on their hyperbolic parts} is recalled in \sct{sec:VR_old}.
+The viscous regularization of the GRH equations {\it based on their hyperbolic parts} is recalled in \sct{sec:GRH}.
 In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
 principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
@@ -272,7 +272,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. For readiness purpose, the viscous fluxes are located on the righthand-side of each equation and are added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are derived from the coupling between Euler equations and transport equation and will be referred to as the full GRH. More details regarding its mathematical properties can be found in (REF). The GRH equations read:
+In other terms, the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are derived from the coupling between Euler equations and transport equation and will be referred to as the  GRH. More details regarding its mathematical properties can be found in (REF). The regularized GRH equations read:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
@@ -308,31 +308,34 @@ The system consists of six variables and four partial differential equations. In
 an equation of state that relates the material pressure $P$ to the material density $\rho$ and to the 
 material specific internal energy $e$ ($e = E - \tfrac 1 2 u^2$). A second equation of state, linking material temperature 
 and internal energy, is required in order to evaluate the relaxation source term $\sigma_a c \left( \ar T^4 - \epsilon \right)$.
-$c$ and $\ar$ denote the speed of light and the radiation constant; $\sigma_a$ is absorption opacity. 
+The parameters $c$ and $\ar$ denote the speed of light and the radiation constant; $\sigma_a$ is absorption opacity. 
 The radiation energy density equation, \eqt{eq:GRHrad}, contains a diffusion term that is function of the 
 total (absorption and scattering) opacity $\sigma_t$. Note that the opacities $\sigma_a$ and $\sigma_t$ are typically functions of 
 material properties (density and temperature). 
 The theoretical results obtained in this paper are independent of the functional form of the equations of state 
-(as long as these admit a concave entropy with respect to $e$ and $1/ \rho$). The Ideal Gas Equations of State
-(IGEOS) will be employed in the remainder for simplicity, with the relationships given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
+(as long as these admit a concave entropy with respect to $e$ and $1/ \rho$). For simplicity but without lack of generality, the Ideal Gas Equations of State
+(IGEOS) will be employed in the remainder of this paper, with the relationships given in \eqt{eq:IGEOS} for the material pressure and temperature variables:
 %
 \begin{equation}\label{eq:IGEOS}
-P = (\gamma-1) \rho e \ \text{  and  } \ e = C_v T \, ,
+P = (\gamma-1) \rho e \ \text{  and  } \ e = C_v T \, .
 \end{equation}
 %
-where the heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
+The heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant in \eqt{eq:IGEOS}.
+%
+%------------------------------------------------------------------
+\subsection{Entropy minimum principle:}\label{sec:ent-min}
+%------------------------------------------------------------------
+%
+As shown in \cite{our_jcp_radhy_paper}, when omitting the relaxation and the diffusion terms from the GRH equations (i.e., the absorption opacity $\sigma_a$ and the diffusion coefficient $D$ are set to zero in \eqts{eq:regularized_hyperbolic_GRH}), an entropy inequality recalled in \eqt{eq:app_entr_eq_non_equil} can be derived for an entropy function $s=s(\rho, e, \epsilon)$:
 
-As shown in \cite{our_jcp_radhy_paper}, when omitting the relaxation and the diffusion terms from the GRH equations, i.e., the absorption opacity $\sigma_a$ and the diffusion coefficient $D$ are set to zero in \eqts{eq:regularized_hyperbolic_GRH}, an entropy inequality, recalled in \eqt{eq:app_entr_eq_non_equil}, can be derived for an entropy function $s=s(\rho, e, \epsilon)$:
-
-\begin{equation} 
-\label{eq:app_entr_eq_non_equil}
+\begin{equation} \label{eq:app_entr_eq_non_equil}
 \rho \frac{Ds}{Dt} = \rho R_e(x,t) = \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s\right) - \rho \kappa X A X^T  + s_e \rho \kappa (\partial_x u)^2 \, ,
 \end{equation} 
 % 
 where the material derivative notation was used $\frac{Ds}{Dt} := \partial_t s + u \partial_x s$ and
 $s_e$ stands for $\partial_e s$. 
 In obtaining \eqt{eq:app_entr_eq_non_equil}, the following condition, which is a generalization of the condition
-for Euler's equations, was used:
+for Euler's equations (see \cite{our_jcp_radhy_paper}) , was used:
 %
 \begin{equation} 
 \label{eq:visc_reg_assumptions}
@@ -342,7 +345,7 @@ P \frac{\partial s}{\partial e} + \rho^2 \frac{\partial s}{\partial \rho} + \fra
 The vector $X$ is defined as $X=\left( \partial_x \rho, \partial_x e, \partial_x \epsilon \right)$ and $A$ is the 
 following $3 \times 3$ symmetric matrix
 %
- \begin{equation}
+ \begin{equation}\label{eq:mat-quad-form}
  A = 
 \begin{bmatrix}
 \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
@@ -352,42 +355,71 @@ following $3 \times 3$ symmetric matrix
 \,.
 \end{equation}
 %
-To verify that the entropy minimum principle holds with the proposed viscous regularization,
-positivity of the last two terms on the right-hand side of \eqt{eq:app_entr_eq_non_equil} is required. 
-This was done in \cite{our_jcp_radhy_paper}. Regarding positivity of $- \rho \kappa X A X^T$, the quadratic form $ X A 
-X^T$ needs to be negative-definite since both $\rho \geq 0$ and $\kappa \geq 0$ (positivity of the density can be found
-in \cite{jlg} and $\kappa$ is positive by construction). Negativeness of $X A X^T$ is obtained by using the following
-functional form for the entropy function:
+Convergence of the numerical solution to the entropy or physical solution for the GRH with diffusion and relaxation terms omitted, was demonstrated in \cite{our_jcp_radhy_paper} by mean of an entropy minimum principle, i.e. $R_e(x,t) \geq 0$, and requires the entropy function $s(\rho,e,\epsilon)$, to be the sum of (i) the entropy for the Euler system of equations 
+$s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$ as recalled in \eqt{eq:ent_equ}: 
+%Proof of an entropy minimum principle for \eqt{eq:app_entr_eq_non_equil} was given in \cite{our_jcp_radhy_paper} when omitting the diffusion and relaxation terms and assuming the following functional form for the entropy function $s=s(\rho, e, \epsilon)$:
+%Proof of the entropy minimum principle was given in \cite{our_jcp_radhy_paper}
+%To verify that the entropy minimum principle holds with the proposed viscous regularization,
+%positivity of the last two terms on the right-hand side of \eqt{eq:app_entr_eq_non_equil} is required. 
+%This was done in \cite{our_jcp_radhy_paper}. 
+%
+%Regarding positivity of $- \rho \kappa X A X^T$, the quadratic form $ X A 
+%X^T$ needs to be negative-definite since both $\rho \geq 0$ and $\kappa \geq 0$ (positivity of the density can be found
+%in \cite{jlg} and $\kappa$ is positive by construction). Negativeness of $X A X^T$ is obtained by using the following
+%functional form for the entropy function:
 %
 \begin{equation}
 \label{eq:ent_equ}
-s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \, ,
+s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}(\rho, e)+ \frac{4a^{\tfrac{1}{4}}}{3\rho} \epsilon^{\tfrac{3}{4}} \, .
 \end{equation}
 %
-Thus, the entropy function for the GRH equations is the sum of (i) the entropy for the Euler system of equations 
-$s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy,
-$s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$. 
-The entropy function $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume 
-$\rho^{-1}$ and is defined through the second law of thermodynamics recalled in \eqt{eq:scn-law-th}.
+In \cite{our_jcp_radhy_paper}, the EDL of the regularized GRH was shown to yield well-scaled artificial viscous fluxes. However, the EDL of the \eqt{eq:app_entr_eq_non_equil} was not investigated.
+%Thus, the entropy function for the GRH equations is the sum of (i) the entropy for the Euler system of equations 
+%$s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy,
+%$s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$. 
+%The entropy function $s_{Euler}(\rho, e)$ is concave with respect to the internal energy $e$ and the specific volume 
+%$\rho^{-1}$ and is defined through the second law of thermodynamics recalled in \eqt{eq:scn-law-th}.
+%%
+%\begin{equation}\label{eq:scn-law-th}
+%Tds_{Euler} = de + P d \left( \rho^{-1} \right)
+%\end{equation}
+%%
+%The entropy function $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$
+%(and linear with respect to $\rho^{-1}$). 
 %
-\begin{equation}\label{eq:scn-law-th}
-Tds_{Euler} = de + P d \left( \rho^{-1} \right)
+%Positivity of $s_e \rho \kappa (\partial_x u)^2$ depends on the sign of $s_e$ which can be determined in two simple 
+%steps: first, using the functional form given in \eqt{eq:ent_equ} we note that $s_e = (s_{Euler})_e$. Then, using 
+%\eqt{eq:scn-law-th} yields $s_e = T^{-1} \geq 0$. Since $\rho \geq 0$ and $\kappa \geq 0$, positivity of 
+%$s_e \rho \kappa (\partial_x u)^2$ is now trivial.
+%
+%The entropy minimum principle follows: at any spatial position where the entropy is minimum, we have, by definition of 
+%the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have 
+%$\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for 
+%the GRH equations with the diffusion and relaxation terms omitted.
+
+Since the GRH devolves to a conservative system of equations in the EDL, this particular limit was also studied in Section 2.2 of \cite{our_jcp_radhy_paper} for the regularized GRH: it was shown that the artificial viscosity fluxes remain well-scaled in the EDL when using the correct normalization in the definition of the viscous coefficient $\kappa$ (see \cite{our_jcp_radhy_paper} and \eqt{eq:equation12} below). The regularized GRH equation in the EDL reads:
+%
+\begin{subequations}\label{eq:equip-diff-equ}
+%
+\begin{equation}
+\partial_t \rho + \partial_x \left( \rho u \right) = \partial_x \left( \kappa \partial_x  \rho \right)  \ ,
 \end{equation}
 %
-The entropy function $s_{rad}(\rho,\epsilon)$ is concave with respect to the radiation energy density $\epsilon$
-(and linear with respect to $\rho^{-1}$). 
-
-Positivity of $s_e \rho \kappa (\partial_x u)^2$ depends on the sign of $s_e$ which can be determined in two simple 
-steps: first, using the functional form given in \eqt{eq:ent_equ} we note that $s_e = (s_{Euler})_e$. Then, using 
-\eqt{eq:scn-law-th} yields $s_e = T^{-1} \geq 0$. Since $\rho \geq 0$ and $\kappa \geq 0$, positivity of 
-$s_e \rho \kappa (\partial_x u)^2$ is now trivial.
-
-The entropy minimum principle follows: at any spatial position where the entropy is minimum, we have, by definition of 
-the minimum, $\partial_x s =0$ and $\partial_{x,x} s \geq 0$. Therefore, at a minimum, we have 
-$\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for 
-the GRH equations with the diffusion and relaxation terms omitted.
-
-\tcb{add regularized equilibrium-diffusion equations}
+\begin{equation}
+\partial_t \left( \rho u \right) + \partial_x \left( \rho u^2 + P^* \right) = \partial_x \left( \kappa \partial_x \left( \rho u \right) \right)  \ , 
+\end{equation}
+%
+\begin{equation}
+\partial_x \left( \rho E^* \right) + \partial_x \left[ u \left( \rho E^* + P^* \right) \right] = \partial_x \left( \frac{1}{3 \sigma_t} \partial_x T^4 \right) + \partial_x \left( \kappa \partial_x \rho E^* \right) \ , \end{equation}
+%
+\begin{equation}
+\epsilon = a T^4 \, , \end{equation}
+%
+\end{subequations}
+%
+where $P^*=P+\frac{1}{3}aT^4$ and $E^*=e^*+0.5u^2$ with $e^*=e+a\frac{T^4}{\rho}$.
+It was not, however, demonstrated that the entropy equation for the regularized GRH recalled in \eqt{eq:visc_reg_assumptions}, devolves to the entropy equation that would be obtained when directly starting from \eqt{eq:equip-diff-equ}.
+\tcb{Add entropy equation}
 %
 %\begin{equation}\label{eq:GRH-entropy}
 %\rho R_e(x,t) = \rho \frac{D s}{Dt}  =\rho  \left( \partial_t s + u \partial_x s \right) \geq 0 \text{ where } R_e(x,t) = \partial_t s + u \partial_x s \, .
@@ -404,8 +436,7 @@ the GRH equations with the diffusion and relaxation terms omitted.
 %where $s_{Euler}(\rho, e)$ is the entropy for the Euler system of equations, and $s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$ is a radiation contribution to the entropy. 
 %%
 %------------------------------------------------------------------
-\subsection{Definition of the artificial entropy viscosity coefficient $\kappa$.}
-\label{sec:visc-coeff-def}
+\subsection{Definition of the artificial entropy viscosity coefficient $\kappa$.}\label{sec:visc-coeff-def}
 %------------------------------------------------------------------
 %
 The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
@@ -644,13 +675,13 @@ The symbol $[[ \cdot ]]$ denotes the jump at the cell interface.
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In the previous Section, we briefly reviewed the viscous regularization for the GRH 
+In \sct{sec:visc-coeff-def}, we briefly reviewed the viscous regularization for the GRH 
 equations proposed in \cite{our_jcp_radhy_paper}. Numerical results presented in \cite{our_jcp_radhy_paper} confirmed that the viscous regularization 
 was behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical justification to 
 explain why the definitions of the dissipative viscous fluxes should remain the same for the full GRH equations. As we 
 demonstrate below in \sct{sec:ent-cond-full-GRH}, the contribution from the relaxation and diffusion terms to the entropy residual equation will only 
-yield positive terms when using the functional form of the entropy function given in \eqt{eq:ent_equ}. It is also shown that the entropy equation recalled in \eqt{eq:app_entr_eq_non_equil} devolves to
-its counterpart when considering the equilibrium diffusion limit. \tcb{To reformulate}
+yield positive terms when using the functional form of the entropy function given in \eqt{eq:ent_equ}. It is also demonstrated in \sct{sec:cons-equi-diff-limit} that in the EDL and by performing a change of variable to come, the entropy equation obtained for the full GRH and recalled in \eqt{eq:app_entr_eq_non_equil}, devolves to the entropy equation obtained from \eqt{eq:equip-diff-equ}. Such a behavior was expected bur remained to be proved. These two mathematical proofs will enhance the understanding of the EVM and will also allow us to further explain in \sct{sec:num-rslt} some of the features observed in the original numerical results presented in \cite{our_jcp_radhy_paper}. \\
+\tcb{I want to emphasize why we are adding this new theoretical proofs and how it is related to the numerical results that we already presented}
 %
 %------------------------------------------------------------------
 \subsection{An entropy condition for the full GRH equations}
@@ -781,8 +812,59 @@ which demonstrates that the entropy equation of the full GRH equations satisfies
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit \tcb{add section}. It is proposed in this section, to show that the
-entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the entropy equation that would be obtained from the equilibrium-diffusion equations. Such behavior is expected but proof of it was not provided in \cite{our_jcp_radhy_paper}.
+In \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit \tcb{add section}. It is proposed here, to show that the \tcb{add the entropy equations of the two systems for clarity so that the reader can understand where we are going}
+entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the entropy equation that would be obtained from the equilibrium-diffusion equations. Such behavior is expected but proof of it was not provided in \cite{our_jcp_radhy_paper}. We refer the reader to APPENDIX for details of the proof and only present in this section the main steps as the proof is lengthy. 
+
+In the Equilibrium Diffusion Limit (EDL), the system of equations, \eqt{eq:equip-diff-equ}, is not longer expressed as a function of $\left[ \rho, \rho u \rho E, \epsilon \right]$ but as a function of $\left[ \rho, \rho u, \rho E^* \right]$ along with the closure relation $\epsilon = aT^4$. In the EDL, the GRH system of equations devolve to a system of three PDEs: the radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and is substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic from of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and yields a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the correct entropy equation in the EDL, a two-step process is proposed. First, the following change of variable is performed in the entropy equation:
+%
+\begin{equation}\label{eq:chge_var}
+X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right], 
+\end{equation}
+%
+where $\hat{e} = e + \frac{\epsilon}{\rho}$. Then, each term of the resulting entropy equation are derived in the EDL. Finally, the entropy equation is compared to the entropy equation obtained from \eqt{eq:equip-diff-equ}. Note that the change of variable proposed in \eqt{eq:chge_var} is consistent with the EDL when using the closure relation, $\epsilon = a T^4$, which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$ as previously defined in \sct{sec:ent-min}. 
+
+Let assume that the Jacobian matrix associated to the change of variable proposed in \eqt{eq:chge_var} is denoted by $P$, i.e. $X=PY$, then the quadratic from in the new basis is derived as follows:
+%
+\begin{equation}
+X^T A X =  (PY)^T A (PY) = Y^T (P^T A P) Y = Y^T \hat{A} Y \, ,
+\end{equation}
+%
+where $\hat{A} = P^T A P$ is the matrix of the quadratic form (\eqt{eq:mat-quad-form}) in in the new basis $Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right]$. From the definition of $\hat{e}$, the following expression for the matrix $P$ and its transpose are derived:
+%
+\begin{equation}\label{eq:jac}
+P =
+\begin{bmatrix}
+1 & 0 & 0 \\
+\frac{\epsilon}{\rho^2} & 1 & \frac{-1}{\rho} \\
+0 & 0 & 1
+\end{bmatrix}
+\text{ and }
+P^T =
+\begin{bmatrix}
+1 & \frac{\epsilon}{\rho^2} & 0 \\
+0 & 1 & 0 \\
+0 & \frac{-1}{\rho} & 1
+\end{bmatrix} \, .
+\end{equation}
+%
+Then, the matrix $\hat{A}$ is obtained by first computing $Z=AP$ and then $\hat{A} = P^T Z = P^T A P$ which yields:
+%
+\begin{equation}\label{eq:gen-matrix}
+\hat{A} = 
+\begin{bmatrix}
+\sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
+-\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \right) \\
+\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
+\seehat &
+-\frac{\seehat}{\rho} \\
+-\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \right) &
+-\frac{\seehat}{\rho} &
+\frac{\seehat}{\rho^2} + \srr
+\end{bmatrix} \, .
+\end{equation}
+%
+
 %Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
 %\tcb{This is still incomplete since we need to talk about positivity of the density. done.}
 %
@@ -1023,14 +1105,38 @@ The remaining of this section is organized as follows: in \sct{sec:mthd-conv-tes
 %------------------------------------------------------------------
 \subsection{Method for convergence test}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
-%
 
-%
 %------------------------------------------------------------------
 \subsection{Mach-1.05 shock test with constant opacities}\label{sec:mach-1p05-cst-xs}
 %------------------------------------------------------------------
 %
-
+\begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_1p05_material_temperature_spline.eps}
+    \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_1p05_density_spline.eps}
+    \caption{Material density.}\label{fig:mach-1p05-cst-xs-density}
+    \end{subfigure}    
+    
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_1p05_mach_spline.eps}
+    \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_1p05_radiation_spline.eps}
+    \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation}
+    \end{subfigure}        
+\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
+\end{figure}
+%
 %
 %------------------------------------------------------------------
 \subsection{Mach-3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
