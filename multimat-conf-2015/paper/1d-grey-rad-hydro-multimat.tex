@@ -827,7 +827,7 @@ which demonstrates that the entropy equation of the full GRH equations satisfies
 In section 2.2 of \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit. It is proposed here, to mathematically prove that the entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the Equilibrium Diffusion Limit (EDL) entropy equation given in \eqt{eq:EDL-entropy}. The reader is referred to APPENDIX for details of the proof and only the main steps are presented in this section as the proof is lengthy. \tcb{Shall we have the entropy equations here?}
 
 %In the  (EDL), the system of equations, \eqt{eq:equip-diff-equ}, is not longer expressed as a function of $\left[ \rho, \rho u \rho E, \epsilon \right]$ but as a function of $\left[ \rho, \rho u, \rho E^* \right]$ along with the closure relation $\epsilon = aT^4$. 
-In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and is substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and yields a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation, a two-step process is proposed. First, the following change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
+In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and is substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and can be written as a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation, a two-step process is proposed. First, the following change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
 %
 \begin{equation}\label{eq:chge_var}
 X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right], 
@@ -1099,15 +1099,16 @@ An approximate Jacobian matrix is used as a preconditioner and is computed by fi
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In this section, numerical results and convergence studies are presented for three steady-state cases: Mach 1.05 and Mach 3 tests with constant opacity, and, Mach 3 test with temperature-dependent opacity. Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated on the smooth Mach 1.05 test. The same study is performed for the Mach 3 tests with constant and temperature-dependent cross sections. These two tests display each a shock and a Zeldovich's pike at steady state in the material properties, and thus only first-order accuracy can be achieved. In our previous paper, \cite{our_jcp_radhy_paper}, numerical results only included test cases with constant opacity; Mach 3 test case with temperature-dependent opacity is intended to fill this gap.
+In this section, numerical solutions of the regularized GRH given in \eqt{eq:regularized_hyperbolic_GRH} are presented. Numerical results and convergence studies are presented for three steady-state cases that include: Mach 1.05 and Mach 3 tests with constant opacity, and Mach 3 test with temperature-dependent opacity. Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated on the smooth Mach 1.05 test. The same study is performed for the Mach 3 tests with constant and temperature-dependent cross sections. These two tests each display a shock and a Zeldovich's pike at steady state in the material properties, and thus only first-order accuracy can be achieved. In our previous paper, \cite{our_jcp_radhy_paper}, numerical results only included test cases with constant opacity; the Mach 3 test case with temperature-dependent opacity is intended to fill this gap.
 %We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations in a pure absorber material: the first test corresponds to a material with constant opacities (\sct{sec:mach-3-cst-xs}), and the second test corresponds to a material with temperature dependent opacities (\sct{sec:mach-3-no-cst-xs}). 
 
-BDF2 time integration, linear continuous finite elements, and an uniform grid of $1000$ cells is used to discretize the problem. 
-The time step is computed from a CFL number in all simulations; steady-state solution is detected by monitoring the $L_2$ norm of the nonlinear residual in Newton's method. 
-The boundary conditions for the hydrodynamics equations and radiation equation are as follows. For hydrodynamics variables, Dirichlet boundary conditions can be used
-at the inlet since the flow is supersonic and, therefore, no physical information exits the system. At the outlet, the flow is subsonic and a static 
-pressure boundary condition is implemented (the back pressure is specified and the other hydrodynamic variables are computed from the relevant characteristics). 
-For the radiation diffusion equation, vacuum boundary conditions are used at both inlet and outlet. 
+The computational domain is meshed with an uniform grid. The regularized GRH equation are discretized using a BDF2 temporal integrator and linear continuous finite elements (see \sct{sec:discr}). 
+The time step is computed from a CFL number and the local maximum eigenvalue. The steady-state solution is detected by monitoring the $L_2$ norm of the nonlinear residual. 
+For the hydrodynamics equations, implementation of the boundary conditions relies on the Mach number (supersonic and subsonic). For supersonic inlet flows, Dirichlet boundary conditions are used
+since no physical information exits the system. On the other hand, at the outlet the flow becomes subsonic and thus requires a most sophisticated implementation: a static 
+pressure boundary condition is weakly imposed by specifying a back pressure denoted by $P_b$, and by computing the other hydrodynamic variables from the relevant characteristics (REF). 
+For the radiation diffusion equation, a vacuum boundary condition is used at both inlet and outlet. 
+
 For each numerical results presented in \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial step conditions are computed from four non-dimensional numbers, that are defined below in \eqt{eq:scaled-nb}, and the Rankine-Hugoniot condition \cite{toro, LowrieEdwards}. The symbol $\infty$ denotes the reference values in \eqt{eq:scaled-nb} (see Section 2 of \cite{LowrieEdwards} for further details).
 %
 \begin{eqnarray}\label{eq:scaled-nb}
@@ -1117,14 +1118,30 @@ M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ ,
 \mathbb{\Lambda} = \frac{c}{3 \sigma_{t, \infty} c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
 \end{eqnarray}
 %
-The values of the above non-dimensional numbers will be specified for each numerical tests presented in this section. We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal. The initial discontinuity is always located at $x = 0$. % \ cm$.
+We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal. The initial discontinuity is always located at $x = 0 \ cm$. % \ cm$.
 
-The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively.
+The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. For each numerical results, information regarding the CFL number, the number of elements used in the mesh, the boundary conditions and initial conditions will be provided to the reader.
 %
 %------------------------------------------------------------------
 \subsection{Method for convergence test}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
-
+%
+The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. As a boundary condition, the temperature was imposed downstream the shock position.The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the the two solutions when plotted on the same figure. A convergence study requires the semi-analytical solution to be re-shifted. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical density solutions, $\rho_{anal}$ and $\rho_{num}$, respectively:
+%
+\begin{equation}
+\Delta m = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
+\end{equation}
+%
+where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution. Once the mass difference is minimal, the $L_1$ error norms of the density, the material temperature, the mach number and the radiation energy density are computed as follows:
+%
+\begin{eqnarray}
+L_1(y) &=& \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\ 
+&=& \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\
+&=& \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) | dx \, .
+\end{eqnarray}
+%
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points using a spline interpolation and linear Lagrange polynomials, respectively.
+%
 %------------------------------------------------------------------
 \subsection{Mach-1.05 shock test with constant opacities}\label{sec:mach-1p05-cst-xs}
 %------------------------------------------------------------------
