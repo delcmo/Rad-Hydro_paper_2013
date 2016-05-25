@@ -1126,21 +1126,23 @@ The remaining of this section is organized as follows: in \sct{sec:mthd-conv-tes
 \subsection{Method for convergence test}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
-The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. As a boundary condition, the temperature was imposed downstream the shock position.The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the the two solutions when plotted on the same figure. A convergence study requires the semi-analytical solution to be re-shifted. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical density solutions, $\rho_{anal}$ and $\rho_{num}$, respectively:
+The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. As a boundary condition, the temperature was imposed downstream the shock position.The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. A convergence study requires the semi-analytical solution to be re-shifted. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical density solutions, $\rho_{anal}$ and $\rho_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock, as shown in \eqt{eq:mass-diff}:
 %
-\begin{equation}
+\begin{equation}\label{eq:mass-diff}
 \Delta m = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
 \end{equation}
 %
-where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution. Once the mass difference is minimal, the $L_1$ error norms of the density, the material temperature, the mach number and the radiation energy density are computed as follows:
+where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference becomes smaller that a given tolerance, say $10^{-10}$, the value of $x_{offset}$ is retrieved. Then, the $L_1$ error norms of the density, the material temperature, the mach number and the radiation energy density are computed as follows:
 %
-\begin{eqnarray}
+\begin{eqnarray}\label{eq:l1-error-norm}
 L_1(y) &=& \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\ 
 &=& \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\
 &=& \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) | dx \, .
 \end{eqnarray}
 %
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points using a spline interpolation and linear Lagrange polynomials, respectively.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach and Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a spline interpolation. A typical semi-analytical solution is soved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation.
+
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ error norm, \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
 \subsection{Mach-1.05 shock test with constant opacities}\label{sec:mach-1p05-cst-xs}
@@ -1173,6 +1175,12 @@ The integral over the computational domain delimited by $[x_1; x_2]$ is split ov
 \caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
 \end{figure}
 %
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/cst-xs/mach-1p05-x-offset.eps}
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
+    \caption{Plot of the shift value for different mesh sizes.}\label{fig:mach-1p05-x-offset}
+\end{figure}
 %
 %------------------------------------------------------------------
 \subsection{Mach-3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
