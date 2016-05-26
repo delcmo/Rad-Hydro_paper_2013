@@ -451,6 +451,7 @@ It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation 
 \subsection{Definition of the artificial entropy viscosity coefficient $\kappa$.}\label{sec:visc-coeff-def}
 %------------------------------------------------------------------
 %
+\tcb{we should probably remove this section and simply reference the first paper. The definition has not changed. Everything else in the section is of interest for the following section and shoul dbe kept. Give the equation number and page} \\
 The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
 production, i.e., the local entropy residual $R_e(x,t)$. However, the entropy residual can be excessively large, in shocks for example, leading
 to the idea of bounding (from above) the entropy viscosity with a first-order viscosity (e.g., a local Lax-Friedrichs or Rusanov viscosity).
@@ -1029,6 +1030,7 @@ At this stage of the proof,
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
+\cite{I would remove this section and replace it with a few lines in the numerical results section saying that we use the same discretization as in the first paper.} \\
 As in \cite{our_jcp_radhy_paper}, the 1-D Radiation-Hydrodynamic equations \eqt{eq:regularized_hyperbolic_GRH} are discretized with \emph{continuous} Galerkin finite elements. 
 The following general form of \eqt{eq:regularized_hyperbolic_GRH} is considered:
 \begin{equation}
@@ -1126,13 +1128,13 @@ The remaining of this section is organized as follows: in \sct{sec:mthd-conv-tes
 \subsection{Method for convergence test}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
-The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. As a boundary condition, the temperature was imposed downstream the shock position.The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. A convergence study requires the semi-analytical solution to be re-shifted. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical density solutions, $\rho_{anal}$ and $\rho_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock, as shown in \eqt{eq:mass-diff}:
+The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. When performing a convergence study, the semi-analytical solution needs to be shifted to match the numerical solution. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock, as shown in \eqt{eq:mass-diff}:
 %
 \begin{equation}\label{eq:mass-diff}
-\Delta m = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
+\Delta m = m_{anal}(x_1,x_2) - m_{num}(x_1,x_2) = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
 \end{equation}
 %
-where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference becomes smaller that a given tolerance, say $10^{-10}$, the value of $x_{offset}$ is retrieved. Then, the $L_1$ error norms of the density, the material temperature, the mach number and the radiation energy density are computed as follows:
+where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference becomes smaller that a given tolerance, say $10^{-10}$, the value of $x_{offset}$ is retrieved. Then, the $L_1$ error norms of a variable of interest denoted by $y(x)$, is computed as follows:
 %
 \begin{eqnarray}\label{eq:l1-error-norm}
 L_1(y) &=& \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\ 
@@ -1140,13 +1142,16 @@ L_1(y) &=& \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\
 &=& \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) | dx \, .
 \end{eqnarray}
 %
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach and Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a spline interpolation. A typical semi-analytical solution is soved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a spline interpolation. A typical semi-analytical solution is soved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation.
 
-A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ error norm, \eqt{eq:l1-error-norm}.
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ error norm from \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
 \subsection{Mach-1.05 shock test with constant opacities}\label{sec:mach-1p05-cst-xs}
 %------------------------------------------------------------------
+%
+The first test consists of  \\
+\tcb{add two figures of the density before and after the shift}
 %
 \begin{figure}[H]
     \begin{subfigure}{0.5\textwidth}
@@ -1246,7 +1251,8 @@ For this test, the inlet Mach number is set to $3$ and the total and absorption 
     \caption{Steady-state material density for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-dens}
 \end{figure}
 %
-The material density plotted in \fig{fig:mach-3-cst-xs-dens} shows good agreement with the semi-analytical solution: the shock located around $x=0 \ cm$ is well resolved and does not display any instability.
+The material density plotted in \fig{fig:mach-3-cst-xs-dens} shows good agreement with the semi-analytical solution: the shock located around $x=0 \ cm$ is well resolved and does not display any instability. \\
+\tcb{The plots should be included using the subfigure package to save space. Using matplotlib instead of matlab, the plot quality should get better.}
 %
 \begin{figure}[H]
     \centering
