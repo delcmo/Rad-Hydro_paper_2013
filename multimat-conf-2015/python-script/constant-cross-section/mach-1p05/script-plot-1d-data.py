@@ -6,7 +6,7 @@ import numpy as np
 import itertools as it
 from compute_mass_difference import compute_mass_diff
 from compute_error_norms import compute_error_norms
-from scipy.optimize import minimize
+from scipy.optimize import fmin
 import matplotlib.pyplot as plt
 from Lagrange_test_function import b
 from decimal import *
@@ -28,6 +28,20 @@ def plot_error_norms(nb_cells, L1_norm, L2_norm, variable):
   plt.xlabel(r'$\log (cells)$')
   plt.ylabel(r'$\log (L_{1,2}^{error})$ for '+variable)
   fig_name=out_file+'-'+variable+'-convergence.eps'
+  plt.savefig(fig_name)
+  plt.clf()
+
+def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable):
+  x_anal_offset = [float(x)+float(x_offset) for x in x_anal]
+  x_num = [float(x) for x in x_num]
+  plt.plot(x_num, y_num, '+-', label='numerical solution')
+  plt.plot(x_anal_offset, y_anal, '-', label='exact solution')
+  plt.legend(loc='upper left')
+  plt.xlabel(r'$x \ (cm)$')
+  plt.ylabel(variable)
+  plt.ylim(min(y_num), max(y_num))
+  plt.xlim(float(min(x_num)), float(max(x_num)))
+  fig_name=out_file+'-'+variable+'-plot.eps'
   plt.savefig(fig_name)
   plt.clf()
 #### define function ####
@@ -75,30 +89,30 @@ mach_nb_exact = [ float(i)/float(mach_nb_exact[0]) for i in mach_nb_exact]
 
 # SET INPUT FILES
 file_list = []
-file_list.append('mach-1p05-nel-10-points0.csv')
-file_list.append('mach-1p05-nel-20-points0.csv')
-file_list.append('mach-1p05-nel-30-points0.csv')
-file_list.append('mach-1p05-nel-40-points0.csv')
-file_list.append('mach-1p05-nel-50-points0.csv')
-file_list.append('mach-1p05-nel-60-points0.csv')
-file_list.append('mach-1p05-nel-70-points0.csv')
-file_list.append('mach-1p05-nel-80-points0.csv')
-file_list.append('mach-1p05-nel-90-points0.csv')
-file_list.append('mach-1p05-nel-100-points0.csv')
-file_list.append('mach-1p05-nel-110-points0.csv')
-file_list.append('mach-1p05-nel-120-points0.csv')
-file_list.append('mach-1p05-nel-130-points0.csv')
-file_list.append('mach-1p05-nel-140-points0.csv')
-file_list.append('mach-1p05-nel-150-points0.csv')
-file_list.append('mach-1p05-nel-160-points0.csv')
-file_list.append('mach-1p05-nel-170-points0.csv')
-file_list.append('mach-1p05-nel-180-points0.csv')
-file_list.append('mach-1p05-nel-190-points0.csv')
-file_list.append('mach-1p05-nel-200-points0.csv')
-file_list.append('mach-1p05-nel-210-points0.csv')
-file_list.append('mach-1p05-nel-220-points0.csv')
-file_list.append('mach-1p05-nel-230-points0.csv')
-file_list.append('mach-1p05-nel-240-points0.csv')
+#file_list.append('mach-1p05-nel-10-points0.csv')
+##file_list.append('mach-1p05-nel-20-points0.csv')
+##file_list.append('mach-1p05-nel-30-points0.csv')
+#file_list.append('mach-1p05-nel-40-points0.csv')
+#file_list.append('mach-1p05-nel-50-points0.csv')
+##file_list.append('mach-1p05-nel-60-points0.csv')
+#file_list.append('mach-1p05-nel-70-points0.csv')
+##file_list.append('mach-1p05-nel-80-points0.csv')
+##file_list.append('mach-1p05-nel-90-points0.csv')
+#file_list.append('mach-1p05-nel-100-points0.csv')
+##file_list.append('mach-1p05-nel-110-points0.csv')
+##file_list.append('mach-1p05-nel-120-points0.csv')
+#file_list.append('mach-1p05-nel-130-points0.csv')
+##file_list.append('mach-1p05-nel-140-points0.csv')
+##file_list.append('mach-1p05-nel-150-points0.csv')
+#file_list.append('mach-1p05-nel-160-points0.csv')
+##file_list.append('mach-1p05-nel-170-points0.csv')
+##file_list.append('mach-1p05-nel-180-points0.csv')
+#file_list.append('mach-1p05-nel-190-points0.csv')
+#file_list.append('mach-1p05-nel-200-points0.csv')
+#file_list.append('mach-1p05-nel-210-points0.csv')
+#file_list.append('mach-1p05-nel-220-points0.csv')
+#file_list.append('mach-1p05-nel-230-points0.csv')
+#file_list.append('mach-1p05-nel-240-points0.csv')
 file_list.append('mach-1p05-nel-250-points0.csv')
 
 # SET SOME VARIABLES
@@ -127,17 +141,23 @@ L2_norm_mat_temp = []
 nb_cells = []
 x_offset = []
 
+mat_temp = []
+mach_nb = []
+radiation = []
+mat_density = []
+x_coord = []
+
 # LOOP OVER FILES TO COMPUTE L2 and L1 norms
 for file in file_list:
   print '------------------------------'
   print 'Name of the input file:', file
   # set/reset data
   out_file = file[:9]
-  mat_temp = []
-  mach_nb = []
-  radiation = []
-  mat_density = []
-  x_coord = []
+  mat_temp[:] = []
+  mach_nb[:] = []
+  radiation[:] = []
+  mat_density[:] = []
+  x_coord[:] = []
   # open file and read first line
   file_data=open(file, 'r')
   line_head = file_data.readline()
@@ -159,11 +179,14 @@ for file in file_list:
   nb_cells.append(len(x_coord)-1)
   print'Number of cells in file', file, ':', nb_cells[-1]
 
-#  mass_diff = compute_mass_diff(2.e-4, x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order)
+#  mass_diff = compute_mass_diff(0., x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order)
+#  res = [0,0]
   # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order,), method='nelder-mead', options={'xtol': 1e-15, 'disp': True, 'maxiter' : 10000})
-  x_offset.append(res.x[0])
-  mass_diff = res.fun
+#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order,), xtol=1., ftol=1., full_output=True, disp=True, retall=True)[0:2]
+  res = fmin(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order,), xtol=1.e-10, ftol=1.e-10, full_output=True, disp=True, retall=True)[0:2]
+#  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
+  x_offset.append(float(res[0]))
+  mass_diff = res[1]
   print 'x offset for', file, 'is', x_offset[-1]
   print 'mass difference for', file, 'is', mass_diff
   # save density plot
@@ -197,13 +220,19 @@ for file in file_list:
   L2_norm_mat_temp.append(l2_norm)
 
   file_data.close()
-  del mat_temp, mach_nb, radiation, mat_density, x_coord
+#  del mat_temp, mach_nb, radiation, mat_density, x_coord
 
 # PLOT L1 AND L2 NORMS
 plot_error_norms(nb_cells, L1_norm_density, L2_norm_density, 'density')
 plot_error_norms(nb_cells, L1_norm_radiation, L2_norm_radiation, 'radiation')
 plot_error_norms(nb_cells, L1_norm_mach, L2_norm_mach, 'mach-number')
 plot_error_norms(nb_cells, L1_norm_mat_temp, L2_norm_mat_temp, 'mat-temp')
+
+# PLOT MATERIAL DENSITY AND TEMPERATURE, RADIATION TEMPERATURE AND MACH NUMBER
+plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density')
+plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation')
+plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number')
+plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp')
 
 # PLOT X_OFFSET AND SAVE VALUES IN FILE
 # plot
