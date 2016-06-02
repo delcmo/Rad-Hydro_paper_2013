@@ -393,7 +393,7 @@ In \cite{our_jcp_radhy_paper}, the EDL of the regularized GRH was shown to yield
 %$\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for 
 %the GRH equations with the diffusion and relaxation terms omitted.
 
-Since the GRH devolves to a conservative system of equations in the EDL, this particular limit was also studied in Section 2.2 of \cite{our_jcp_radhy_paper} for the regularized GRH: it was shown that the artificial viscosity fluxes remain well-scaled in the EDL when using the correct normalization in the definition of the viscous coefficient $\kappa$ (see \cite{our_jcp_radhy_paper} and \eqt{eq:equation12} below). The regularized GRH equation in the EDL reads:
+Since the GRH devolves to a conservative system of equations in the EDL, this particular limit was also studied in Section 2.2 of \cite{our_jcp_radhy_paper} for the regularized GRH: it was shown that the artificial viscosity fluxes remain well-scaled in the EDL when using the correct normalization in the definition of the viscous coefficient $\kappa$ (see \cite{our_jcp_radhy_paper} and TO REPLACE below). The regularized GRH equation in the EDL reads:
 %
 \begin{subequations}\label{eq:equip-diff-equ}
 %
@@ -1172,34 +1172,34 @@ As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is comput
     \end{subfigure}
 \end{figure}
 %
-The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for smooth numerical solutions
+The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for smooth numerical solutions
 .
 %
 \begin{figure}[H]
     \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mat-temp-convergence.eps}
-    \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp}
+    \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-density-convergence.eps}
-    \caption{Material density.}\label{fig:mach-1p05-cst-xs-density}
+    \caption{Material density.}\label{fig:mach-1p05-cst-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mach-number-convergence.eps}
-    \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach}
+    \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-radiation-convergence.eps}
-    \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation}
+    \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation-conv}
     \end{subfigure}        
-\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
+\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs-conv}    
 \end{figure}
 %
 %
@@ -1286,34 +1286,62 @@ The convergence rates for the material density, the material temperature, the ra
 %\end{center}
 %\end{table}
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which yields an opacityof $577.35 \ cm^{-1}$. The steady-state numerical results for the material density, the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions from \cite{ferguson}.
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are also assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which still yields an opacity of $577.35 \ cm^{-1}$. The steady-state numerical results for the material density, the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions from \cite{ferguson}.
+%
 \begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
+    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-temp}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
     \caption{Steady-state material density for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-dens}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mach-number-plot.eps}
+    \caption{Steady-state mach number for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-mach}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
+    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
+    \end{subfigure}        
+\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-3-cst-xs}    
 \end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
+%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
+%    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
+%\end{figure}
 %
 The material density plotted in \fig{fig:mach-3-cst-xs-dens} shows good agreement with the semi-analytical solution: the shock located around $x=0 \ cm$ is well resolved and does not display any instability. \\
 \tcb{The plots should be included using the subfigure package to save space. Using matplotlib instead of matlab, the plot quality should get better.}
 %
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
-    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-temp}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
+%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
+%    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-temp}
+%\end{figure}
 %
 In \fig{fig:mach-3-cst-xs-temp}, the material temperature shows a Zeldovich's peak around $x=0 \ cm$ that corresponds to the shock position in the material density profile (see \fig{fig:mach-3-cst-xs-dens}). The radiation temperature remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). Both the material and radiation temperature profiles show good agreement with the semi-analytical solutions.
 %
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
-    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
+%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
+%    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
+%\end{figure}
 %
-The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual (see \eqt{eq:equation12}). We note that the viscosity coefficient $\kappa$ does not saturate to the first-order, over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. We have shown
+The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual (see TO REPLACE). We note that the viscosity coefficient $\kappa$ does not saturate to the first-order, over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. We have shown
 in \sct{sec:VR_new} that the relaxation source terms were entropy-producing; thus it may not be necessary for the entropy viscosity to saturate to the first-order viscosity at shock locations.
 %
 %------------------------------------------------------------------
@@ -1338,39 +1366,66 @@ The test is run until a steady state is reached. Numerical results for the mater
 %\end{itemize}
 %
 \begin{figure}[H]
+    \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
+    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
     \caption{Steady-state material density for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-dens}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
+    \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
+    \caption{Steady-state solution of the artificial viscosity coefficients for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-visc}
+    \end{subfigure}        
+\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-3-temp-dep-xs}    
 \end{figure}
+%
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
+%    \caption{Steady-state material density for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-dens}
+%\end{figure}
 %
 The density profile plotted in \fig{fig:mach-3-dpt-xs-dens} does not show any instability neither in the vicinity of the shock around $x = 0 \ cm$ nor in the abrupt change located at $x = -0.01 \ cm$. The shock is well resolved and the numerical and semi-analytical solutions overlap and are in excellent agreement.
 %
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
-    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
+%    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
+%\end{figure}
 %
 In \fig{fig:mach-3-dpt-xs-temp}, the material and radiation temperatures do not show any instability either. The Zeldovich's pike in the material temperature profile is well resolved. The radiation temperature remains smooth as expected because of the diffusion term in the radiation equation. The numerical and semi-analytical solutions are in excellent agreement. 
 %
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
-    \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
+%    \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
+%\end{figure}
 %
 The numerical profile of the cross section is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. 
 %We recall here that the material is a pure absorber and thus, the total and absorption cross sections are equal. The cross section varies by a factor $30$ in the shock region which .... \tcb{Are we not in the case where the material is optically thick in the pre-shock region? If this is the case, we should write something about the interest of using the local entropy residual with a local normalization as we do for Euler equation.}
 %
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
-    \caption{Steady-state solution of the artificial viscosity coefficients for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-visc}
-\end{figure}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
+%    \caption{Steady-state solution of the artificial viscosity coefficients for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-visc}
+%\end{figure}
 %
 %\tcb{Shall we add a plot of the material density profile run without the jumps for comparison?} \\ 
 The profiles of the entropy- ($\kappa_e$) and first-order ($\kappa_{max}$) viscosity coefficients are showed in \fig{fig:mach-3-dpt-xs-visc}. We observe that the entropy viscosity coefficient $\kappa_e$ displays two peaks at $x=-0.01 \ cm$ and at $x = 0 \ cm$. The latter one coincides with the shock position where the entropy residual $R_e(x,t)$ is known to be peaked. % (see \sct{sec:def-visc-coeff} and also \cite{our_jcp_radhy_paper}). 
-The former one, is due to the inclusion of the jumps in the definition of the entropy viscosity coefficient as shown in \eqt{eq:equation12} and \eqt{eq:equation13}: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation that triggers a larger  jump value. 
+The former one, is due to the inclusion of the jumps in the definition of the entropy viscosity coefficient as shown in TO REPLACE: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation that triggers a larger  jump value. 
 %It is also observed that the entropy viscosity coefficient $\kappa_e$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$ in the vicinity of the shock around $x = 0 \ cm$ which can be explained by the dissipative behavior of the source terms that add dissipation as highlighted in \sct{sec:VR_new}. 
 Overall, the entropy viscosity coefficient behaves as expected: it is peaked in the vicinity of the shock and in regions of sharp variations, and small elsewhere.
 %
