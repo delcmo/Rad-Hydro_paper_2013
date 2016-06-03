@@ -880,7 +880,23 @@ Then, the matrix $\hat{A}$ is obtained by first computing $Z=AP$ and then $\hat{
 \end{bmatrix} \, .
 \end{equation}
 %
-At this stage of the proof, 
+At this stage of the proof, we need to show that the matrice $\hat{A}$ (\eqt{eq:gen-matrix}) devolves to the matrix $A^*$ in the EDL (\eqt{eq:mat-quad-form-edl}). It will be achieved by (i) reducing the size of the matrix $\hat{A}$ from $3 \times 3$ to $2 \times 2$ and then (ii) demonstrate that each entry of the reduced matrix $\hat{A}$ and the matrix $A^*$ are equal.
+
+The matrix $\hat{A}$ is derived from the GRH system of equations that contains four PDEs. In the EDL, the radiation energy density equation is summed to the material energy equation and then replaced by the algebraic equation $\epsilon=aT^4$. As a result, the last row and column of the matrix $\hat{A}$ can be removed to yield a reduced matrix:
+%
+\begin{equation}\label{eq:gen-matrix}
+\hat{A}_{EDL} = 
+\begin{bmatrix}
+\sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \\
+\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
+\seehat \\
+\end{bmatrix} \, ,
+\end{equation}
+%
+where $\hat{A}_{EDL}$ denotes the matrix $\hat{A}$ in the EDL.
+
+The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$. The reader is referred to APPENDIX for the derivations regarding the three other entries.
 %Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
 %\tcb{This is still incomplete since we need to talk about positivity of the density. done.}
 %
@@ -1123,7 +1139,7 @@ We recall that, in the case of a pure-absorber material, the total and absorptio
 The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. For each numerical results, information regarding the CFL condition, the number of elements used in the mesh, the boundary conditions and initial conditions will be provided to the reader.
 %
 %------------------------------------------------------------------
-\subsection{Method for convergence test}\label{sec:mthd-conv-test}
+\subsection{Method for computing the convergence rates}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
 The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. When performing a convergence study, the semi-analytical solution needs to be shifted to match the numerical solution. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock, as shown in \eqt{eq:mass-diff}:
