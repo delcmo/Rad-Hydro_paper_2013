@@ -448,6 +448,7 @@ It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation 
 %------------------------------------------------------------------
 %
 \tcb{The definition of the artificial entropy viscosity coefficient $\kappa$ is identical to what was previously used in \cite{our_jcp_radhy_paper}. We thus refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details regarding the derivation of the entropy viscosity coefficient $\kappa$ and its definition.}
+\tcr{add a few words about $\kappa_{max}$ and $\kappa_e$ along with equation numbers from previous paper}
 %The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
 %production, i.e., the local entropy residual $R_e(x,t)$. However, the entropy residual can be excessively large, in shocks for example, leading
 %to the idea of bounding (from above) the entropy viscosity with a first-order viscosity (e.g., a local Lax-Friedrichs or Rusanov viscosity).
@@ -894,7 +895,7 @@ The matrix $\hat{A}$ is derived from the GRH system of equations that contains f
 \end{bmatrix} \, ,
 \end{equation}
 %
-where $\hat{A}_{EDL}$ denotes the matrix $\hat{A}$ in the EDL.
+where $\hat{A}_{EDL}$ denotes the degenerated matrix $\hat{A}$ in the EDL.
 
 The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$. The reader is referred to APPENDIX for the derivations regarding the three other entries.
 %Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
@@ -1134,231 +1135,202 @@ M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ ,
 \mathbb{\Lambda} = \frac{c}{3 \sigma_{t, \infty} c_{m,\infty} L_\infty} \text{ (Radiation diffusivity) } \ .
 \end{eqnarray}
 %
-We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal. The initial discontinuity is always located at $x = 0 \ cm$. % \ cm$.
+We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal.
 
-The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. For each numerical results, information regarding the CFL condition, the number of elements used in the mesh, the boundary conditions and initial conditions will be provided to the reader.
+The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. The initial conditions consist of a step located at $x=0 \ cm$ with constant left and right values computed from \eqt{eq:scaled-nb} and the Rankine-Hugoniot condition (see Section 2 of \cite{LowrieEdwards}). For each test case, information regarding the CFL condition and the number of elements used in the mesh will be provided to the reader. Steady-state numerical results of the material density $\rho$ and temperature $T$, the radiation temperature $T_r$, the mach number $Mach$ will be shown and compared against the semi-analytical solutions. The numerical profiles of the viscosity coefficients $\kappa$ and $\kappa_{max}$ will also be plotted to illustrate the EVM.
 %
 %------------------------------------------------------------------
 \subsection{Method for computing the convergence rates}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
-The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. When performing a convergence study, the semi-analytical solution needs to be shifted to match the numerical solution. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock, as shown in \eqt{eq:mass-diff}:
+The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. When performing a convergence study, the semi-analytical solution needs to be shifted to match the numerical solution. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock when present, as shown in \eqt{eq:mass-diff}:
 %
 \begin{equation}\label{eq:mass-diff}
 \Delta m = m_{anal}(x_1,x_2) - m_{num}(x_1,x_2) = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
 \end{equation}
 %
-where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference becomes smaller that a given tolerance, say $10^{-10}$, the value of $x_{offset}$ is retrieved. Then, the $L_1$ error norms of a variable of interest denoted by $y(x)$, is computed as follows:
+where $x_{offset}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference becomes smaller that a given tolerance, say $10^{-10}$, the value of $x_{offset}$ is retrieved. Then, the $L_{1,2}$ error norms of a variable of interest denoted by $y(x)$, is computed as follows:
 %
 \begin{eqnarray}\label{eq:l1-error-norm}
-L_1(y) &=& \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\ 
-&=& \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) | dx \\
-&=& \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) | dx \, .
+L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{1,2} dx \right]^{1,1/2} \\ 
+&=& \left[ \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{1,2} dx \right]^{1,1/2} \\ 
+&=& \left[ \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) |^{1,2} dx \right]^{1,1/2} \\ \, .
 \end{eqnarray}
 %
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a cubic interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution is solved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a cubic interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution is solved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation. It is chosen to shift the semi-analytical solution since it is solved on a finer mesh than the numerical solution.
 
-A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ error norm from \eqt{eq:l1-error-norm}.
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ and $L_2$ error norm from \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
-\subsection{Mach-1.05 shock test with constant opacities}\label{sec:mach-1p05-cst-xs}
+\subsection{Mach-1.05 test case with constant opacities}\label{sec:mach-1p05-cst-xs}
 %------------------------------------------------------------------
 %
-For this test, the inlet Mach number is set to $1.05$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=1.05$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ (see \eqt{eq:scaled-nb}) which yields an opacity of $577.35 \ cm^{-1}$. To illustrate the points developed in \sct{sec:mthd-conv-test}, the numerical and semi-analytical density profiles are plotted before and after shifting the semi-analytical solution. Variations of the computed offset value $x_{offset}$ as a function of the grid size are also presented. Finally, plots of the $L_1$ error norms defined in \eqt{eq:l1-error-norm} are shown in \fig{fig:mach-1p05-cst-xs} for the material density, the material temperature, the mach number and the radiation energy density along with the respective steady-state numerical solutions in FIGURE.
+For this test, the inlet Mach number is set to $1.05$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=1.05$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ defined in \eqt{eq:scaled-nb}, which yields an opacity of $577.35 \ cm^{-1}$. This test case has multiple purposes. First, it will serve at illustrating further the methodology proposed in \sct{sec:mthd-conv-test} for shifting the semi-analytical solution towards the numerical solution. Then, since the Mach-1.05 test case corresponds to the EDL and yields a smooth solution, second-order accuracy of the EVM will be demonstrated by performing a convergence study of the $L_1$ and $L_2$ error norm. Lastly, it will allow to illustrate the mathematical prove presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL.
 
-As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is computed for each run of the convergence study by minimizing the mass difference between the numerical and semi-analytical solutions. The computed offset values are plotted in \fig{fig:mach-1p05-x-offset}: it is observed that the computed offset value decreases as the mesh becomes finer and a plateau is reached. 
+To illustrate the points developed in \sct{sec:mthd-conv-test}, the numerical and semi-analytical density profiles are plotted before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. Variations of the computed offset value $x_{offset}$ as a function of the grid size are also presented in \fig{fig:mach-1p05-x-offset}. 
+%Finally, plots of the $L_1$ and $L_2$ error norms defined in \eqt{eq:l1-error-norm} are shown in \fig{fig:mach-1p05-cst-xs-conv} for the material density, the material temperature, the mach number and the radiation energy density along with the respective steady-state numerical solutions in \fig{fig:mach-1p05-cst-xs}.
+As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is computed for each run of the convergence study by minimizing the mass difference between the numerical and semi-analytical solutions. The computed offset values are plotted in \fig{fig:mach-1p05-x-offset} for meshes ranging from $10$ to $250$ cells: it is observed that the computed offset value decreases as the mesh becomes finer to reach a plateau value of $3.8 \times 10^{-4}$. The numerical and semi-analytical density profiles are shown before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. The numerical solution was obtained on a computational domain meshed with $100$ cells. By minimizing the mass difference between the numerical and semi-analytical solutions, the semi-analytical solution is shifted towards the right boundary.
 %
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{subfigure}{0.33\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-x-offset.eps}
-    \caption{Plot of the shift value for different mesh sizes.}\label{fig:mach-1p05-x-offset}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-x-offset.eps}
+    \caption{$x_{offset}$ vs. number of cells.}\label{fig:mach-1p05-x-offset}
     \end{subfigure}
     %
     \begin{subfigure}{0.33\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-density-nel-50-zero-shift.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50-zero-shift.eps}
     \caption{Material density before shifting.}\label{fig:mach-1p05-cst-xs-density-no-shift}
     \end{subfigure}
     %
     \begin{subfigure}{0.33\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-density-nel-50.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50.eps}
     \caption{Material density after shifting.}\label{fig:mach-1p05-cst-xs-density-with-shift}
     \end{subfigure}
 \end{figure}
 %
-The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for smooth numerical solutions
-.
+The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for both the $L_1$ and $L_2$ error norms when refining the mesh. This example proves that the EVM achieves second-order accuracy for smooth solutions and that the entropy condition still holds in the EDL as proved in \sct{sec:cons-equi-diff-limit}.
 %
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mat-temp-convergence.eps}
     \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-density-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-convergence.eps}
     \caption{Material density.}\label{fig:mach-1p05-cst-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mach-number-convergence.eps}
     \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-radiation-convergence.eps}
     \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation-conv}
     \end{subfigure}        
 \caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs-conv}    
 \end{figure}
 %
+
+The numerical and semi-analytical solutions of $(\rho, T, T_r, Mach)$ are plotted in \fig{fig:mach-1p05-cst-xs-density}, \fig{fig:mach-1p05-cst-xs-temp}, \fig{fig:mach-1p05-cst-xs-radiation} and \fig{fig:mach-1p05-cst-xs-mach}, respectively. It is observed that the numerical profiles are smooth and perfectly match the semi-analytical solutions for each variable. The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-1p05-cst-xs-visc} on a log scale. It is observed that the entropy viscosity coefficient $\kappa$ is three to seven order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$. Such behavior is expected as the numerical solution is smooth and the entropy production small.
 %
-\begin{figure}[H]
-    \begin{subfigure}{0.5\textwidth}
+\begin{figure}[h]
+    \begin{subfigure}{0.32\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mat-temp-plot.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mat-temp-nel-250-plot.eps}
     \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp}
     \end{subfigure}
     ~
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.32\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-density-plot.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-250-plot.eps}
     \caption{Material density.}\label{fig:mach-1p05-cst-xs-density}
     \end{subfigure}
-    
-    \begin{subfigure}{0.5\textwidth}
+    ~
+    \begin{subfigure}{0.32\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mach-number-plot.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mach-number-nel-250-plot.eps}
     \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach}
     \end{subfigure}
-    ~
-    \begin{subfigure}{0.5\textwidth}
+
+    \begin{center}    
+    \begin{subfigure}{0.32\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-radiation-plot.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-radiation-nel-250-plot.eps}
     \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation}
     \end{subfigure}        
-\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
+    ~
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-visc-nel-250-plot.eps}
+    \caption{Viscosity coefficients.}\label{fig:mach-1p05-cst-xs-visc}
+    \end{subfigure}        
+    \end{center}
+\caption{Numerical ($251$ nodes) and semi-analytical ($\sim 3500$ nodes) steady-state profiles ((a), (b), (c) and (d)) along with the viscosity coefficient profiles (e) for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
 \end{figure}
+%\FloatBarrier
 %
 %------------------------------------------------------------------
 \subsection{Mach-3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
 %------------------------------------------------------------------
 %
-%\begin{table}[H]
-%\caption{\label{tbl:table1} L$_1$ norms of the error for Mach 3 test.}
-%\begin{center}
-%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-%\hline
-%\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
-%$100$ & $8.346\times 10^{6}$ & NA &  $29.675$ & NA \\ \hline
-%$200$ & $3.436\times 10^{6}$ & $1.280$ &  $12.300$ & $1.271$ \\ \hline
-%$400$ & $3.066\times10^{6}$ & $0.164$ &  $10.998$ & $0.161$ \\ \hline
-%$800$ & $1.565\times 10^{6}$ & $0.969$ &  $5.689$ & $0.951$ \\ \hline
-%$1600$ & $7.323\times 10^{5}$ & $1.096$ &  $2.741$ & $1.054$ \\ \hline
-%$3200$ & $3.648\times 10^{5}$ & $1.005$ & $1.440$ & $0.928$ \\ \hline
-%$6400$ & $1.823\times 10^{5}$ & $1.001$ & $0.794$ & $0.858$ \\ \hline
-%\hline
-%\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
-%$100$ & $7.470\times 10^{6}$ & NA & $1.458\times 10^6$ & NA	\\ \hline
-%$200$ & $3.075\times 10^{6}$ & $1.280$ & $6.001\times 10^5$ & $1.280$	\\ \hline
-%$400$ & $2.744\times 10^{6}$ & $0.164$ & $5.3555\times 10^5$ & $0.164$	\\ \hline
-%$800$ & $1.401\times 10^{6}$ & $0.969$ & $2.734\times 10^5$ & $0.969$	\\  \hline
-%$1600$&$6.555\times 10^{5}$ & $1.096$ & $1.279\times 10^5$ & $1.096$ \\ \hline 
-%$3200$ & $3.266\times10^{5}$  & $1.005$ & $6.372\times 10^4$ & $1.005$ \\ \hline   
-%$6400$ & $1.632\times 10^{5}$  & $1.000$ & $3.184\times10^4$ & $1.001$ \\ \hline   
-%\end{tabular}  
-%\end{center}
-%\end{table}
-%%
-%\begin{table}[H]
-%\caption{\label{tbl:table1} L$_2$ norms of the error for Mach 3 test.}
-%\begin{center}
-%\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-%\hline
-%\textbf{\# of cells} & $\mathbf{\rho}$ & \textbf{ratio} & $\mathbf{T}$ & \textbf{ratio} \\ \hline
-%$100$ & $6.087\times 10^{8}$ & NA &  $29.675$ & NA \\ \hline
-%$200$ & $3.177\times 10^{8}$ & $1.280$ &  $12.300$ & $0.938$ \\ \hline
-%$400$ & $3.827\times10^{8}$ & $0.164$ &  $10.998$ & $0.269$ \\ \hline
-%$800$ & $2.742\times 10^{8}$ & $0.969$ &  $5.689$ & $0.481$ \\ \hline
-%$1600$ & $1.811\times 10^{8}$ & $1.096$ &  $2.741$ & $0.599$ \\ \hline
-%$3200$ & $1.275\times 10^{8}$ & $1.005$ & $1.440$ & $0.506$ \\ \hline
-%$6400$ & $9.011\times 10^{7}$ & $1.001$ & $0.794$ & $0.501$ \\ \hline
-%\hline
-%\textbf{\# of cells} & $\mathbf{\epsilon}$ & \textbf{ratio} &  $\mathbf{Mach}$ & \textbf{ratio} \\ \hline
-%$100$ & $5.448\times 10^{8}$ & NA & $1.063\times 10^9$ & NA	\\ \hline
-%$200$ & $2.843\times 10^{8}$ & $0.938$ & $5.548\times 10^8$ & $0.938$	\\ \hline
-%$400$ & $3.426\times 10^{8}$ & $0.269$ & $6.685\times 10^8$ & $0.269$	\\ \hline
-%$800$ & $2.454\times 10^{8}$ & $0.481$ & $4.789\times 10^8$ & $0.481$	\\  \hline
-%$1600$&$1.621\times 10^{8}$ & $0.599$ & $3.162\times 10^8$ & $0.599$ \\ \hline 
-%$3200$ & $1.141\times10^{8}$  & $0.506$ & $2.227\times 10^8$ & $0.506$ \\ \hline   
-%$6400$ & $8.064\times 10^{7}$  & $0.501$ & $1.574\times10^8$ & $0.501$ \\ \hline   
-%\end{tabular}  
-%\end{center}
-%\end{table}
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are still assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which still yields an opacity of $577.35 \ cm^{-1}$. The purpose of this test is twofolds: (i) it will illustrate the point developed in \sct{sec:ent-cond-full-GRH} and, (ii) will show that the EVM achieves first-order accuracy for numerical solutions with shocks. The code is run with a CFL condition of 1 until the steady-state solution is reached. 
+
+A convergence study of the $L_1$ error norm is performed for the variables $(\rho, T, T_r, Mach)$ and plots are shown in \fig{fig:mach-3-cst-xs-conv}. A reference line of slope 1 shows that first-order convergence of the $L_1$ error norm is achieved for all variables as expected for a numerical solution with a shock.
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are also assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which still yields an opacity of $577.35 \ cm^{-1}$. The steady-state numerical results for the material density, the material and radiation temperatures, and the viscosity coefficient $\kappa$ are presented in \fig{fig:mach-3-cst-xs-dens}, \fig{fig:mach-3-cst-xs-temp} and \fig{fig:mach-3-cst-xs-visc}, respectively, along with the semi-analytical solutions from \cite{ferguson}.
-%
-\begin{figure}[H]
+\begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
-    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-temp}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mat-temp-convergence.eps}
+    \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
-    \caption{Steady-state material density for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-dens}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-density-convergence.eps}
+    \caption{Material density.}\label{fig:mach-3-cst-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05-mach-number-plot.eps}
-    \caption{Steady-state mach number for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-mach}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mach-number-convergence.eps}
+    \caption{Mach number.}\label{fig:mach-3-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
-    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-radiation-convergence.eps}
+    \caption{Radiation energy density.}\label{fig:mach-3-cst-xs-radiation-conv}
     \end{subfigure}        
-\caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-3-cst-xs}    
+\caption{Convergence plots of the $L_1$ error norm for Mach $3$ test.}\label{fig:mach-3-cst-xs-conv}    
 \end{figure}
 %
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_density.eps}
-%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_density.eps}    
-%    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
-%\end{figure}
+
+The steady-state numerical results obtained with a mesh of $1000$ cells are plotted against the semi-analytical solutions \cite{ferguson} along with the viscosity coefficients $\kappa$ and $\kappa_{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. It is well resolved and does not display any instabilities. In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich's pike in the vicinity of the shock region: the pike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc}. It is observed that $\kappa$ is peaked in the vicinity of the shock and small anywhere else. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual and the jumps. It is also observed that the viscosity coefficient $\kappa$ does not saturate to the first-order, over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point developed in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). Consequently, the relaxation and diffusion terms participate in stabilizing the numerical solution along with the EVM.
 %
-The material density plotted in \fig{fig:mach-3-cst-xs-dens} shows good agreement with the semi-analytical solution: the shock located around $x=0 \ cm$ is well resolved and does not display any instability. \\
-\tcb{The plots should be included using the subfigure package to save space. Using matplotlib instead of matlab, the plot quality should get better.}
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_temperature.eps}
-%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_temperature.eps}    
-%    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-temp}
-%\end{figure}
-%
-In \fig{fig:mach-3-cst-xs-temp}, the material temperature shows a Zeldovich's peak around $x=0 \ cm$ that corresponds to the shock position in the material density profile (see \fig{fig:mach-3-cst-xs-dens}). The radiation temperature remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). Both the material and radiation temperature profiles show good agreement with the semi-analytical solutions.
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_1000_viscosity.eps}
-%%    \includegraphics[width=\textwidth]{figures/cst-xs/mach_3_cst_xs_nel_500_viscosity.eps}    
-%    \caption{Steady-state artificial viscosity coefficient for the Mach-3 shock test.}\label{fig:mach-3-cst-xs-visc}
-%\end{figure}
-%
-The viscosity coefficients $\kappa$ displays a peak in the vicinity of the shock around $x=0 \ cm$ as shown in \fig{fig:mach-3-cst-xs-visc}: this behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual (see TO REPLACE). We note that the viscosity coefficient $\kappa$ does not saturate to the first-order, over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. We have shown
-in \sct{sec:VR_new} that the relaxation source terms were entropy-producing; thus it may not be necessary for the entropy viscosity to saturate to the first-order viscosity at shock locations.
+\begin{figure}[h]
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mat-temp-nel-1000-plot.eps}
+    \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp}
+    \end{subfigure}	
+    ~
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-density-nel-1000-plot.eps}
+    \caption{Material density.}\label{fig:mach-3-cst-xs-dens}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-radiation-nel-1000-plot.eps}
+    \caption{Radiation temperature.}\label{fig:mach-3-cst-xs-rad}
+    \end{subfigure}
+    
+    \begin{center}
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mach-number-nel-1000-plot.eps}
+    \caption{Mach number.}\label{fig:mach-3-cst-xs-mach}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-visc-nel-1000-plot.eps}
+    \caption{Artificial viscosity coefficients.}\label{fig:mach-3-cst-xs-visc}
+    \end{subfigure}        
+    \end{center}
+\caption{Numerical ($1001$ nodes) and semi-analytical ($\sim 10^5$ nodes) steady-state profiles ((a), (b), (c) and (d)) along with the viscosity coefficient profiles (e) for Mach $3$ test.}\label{fig:mach-3-cst-xs}      
+\end{figure}
 %
 %------------------------------------------------------------------
 \subsection{Mach-3 shock test with temperature-dependent opacities}\label{sec:mach-3-no-cst-xs}
@@ -1381,7 +1353,7 @@ The test is run until a steady state is reached. Numerical results for the mater
 %\item investigate the influence of the jumps in the definition of the viscosity coefficients: run the same numerical test with and without jumps.
 %\end{itemize}
 %
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}

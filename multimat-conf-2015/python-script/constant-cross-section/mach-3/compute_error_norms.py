@@ -8,7 +8,7 @@ from scipy.interpolate import splrep, splev
 import matplotlib.pyplot as plt
 #### import python modules ####
 
-def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value, quad_order):
+def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value, quad_order, interp_kind):
   # SET VARIABLES
   x_coord_exact_offset = [float(x)+float(x_offset) for x in x_coord_exact]
   num_value = [float(x) for x in num_value]
@@ -49,12 +49,20 @@ def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value
     while (x_coord_exact_offset[index_right] < node_right):
       index_right += 1
     index_right = index_right+10 if index_right != nb_nodes_exact-1  else nb_nodes_exact
+    # reduce the number of nodes from analytical solution down to 100
+    interval=1
+    if index_right-index_left>100:
+      interval=int((index_right-index_left)/100)
+    exact_value_cell = exact_value[index_left:index_right:interval]
+    exact_value_cell[0] = exact_value[index_left]
+    exact_value_cell[-1] = exact_value[index_right]
+    x_coord_exact_cell = x_coord_exact_offset[index_left:index_right:interval]
+    x_coord_exact_cell[0] = x_coord_exact_offset[index_left]
+    x_coord_exact_cell[-1] = x_coord_exact_offset[index_right]
     # interpolate values at the quadrature points 'xq_cell'
-    exact_value_cell = exact_value[index_left:index_right]
-    x_coord_exact_cell = x_coord_exact_offset[index_left:index_right]
 #    f = splrep(x_coord_exact_cell, exact_value_cell, s=0)
 #    exact_value_cell_xq = splev(xq_cell, f, der=0)
-    f = interp1d(x_coord_exact_cell, exact_value_cell, kind='cubic')
+    f = interp1d(x_coord_exact_cell, exact_value_cell, kind=interp_kind)
     exact_value_cell_xq = f(xq_cell)
     # compute the numerical solution value at the quadrature points
     num_value_cell = num_value[cell:cell+2]

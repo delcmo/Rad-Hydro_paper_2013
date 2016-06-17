@@ -55,9 +55,17 @@ def compute_mass_diff(x_offset, x_coord, mat_density, x_coord_exact, mat_density
     while (x_coord_exact_offset[index_right] < node_right):
       index_right += 1
     index_right = index_right+2 if index_right != nb_nodes_exact-1  else nb_nodes_exact
+    # reduce the number of nodes from analytical solution down to 100
+    interval=1
+    if index_right-index_left>100:
+      interval=int((index_right-index_left)/100)
+    exact_value_cell = mat_density_exact[index_left:index_right:interval]
+    exact_value_cell[0] = mat_density_exact[index_left]
+    exact_value_cell[-1] = mat_density_exact[index_right]
+    x_coord_exact_cell = x_coord_exact_offset[index_left:index_right:interval]
+    x_coord_exact_cell[0] = x_coord_exact_offset[index_left]
+    x_coord_exact_cell[-1] = x_coord_exact_offset[index_right]
     # interpolate values at the quadrature points 'xq_cell'
-    exact_value_cell = mat_density_exact[index_left:index_right]
-    x_coord_exact_cell = x_coord_exact_offset[index_left:index_right]
 #    f = splrep(x_coord_exact_cell, exact_value_cell, s=0)
 #    exact_value_cell_xq = splev(xq_cell, f, der=0)
     f = interp1d(x_coord_exact_cell, exact_value_cell, kind=3)
