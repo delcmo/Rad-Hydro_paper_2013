@@ -105,25 +105,29 @@ x_coord_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 x_coord_exact[:] = [ line[:-1] for line in file_data_exact]
 # material density
-file_exact_list.append('data_density.dat')
+file_exact_list.append('data_Density.dat')
 mat_density_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_density_exact[:] = [ line[:-1] for line in file_data_exact]
+print float(mat_density_exact[-1])/float(mat_density_exact[0])
 # radiation energy density
 file_exact_list.append('data_RED.dat')
 radiation_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 radiation_exact[:] = [ line[:-1] for line in file_data_exact]
+print float(radiation_exact[-1])/float(radiation_exact[0]), radiation_exact[0], radiation_exact[-1]
 # mach number or fluid velocity
 file_exact_list.append('data_Mach.dat')
 mach_nb_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mach_nb_exact[:] = [ line[:-1] for line in file_data_exact]
+print mat_density_exact[0], mat_density_exact[-1]
 # material temperature
 file_exact_list.append('data_Temp.dat')
 mat_temp_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_temp_exact[:] = [ line[:-1] for line in file_data_exact]
+print float(mat_temp_exact[-1])/float(mat_temp_exact[0])
 nb_nodes_exact = len(x_coord_exact)
 nb_exact_files = len(file_exact_list)
 # remove duplicate values in x_coord_exact and consistently in other lists
@@ -140,44 +144,7 @@ mach_nb_exact = [ float(i)/float(mach_nb_exact[0]) for i in mach_nb_exact]
 # SET INPUT FILES
 file_list = []
 
-#file_list.append('mach-3-nel-250-points0.csv')
-#file_list.append('mach-3-nel-300-points0.csv')
-
-# above 1e-10 mass difference
-#file_list.append('mach-3-nel-350-points0.csv')
-#file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-##file_list.append('mach-3-nel-600-points0.csv')
-#file_list.append('mach-3-nel-650-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-850-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-##file_list.append('mach-3-nel-1000-points0.csv')
-##file_list.append('mach-3-nel-1500-points0.csv')
-#file_list.append('mach-3-nel-2200-points0.csv')
-
-# below 1e-10 mass difference
-#file_list.append('mach-3-nel-450-points0.csv')
-#file_list.append('mach-3-nel-550-points0.csv')
-#file_list.append('mach-3-nel-750-points0.csv')
-#file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-950-points0.csv')
-#file_list.append('mach-3-nel-1200-points0.csv')
-#file_list.append('mach-3-nel-2000-points0.csv')
-#file_list.append('mach-3-nel-2500-points0.csv')
-
-#file_list.append('mach-3-nel-300-points0.csv')
-#file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-##file_list.append('mach-3-nel-600-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-#file_list.append('mach-3-nel-1000-points0.csv')
-#file_list.append('mach-3-nel-2000-points0.csv')
-
 ## works well with cfl=0.1
-#file_list.append('mach-3-nel-100-points0.csv')
 file_list.append('mach-3-nel-200-points0.csv')
 file_list.append('mach-3-nel-400-points0.csv')
 file_list.append('mach-3-nel-500-points0.csv')
@@ -186,12 +153,10 @@ file_list.append('mach-3-nel-700-points0.csv')
 file_list.append('mach-3-nel-800-points0.csv')
 file_list.append('mach-3-nel-900-points0.csv')
 file_list.append('mach-3-nel-1000-points0.csv')
-#file_list.append('mach-3-nel-1100-points0.csv')
-#file_list.append('mach-3-nel-1600-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 100 # 70
+quad_order = 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
@@ -287,6 +252,7 @@ for file in file_list:
   l1_norm, l2_norm = compute_error_norms(x_offset[-1], x_coord, mat_temp, x_coord_exact, mat_temp_exact, quad_order, interp_kind)
   print l1_norm
   L1_norm_mat_temp.append(l1_norm)
+  print L1_norm_mat_temp
   L2_norm_mat_temp.append(l2_norm)
 
   file_data.close()
@@ -303,7 +269,7 @@ plot_error_norms(nb_cells, L1_norm_mat_temp, L2_norm_mat_temp, 'mat-temp')
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
-plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
+#plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1600-points0.csv', var_index, nb_cells[-1])
 
 # PLOT X_OFFSET AND SAVE VALUES IN FILE

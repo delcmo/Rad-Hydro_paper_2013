@@ -100,27 +100,32 @@ def plot_visc_coeff(x_num, file, var_index, nb_cells):
 file_exact_list = []
 path_to_exact_files = 'test'
 # x-coordinates
-file_exact_list.append('data_x.dat')
+file_exact_list.append('x_data.txt')
+#file_exact_list.append('data_x.dat')
 x_coord_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 x_coord_exact[:] = [ line[:-1] for line in file_data_exact]
 # material density
-file_exact_list.append('data_density.dat')
+file_exact_list.append('Density_data.txt')
+#file_exact_list.append('data_Density.dat')
 mat_density_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_density_exact[:] = [ line[:-1] for line in file_data_exact]
 # radiation energy density
-file_exact_list.append('data_RED.dat')
+file_exact_list.append('Er_data.txt')
+#file_exact_list.append('data_RED.dat')
 radiation_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 radiation_exact[:] = [ line[:-1] for line in file_data_exact]
 # mach number or fluid velocity
-file_exact_list.append('data_Mach.dat')
+file_exact_list.append('Mach_Data.txt')
+#file_exact_list.append('data_Mach.dat')
 mach_nb_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mach_nb_exact[:] = [ line[:-1] for line in file_data_exact]
 # material temperature
-file_exact_list.append('data_Temp.dat')
+file_exact_list.append('Tm_data.txt')
+#file_exact_list.append('data_Temp.dat')
 mat_temp_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_temp_exact[:] = [ line[:-1] for line in file_data_exact]
@@ -191,7 +196,7 @@ file_list.append('mach-3-nel-1000-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 100 # 70
+quad_order = 70 # 70 # 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
@@ -250,6 +255,7 @@ for file in file_list:
   radiation = [ float(i)/float(radiation[0]) for i in radiation]
   mach_nb = [ float(i)/float(mach_nb[0]) for i in mach_nb]
   mat_temp = [ float(i)/float(mat_temp[0]) for i in mat_temp]
+#  print mat_temp[-1], mat_density[-1], mach_nb[-1], radiation[-1]
   # output number of nodes for numerical mesh
   nb_cells.append(len(x_coord)-1)
   print'Number of cells in file', file, ':', nb_cells[-1]
@@ -260,7 +266,7 @@ for file in file_list:
 #  res = [0,mass_diff]
   # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
 ##  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1., ftol=1., full_output=True, disp=True, retall=True)[0:2]
-  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True)[0:2]
+  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000)[0:2]
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
   x_offset.append(float(res[0]))
   mass_diff = res[1]
@@ -303,7 +309,7 @@ plot_error_norms(nb_cells, L1_norm_mat_temp, L2_norm_mat_temp, 'mat-temp')
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
-plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
+#plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1600-points0.csv', var_index, nb_cells[-1])
 
 # PLOT X_OFFSET AND SAVE VALUES IN FILE

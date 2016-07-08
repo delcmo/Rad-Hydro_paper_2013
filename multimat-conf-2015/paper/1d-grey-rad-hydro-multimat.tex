@@ -25,7 +25,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \title{Viscous Regularization of the non-equilibrium Grey Radiation-Hydrodynamics}
 
-\author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}}
+\author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}, Jim Ferguson\affil{2}}
 
 \address{\affilnum{1}Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA}
 
@@ -825,20 +825,19 @@ which demonstrates that the entropy equation of the full GRH equations satisfies
 In section 2.2 of \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit. It is proposed here, to mathematically prove that the entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the Equilibrium Diffusion Limit (EDL) entropy equation given in \eqt{eq:EDL-entropy}. The reader is referred to APPENDIX for details of the proof and only the main steps are presented in this section as the proof is lengthy. \tcb{Shall we have the entropy equations here?}
 
 %In the  (EDL), the system of equations, \eqt{eq:equip-diff-equ}, is not longer expressed as a function of $\left[ \rho, \rho u \rho E, \epsilon \right]$ but as a function of $\left[ \rho, \rho u, \rho E^* \right]$ along with the closure relation $\epsilon = aT^4$. 
-In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and is substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and can be written as a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation, a two-step process is proposed. First, the following change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
+In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and can be written as a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation, a two-step process is proposed. First, the following change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
 %
 \begin{equation}\label{eq:chge_var}
-X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right], 
+X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \hat{\rho}, \partial_x \hat{e},  \partial_x \hat{\epsilon} \right], 
 \end{equation}
 %
-where $\hat{e} = e + \frac{\epsilon}{\rho}$. Then, each term of the resulting entropy equation are derived in the EDL and compared to the terms of the EDL entropy equation. Note that the change of variable proposed in \eqt{eq:chge_var} is consistent with the EDL when using the closure relation, $\epsilon = a T^4$, which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$ as previously defined in \sct{sec:ent-min}. The challenging part of this proof lies in the derivation of the quadratic form in the $Y$ basis. All of the terms function of partial derivatives in the GRH entropy equation are expressed in the new basis by using a chain rule: \tcb{useful?}
+where $\hat{e} = e + \frac{\epsilon}{\rho}$, $\rho=\hat{\rho}$ and $\epsilon=\hat{\epsilon}$. This change of variable is consistent with the EDL when using the closure relation, $\epsilon = a T^4$, which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$ as previously defined in \sct{sec:ent-min}.Then, each term of the resulting entropy equation are derived in the EDL and compared to the terms of the EDL entropy equation. The challenging part of this proof lies in the derivation of the quadratic form in the $Y$ basis. All of the terms function of partial derivatives in the GRH entropy equation are expressed in the new basis by using a chain rule.
 %
-\begin{equation}
-\partial_\alpha f(X) = \partial_\alpha \rho \partial_\rho \hat{f}(Y)+\partial_\alpha \partial_{\hat{e}} \hat{f}(Y)+\partial_\alpha \partial_{\epsilon} \hat{f}(Y) \ \text{with} \ \alpha=(x,t) \, .
-\end{equation}
-%
-For instance, the term $\partial_x s$ in \eqts{eq:regularized_hyperbolic_GRH} yields: \tcb{to look at}
-%
+%\begin{equation}
+%\partial_\alpha f(X) = \partial_\alpha \rho \partial_\rho \hat{f}(Y)+\partial_\alpha \partial_{\hat{e}} \hat{f}(Y)+\partial_\alpha \partial_{\epsilon} \hat{f}(Y) \ \text{with} \ \alpha=(x,t) \, .
+%\end{equation}
+%%
+%For instance, the term $\partial_x s$ in \eqts{eq:regularized_hyperbolic_GRH} yields: \tcb{to look at}
 %
 Let assume that the Jacobian matrix associated to the change of variable proposed in \eqt{eq:chge_var} is denoted by $P$, i.e. $X=PY$, then the quadratic form in the new basis is derived as follows:
 %
@@ -846,7 +845,7 @@ Let assume that the Jacobian matrix associated to the change of variable propose
 X^T A X =  (PY)^T A (PY) = Y^T (P^T A P) Y = Y^T \hat{A} Y \, ,
 \end{equation}
 %
-where $\hat{A} = P^T A P$ is the matrix of the quadratic form (\eqt{eq:mat-quad-form}) in in the new basis $Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right]$. From the definition of $\hat{e}$, the following expression for the matrix $P$ and its transpose are derived:
+where $\hat{A} = P^T A P$ is the matrix of the quadratic form (\eqt{eq:mat-quad-form}) in in the new basis $Y=\left[ \partial_x \rho, \partial_x \hat{e},  \partial_x \epsilon \right]$. From the definition of $\hat{e}$ and recalling that $\rho=\hat{\rho}$ and $\epsilon=\hat{\epsilon}$, the following expression for the matrix $P$ and its transpose are derived:
 %
 \begin{equation}\label{eq:jac}
 P =
@@ -864,40 +863,75 @@ P^T =
 \end{bmatrix} \, .
 \end{equation}
 %
-Then, the matrix $\hat{A}$ is obtained by first computing $Z=AP$ and then $\hat{A} = P^T Z = P^T A P$ which yields:
+The matrix $\hat{A}$ is obtained by first computing $Z=AP$ and then $\hat{A} = P^T Z = P^T A P$ which yields:
 %
 \begin{equation}\label{eq:gen-matrix}
 \hat{A} = 
 \begin{bmatrix}
-\sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
-\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
--\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \right) \\
-\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
+\sddhat + \sdehat\frac{2 \hat{\epsilon}}{\hat{\rho}^2} + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right)^2 &
+\sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) &
+-\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) \right) \\
+\sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) &
 \seehat &
--\frac{\seehat}{\rho} \\
--\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \right) &
--\frac{\seehat}{\rho} &
-\frac{\seehat}{\rho^2} + \srr
-\end{bmatrix} \, .
+-\frac{\seehat}{\hat{\rho}} \\
+-\frac{1}{\hat{\rho}} \left( \sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) \right) &
+-\frac{\seehat}{\hat{\rho}} &
+\frac{\seehat}{\hat{\rho}^2} + \srrhat
+\end{bmatrix} \, ,
 \end{equation}
 %
-At this stage of the proof, we need to show that the matrice $\hat{A}$ (\eqt{eq:gen-matrix}) devolves to the matrix $A^*$ in the EDL (\eqt{eq:mat-quad-form-edl}). It will be achieved by (i) reducing the size of the matrix $\hat{A}$ from $3 \times 3$ to $2 \times 2$ and then (ii) demonstrate that each entry of the reduced matrix $\hat{A}$ and the matrix $A^*$ are equal.
+where $\hat{s}$ is the functional form of the entropy function of $(\hat{\rho}, \hat{e}, \hat{\epsilon})$. At this stage of the proof, we need to show that the matrice $\hat{A}$ (\eqt{eq:gen-matrix}) devolves to the matrix $A^*$ in the EDL (\eqt{eq:mat-quad-form-edl}). It will be achieved by (i) reducing the size of the matrix $\hat{A}$ from $3 \times 3$ to $2 \times 2$ and then (ii) demonstrate that each entry of the reduced matrix $\hat{A}$ and the matrix $A^*$ are equal.
 
-The matrix $\hat{A}$ is derived from the GRH system of equations that contains four PDEs. In the EDL, the radiation energy density equation is summed to the material energy equation and then replaced by the algebraic equation $\epsilon=aT^4$. As a result, the last row and column of the matrix $\hat{A}$ can be removed to yield a reduced matrix:
+The matrix $\hat{A}$ is derived from the GRH system of equations that contains four PDEs. In the EDL, the radiation energy density equation is summed to the material energy equation and then substitute for the algebraic equation $\epsilon=aT^4$. As a result, the last row and column of the matrix $\hat{A}$ can be removed to yield the reduced matrix $\hat{A}_{EDL}$ in the EDL:
 %
 \begin{equation}\label{eq:gen-matrix}
 \hat{A}_{EDL} = 
 \begin{bmatrix}
-\sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sddhat + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
 \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \\
 \sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
 \seehat \\
-\end{bmatrix} \, ,
+\end{bmatrix} \, .
 \end{equation}
 %
-where $\hat{A}_{EDL}$ denotes the degenerated matrix $\hat{A}$ in the EDL.
-
-The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sdd + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$. The reader is referred to APPENDIX for the derivations regarding the three other entries.
+%where $\hat{A}_{EDL}$ denotes the degenerated matrix $\hat{A}$ in the EDL.
+The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sddhat + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$ using the functional form of the entropy proposed in \cite{our_jcp_radhy_paper} and recalled  in \eqt{eq:ent-chg-var}:
+%
+\begin{equation}\label{eq:ent-chg-var}
+%s(\rho,e ,\epsilon) = s_E ( \rho ,e) + \frac{s_R(\epsilon)}{\rho} \text{ or }  
+\hat{s}(\hat{\rho},\hat{e} ,\hat{\epsilon}) = \hat{s}_E ( \hat{\rho} ,\hat{e}) + \frac{s_R(\hat{\epsilon})}{\hat{\rho}} \ .
+\end{equation}
+%
+The reader is referred to APPENDIX for the derivations regarding the three other entries. Before diving into the derivation let recall some basic chain rules results. It is assumed that the following generic change of variable is performed:
+%
+\begin{equation}
+\hat{f}(x,y,z) \rightarrow f(\alpha, \beta, \gamma) \nonumber \, ,
+\end{equation}
+%
+which leads to the following chain rule when computing the derivative of a function $\hat{f}(x,y,z)$ with respect to $x_i = \{x,y,z \}$:
+%
+\begin{equation}\label{eq:chain_rule_chge_var}
+\partial_{x_i} \hat{f} = \frac{\partial \alpha}{\partial x_i} \partial_\alpha f + \frac{\partial \beta}{\partial x_i} \partial_\beta f + \frac{\partial \gamma}{\partial x_i} \partial_\gamma f \, .
+\end{equation}
+%
+Note that in the case under consideration, $x=\alpha$, $z=\gamma$ and $y=f(\alpha, \beta, \gamma)$ which will lead to some simplifications and confusion in the notation. To improve the readiness of the below proof, we choose to note $(\hat{\rho}, \hat{e}, \hat{\epsilon})$ the set of variables referring to the function $\hat{s}$ and $(\rho,e,\epsilon)$ the set of variables referring to the function $s$. Under these assumptions and remembering that $\hat{e} = e + \frac{\hat{\epsilon}}{\hat{\rho}}$, the following results can be derived:
+%
+\begin{eqnarray}
+\frac{\partial \rho}{\partial \hat{\rho}} = 1 \text{, } \frac{\partial \rho}{\partial \hat{e}} = \frac{\partial \rho}{\partial \hat{\epsilon}} = 0 \nonumber \\
+\frac{\partial e}{\partial \hat{\rho}} = \frac{\epsilon}{\rho^2} \text{, } \frac{\partial e}{\partial \hat{e}} = 1 \text{, } \frac{\partial e}{\partial \hat{\epsilon}} = \frac{-1}{\rho} \nonumber \\
+\frac{\partial \epsilon}{\partial \hat{\rho}} = \frac{\partial \epsilon}{\partial \hat{e}} = 0 \text{, } \frac{\partial \epsilon}{\partial \hat{\epsilon}} = 1 \nonumber
+\end{eqnarray}
+%
+%
+\begin{eqnarray}\label{eq:first_entry_A_hat}
+\hat{A}_{EDL,1,1} = \sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \frac{\partial \rho}{\partial \hat{\rho}} \partial_\rho s + \frac{\partial e}{\partial \hat{\rho}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_\epsilon s \right) \right] \nonumber \\
+\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \partial_\rho s + \frac{\epsilon}{\rho^2} \partial_e s \right) \right] \nonumber \\
+\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \partial_\rho s + \epsilon \partial_e s \right] \nonumber \\
+\sddhat& =& \rho^{-2} \left[ 2\rho \partial_\rho s + \rho^2 \left( \partial_{\rho,\rho} s + \frac{\epsilon}{\rho^2} \partial_{\rho,e} s \right) + \epsilon \partial_{\rho,e} s + \frac{\epsilon^2}{\rho^2}\partial_{e,e} s \right] \nonumber \\
+\sddhat& =& \rho^{-2} \left[ \sdd + 2 \epsilon \partial_{\rho,e} + \left( \frac{\epsilon}{\rho} \right)^2 \partial_{e,e} s \right] = A^*_{1,1} \, ,
+\end{eqnarray}
+%
+With same procedure, it is shown that all the entries of the matrices $\hat{A}_{EDL}$ and $A^*$ match. It is then concluded that the matrix $A^*$ and $\hat{A}_{EDL}$ are identical under the change of variables $(\rho, e, \epsilon) \rightarrow (\rho, e+ \frac{\epsilon}{\rho}, \epsilon)$.
 %Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
 %\tcb{This is still incomplete since we need to talk about positivity of the density. done.}
 %
@@ -1153,13 +1187,13 @@ where $x_{offset}$ is an offset value that is used to shift the semi-analytical 
 %
 \begin{eqnarray}\label{eq:l1-error-norm}
 L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{1,2} dx \right]^{1,1/2} \\ 
-&=& \left[ \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{1,2} dx \right]^{1,1/2} \\ 
-&=& \left[ \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) |^{1,2} dx \right]^{1,1/2} \\ \, .
+%&=& \left[ \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{1,2} dx \right]^{1,1/2} \\ 
+&=& \left[ \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) |^{1,2} dx \right]^{1,1/2} \, .
 \end{eqnarray}
 %
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a cubic interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution is solved on a non-uniform mesh discretized with $10.000$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation. It is chosen to shift the semi-analytical solution since it is solved on a finer mesh than the numerical solution.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a linear interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with $10^5$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation. It is chosen to shift the semi-analytical solution since it is solved on a finer mesh than the numerical solution.
 
-A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive mesh of decreasing space grid. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ and $L_2$ error norm from \eqt{eq:l1-error-norm}.
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive finer mesh. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ and/or $L_2$ error norm from \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
 \subsection{Mach-1.05 test case with constant opacities}\label{sec:mach-1p05-cst-xs}
@@ -1167,7 +1201,9 @@ A spatial convergence study is performed for each test case presented in this pa
 %
 For this test, the inlet Mach number is set to $1.05$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=1.05$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ defined in \eqt{eq:scaled-nb}, which yields an opacity of $577.35 \ cm^{-1}$. This test case has multiple purposes. First, it will serve at illustrating further the methodology proposed in \sct{sec:mthd-conv-test} for shifting the semi-analytical solution towards the numerical solution. Then, since the Mach-1.05 test case corresponds to the EDL and yields a smooth solution, second-order accuracy of the EVM will be demonstrated by performing a convergence study of the $L_1$ and $L_2$ error norm. Lastly, it will allow to illustrate the mathematical prove presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL.
 
-To illustrate the points developed in \sct{sec:mthd-conv-test}, the numerical and semi-analytical density profiles are plotted before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. Variations of the computed offset value $x_{offset}$ as a function of the grid size are also presented in \fig{fig:mach-1p05-x-offset}. 
+To illustrate the points developed in \sct{sec:mthd-conv-test}, 
+%the numerical and semi-analytical density profiles are plotted before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. 
+variations of the computed offset value $x_{offset}$ as a function of the grid size are also presented in \fig{fig:mach-1p05-x-offset}. 
 %Finally, plots of the $L_1$ and $L_2$ error norms defined in \eqt{eq:l1-error-norm} are shown in \fig{fig:mach-1p05-cst-xs-conv} for the material density, the material temperature, the mach number and the radiation energy density along with the respective steady-state numerical solutions in \fig{fig:mach-1p05-cst-xs}.
 As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is computed for each run of the convergence study by minimizing the mass difference between the numerical and semi-analytical solutions. The computed offset values are plotted in \fig{fig:mach-1p05-x-offset} for meshes ranging from $10$ to $250$ cells: it is observed that the computed offset value decreases as the mesh becomes finer to reach a plateau value of $3.8 \times 10^{-4}$. The numerical and semi-analytical density profiles are shown before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. The numerical solution was obtained on a computational domain meshed with $100$ cells. By minimizing the mass difference between the numerical and semi-analytical solutions, the semi-analytical solution is shifted towards the right boundary.
 %
@@ -1356,19 +1392,19 @@ The test is run until a steady state is reached. Numerical results for the mater
 \begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mat-temp-nel-1000-plot.eps}
     \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-density-nel-1000-plot.eps}
     \caption{Steady-state material density for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-dens}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mach-number-nel-1000-plot.eps}
     \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
     \end{subfigure}
     ~
@@ -1380,38 +1416,37 @@ The test is run until a steady state is reached. Numerical results for the mater
 \caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-3-temp-dep-xs}    
 \end{figure}
 %
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_density.eps}
-%    \caption{Steady-state material density for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-dens}
-%\end{figure}
+\begin{figure}[ht]
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mat-temp-convergence.eps}
+    \caption{Material temperature.}\label{fig:mach-3-dpt-xs-temp-conv}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-density-convergence.eps}
+    \caption{Material density.}\label{fig:mach-3-dpt-xs-density-conv}
+    \end{subfigure}
+    
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mach-number-convergence.eps}
+    \caption{Mach number.}\label{fig:mach-3-dpt-xs-mach-conv}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-radiation-convergence.eps}
+    \caption{Radiation energy density.}\label{fig:mach-3-dpt-xs-radiation-conv}
+    \end{subfigure}        
+\caption{Convergence plots of the $L_1$ error norm for Mach $3$ test.}\label{fig:mach-3-dpt-xs-conv}    
+\end{figure}
 %
 The density profile plotted in \fig{fig:mach-3-dpt-xs-dens} does not show any instability neither in the vicinity of the shock around $x = 0 \ cm$ nor in the abrupt change located at $x = -0.01 \ cm$. The shock is well resolved and the numerical and semi-analytical solutions overlap and are in excellent agreement.
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_temperature.eps}
-%    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
-%\end{figure}
-%
 In \fig{fig:mach-3-dpt-xs-temp}, the material and radiation temperatures do not show any instability either. The Zeldovich's pike in the material temperature profile is well resolved. The radiation temperature remains smooth as expected because of the diffusion term in the radiation equation. The numerical and semi-analytical solutions are in excellent agreement. 
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_total_cross_section.eps}
-%    \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
-%\end{figure}
-%
 The numerical profile of the cross section is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. 
 %We recall here that the material is a pure absorber and thus, the total and absorption cross sections are equal. The cross section varies by a factor $30$ in the shock region which .... \tcb{Are we not in the case where the material is optically thick in the pre-shock region? If this is the case, we should write something about the interest of using the local entropy residual with a local normalization as we do for Euler equation.}
-%
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
-%    \caption{Steady-state solution of the artificial viscosity coefficients for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-visc}
-%\end{figure}
-%
-%\tcb{Shall we add a plot of the material density profile run without the jumps for comparison?} \\ 
 The profiles of the entropy- ($\kappa_e$) and first-order ($\kappa_{max}$) viscosity coefficients are showed in \fig{fig:mach-3-dpt-xs-visc}. We observe that the entropy viscosity coefficient $\kappa_e$ displays two peaks at $x=-0.01 \ cm$ and at $x = 0 \ cm$. The latter one coincides with the shock position where the entropy residual $R_e(x,t)$ is known to be peaked. % (see \sct{sec:def-visc-coeff} and also \cite{our_jcp_radhy_paper}). 
 The former one, is due to the inclusion of the jumps in the definition of the entropy viscosity coefficient as shown in TO REPLACE: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation that triggers a larger  jump value. 
 %It is also observed that the entropy viscosity coefficient $\kappa_e$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$ in the vicinity of the shock around $x = 0 \ cm$ which can be explained by the dissipative behavior of the source terms that add dissipation as highlighted in \sct{sec:VR_new}. 
