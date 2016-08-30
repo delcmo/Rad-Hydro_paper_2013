@@ -51,10 +51,13 @@ def compute_mass_diff(x_offset, x_coord, mat_density, x_coord_exact, mat_density
     while (x_coord_exact_offset[index_left] < node_left):
       index_left += 1
     index_left = index_left-2 if index_left !=0 else index_left
+    index_left = max(index_left, 0)
+#    index_left = min(index_left, nb_nodes_exact-1)
     index_right = index_left
     while (x_coord_exact_offset[index_right] < node_right):
       index_right += 1
     index_right = index_right+2 if index_right != nb_nodes_exact-1  else nb_nodes_exact
+    index_right = min(index_right, nb_nodes_exact-1)
     # reduce the number of nodes from analytical solution down to 100
     interval=1
     if index_right-index_left>100:

@@ -46,8 +46,8 @@ equations. This further strengthens the potential and applicability of the entro
 for radiation-hydrodynamic shock simulations, in both the streaming and equilibrium-diffusion limits. 
 %\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 %\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
-Radiative shock calculations using temperature-dependent opacities are presented and 
-compared with semi-analytical reference solutions. % \tcr{Convergence rates are provided. TBD}
+Radiative shock calculations using constant and temperature-dependent opacities are presented and 
+compared with semi-analytical reference solutions by performing a convergence study. % \tcr{Convergence rates are provided. TBD}
 \end{abstract}
 %-------------------------
 
@@ -121,7 +121,8 @@ Their results show good agreement with semi-analytical solutions.
 %In this paper, we will consider the first-order hyperbolic terms of the GRH equations which yield a non-conservative hyperbolic system of equations. This method
 %could be questioned by noticing that the radiation energy density variable cannot develop shock because of the diffusion term in the radiation energy density equation:\tcb{to finish}
 %
-As noted above, the GRH equations are a  non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} 
+
+As mentioned above, the GRH equations are a  non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} 
 %for which the theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$:
 %
 \begin{equation}\label{eq:nc-syst-eq}
@@ -162,7 +163,7 @@ Generally speaking, the main idea is to specify the values of the solution at po
 %conservative systems of equations. TO REMOVE} 
 %
 %\tcr{that paragraph about the DLM is super long and then, here, we seem to say we switch to something else. The question for a reader would be: why?} \tcb{We can remove the paragraph starting at "The Borel measure .... "}
-Vanishing viscosity methods have also been developed for non-conservative systems of equations \cite{bianchini_bressan_2005,alouges_merlet_2004,lefloch_1988} 
+Vanishing viscosity methods have also been extended for non-conservative systems of equations (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005} and \cite{alouges_merlet_2004,lefloch_1988} 
 and we follow this approach here.
 Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization as follows:
 %
@@ -171,15 +172,22 @@ Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a pa
 \partial_t U^\epsilon + A(U^\epsilon) \partial_x U^\epsilon = \epsilon \partial_{xx} U^\epsilon \ , \nonumber
 \end{equation}
 %
-%where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
-%further generalized by Alouges et al. \cite{alouges_merlet_2004}. In their work, they show that the solution to the 
-%vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of \cite{bianchini_bressan_2005}). Moreover, Le 
+where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
+further generalized by Alouges et al. \cite{alouges_merlet_2004}. In their work, they show that the solution to the 
+vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of \cite{bianchini_bressan_2005}). 
+%Moreover, Le 
 %Floch in \cite{lefloch_1988} generalized the notion of entropy condition to non-conservative system of equations, in the space of 
 %bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
 %numerical solution to the entropy weak solution. 
 %
-The generalization of the entropy inequality to non-conservative hyperbolic systems of equations in \cite{lefloch_1988} is directly applicable to
-the topic of this paper. In \cite{our_jcp_radhy_paper}, Delchini et al. proposed to solve the non-equilibrium Grey Radiation-Hydrodynamics 
+Moreover, Le Floch generalized the notion of entropy 
+condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
+and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
+entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} for the GRH where it is
+%where an and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
+%The generalization of the entropy inequality to non-conservative hyperbolic systems of equations in \cite{lefloch_1988} is directly applicable to
+%the topic of this paper. In \cite{our_jcp_radhy_paper}, Delchini et al. 
+proposed to solve the non-equilibrium Grey Radiation-Hydrodynamics 
 equations by stabilizing the numerical discretization using the Entropy Viscosity Method (EVM); 
 stabilization is achieved by adding appropriate dissipation terms (viscous fluxes) to the governing laws while ensuring 
 that the entropy minimum principle holds. 
@@ -200,19 +208,19 @@ order to single out the entropy solution. Indeed, the functional form of these d
 should be chosen such that this principle is verified. In \cite{our_jcp_radhy_paper}, we followed an approach 
 similar to that of \cite{Balsara, LowrieMorel} 
 where the relaxation and diffusion terms in the radiation and material energy equations were omitted, hence {\it only analyzing the hyperbolic parts} of 
-the non-equilibrium Grey Radiation-Hydrodynamic equations. Numerical results showed that the functional form of the 
-viscous dissipation hence obtained yielded satisfactory results. 
-
-The aim of this paper is two-fold. 
-First, we enhance the theoretical grounds for using the EVM to solve the 
-Radiation-Hydrodynamic equations by demonstrating that the omitted diffusion
-and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
-entropy condition for non-conservative system of equations. % as stated in \cite{our_jcp_radhy_paper}. 
-Second, we present numerical results for temperature-dependent opacities and compare them semi-analytical solutions.
+the non-equilibrium Grey Radiation-Hydrodynamic equations. 
+%Numerical results showed that the functional form of the viscous dissipation hence yielded satisfactory results. 
+%
+%The aim of this paper is two-fold. 
+%First, we enhance the theoretical grounds for using the EVM to solve the 
+%Radiation-Hydrodynamic equations by demonstrating that the omitted diffusion
+%and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
+%entropy condition for non-conservative system of equations. % as stated in \cite{our_jcp_radhy_paper}. 
+%Second, we present numerical results for constant and temperature-dependent opacities, and perform a convergence study for each test using semi-analytical solutions.
 % with provide convergence rates \tcb{not yet} using semi-analytical solutions.
 %\tcr{Third, we establish that a Chapman-Enskog expansion of the regularized GRH equations yield the regularized the equilibrium-diffusion limit 
 %equations.} \tcb{We already did it in the previous paper}
-
+%
 %\tcr{Moreover,
 %the EVM was shown to conserve the ED limit with well-scaled dissipative terms. The ED limit is obtained by performing a 
 %Chapman-Enskog expansion (REF) of the GRH equations and
@@ -220,24 +228,29 @@ Second, we present numerical results for temperature-dependent opacities and com
 %can be written in a \emph{conservative form} with a modified equation of state function of a total pressure defined as the 
 %sum of hydrodynamic and radiation pressures (REF). When solving the GRH using a numerical method that adds artificial dissipation, 
 %an asymptotic study needs to be performed in order to make sure that the ED limit is still recovered with well-scaled dissipative terms (REF).}
-
-Some features of non-conservative hyperbolic systems of equation (NCHSE) are discussed here. As mentioned previously, 
-the notion of weak and entropy solutions cannot be defined in the sense of distributions for NCHSE. Instead, we are using in this paper the theoretical results by 
-Bianchini and Bressan \cite{bianchini_bressan_2005}, who proposed an approach whereby the NCHSE are modified by adding a parabolic regularization 
-with a vanishing-viscosity coefficient (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005}). Moreover, Le Floch generalized the notion of entropy 
-condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
-and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
-entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
+%
+%Some features of non-conservative hyperbolic systems of equation (NCHSE) are discussed here. As mentioned previously, 
+%the notion of weak and entropy solutions cannot be defined in the sense of distributions for NCHSE. Instead, we are using in this paper the theoretical results by 
+%Bianchini and Bressan \cite{bianchini_bressan_2005}, who proposed an approach whereby the NCHSE are modified by adding a parabolic regularization 
+%with a vanishing-viscosity coefficient (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005}). Moreover, Le Floch generalized the notion of entropy 
+%condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
+%and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
+%entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
 
 The remainder of the paper is as follows: in \sct{sec:GRH}, we provide
 the non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations, recall some of their mathematical properties, 
 and review some theoretical aspects pertaining to non-conservative systems of equations. 
 The viscous regularization of the GRH equations {\it based on their hyperbolic parts} is recalled in \sct{sec:GRH}.
-In \sct{sec:VR_new}, we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
-principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
+In \sct{sec:VR_new}, the theoretical grounds for using the EVM to solve the 
+Radiation-Hydrodynamic equations is enhanced by demonstrating that the omitted diffusion
+and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
+entropy condition for non-conservative system of equations.
+%we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
+%principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
-Numerical results for Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
-compared against semi-analytical solutions.
+The new theoretical results are illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study. 
+%with constant opacity, and Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
+%compared against semi-analytical solutions.
 %\tcr{Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
 %(Mach 1.05) and numerical solutions with steady-state shocks (Mach 3).} \tcb{I will keep working on this}
 %
@@ -302,8 +315,8 @@ In other terms, the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH} consist
 where $\rho$, $\rho u$, $\rho E$, $P$, and $T$ are the material density, momentum, total energy, pressure and temperature, respectively, and $\epsilon$ denotes the radiation energy density. The variable $\kappa$ is an artificial viscosity coefficient whose definition will be recalled later in this section. 
 The system consists of six variables and four partial differential equations. In order to close the system, two closure relationships are needed:  
 an equation of state that relates the material pressure $P$ to the material density $\rho$ and to the 
-material specific internal energy $e$ ($e = E - \tfrac 1 2 u^2$). A second equation of state, linking material temperature 
-and internal energy, is required in order to evaluate the relaxation source term $\sigma_a c \left( \ar T^4 - \epsilon \right)$.
+material specific internal energy $e = E - \tfrac 1 2 u^2$. A second equation of state, linking material temperature 
+and internal energy is required in order to evaluate the relaxation source term $\sigma_a c \left( \ar T^4 - \epsilon \right)$.
 The parameters $c$ and $\ar$ denote the speed of light and the radiation constant; $\sigma_a$ is absorption opacity. 
 The radiation energy density equation, \eqt{eq:GRHrad}, contains a diffusion term that is function of the 
 total (absorption and scattering) opacity $\sigma_t$. Note that the opacities $\sigma_a$ and $\sigma_t$ are typically functions of 
@@ -344,12 +357,21 @@ following $3 \times 3$ symmetric matrix
  \begin{equation}\label{eq:mat-quad-form}
  A = 
 \begin{bmatrix}
-\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
- \partial_{\rho,e} s & \partial_{e,e} s & \partial_{e,\epsilon} s \\
- \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e,\epsilon} s & \partial_{\epsilon,\epsilon} s
+\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & 0 \\
+ \partial_{\rho,e} s & \partial_{e,e} s & 0 \\
+0 & 0 & \partial_{\epsilon,\epsilon} s
 \end{bmatrix}
 \,.
 \end{equation}
+%\begin{equation}\label{eq:mat-quad-form}
+%A = 
+%\begin{bmatrix}
+%\rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s \right) & \partial_{\rho,e} s & \partial_{\rho} \left( \rho \partial_{\epsilon} s \right) \\
+%\partial_{\rho,e} s & \partial_{e,e} s & \partial_{e,\epsilon} s \\
+%\partial_{\rho} \left( \rho \partial_{\epsilon} s \right) & \partial_{e,\epsilon} s & \partial_{\epsilon,\epsilon} s
+%\end{bmatrix}
+%\,.
+%\end{equation}
 %
 Convergence of the numerical solution to the entropy or physical solution for the GRH with diffusion and relaxation terms omitted, was demonstrated in \cite{our_jcp_radhy_paper} by mean of an entropy minimum principle, i.e. $R_e(x,t) \geq 0$, and requires the entropy function $s(\rho,e,\epsilon)$, to be the sum of (i) the entropy for the Euler system of equations 
 $s_{Euler}(\rho, e)$ and (ii) a radiation contribution to the entropy $s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$ as recalled in \eqt{eq:ent_equ}: 
@@ -393,7 +415,7 @@ In \cite{our_jcp_radhy_paper}, the EDL of the regularized GRH was shown to yield
 %$\matder{s}=\partial_t s \geq 0$. Thus, the proposed viscous regularization satisfies the entropy minimum principle for 
 %the GRH equations with the diffusion and relaxation terms omitted.
 
-Since the GRH devolves to a conservative system of equations in the EDL, this particular limit was also studied in Section 2.2 of \cite{our_jcp_radhy_paper} for the regularized GRH: it was shown that the artificial viscosity fluxes remain well-scaled in the EDL when using the correct normalization in the definition of the viscous coefficient $\kappa$ (see \cite{our_jcp_radhy_paper} and TO REPLACE below). The regularized GRH equation in the EDL reads:
+Since the GRH devolves to a conservative system of equations in the EDL, this particular limit was also studied in Section 2.2 of \cite{our_jcp_radhy_paper} for the regularized GRH: it was shown that the artificial viscosity fluxes remain well-scaled in the EDL when using the correct normalization in the definition of the viscous coefficient $\kappa$ (see Section 2.2 of \cite{our_jcp_radhy_paper}). The regularized GRH equation in the EDL reads:
 %
 \begin{subequations}\label{eq:equip-diff-equ}
 %
@@ -431,7 +453,8 @@ A^* =
 \,.
 \end{equation}
 %
-It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation for the regularized GRH recalled in \eqt{eq:visc_reg_assumptions}, devolves to the EDL entropy equation. This relationship is somehow implied when performing the asymptotic limit of the regularized GRH but needs to be mathematically proved as it will be shown in \sct{sec:cons-equi-diff-limit}. We want to emphasize that in the EDL, the system of equations devolves from four to three PDEs (the radiation equation, \eqt{eq:GRHrad}, is replaced by \eqt{eq:edl-radiation}).
+It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation for the regularized GRH recalled in \eqt{eq:visc_reg_assumptions}, devolves to the EDL entropy equation. This relationship is somehow implied when performing the asymptotic limit of the regularized GRH but needs to be mathematically proved as it will be shown in \sct{sec:cons-equi-diff-limit}. 
+%We want to emphasize that in the EDL, the system of equations devolves from four to three PDEs (the radiation equation, \eqt{eq:GRHrad}, is replaced by \eqt{eq:edl-radiation}).
 %
 %The above entropy inequality is used to show positivity of the entropy residual, $R_e(x,t)$ and convergence of the numerical solution to a weak physical solution by mean of the entropy minimum principle (see \cite{our_jcp_radhy_paper} for further details).
 %It is shown in \cite{our_jcp_radhy_paper} that an entropy function compatible with the entropy inequality of \eqt{eq:GRH-entropy} is of the following functional form:
@@ -447,8 +470,8 @@ It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation 
 \subsection{Definition of the artificial entropy viscosity coefficient $\kappa$.}\label{sec:visc-coeff-def}
 %------------------------------------------------------------------
 %
-\tcb{The definition of the artificial entropy viscosity coefficient $\kappa$ is identical to what was previously used in \cite{our_jcp_radhy_paper}. We thus refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details regarding the derivation of the entropy viscosity coefficient $\kappa$ and its definition.}
-\tcr{add a few words about $\kappa_{max}$ and $\kappa_e$ along with equation numbers from previous paper}
+The definition of the artificial entropy viscosity coefficient $\kappa$ is identical to what was previously used in \cite{our_jcp_radhy_paper}. We thus refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details regarding the derivation of the entropy viscosity coefficient $\kappa$ and its definition.
+\tcb{Should we add a few words about $\kappa_{max}$ and $\kappa_e$ along with equation numbers from previous paper?}
 %The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
 %production, i.e., the local entropy residual $R_e(x,t)$. However, the entropy residual can be excessively large, in shocks for example, leading
 %to the idea of bounding (from above) the entropy viscosity with a first-order viscosity (e.g., a local Lax-Friedrichs or Rusanov viscosity).
@@ -822,16 +845,22 @@ which demonstrates that the entropy equation of the full GRH equations satisfies
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In section 2.2 of \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit. It is proposed here, to mathematically prove that the entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the Equilibrium Diffusion Limit (EDL) entropy equation given in \eqt{eq:EDL-entropy}. The reader is referred to APPENDIX for details of the proof and only the main steps are presented in this section as the proof is lengthy. \tcb{Shall we have the entropy equations here?}
+In section 2.2 of \cite{our_jcp_radhy_paper}, the viscous regularization for the GRH equations is shown to yield well scaled viscous terms in the equilibrium-diffusion limit. It is proposed here, to mathematically prove that the entropy equation derived for the regularized GRH, \eqts{eq:regularized_hyperbolic_GRH}, devolves to the entropy equation given in \eqt{eq:EDL-entropy} in the Equilibrium Diffusion Limit (EDL). The reader is referred to APPENDIX for details of the proof and only the main steps are presented in this section as the proof is lengthy. 
+%\tcb{Shall we have the entropy equations here?}
 
 %In the  (EDL), the system of equations, \eqt{eq:equip-diff-equ}, is not longer expressed as a function of $\left[ \rho, \rho u \rho E, \epsilon \right]$ but as a function of $\left[ \rho, \rho u, \rho E^* \right]$ along with the closure relation $\epsilon = aT^4$. 
-In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation energy density equation, \eqt{eq:GRHrad} is summed to the material energy equation, \eqt{eq:GRHenerg}, and substituted for the closure relation $\epsilon = aT^4$. Consequently, the quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and can be written as a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation, a two-step process is proposed. First, the following change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
+In the EDL, the GRH system of equations devolve to a system of three PDEs: a mass equation, a momentum equation and a radiation-material energy equation. The radiation-material energy equation is obtained from the summation of the radiation energy density equation, \eqt{eq:GRHrad} and the material energy equation, \eqt{eq:GRHenerg}.  \eqt{eq:GRHenerg} is then substituted for the closure relation $\epsilon = aT^4$. Consequently, the entropy is function of only two variables and the resulting quadratic form
+%quadratic form of the entropy equation in the EDL is only function of two variables $\left[ \rho, e^* \right]$ and 
+is written as a $2 \times 2$ matrix. In order to prove that the entropy equation derived from the GRH equations devolves to the EDL entropy equation
+%, a two-step process is proposed. First, the following 
+a change of variable is performed in the GRH entropy equation (\eqts{eq:regularized_hyperbolic_GRH}):
 %
 \begin{equation}\label{eq:chge_var}
 X=\left[ \partial_x \rho, \partial_x e,  \partial_x \epsilon \right] \rightarrow Y=\left[ \partial_x \hat{\rho}, \partial_x \hat{e},  \partial_x \hat{\epsilon} \right], 
 \end{equation}
 %
-where $\hat{e} = e + \frac{\epsilon}{\rho}$, $\rho=\hat{\rho}$ and $\epsilon=\hat{\epsilon}$. This change of variable is consistent with the EDL when using the closure relation, $\epsilon = a T^4$, which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$ as previously defined in \sct{sec:ent-min}.Then, each term of the resulting entropy equation are derived in the EDL and compared to the terms of the EDL entropy equation. The challenging part of this proof lies in the derivation of the quadratic form in the $Y$ basis. All of the terms function of partial derivatives in the GRH entropy equation are expressed in the new basis by using a chain rule.
+where $\hat{e} = e + \frac{\epsilon}{\rho}$, $\rho=\hat{\rho}$ and $\epsilon=\hat{\epsilon}$. This change of variable is consistent with the EDL when using the closure relation, $\epsilon = a T^4$, which yields $\hat{e} = e^* = e + \frac{a T^4}{\rho}$ as previously defined in \sct{sec:ent-min}. Then, each term of the resulting entropy equation are expressed in the $Y$ basis and compared to the terms of the EDL entropy equation after taking the limit. The challenging part of this proof lies in the derivation of the quadratic form in the $Y$ basis that is detailed in the following
+%All of the terms function of partial derivatives in the GRH entropy equation are expressed in the new basis by using a chain rule.
 %
 %\begin{equation}
 %\partial_\alpha f(X) = \partial_\alpha \rho \partial_\rho \hat{f}(Y)+\partial_\alpha \partial_{\hat{e}} \hat{f}(Y)+\partial_\alpha \partial_{\epsilon} \hat{f}(Y) \ \text{with} \ \alpha=(x,t) \, .
@@ -868,70 +897,122 @@ The matrix $\hat{A}$ is obtained by first computing $Z=AP$ and then $\hat{A} = P
 \begin{equation}\label{eq:gen-matrix}
 \hat{A} = 
 \begin{bmatrix}
-\sddhat + \sdehat\frac{2 \hat{\epsilon}}{\hat{\rho}^2} + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right)^2 &
-\sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) &
--\frac{1}{\rho} \left( \sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) \right) \\
-\sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) &
-\seehat &
--\frac{\seehat}{\hat{\rho}} \\
--\frac{1}{\hat{\rho}} \left( \sdehat  + \seehat \left(\frac{\hat{\epsilon}}{\hat{\rho}^2}\right) \right) &
--\frac{\seehat}{\hat{\rho}} &
-\frac{\seehat}{\hat{\rho}^2} + \srrhat
+\sdd + \sde\frac{2 \epsilon}{\rho^2} + \see \left(\frac{\epsilon}{\rho^2}\right)^2 &
+\sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
+-\frac{\epsilon}{\rho^3} \sde \\
+\sde  + \see \left(\frac{\epsilon}{\rho^2}\right) &
+\see &
+-\frac{\see}{\hat{\rho}} \\
+-\frac{\epsilon}{\rho^3} \sde &
+-\frac{\see}{\rho} &
+\frac{\see}{\rho^2} + \srr
 \end{bmatrix} \, ,
 \end{equation}
 %
-where $\hat{s}$ is the functional form of the entropy function of $(\hat{\rho}, \hat{e}, \hat{\epsilon})$. At this stage of the proof, we need to show that the matrice $\hat{A}$ (\eqt{eq:gen-matrix}) devolves to the matrix $A^*$ in the EDL (\eqt{eq:mat-quad-form-edl}). It will be achieved by (i) reducing the size of the matrix $\hat{A}$ from $3 \times 3$ to $2 \times 2$ and then (ii) demonstrate that each entry of the reduced matrix $\hat{A}$ and the matrix $A^*$ are equal.
+where $s$ is the functional form of the entropy function of $(\rho, e, \epsilon)$. We already performed one change of variable for the vector X of the quadratic form. It remains to recast each entry of the matrix $\hat{A}$ as a function of the entropy $\hat{s}$ in the Y basis. Only the details of the derivation for the entry $\hat{A}_{2,1}$ of the matrix $\hat{A}$ is provided. The entry $\hat{A}_{2,1}$ is composed of two terms that are expended using a chain rule as follows:
+%
+\begin{eqnarray}
+\sde = \sdehat - \frac{\hat{\epsilon}}{\hat{\rho}^2} \seehat \ \text{and} \ \frac{\epsilon}{\rho^2} \see = \frac{\hat{\epsilon}}{\hat{\rho}^2} \seehat \nonumber \, ,
+\end{eqnarray}
+%
+to yield when summed
+%
+\begin{equation}
+\hat{A}_{2,1} = \sde + \see \left(\frac{\epsilon}{\rho^2}\right) = \sdehat \, .
+\end{equation}
+%
+Following the same strategy, the other entries of the matrix $\hat{A}$ are recast as a function of $\hat{s}$, $\hat{\rho}$, $\hat{e}$ and $\hat{\epsilon}$ to yield:
+%
+\begin{equation}\label{eq:gen-matrix-final}
+\hat{A} = 
+\begin{bmatrix}
+\sddhat &
+\sdehat &
+-\frac{\hat{\epsilon}}{\hat{\rho}^3} \sdehat \\
+\sdehat &
+\seehat &
+-\frac{\seehat}{\hat{\rho}} \\
+-\frac{\hat{\epsilon}}{\hat{\rho}^3} \sdehat &
+-\frac{\seehat}{\hat{\rho}} &
+\srrhat
+\end{bmatrix} \, ,
+\end{equation}
+%
+%In a second stage of the proof, 
+%%
+%\begin{eqnarray}\label{eq:first_entry_A_hat}
+%\hat{A}_{EDL,1,1} = \sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \frac{\partial \rho}{\partial \hat{\rho}} \partial_\rho s + \frac{\partial e}{\partial \hat{\rho}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_\epsilon s \right) \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \partial_\rho s + \frac{\epsilon}{\rho^2} \partial_e s \right) \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \partial_\rho s + \epsilon \partial_e s \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \left[ 2\rho \partial_\rho s + \rho^2 \left( \partial_{\rho,\rho} s + \frac{\epsilon}{\rho^2} \partial_{\rho,e} s \right) + \epsilon \partial_{\rho,e} s + \frac{\epsilon^2}{\rho^2}\partial_{e,e} s \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \left[ \sdd + 2 \epsilon \partial_{\rho,e} + \left( \frac{\epsilon}{\rho} \right)^2 \partial_{e,e} s \right] = A^*_{1,1} \, ,
+%\end{eqnarray}
+%%
+%At this stage of the proof, we need to show that the matrice $\hat{A}$ (\eqt{eq:gen-matrix}) devolves to the matrix $A^*$ in the EDL (\eqt{eq:mat-quad-form-edl}). It will be achieved by (i) reducing the size of the matrix $\hat{A}$ from $3 \times 3$ to $2 \times 2$ and then (ii) demonstrate that each entry of the reduced matrix $\hat{A}$ and the matrix $A^*$ are equal.
 
-The matrix $\hat{A}$ is derived from the GRH system of equations that contains four PDEs. In the EDL, the radiation energy density equation is summed to the material energy equation and then substitute for the algebraic equation $\epsilon=aT^4$. As a result, the last row and column of the matrix $\hat{A}$ can be removed to yield the reduced matrix $\hat{A}_{EDL}$ in the EDL:
+%The matrix $\hat{A}$ is derived from the GRH system of equations that contains four PDEs. 
+Using the same approach, it can be proved that:
+%
+\begin{eqnarray}\label{eq:chg-var}
+\rho \matder{s} + \partial_x \left( \rho \kappa \partial_x s \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s\right) &=& \hat{\rho} \matder{\hat{s}} + \partial_x \left( \hat{\rho} \kappa \partial_x \hat{s} \right) + \kappa \left(\partial_x \hat{\rho} \right) \left( \partial_x \hat{s}\right) \nonumber \\
+\text{ and } \ s_e \rho \kappa (\partial_x u)^2 &=& \hat{s}_{\hat{e}} \hat{\rho} \kappa (\partial_x \hat{u})^2 \, ,
+\end{eqnarray}
+%
+where $\hat{u} = u$.
+
+In the EDL, the radiation energy density equation is summed to the material energy equation and then substitute for the algebraic equation $\epsilon=aT^4$. As a result, the last row and column of the matrix $\hat{A}$ can be removed to yield the reduced matrix $\hat{A}_{EDL}$ in the EDL:
 %
 \begin{equation}\label{eq:gen-matrix}
 \hat{A}_{EDL} = 
 \begin{bmatrix}
-\sddhat + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2 &
-\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) \\
-\sdehat  + \seehat \left(\frac{\epsilon}{\rho^2}\right) &
+\sddhat &
+\sdehat \\
+\sdehat &
 \seehat \\
 \end{bmatrix} \, .
 \end{equation}
 %
+In the EDL,i.e. $\hat{x} \to x^*$, using results from \eqt{eq:gen-matrix} and \eqt{eq:chg-var}, it is concluded that the GRH entropy residual given in \eqt{eq:app_entr_eq_non_equil} devolves to the ED entropy residual given in \eqt{eq:EDL-entropy}. This mathematical proof shows that the entropy condition still holds in the EDL which ensures convergence of the numerical solution to the weak physical solution in the same limit.
+\tcb{I am not convinced this proof is useful as it is fairly complicated.}
+%Remembering that in the EDL, $\hat{x} \to x^*$, the matrix $\hat{A}_{EDL}$ is proved to devolve to the matrix $A^*$ given in \eqt{eq:mat-quad-form-edl} in the Equilibrium Diffusion Limit.
 %where $\hat{A}_{EDL}$ denotes the degenerated matrix $\hat{A}$ in the EDL.
-The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sddhat + \sdehat\frac{2 \epsilon}{\rho^2} + \seehat \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$ using the functional form of the entropy proposed in \cite{our_jcp_radhy_paper} and recalled  in \eqt{eq:ent-chg-var}:
+%The last stage of the proof requires to show that the matrices $\hat{A}_{EDL} = \{ \hat{a}_{i,j} \}$ and $A^* = \{a^*_{i,j} \}$ have the same entries, i.e. $\hat{a}_{i,j} = a^*_{i,j} \ \forall \ (i,j) \in (1,2)^2$. Because it is a lengthy process, we only perform the derivation for the first entry $\hat{a}_{1,1} = \sdd + \sde\frac{2 \epsilon}{\rho^2} + \see \left(\frac{\epsilon}{\rho^2}\right)^2$ to show it equal to $a^*_{1,1} = \rho^{-2}\partial_{\rho} \left( \rho^2 \partial_{\rho} s^* \right)$ using the functional form of the entropy proposed in \cite{our_jcp_radhy_paper} and recalled  in \eqt{eq:ent-chg-var}:
+%%
+%\begin{equation}\label{eq:ent-chg-var}
+%%s(\rho,e ,\epsilon) = s_E ( \rho ,e) + \frac{s_R(\epsilon)}{\rho} \text{ or }  
+%\hat{s}(\hat{\rho},\hat{e} ,\hat{\epsilon}) = \hat{s}_E ( \hat{\rho} ,\hat{e}) + \frac{s_R(\hat{\epsilon})}{\hat{\rho}} \ .
+%\end{equation}
+%%
+%The reader is referred to APPENDIX for the derivations regarding the three other entries. Before diving into the derivation let recall some basic chain rules results. It is assumed that the following generic change of variable is performed:
+%%
+%\begin{equation}
+%\hat{f}(x,y,z) \rightarrow f(\alpha, \beta, \gamma) \nonumber \, ,
+%\end{equation}
+%%
+%which leads to the following chain rule when computing the derivative of a function $\hat{f}(x,y,z)$ with respect to $x_i = \{x,y,z \}$:
+%%
+%\begin{equation}\label{eq:chain_rule_chge_var}
+%\partial_{x_i} \hat{f} = \frac{\partial \alpha}{\partial x_i} \partial_\alpha f + \frac{\partial \beta}{\partial x_i} \partial_\beta f + \frac{\partial \gamma}{\partial x_i} \partial_\gamma f \, .
+%\end{equation}
+%%
+%Note that in the case under consideration, $x=\alpha$, $z=\gamma$ and $y=f(\alpha, \beta, \gamma)$ which will lead to some simplifications and confusion in the notation. To improve the readiness of the below proof, we choose to note $(\hat{\rho}, \hat{e}, \hat{\epsilon})$ the set of variables referring to the function $\hat{s}$ and $(\rho,e,\epsilon)$ the set of variables referring to the function $s$. Under these assumptions and remembering that $\hat{e} = e + \frac{\hat{\epsilon}}{\hat{\rho}}$, the following results can be derived:
+%%
+%\begin{eqnarray}
+%\frac{\partial \rho}{\partial \hat{\rho}} = 1 \text{, } \frac{\partial \rho}{\partial \hat{e}} = \frac{\partial \rho}{\partial \hat{\epsilon}} = 0 \nonumber \\
+%\frac{\partial e}{\partial \hat{\rho}} = \frac{\epsilon}{\rho^2} \text{, } \frac{\partial e}{\partial \hat{e}} = 1 \text{, } \frac{\partial e}{\partial \hat{\epsilon}} = \frac{-1}{\rho} \nonumber \\
+%\frac{\partial \epsilon}{\partial \hat{\rho}} = \frac{\partial \epsilon}{\partial \hat{e}} = 0 \text{, } \frac{\partial \epsilon}{\partial \hat{\epsilon}} = 1 \nonumber
+%\end{eqnarray}
 %
-\begin{equation}\label{eq:ent-chg-var}
-%s(\rho,e ,\epsilon) = s_E ( \rho ,e) + \frac{s_R(\epsilon)}{\rho} \text{ or }  
-\hat{s}(\hat{\rho},\hat{e} ,\hat{\epsilon}) = \hat{s}_E ( \hat{\rho} ,\hat{e}) + \frac{s_R(\hat{\epsilon})}{\hat{\rho}} \ .
-\end{equation}
 %
-The reader is referred to APPENDIX for the derivations regarding the three other entries. Before diving into the derivation let recall some basic chain rules results. It is assumed that the following generic change of variable is performed:
+%\begin{eqnarray}\label{eq:first_entry_A_hat}
+%\hat{A}_{EDL,1,1} = \sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \frac{\partial \rho}{\partial \hat{\rho}} \partial_\rho s + \frac{\partial e}{\partial \hat{\rho}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_\epsilon s \right) \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \partial_\rho s + \frac{\epsilon}{\rho^2} \partial_e s \right) \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \partial_\rho s + \epsilon \partial_e s \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \left[ 2\rho \partial_\rho s + \rho^2 \left( \partial_{\rho,\rho} s + \frac{\epsilon}{\rho^2} \partial_{\rho,e} s \right) + \epsilon \partial_{\rho,e} s + \frac{\epsilon^2}{\rho^2}\partial_{e,e} s \right] \nonumber \\
+%\sddhat& =& \rho^{-2} \left[ \sdd + 2 \epsilon \partial_{\rho,e} + \left( \frac{\epsilon}{\rho} \right)^2 \partial_{e,e} s \right] = A^*_{1,1} \, ,
+%\end{eqnarray}
 %
-\begin{equation}
-\hat{f}(x,y,z) \rightarrow f(\alpha, \beta, \gamma) \nonumber \, ,
-\end{equation}
-%
-which leads to the following chain rule when computing the derivative of a function $\hat{f}(x,y,z)$ with respect to $x_i = \{x,y,z \}$:
-%
-\begin{equation}\label{eq:chain_rule_chge_var}
-\partial_{x_i} \hat{f} = \frac{\partial \alpha}{\partial x_i} \partial_\alpha f + \frac{\partial \beta}{\partial x_i} \partial_\beta f + \frac{\partial \gamma}{\partial x_i} \partial_\gamma f \, .
-\end{equation}
-%
-Note that in the case under consideration, $x=\alpha$, $z=\gamma$ and $y=f(\alpha, \beta, \gamma)$ which will lead to some simplifications and confusion in the notation. To improve the readiness of the below proof, we choose to note $(\hat{\rho}, \hat{e}, \hat{\epsilon})$ the set of variables referring to the function $\hat{s}$ and $(\rho,e,\epsilon)$ the set of variables referring to the function $s$. Under these assumptions and remembering that $\hat{e} = e + \frac{\hat{\epsilon}}{\hat{\rho}}$, the following results can be derived:
-%
-\begin{eqnarray}
-\frac{\partial \rho}{\partial \hat{\rho}} = 1 \text{, } \frac{\partial \rho}{\partial \hat{e}} = \frac{\partial \rho}{\partial \hat{\epsilon}} = 0 \nonumber \\
-\frac{\partial e}{\partial \hat{\rho}} = \frac{\epsilon}{\rho^2} \text{, } \frac{\partial e}{\partial \hat{e}} = 1 \text{, } \frac{\partial e}{\partial \hat{\epsilon}} = \frac{-1}{\rho} \nonumber \\
-\frac{\partial \epsilon}{\partial \hat{\rho}} = \frac{\partial \epsilon}{\partial \hat{e}} = 0 \text{, } \frac{\partial \epsilon}{\partial \hat{\epsilon}} = 1 \nonumber
-\end{eqnarray}
-%
-%
-\begin{eqnarray}\label{eq:first_entry_A_hat}
-\hat{A}_{EDL,1,1} = \sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \frac{\partial \rho}{\partial \hat{\rho}} \partial_\rho s + \frac{\partial e}{\partial \hat{\rho}} \partial_e s + \frac{\partial \epsilon}{\partial \hat{\rho}} \partial_\epsilon s \right) \right] \nonumber \\
-\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \left( \partial_\rho s + \frac{\epsilon}{\rho^2} \partial_e s \right) \right] \nonumber \\
-\sddhat& =& \rho^{-2} \partial_{\hat{\rho}} \left[ \rho^2 \partial_\rho s + \epsilon \partial_e s \right] \nonumber \\
-\sddhat& =& \rho^{-2} \left[ 2\rho \partial_\rho s + \rho^2 \left( \partial_{\rho,\rho} s + \frac{\epsilon}{\rho^2} \partial_{\rho,e} s \right) + \epsilon \partial_{\rho,e} s + \frac{\epsilon^2}{\rho^2}\partial_{e,e} s \right] \nonumber \\
-\sddhat& =& \rho^{-2} \left[ \sdd + 2 \epsilon \partial_{\rho,e} + \left( \frac{\epsilon}{\rho} \right)^2 \partial_{e,e} s \right] = A^*_{1,1} \, ,
-\end{eqnarray}
-%
-With same procedure, it is shown that all the entries of the matrices $\hat{A}_{EDL}$ and $A^*$ match. It is then concluded that the matrix $A^*$ and $\hat{A}_{EDL}$ are identical under the change of variables $(\rho, e, \epsilon) \rightarrow (\rho, e+ \frac{\epsilon}{\rho}, \epsilon)$.
+%With same procedure, it is shown that all the entries of the matrices $\hat{A}_{EDL}$ and $A^*$ match. It is then concluded that the matrix $A^*$ and $\hat{A}_{EDL}$ are identical under the change of variables $(\rho, e, \epsilon) \rightarrow (\rho, e+ \frac{\epsilon}{\rho}, \epsilon)$.
 %Consequently, the viscous regularization shown in \eqt{eq:regularized_hyperbolic_GRH} equally applies to the full GRH equations. 
 %\tcb{This is still incomplete since we need to talk about positivity of the density. done.}
 %
@@ -1148,19 +1229,23 @@ With same procedure, it is shown that all the entries of the matrices $\hat{A}_{
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In this section, numerical solutions and convergence studies of the 1-D regularized GRH given in \eqt{eq:regularized_hyperbolic_GRH} are presented for three steady-state cases that include: Mach 1.05 and Mach 3 tests with constant opacity, and Mach 3 test with temperature-dependent opacity. The 1-D GRH equations are discretized within the Moose framework \cite{Moose} using \emph{Continuous} Galerkine Finite Element Method. The discretization and solution techniques used in this paper are the same as in Section 3 of \cite{our_jcp_radhy_paper}: an implicit second-order BDF2 temporal scheme is employed \cite{bdf2} along with linear Lagrange test functions. A Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the resulting nonlinear system of equations at each time step. An approximate Jacobian matrix is used as a preconditioner and is computed by finite difference (this approach is reasonably efficient for 1-D simulations). 
+In this section, numerical solutions and convergence studies of the 1-D regularized GRH given in \eqt{eq:regularized_hyperbolic_GRH} are presented for three steady-state cases that include: Mach 1.05 and Mach 3 tests with constant opacity, and Mach 3 test with temperature-dependent opacity. The 1-D GRH equations are discretized within the Moose framework \cite{Moose} using \emph{Continuous} Galerkine Finite Element Method. The discretization and solution techniques used in this paper are the same as in Section 3 of \cite{our_jcp_radhy_paper}: an implicit second-order BDF2 temporal scheme is employed \cite{bdf2} along with linear Lagrange test functions and a second-order Gauss quadrature rule. A Jacobian-Free Newton Krylov method \cite{JFNK} is employed to solve the resulting nonlinear system of equations at each time step. An approximate Jacobian matrix is used as a \emph{preconditioner} and is computed by finite difference (this approach is reasonably efficient for 1-D simulations). 
 %Numerical results and convergence studies are presented for three steady-state cases that include: Mach 1.05 and Mach 3 tests with constant opacity, and Mach 3 test with temperature-dependent opacity. 
-Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated on the smooth Mach 1.05 test. The same study is performed for the Mach 3 tests with constant and temperature-dependent cross sections. These two tests each display a shock and a Zeldovich's pike at steady state in the material properties, and thus only first-order accuracy can be achieved. In our previous paper, \cite{our_jcp_radhy_paper}, numerical results only included test cases with constant opacity; the Mach 3 test case with temperature-dependent opacity is intended to fill this gap.
+Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated on the smooth Mach 1.05 test. The same convergence study is performed for the Mach 3 tests with constant and temperature-dependent opacities. These two tests each display a shock and a Zeldovich's pike at steady state in the material properties, and thus only first-order accuracy can be achieved. 
+%In our previous paper, \cite{our_jcp_radhy_paper}, numerical results only included test cases with constant opacity; the Mach 3 test case with temperature-dependent opacity is intended to fill this gap.
 %We present 1-D numerical results for Mach 3 radiation hydrodynamic simulations in a pure absorber material: the first test corresponds to a material with constant opacities (\sct{sec:mach-3-cst-xs}), and the second test corresponds to a material with temperature dependent opacities (\sct{sec:mach-3-no-cst-xs}). 
-
+%
 %The computational domain is meshed with an uniform grid. The regularized GRH equation are discretized using a BDF2 temporal integrator and linear continuous finite elements (see \sct{sec:discr}). 
 The time step is computed from a CFL condition and the local maximum eigenvalue $|u|+c_m$. The steady-state solution is detected by monitoring the $L_2$ norm of the nonlinear residual. 
 For the hydrodynamics equations, implementation of the boundary conditions relies on the Mach number (supersonic and subsonic). For supersonic inlet flows, Dirichlet boundary conditions are used
 since no physical information exits the system. On the other hand, at the outlet the flow becomes subsonic and thus requires a most sophisticated implementation: a static 
 pressure boundary condition is weakly imposed by specifying a back pressure denoted by $P_b$, and by computing the other hydrodynamic variables from the relevant characteristics (REF). 
-For the radiation diffusion equation, a vacuum boundary condition is used at both inlet and outlet. 
+For the diffusion term of the radiation diffusion equation (\eqt{eq:GRHrad}), a vacuum boundary condition is used at both inlet and outlet. 
 
-For each numerical results presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, the initial step conditions are computed from four non-dimensional numbers, that are defined below in \eqt{eq:scaled-nb}, and the Rankine-Hugoniot condition \cite{toro, LowrieEdwards}. The symbol $\infty$ denotes the reference values in \eqt{eq:scaled-nb} (see Section 2 of \cite{LowrieEdwards} for further details).
+For each numerical results presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs}, 
+the initial conditions consist of a step located at $x=0 \ cm$ with constant left and right values computed from \eqt{eq:scaled-nb} and the Rankine-Hugoniot condition (see Section 2 of \cite{LowrieEdwards}).
+%the initial step conditions are computed from four non-dimensional numbers, that are defined below in \eqt{eq:scaled-nb}, and the Rankine-Hugoniot condition \cite{toro, LowrieEdwards}. 
+The symbol $\infty$ denotes the reference values in \eqt{eq:scaled-nb} (see Section 2 of \cite{LowrieEdwards} for further details).
 %
 \begin{eqnarray}\label{eq:scaled-nb}
 M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ , 
@@ -1171,13 +1256,21 @@ M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ ,
 %
 We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal.
 
-The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. The initial conditions consist of a step located at $x=0 \ cm$ with constant left and right values computed from \eqt{eq:scaled-nb} and the Rankine-Hugoniot condition (see Section 2 of \cite{LowrieEdwards}). For each test case, information regarding the CFL condition and the number of elements used in the mesh will be provided to the reader. Steady-state numerical results of the material density $\rho$ and temperature $T$, the radiation temperature $T_r$, the mach number $Mach$ will be shown and compared against the semi-analytical solutions. The numerical profiles of the viscosity coefficients $\kappa$ and $\kappa_{max}$ will also be plotted to illustrate the EVM.
+The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. For each test case, information regarding the CFL condition and the number of elements used in the mesh will be provided to the reader. Steady-state numerical results of the material density $\rho$ and temperature $T$, the radiation temperature $T_r$, the mach number $Mach$ will be shown and compared against the semi-analytical solutions. The numerical profiles of the viscosity coefficients $\kappa$ and $\kappa_{max}$ will also be plotted to illustrate the EVM.
 %
 %------------------------------------------------------------------
 \subsection{Method for computing the convergence rates}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
-The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. The reader is referred to section (SECTION) of (REF) for further details. The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, it is often observed a shift between the two solutions when plotted on the same figure. When performing a convergence study, the semi-analytical solution needs to be shifted to match the numerical solution. To do so, it is proposed to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ that contains the shock when present, as shown in \eqt{eq:mass-diff}:
+\tcb{I think this section is important but depending on how we decide to write it, it may raise a lot of questions} \\
+The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. 
+%Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. 
+The reader is referred to section (SECTION) of (REF) for further details. \tcb{Jim, can you please provide a good reference for this as you provided the semi-analytical solutions?} 
+%The steady-state solution consists of an embedded hydrodynamic shock whose position is strongly influenced by the implementation of the boundary conditions. Because the same boundary conditions cannot strictly be applied when solving for the semi-analytical and numerical solutions of the GRH, 
+%It is often observed a shift between the two solutions when plotted on the same figure. 
+Because the semi-analytical solution is Galilean invariant \tcb{Jim, is this correct?}, the semi-analytical solution needs to be shifted to overlap with the numerical solution when performing a convergence study. This shifting can be achieved by conserving either mass, momentum or total energy ($(\rho E)_{tot}= \rho E + \epsilon$) that correspond to the conserved variables in the GRH. At steady state, from the mass equation, it is deducted that momentum is constant and thus cannot be used to compute a unique shift value. We are thus left with two options that are conservation of mass and total energy. In the following, only the shifting procedure using mass conservation is presented and is easily extended to the total energy conservation case.
+%use conservation of mass or total energy (material energy plus radiation energy) that are conserved to minimize 
+The objective of the method is to minimize the mass difference between the semi-analytical and the numerical solutions, $m_{anal}$ and $m_{num}$, respectively. The mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ common to the numerical and the semi-analytical solution and containing the shock when present, as shown in \eqt{eq:mass-diff}:
 %
 \begin{equation}\label{eq:mass-diff}
 \Delta m = m_{anal}(x_1,x_2) - m_{num}(x_1,x_2) = \int_{x_1}^{x_2} \left( \rho_{anal} (x+x_{offset}) - \rho_{num} (x)\right) dx \, ,
@@ -1191,73 +1284,98 @@ L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_{anal}(x+x_{offset}) - y_{num}(x) |^{
 &=& \left[ \sum_{i=1}^{nb_{cells}} \sum_{x_q} | y_{anal}(x_q+x_{offset}) - y_{num}(x_q) |^{1,2} dx \right]^{1,1/2} \, .
 \end{eqnarray}
 %
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a linear interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with $10^5$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation. It is chosen to shift the semi-analytical solution since it is solved on a finer mesh than the numerical solution.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (Gauss quadrature rule of order $10$) that requires to evaluate the semi-analytical and the numerical solutions at the quadrature points. The numerical solution is evaluated at the quadrature points with the finite element approach using Lagrange test functions. On the other hand, the values of the semi-analytical solution at the quadrature points are computed with a linear interpolation (Fortran version of the function '\emph{interp1d}'). A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with $10^4$ nodes (to compare to $1000$ nodes for the numerical solution), which should minimize the error due to the interpolation. It is chosen to shift the semi-analytical solution since it is solved on a finer mesh than the numerical solution. The exact same procedure can be achieved for conservation of total energy when replacing $m_{anal}$ and $m_{num}$ with $\rho E_{anal}$ and $\rho E_{num}$, respectively, in \eqt{eq:mass-diff}.
 
-A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive finer mesh. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing the mass difference given in \eqt{eq:mass-diff} and further used to compute the $L_1$ and/or $L_2$ error norm from \eqt{eq:l1-error-norm}.
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same simulation on successive finer mesh. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{offset}$, is computed by minimizing either the the mass or the total energy difference, and further used to compute the $L_1$ and/or $L_2$ error norm given in \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
 \subsection{Mach-1.05 test case with constant opacities}\label{sec:mach-1p05-cst-xs}
 %------------------------------------------------------------------
 %
-For this test, the inlet Mach number is set to $1.05$ and the total and absorption cross sections are assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=1.05$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ defined in \eqt{eq:scaled-nb}, which yields an opacity of $577.35 \ cm^{-1}$. This test case has multiple purposes. First, it will serve at illustrating further the methodology proposed in \sct{sec:mthd-conv-test} for shifting the semi-analytical solution towards the numerical solution. Then, since the Mach-1.05 test case corresponds to the EDL and yields a smooth solution, second-order accuracy of the EVM will be demonstrated by performing a convergence study of the $L_1$ and $L_2$ error norm. Lastly, it will allow to illustrate the mathematical prove presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL.
+For this test, the inlet Mach number is set to $1.05$ and the total and absorption cross sections are assumed constant. The initial conditions and opacity are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=1.05$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ defined in \eqt{eq:scaled-nb}, which yields an opacity of $577.35 \ cm^{-1}$. This test case has multiple purposes. First, it will serve at illustrating further the methodology proposed in \sct{sec:mthd-conv-test} for shifting the semi-analytical solution towards the numerical solution with mass and total energy conservations. Then, since the Mach-1.05 test case corresponds to the EDL and yields a smooth solution, second-order accuracy of the EVM will be demonstrated by performing a convergence study of the $L_1$ and $L_2$ error norm. Lastly, it will also allow to illustrate the mathematical prove presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL.
 
 To illustrate the points developed in \sct{sec:mthd-conv-test}, 
 %the numerical and semi-analytical density profiles are plotted before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. 
-variations of the computed offset value $x_{offset}$ as a function of the grid size are also presented in \fig{fig:mach-1p05-x-offset}. 
+variations of the computed offset value $x_{offset}$ for meshes ranging from $10$ to $250$ cells are presented in \tbl{tbl:mach-1p05-x-offset} when using mass ($\Delta \rho$) and energy ($\Delta (\rho E_{tot})$) conservation, respectively.
 %Finally, plots of the $L_1$ and $L_2$ error norms defined in \eqt{eq:l1-error-norm} are shown in \fig{fig:mach-1p05-cst-xs-conv} for the material density, the material temperature, the mach number and the radiation energy density along with the respective steady-state numerical solutions in \fig{fig:mach-1p05-cst-xs}.
-As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is computed for each run of the convergence study by minimizing the mass difference between the numerical and semi-analytical solutions. The computed offset values are plotted in \fig{fig:mach-1p05-x-offset} for meshes ranging from $10$ to $250$ cells: it is observed that the computed offset value decreases as the mesh becomes finer to reach a plateau value of $3.8 \times 10^{-4}$. The numerical and semi-analytical density profiles are shown before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. The numerical solution was obtained on a computational domain meshed with $100$ cells. By minimizing the mass difference between the numerical and semi-analytical solutions, the semi-analytical solution is shifted towards the right boundary.
+%As explained in \sct{sec:mthd-conv-test}, an offset value $x_{offset}$ is computed for each run of the convergence study by minimizing the mass difference between the numerical and semi-analytical solutions. The computed offset values are plotted in \fig{fig:mach-1p05-x-offset} for meshes ranging from $10$ to $250$ cells: 
+%
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{ |c|c|c||c|c|c| }
+\hline
+ cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ &  cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ \\ \hline
+10 & 2.3092e-03 & 2.3544e-03 & 190 & 1.5716e-04 & 1.5813e-04 \\ \hline
+40 & 5.9536e-04 & 6.0679e-04 & 200 & 1.5123e-04 & 1.5212e-04 \\ \hline
+50 & 4.8484e-04 & 4.9320e-04 & 210 & 1.4586e-04 & 1.4668e-04 \\ \hline
+70 & 3.5823e-04 & 3.6336e-04 & 220 & 1.4097e-04 & 1.4173e-04 \\ \hline
+100 & 2.6301e-04 & 2.6590e-04 & 230 & 1.3650e-04 & 1.3721e-04 \\ \hline
+130 & 2.1154e-04 & 2.1344e-04 & 240 & 1.3239e-04 & 1.3306e-04 \\ \hline
+160 & 1.7930e-04 & 1.8062e-04 & 250 & 1.2861e-04 & 1.2924e-04 \\ \hline
+\end{tabular}
+\end{center}
+\caption{$x_{offset}$ values computed from mass and energy conversations.}\label{tbl:mach-1p05-x-offset}
+\end{table}
+%
+It is observed that both methods yield close $x_{offset}$ values: $x_{offset}$ decreases as the mesh becomes finer to reach a plateau value of $3.8 \times 10^{-4}$. The numerical and semi-analytical density profiles are shown before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. The numerical solution was obtained on a computational domain meshed with $100$ cells. By minimizing the mass or total energy difference between the numerical and semi-analytical solutions, the semi-analytical solution is shifted towards the right boundary.
 %
 \begin{figure}[h]
-    \begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-x-offset.eps}
-    \caption{$x_{offset}$ vs. number of cells.}\label{fig:mach-1p05-x-offset}
-    \end{subfigure}
-    %
-    \begin{subfigure}{0.33\textwidth}
+%    \begin{subfigure}{0.5\textwidth}
+%    \centering
+%    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-x-offset.eps}
+%    \caption{$x_{offset}$ vs. number of cells with mass conservation.}\label{fig:mass-diff-mach-1p05-x-offset}
+%    \end{subfigure}
+%    \begin{subfigure}{0.5\textwidth}
+%    \centering
+%    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/energy-diff-mach-1p05-x-offset.eps}
+%    \caption{$x_{offset}$ vs. number of cells with total energy conservation.}\label{fig:energy-diff-mach-1p05-x-offset}
+%    \end{subfigure}    
+    
+    \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50-zero-shift.eps}
-    \caption{Material density before shifting.}\label{fig:mach-1p05-cst-xs-density-no-shift}
+    \caption{}\label{fig:mach-1p05-cst-xs-density-no-shift}
     \end{subfigure}
     %
-    \begin{subfigure}{0.33\textwidth}
+    \begin{subfigure}{0.5\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50.eps}
-    \caption{Material density after shifting.}\label{fig:mach-1p05-cst-xs-density-with-shift}
+    \caption{}\label{fig:mach-1p05-cst-xs-density-with-shift}
     \end{subfigure}
+    \caption{Material density before (a) and after (b) shifting.}\label{fig:mach-1p05-shift-vs-non-shift}
 \end{figure}
 %
-The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for both the $L_1$ and $L_2$ error norms when refining the mesh. This example proves that the EVM achieves second-order accuracy for smooth solutions and that the entropy condition still holds in the EDL as proved in \sct{sec:cons-equi-diff-limit}.
+The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions for the variables $(\rho, T, \epsilon, Mach)$. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved for both the $L_1$ and $L_2$ error norms when refining the mesh. This example proves that the EVM achieves second-order accuracy for smooth solutions and that the entropy condition still holds in the EDL as proved in \sct{sec:cons-equi-diff-limit}.
 %
 \begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-mat-temp-convergence.eps}
     \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-density-convergence.eps}
     \caption{Material density.}\label{fig:mach-1p05-cst-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-mach-number-convergence.eps}
     \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-radiation-convergence.eps}
     \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation-conv}
     \end{subfigure}        
 \caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs-conv}    
 \end{figure}
 %
 
-The numerical and semi-analytical solutions of $(\rho, T, T_r, Mach)$ are plotted in \fig{fig:mach-1p05-cst-xs-density}, \fig{fig:mach-1p05-cst-xs-temp}, \fig{fig:mach-1p05-cst-xs-radiation} and \fig{fig:mach-1p05-cst-xs-mach}, respectively. It is observed that the numerical profiles are smooth and perfectly match the semi-analytical solutions for each variable. The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-1p05-cst-xs-visc} on a log scale. It is observed that the entropy viscosity coefficient $\kappa$ is three to seven order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$. Such behavior is expected as the numerical solution is smooth and the entropy production small.
+The numerical and semi-analytical solutions of $(\rho, T, T_r, Mach)$ are plotted in \fig{fig:mach-1p05-cst-xs-density}, \fig{fig:mach-1p05-cst-xs-temp}, \fig{fig:mach-1p05-cst-xs-radiation} and \fig{fig:mach-1p05-cst-xs-mach}, respectively. It is observed that the numerical profiles are smooth and perfectly match the semi-analytical solutions for each variable. The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-1p05-cst-xs-visc} on a log scale. The entropy viscosity coefficient $\kappa$ is three to seven order of magnitude smaller than the first-order viscosity coefficient $\kappa_{max}$. Such behavior is expected as the numerical solution is smooth and the entropy production small.
 %
 \begin{figure}[h]
     \begin{subfigure}{0.32\textwidth}
@@ -1291,7 +1409,7 @@ The numerical and semi-analytical solutions of $(\rho, T, T_r, Mach)$ are plotte
     \caption{Viscosity coefficients.}\label{fig:mach-1p05-cst-xs-visc}
     \end{subfigure}        
     \end{center}
-\caption{Numerical ($251$ nodes) and semi-analytical ($\sim 3500$ nodes) steady-state profiles ((a), (b), (c) and (d)) along with the viscosity coefficient profiles (e) for Mach $1.05$ test.}\label{fig:mach-1p05-cst-xs}    
+\caption{Numerical ($251$ nodes) and semi-analytical ($\sim 3500$ nodes) steady-state profiles ((a), (b), (c) and (d)) along with the viscosity coefficient profiles (e) for Mach $1.05$ test case.}\label{fig:mach-1p05-cst-xs}    
 \end{figure}
 %\FloatBarrier
 %
@@ -1299,39 +1417,41 @@ The numerical and semi-analytical solutions of $(\rho, T, T_r, Mach)$ are plotte
 \subsection{Mach-3 shock test with constant opacities}\label{sec:mach-3-cst-xs}
 %------------------------------------------------------------------
 %
-For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are still assumed constant. The initial conditions are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which still yields an opacity of $577.35 \ cm^{-1}$. The purpose of this test is twofolds: (i) it will illustrate the point developed in \sct{sec:ent-cond-full-GRH} and, (ii) will show that the EVM achieves first-order accuracy for numerical solutions with shocks. The code is run with a CFL condition of 1 until the steady-state solution is reached. 
+For this test, the inlet Mach number is set to $3$ and the total and absorption cross sections are still assumed constant. The initial conditions and opacities are computed from the four non-dimensional numbers $\mathbb{P}_\infty=10^{-4}$, $M=3$, $\mathbb{\Sigma}=10^6$ and $\mathbb{\Lambda}=1$ which still yields an opacity of $577.35 \ cm^{-1}$. The code is run with a CFL condition of 1 until the steady-state solution is reached. The purpose of this test is twofolds: (i) it will show that the EVM achieves first-order accuracy for numerical solutions with shocks, and, (ii) will illustrate the point developed in \sct{sec:ent-cond-full-GRH}, i.e. the source terms positively contribute to the stabilization of the numerical solution.
 
-A convergence study of the $L_1$ error norm is performed for the variables $(\rho, T, T_r, Mach)$ and plots are shown in \fig{fig:mach-3-cst-xs-conv}. A reference line of slope 1 shows that first-order convergence of the $L_1$ error norm is achieved for all variables as expected for a numerical solution with a shock.
+A convergence study is performed for the variables $(\rho, T, \epsilon, Mach)$ by following the method detailed in \sct{sec:mthd-conv-test} on successive meshes ranging from 500 to 1700 cells. The $L_1$ error norms computed with mass ($\Delta \rho$) and energy ($\Delta (\rho E)_{tot}$) conversations are given in \fig{fig:mach-3-cst-xs-conv} when using a semi-analytical solution of $5 \times 10^4$ nodes. A reference line of slope 1 shows that first-order convergence of the $L_1$ error norm computed with mass and energy conversations is achieved when refining the mesh for all variables as expected for a numerical solution with a shock. 
+%A closer look at the convergence rate shows that the variables other than the material density require a fine mesh in order to display the expected convergence of rate of 1. The reasons of such behavior remain unclear but could be caused by the non-conservative terms present in the material and radiation energy equations. \tcb{I also believe that one of the reason is that we actually solve for the density whereas we do not solve for the other variables that are just post-processed}
 %
 \begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mat-temp-convergence.eps}
-    \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp-conv}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-mach-3-density-convergence.eps}
+    \caption{Material density.}\label{fig:mach-3-cst-xs-density-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-density-convergence.eps}
-    \caption{Material density.}\label{fig:mach-3-cst-xs-density-conv}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-mach-3-mat-temp-convergence.eps}
+    \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-mach-3-mach-number-convergence.eps}
     \caption{Mach number.}\label{fig:mach-3-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mach-3-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-mach-3-radiation-convergence.eps}
     \caption{Radiation energy density.}\label{fig:mach-3-cst-xs-radiation-conv}
     \end{subfigure}        
-\caption{Convergence plots of the $L_1$ error norm for Mach $3$ test.}\label{fig:mach-3-cst-xs-conv}    
+\caption{Convergence plots of the $L_1$ error norm for Mach $3$ test with constant opacity.}\label{fig:mach-3-cst-xs-conv}    
 \end{figure}
 %
 
-The steady-state numerical results obtained with a mesh of $1000$ cells are plotted against the semi-analytical solutions \cite{ferguson} along with the viscosity coefficients $\kappa$ and $\kappa_{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. It is well resolved and does not display any instabilities. In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich's pike in the vicinity of the shock region: the pike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc}. It is observed that $\kappa$ is peaked in the vicinity of the shock and small anywhere else. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual and the jumps. It is also observed that the viscosity coefficient $\kappa$ does not saturate to the first-order, over-dissipative viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point developed in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). Consequently, the relaxation and diffusion terms participate in stabilizing the numerical solution along with the EVM.
+The steady-state numerical results obtained with a mesh of $1000$ cells are plotted against the semi-analytical solutions \cite{ferguson} along with the viscosity coefficients $\kappa$ and $\kappa_{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. It is well resolved and does not display any instabilities. In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich's pike in the vicinity of the shock region: the pike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc} on a log scale. It is observed that $\kappa$ is peaked in the vicinity of the shock and small anywhere else. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual and the jumps. It is also observed that the viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point developed in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects, i.e. stabilizing effects, of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). 
+%Consequently, the relaxation and diffusion terms participate in stabilizing the numerical solution along with the EVM.
 %
 \begin{figure}[h]
     \begin{subfigure}{0.32\textwidth}
@@ -1373,7 +1493,7 @@ The steady-state numerical results obtained with a mesh of $1000$ cells are plot
 %------------------------------------------------------------------
 %
 %\tcb{We need a reference for this test. I have the report that was emailed by Dr Morel to me but I am not sure this is sufficient} \\
-We now consider a Mach 3 test in a pure absorber material with the same non-dimensional numbers as in \sct{sec:mach-3-cst-xs} but the opacities now depend on the material properties, i.e, the density $\rho$ and the material temperature $T$. An expression of the \emph{dimensional} form of the density- and  temperature-dependent opacities is given in \eqt{eq:opacity}:
+We now consider a Mach 3 test in a pure absorber material with the same non-dimensional numbers as in \sct{sec:mach-3-cst-xs} but with an opacity that depends on the material properties, i.e, the density $\rho$ and the material temperature $T$. An expression of the \emph{dimensional} form of the density- and  temperature-dependent opacities is given in \eqt{eq:opacity}:
 % there was a tilde sigma here, why?
 %
 \begin{equation}\label{eq:opacity}
@@ -1382,7 +1502,9 @@ We now consider a Mach 3 test in a pure absorber material with the same non-dime
 %
 This simulation aims at exercising the entropy viscosity method with opacity functions that exhibit strong variations in the shock region. From a theoretical perspective, as proven in \sct{sec:ent-cond-full-GRH}, the entropy inequality should nonetheless hold, meaning that the viscous regularization should efficiently stabilize any discontinuity or shock that could form in the numerical solution. 
 
-The test is run until a steady state is reached. Numerical results for the material density and the material and radiation temperatures are presented and plotted against semi-analytical solutions in \fig{fig:mach-3-dpt-xs-dens} and \fig{fig:mach-3-dpt-xs-temp}, respectively. The values of the total/absorption opacity is given in \eqt{fig:mach-3-dpt-xs-xs}. We also provide the viscosity coefficient profiles at steady state in \fig{fig:mach-3-dpt-xs-visc}.
+Once again, a convergence study of the $L_1$ error norm is performed for the variables $(\rho, T, T_r, Mach)$ and plots are shown in FIGURE. A reference line of slope 1 shows that first-order convergence of the $L_1$ error norm is achieved for all variables as expected for a numerical solution with a shock.
+
+The test is run until a steady-state solution is reached. Numerical results for the material density and the material and radiation temperatures are presented and plotted against semi-analytical solutions in \fig{fig:mach-3-dpt-xs-dens}, \fig{fig:mach-3-dpt-xs-mat-temp} and \fig{fig:mach-3-dpt-xs-rad-temp}, respectively. The values of the total absorption opacity is given in \eqt{fig:mach-3-dpt-xs-xs}. We also provide the viscosity coefficient profiles at steady state in \fig{fig:mach-3-dpt-xs-visc}.
 %\begin{itemize}
 %\item numerical results using definition of the viscosity coefficient provided in previous section: density, temperature, opacity and viscosity coefficient profiles.
 %\item eyeball convergence study when refining the mesh.
@@ -1390,29 +1512,37 @@ The test is run until a steady state is reached. Numerical results for the mater
 %\end{itemize}
 %
 \begin{figure}[h]
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mat-temp-nel-1000-plot.eps}
-    \caption{Steady-state material and radiation temperatures for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-temp}
+    \caption{Material temperature.}\label{fig:mach-3-dpt-xs-mat-temp}
     \end{subfigure}
     ~
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mat-temp-nel-1000-plot.eps}
+    \caption{Radiation temperature.}\label{fig:mach-3-dpt-xs-rad-temp}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-density-nel-1000-plot.eps}
-    \caption{Steady-state material density for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-dens}
+    \caption{Material density.}\label{fig:mach-3-dpt-xs-dens}
     \end{subfigure}
     
-    \begin{subfigure}{0.5\textwidth}
+    \begin{center}
+    \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mach-number-nel-1000-plot.eps}
-    \caption{Steady-state total opacity $\sigma_t$ for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-xs}
+    \caption{Total opacity $\sigma_t = \sigma_a$.}\label{fig:mach-3-dpt-xs-xs}
     \end{subfigure}
     ~
-    \begin{subfigure}{0.5\textwidth}
+    \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mach_3_nel_1000_viscosity.eps}
-    \caption{Steady-state solution of the artificial viscosity coefficients for the Mach-3 shock test with temperature-dependent opacities.}\label{fig:mach-3-dpt-xs-visc}
-    \end{subfigure}        
+    \caption{Artificial viscosity coefficients.}\label{fig:mach-3-dpt-xs-visc}
+    \end{subfigure}      
+    \end{center}  
 \caption{Convergence plots of the $L_1$ and $L_2$ error norms for Mach $1.05$ test.}\label{fig:mach-3-temp-dep-xs}    
 \end{figure}
 %
@@ -1461,8 +1591,11 @@ In this paper, the theoretical foundation for the application of the entropy vis
 (i) we still recover an entropy condition that holds for the full GRH equations when borrowing the functional expression of the entropy  $s(\rho,e,\varepsilon)$ previously derived by only considering the hyperbolic parts of the GRH \cite{our_jcp_radhy_paper}, and
 (ii) the same viscous regularization can be employed to stabilize the GRH equations.
 %  and, (iii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
+Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. 
 
-Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. We presented two Mach-3 radiative shock simulations, with constant and material-dependent opacities, and observed that the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. 
+The EVM was tested with various test cases in a pure absorber material and the numerical solutions were compared against a semi-analytical solutions. It was demonstrated that second- and first-order accuracy were achieved for smooth (Mach 1.05 test case) and with shock (Mach 3 test case) solutions, respectively. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
+
+%The numerical results presented for the Mach 1.05 test case with a pure absorber material showed that second-order accuracy is achieved for smooth solution when compared against a semi-analytical solution. Still using a semi-analytical solution, it was proved that first-order accuracy was achieved for the two Mach-3 radiative shock simulations, with constant and material-dependent opacities, and observed that the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 %
 Future work will include extension to multi-dimensional simulations and the use of an $S_n$ radiation transport approximation to model the radiation energy density distribution.
 

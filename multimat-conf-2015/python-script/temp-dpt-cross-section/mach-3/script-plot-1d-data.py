@@ -63,6 +63,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   plt.ylabel(y_label, fontsize=20)
 #  plt.ylim(min(y_num), max(y_num))
   plt.xlim(float(min(x_num)), float(max(x_num)))
+#  plt.xlim(-0.015, 0.015)
   plt.margins(0.1, 0.1)
   if text_on:
     plt.figtext(0.2,0.5,r'$\Delta \rho$='+str('{:.4e}'.format(mass_diff)), fontsize=14)
@@ -98,36 +99,36 @@ def plot_visc_coeff(x_num, file, var_index, nb_cells):
 
 # READ EXACT SOLUTION
 file_exact_list = []
-path_to_exact_files = 'test'
 # x-coordinates
-file_exact_list.append('data_x.dat')
+#file_exact_list.append('data_x.dat')
+file_exact_list.append('x_data.txt')
 x_coord_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 x_coord_exact[:] = [ line[:-1] for line in file_data_exact]
 # material density
-file_exact_list.append('data_Density.dat')
+#file_exact_list.append('data_Density.dat')
+file_exact_list.append('Density_data.txt')
 mat_density_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_density_exact[:] = [ line[:-1] for line in file_data_exact]
-print float(mat_density_exact[-1])/float(mat_density_exact[0])
 # radiation energy density
-file_exact_list.append('data_RED.dat')
+#file_exact_list.append('data_RED.dat')
+file_exact_list.append('Er_data.txt')
 radiation_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 radiation_exact[:] = [ line[:-1] for line in file_data_exact]
-print float(radiation_exact[-1])/float(radiation_exact[0]), radiation_exact[0], radiation_exact[-1]
 # mach number or fluid velocity
-file_exact_list.append('data_Mach.dat')
+#file_exact_list.append('data_Mach.dat')
+file_exact_list.append('Mach_Data.txt')
 mach_nb_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mach_nb_exact[:] = [ line[:-1] for line in file_data_exact]
-print mat_density_exact[0], mat_density_exact[-1]
 # material temperature
-file_exact_list.append('data_Temp.dat')
+#file_exact_list.append('data_Temp.dat')
+file_exact_list.append('Tm_data.txt')
 mat_temp_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_temp_exact[:] = [ line[:-1] for line in file_data_exact]
-print float(mat_temp_exact[-1])/float(mat_temp_exact[0])
 nb_nodes_exact = len(x_coord_exact)
 nb_exact_files = len(file_exact_list)
 # remove duplicate values in x_coord_exact and consistently in other lists
@@ -146,17 +147,21 @@ file_list = []
 
 ## works well with cfl=0.1
 file_list.append('mach-3-nel-200-points0.csv')
-file_list.append('mach-3-nel-400-points0.csv')
-file_list.append('mach-3-nel-500-points0.csv')
-file_list.append('mach-3-nel-600-points0.csv')
-file_list.append('mach-3-nel-700-points0.csv')
-file_list.append('mach-3-nel-800-points0.csv')
-file_list.append('mach-3-nel-900-points0.csv')
-file_list.append('mach-3-nel-1000-points0.csv')
+#file_list.append('mach-3-nel-300-points0.csv')
+#file_list.append('mach-3-nel-400-points0.csv')
+#file_list.append('mach-3-nel-500-points0.csv')
+#file_list.append('mach-3-nel-600-points0.csv')
+#file_list.append('mach-3-nel-700-points0.csv')
+#file_list.append('mach-3-nel-800-points0.csv')
+#file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1000-points0.csv')
+#file_list.append('mach-3-nel-1100-points0.csv')
+#file_list.append('mach-3-nel-1200-points0.csv')
+#file_list.append('mach-3-nel-1300-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 100
+quad_order = 10
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
@@ -252,7 +257,6 @@ for file in file_list:
   l1_norm, l2_norm = compute_error_norms(x_offset[-1], x_coord, mat_temp, x_coord_exact, mat_temp_exact, quad_order, interp_kind)
   print l1_norm
   L1_norm_mat_temp.append(l1_norm)
-  print L1_norm_mat_temp
   L2_norm_mat_temp.append(l2_norm)
 
   file_data.close()
@@ -266,9 +270,15 @@ plot_error_norms(nb_cells, L1_norm_mat_temp, L2_norm_mat_temp, 'mat-temp')
 
 # PLOT MATERIAL DENSITY AND TEMPERATURE, RADIATION TEMPERATURE AND MACH NUMBER
 #plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density')
-plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
-plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
-plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
+#plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
+#plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
+#plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
+
+plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'density', nb_cells[-1])
+plot_solution(x_coord, mat_temp, x_coord, mat_temp, 0.0, 'radiation', 200)
+plot_solution(x_coord_exact, mat_temp_exact, x_coord_exact, mat_temp_exact, 0.0, 'mat-temp', 200)
+exit()
+
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1600-points0.csv', var_index, nb_cells[-1])
 

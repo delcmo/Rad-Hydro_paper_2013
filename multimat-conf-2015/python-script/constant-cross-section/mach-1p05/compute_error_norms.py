@@ -45,10 +45,12 @@ def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value
     while (x_coord_exact_offset[index_left] < node_left):
       index_left += 1
     index_left = index_left-10 if index_left !=0 else index_left
+    index_left = max(index_left, 0)
     index_right = index_left
     while (x_coord_exact_offset[index_right] < node_right):
       index_right += 1
     index_right = index_right+10 if index_right != nb_nodes_exact-1  else nb_nodes_exact
+    index_right = min(index_right, nb_nodes_exact-1)
     # reduce the number of nodes from analytical solution down to 100
     interval=1
     if index_right-index_left>100:
