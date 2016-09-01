@@ -344,7 +344,7 @@ As shown in \cite{our_jcp_radhy_paper}, when omitting the relaxation and the dif
 % 
 where the material derivative notation was used, $\frac{Ds}{Dt} := \partial_t s + u \partial_x s$, and
 $s_e$ stands for $\partial_e s$. 
-In obtaining \eqt{eq:app_entr_eq_non_equil}, the following condition, which is a generalization of the condition
+In obtaining \eqt{eq:app_entr_eq_non_equil}, the following condition, which is a generalization of a condition
 for Euler's equations (see \cite{our_jcp_radhy_paper}), was used:
 %
 \begin{equation} 
@@ -439,7 +439,7 @@ Since the GRH devolves to a conservative system of equations in the EDL, this pa
 where $P^*=P+\frac{1}{3}aT^4$ and $E^*=e^*+\tfrac{1}{2}u^2$ with $e^*=e+a\frac{T^4}{\rho}$. Again, when omitting the relaxation source terms and the diffusion terms, an entropy function is obtained for an entropy function denoted by $s^*$ and of the following functional form $s^*(\rho,e^*) = s_{Euler}(\rho, e^*, T) + \frac{4}{3} \frac{a T^3}{\rho}$. Note that the functional form of $s^*$ is derived from substituting \eqt{eq:edl-radiation} into \eqt{eq:ent_equ}. The EDL entropy equation reads:
 %
 \begin{equation}\label{eq:EDL-entropy}
-\rho R^*_e(x,t) = \rho \frac{D s^*}{Dt}  =  \partial_x \left( \rho \kappa \partial_x s^* \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s^*\right) - \rho \kappa X^* A^* (X^*)^T  + s^*_e \rho \kappa (\partial_x u)^2 \, .
+\rho \frac{D s^*}{Dt}  =  \rho R^*_e(x,t) = \partial_x \left( \rho \kappa \partial_x s^* \right) + \kappa \left(\partial_x \rho\right) \left( \partial_x s^*\right) - \rho \kappa X^* A^* (X^*)^T  + s^*_e \rho \kappa (\partial_x u)^2 \, .
 \end{equation}
 %
 The vector $X^*$ is defined as $X^*=\left( \partial_x \rho, \partial_x e^* \right)$ and $A^*$ is the 
@@ -468,11 +468,27 @@ It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation 
 %where $s_{Euler}(\rho, e)$ is the entropy for the Euler system of equations, and $s_{rad}(\rho,\epsilon)=\tfrac{4 a^\frac{1}{4}}{3\rho} \epsilon^\frac{3}{4}$ is a radiation contribution to the entropy. 
 %%
 %------------------------------------------------------------------
-\subsection{Definition of the artificial entropy viscosity coefficient $\kappa$.}\label{sec:visc-coeff-def}
+\subsection{Definition of the artificial viscosity coefficients}\label{sec:visc-coeff-def}
 %------------------------------------------------------------------
 %
-The definition of the artificial entropy viscosity coefficient $\kappa$ is identical to what was previously used in \cite{our_jcp_radhy_paper}. We refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details regarding the derivation of the entropy viscosity coefficient $\kappa$ and its definition.
+The definition of the  entropy viscosity coefficient $\kappa$ is recalled below (we refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details). Through the entropy residual $R_e$ of \eqt{eq:app_entr_eq_non_equil} can be recast
+as a function of total pressure (the sum of fluid and radiation pressures) and density, $\hat R_e = \matder{\left(P+\tfrac 1 3 \epsilon\right)} - c^2_m \matder{\rho}$. An asymptotic limit study in the EDL reveals that a proper normalization for this residual is $\rho c^2_m$. Then, the entropy viscosity is computed as
+\begin{equation}
+\kappa_e = h^2 \frac{|\hat R_e|}{\rho c^2_m}
+\end{equation}
+The entropy viscosity is bounded from above by a first-order viscosity (Rusanov's):
+\begin{equation}
+\kappa_\text{max} = \tfrac 1 2 \left( |u| + c_m \right)
+\end{equation}
+Finally, the entropy coefficient coefficient is given by the minimum of the entropy viscosity and the first-order viscosity:
+\begin{equation}
+\kappa = \min \left( \kappa_e, \kappa_\text{max} \right)
+\end{equation}
+
 \tcb{Should we add a few words about $\kappa_{max}$ and $\kappa_e$ along with equation numbers from previous paper?}
+\tcr{we refer a whole lot tot he other paper. maybe a very short and sweet paragraph on the coefficients would be better. I tried. see what you think. remark: in our first paper, I noted that the entropy residual, verylast eq of the appendix, can also just be given in terms of fluid variables, P fluid, rho fluid, c fluid. looks like we don't need to care about radiation at all in this model...}
+
+
 %The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
 %production, i.e., the local entropy residual $R_e(x,t)$. However, the entropy residual can be excessively large, in shocks for example, leading
 %to the idea of bounding (from above) the entropy viscosity with a first-order viscosity (e.g., a local Lax-Friedrichs or Rusanov viscosity).
@@ -709,16 +725,18 @@ The definition of the artificial entropy viscosity coefficient $\kappa$ is ident
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In the previous Section, we  reviewed the viscous regularization for the GRH 
-equations as proposed in \cite{our_jcp_radhy_paper}. Numerical results presented in \cite{our_jcp_radhy_paper} have confirmed that this viscous regularization 
-is behaving properly in the streaming and equilibrium diffusion limits but there was no theoretical basis to justify using the same viscous flux definitions when considering the \emph{full} GRH equations. As we 
+In the previous Section, we  reviewed the viscous regularization derived using the hyperbolic parts of the GRH equations, as presented in \cite{our_jcp_radhy_paper}. 
+Numerical results in \cite{our_jcp_radhy_paper} show that this viscous regularization 
+behaves properly in the streaming and equilibrium diffusion limits but there was no theoretical basis to justify the same viscous flux definitions when considering the \emph{full} GRH equations. As we 
 demonstrate below, in \sct{sec:ent-cond-full-GRH}, the contribution from the relaxation and diffusion terms to the entropy residual equation will only 
 yield entropy-producing terms.
 % when using the functional form of the entropy function given in \eqt{eq:ent_equ}. 
-We also show in \sct{sec:cons-equi-diff-limit} that, in the equilibrium-diffusion limit, 
+We will also show in \sct{sec:cons-equi-diff-limit} that, in the equilibrium-diffusion limit, 
 %and by performing a change of variable to come, 
-the entropy equation obtained for the full GRH and recalled in \eqt{eq:app_entr_eq_non_equil}, devolves to the EDL entropy equation given in \eqt{eq:EDL-entropy}. Such a behavior was assumed but remained to be proved. These two mathematical proofs will further the understanding and the theoretical ground of the EVM as applied tot he GRH equations and will help in describing  some of the features observed in the numerical results presented in \sct{sec:num-rslt} and in \cite{our_jcp_radhy_paper}. \\
+the entropy equation obtained for the full GRH and recalled in \eqt{eq:app_entr_eq_non_equil}, devolves to the EDL entropy equation given in \eqt{eq:EDL-entropy}. Such a behavior was assumed but remained to be proved. These two mathematical results further warrant an entropy viscosity-based approach for the stabilization of the GRH equations 
+and help in understanding  some of the features observed in the numerical results presented in \sct{sec:num-rslt} and in \cite{our_jcp_radhy_paper}. \\
 \tcb{I want to emphasize why we are adding this new theoretical proofs and how it is related to the numerical results that we already presented}
+\tcr{check my mods in this entire paragraph}
 %
 %------------------------------------------------------------------
 \subsection{An entropy condition for the full GRH equations}
@@ -1260,13 +1278,16 @@ M = \frac{u_\infty}{c_{m,\infty}} \text{ (Mach number) } \ ,
 %
 We recall that, in the case of a pure-absorber material, the total and absorption opacities are set equal.
 
-The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent cross section, respectively. For each test case, information regarding the CFL condition and the number of elements used in the mesh will be provided to the reader. Steady-state numerical results of the material density $\rho$ and temperature $T$, the radiation temperature $T_r$, the mach number $Mach$ will be shown and compared against the semi-analytical solutions. The numerical profiles of the viscosity coefficients $\kappa$ and $\kappa_{max}$ \tcr{kmax not defined before. maybe there is no need to add another equation, but just some words somewhere} will also be plotted to illustrate the behavior of the EVM.
+The remaining of this section is organized as follows: in \sct{sec:mthd-conv-test} the method employed to perform the convergence study and to compute the $L_1$ and $L_2$ norms of the error between the numerical solutions and the semi-analytical solutions are detailed. Then, the numerical results and the convergence studies are presented in \sct{sec:mach-1p05-cst-xs}, \sct{sec:mach-3-cst-xs} and \sct{sec:mach-3-no-cst-xs} for Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent opacities, respectively. For each test case, information regarding the CFL condition and the number of elements used in the mesh are provided. Steady-state numerical results for material density $\rho$ and temperature $T$,  radiation temperature $T_r$, and Mach number $Mach$ are shown and compared against semi-analytical solutions. The profiles for viscosity coefficients $\kappa$ and $\kappa_{max}$ are also graphed to illustrate the behavior of the EVM.
 %
 %------------------------------------------------------------------
 \subsection{Method for computing the convergence rates}\label{sec:mthd-conv-test}
 %------------------------------------------------------------------
 %
 \tcb{I think this section is important but depending on how we decide to write it, it may raise a lot of questions} \\
+\tcr{I feel like a description of Jim's semi-analytical solution would be beneficial somewhere, maybe before. It would explain
+that he solves a-dimensionalized equations, right?, in an infinite domain, right?, and thus the need for a re-scaling and shifting
+can be understood more easily. I think there is a bit of work needed to make this section transparent and useful. I believe we should definitely keep this section, we struggled a lot with that and it is NOT explained clearly in previous publications. Maybe this could be an added bonus of this paper\\}
 The convergence study presented in this paper is performed by comparing the numerical solution against a semi-analytical solution. The semi-analytical solutions were derived by solving the adimensional steady-state GRH equations that form a system of Ordinary Differential Equations (ODEs), along with the Rankine-Hugoniot jump conditions (REF) between the upstream and downstream states of the shock. 
 %Since the outlet boundary is subsonic, the material temperature was imposed downstream the shock position. 
 The reader is referred to section (SECTION) of (REF) for further details. \tcb{Jim, can you please provide a good reference for this as you provided the semi-analytical solutions?} 
