@@ -1,0 +1,92 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb}
+% more math
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsbsy}
+
+\usepackage{color}
+\newcommand{\mt}[1]{\marginpar{\small #1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% new commands
+\newcommand{\nc}{\newcommand}
+% operators
+\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
+\newcommand{\grad}{\vec{\nabla}}
+% latex shortcuts
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bal}{\begin{align}}
+\newcommand{\eali}{\end{align}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+% DGFEM commands
+\newcommand{\jmp}[1]{[\![#1]\!]}                     % jump
+\newcommand{\mvl}[1]{\{\!\!\{#1\}\!\!\}}             % mean value
+\newcommand{\keff}{\ensuremath{k_{\textit{eff}}}\xspace}
+% shortcut for domain notation
+\newcommand{\D}{\mathcal{D}}
+% vector shortcuts
+\newcommand{\vo}{\vec{\Omega}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vn}{\vec{n}}
+\newcommand{\vnk}{\vec{\mathbf{n}}}
+\newcommand{\vj}{\vec{J}}
+% extra space
+\newcommand{\qq}{\quad\quad}
+% common reference commands
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
+\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
+\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
+
+\newcommand{\ud}{\,\mathrm{d}}
+
+\newcommand{\tcr}[1]{\textcolor{red}{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{ \Large Answers to Reviewer \#2}
+\end{center}
+
+\bigskip
+
+\noindent Manuscript \# FLD-16-0027 \\
+Title: ``Regularization of the non-equilibrium Grey Radiation-Hydrodynamic equations with an artificial viscosity method', \\
+{\it International Journal for Numerical Methods in Fluids}\\
+
+\bigskip
+\bigskip
+
+{\color{blue}
+Comments to the Author: \\ 
+The authors present an extension of their previous work in applying entropy viscosity for radiation hydrodynamics. Specifically, the authors presented work in [1] which describes the application of the entropy viscosity technique to the non-equilibrium grey radiation hydrodynamics (GRH) equations and demonstrated its use on a set of 1D radiating shock benchmarks with known semi-analytic solutions. This initial paper derived an entropy minimum principle by considering only the hyperbolic part of the GRH equations. The current paper builds on this initial effort by deriving an entropy minimum principle for the full GRH equations (including the relaxation and diffusive terms).\\}
+
+\bigskip
+
+{\color{blue}
+1. As far as I can tell, the vast majority of this new paper is a re-statement of the original discussions and formulations from [1] ? the only new parts seem to be the discussion in section 3, the use of a Mach 3 rad-shock problem (instead of the Mach 1.2, 2, 5 and 50 tests presented in [1]) and the use of temperature dependent opacities in one of the test problems. As such, I believe this paper is too long, and much of the introductory material of section 2, the discussion of entropy viscosity (section 4) and the discretization method used (section 5) can be replaced with a reference to [1]. There is simply not enough new material here to warrant a 19 page paper. \\}
+
+\bigskip
+
+{\color{blue}
+2. Further, its not clear why the Mach 3 test was chosen for this paper ? is there really any difference in the numerical solution technique being applied in this paper compared to the one used in the results from [1]? It is not clear what impact the derivation presented in section 3 has on the results in section 6.\\}
+
+\bigskip
+
+{\color{blue}
+3. 
+The radiating shock benchmarks have known semi-anlatyic solutions ? and are therefore amenable to normed error analysis. The authors really need to quantify the error in their results instead of relying on plot overlays. I believe the authors need to update their results to include more quantitative error analysis for these tests.
+\\}
+
+\bigskip
+
+\end{document}
+
