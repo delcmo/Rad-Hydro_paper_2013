@@ -471,22 +471,23 @@ It was not demonstrated in \cite{our_jcp_radhy_paper} that the entropy equation 
 \subsection{Definition of the artificial viscosity coefficients}\label{sec:visc-coeff-def}
 %------------------------------------------------------------------
 %
-The definition of the  entropy viscosity coefficient $\kappa$ is recalled below (we refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details). Through the entropy residual $R_e$ of \eqt{eq:app_entr_eq_non_equil} can be recast
-as a function of total pressure (the sum of fluid and radiation pressures) and density, $\hat R_e = \matder{\left(P+\tfrac 1 3 \epsilon\right)} - c^2_m \matder{\rho}$. An asymptotic limit study in the EDL reveals that a proper normalization for this residual is $\rho c^2_m$. Then, the entropy viscosity is computed as
+The definition of the  entropy viscosity coefficient $\kappa$ is recalled below (we refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details). They key idea is to make the artificial viscosity proportional to the 
+local entropy production. The entropy residual $R_e$ of \eqt{eq:app_entr_eq_non_equil} can be recast
+as a function of total pressure (the sum of the fluid and radiation pressures) and density: $\hat R_e = \matder{\left(P+\tfrac 1 3 \epsilon\right)} - c^2_m \matder{\rho}$. An asymptotic limit study in the EDL reveals that a proper normalization for this residual is $\rho c^2_m$. Then, the entropy viscosity is defined and computed as
 \begin{equation}
 \kappa_e = h^2 \frac{|\hat R_e|}{\rho c^2_m}
 \end{equation}
-The entropy viscosity is bounded from above by a first-order viscosity (Rusanov's):
+This entropy viscosity coefficient is bounded from above by a first-order viscosity (Rusanov or local Lax-Friedrichs viscosity):
 \begin{equation}
-\kappa_\text{max} = \tfrac 1 2 \left( |u| + c_m \right)
+\kappa_\text{max} = \tfrac 1 2 h \left( |u| + c_m \right)
 \end{equation}
-Finally, the entropy coefficient coefficient is given by the minimum of the entropy viscosity and the first-order viscosity:
+Finally, the artificial viscosity coefficient is chosen to be the minimum of the entropy viscosity and the first-order viscosity:
 \begin{equation}
 \kappa = \min \left( \kappa_e, \kappa_\text{max} \right)
 \end{equation}
 
 \tcb{Should we add a few words about $\kappa_{max}$ and $\kappa_e$ along with equation numbers from previous paper?}
-\tcr{we refer a whole lot tot he other paper. maybe a very short and sweet paragraph on the coefficients would be better. I tried. see what you think. remark: in our first paper, I noted that the entropy residual, verylast eq of the appendix, can also just be given in terms of fluid variables, P fluid, rho fluid, c fluid. looks like we don't need to care about radiation at all in this model...}
+\tcr{we refer a whole lot tot he other paper. maybe a very short and sweet paragraph on the coefficients would be better. I tried. see what you think. remark: in our first paper, I noted that the entropy residual, very last eq of the appendix, can also just be given in terms of fluid variables, P fluid, rho fluid, c fluid. So, it looks like we don't need to care about radiation contribution to the residual at all in this model..., what do you think????}
 
 
 %The guiding principle in the entropy viscosity method \cite{jlg1, jlg2} is to let the artificial viscosity coefficient $\kappa$ be proportional to the \emph{local} entropy
