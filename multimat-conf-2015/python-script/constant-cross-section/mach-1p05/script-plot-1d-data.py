@@ -252,7 +252,7 @@ for file in file_list:
   res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
   # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-15, ftol=1.e-20, full_output=True, disp=True, retall=True, maxfun=1000)[0:2]
+#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-30, ftol=1.e-30, full_output=True, disp=True, retall=True, maxfun=10000)[0:2]
 
   x_offset.append(float(res[0]))
   mass_diff = res[1]
@@ -297,6 +297,15 @@ plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
 plot_visc_coeff(x_coord, 'test0.csv', var_index, nb_cells[-1])
+
+# save L1 norm values
+file_name = out_file+'-l1-l2-norms.txt'
+datafile_id = open(file_name, 'w+')
+datafile_id.write('nb_cells '+' l1_rho '+' l1_temp '+' l1_mach '+' l1_rad '+' l2_rho '+' l2_temp '+' l2_mach '+' l2_rad \n')
+data = np.asarray([nb_cells, L1_norm_density, L1_norm_mat_temp, L1_norm_mach, L1_norm_radiation, L2_norm_density, L2_norm_mat_temp, L2_norm_mach, L2_norm_radiation])
+data = data.T
+np.savetxt(datafile_id, data, fmt=['%d','%.10e','%.10e','%.10e','%.10e','%.10e','%.10e','%.10e','%.10e'])
+datafile_id.close()
 
 # PLOT X_OFFSET AND SAVE VALUES IN FILE
 # plot

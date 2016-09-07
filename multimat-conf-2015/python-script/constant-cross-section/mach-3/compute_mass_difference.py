@@ -95,6 +95,7 @@ def compute_mass_diff(x_offset, x_coord, mat_density, x_coord_exact, mat_density
     mass_exact[cell] = np.dot(exact_value_cell_xq, wq)*jac
 #    print 'mass exact', mass_exact[cell]
     mass_diff += np.dot(exact_value_cell_xq-value_xq, wq)*jac
+#    mass_diff += np.dot(abs(exact_value_cell_xq-value_xq), wq)*jac
 #    print 'mass diff', mass_diff
 
 #  plt.plot(x_coord_exact_offset, mat_density_exact)

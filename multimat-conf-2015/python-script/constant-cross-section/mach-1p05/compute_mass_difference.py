@@ -81,7 +81,8 @@ def compute_mass_diff(x_offset, x_coord, mat_density, x_coord_exact, mat_density
     # compute mass difference between the exact and numerical solutions
     mass_num[cell] = np.dot(value_xq,wq)*jac
     mass_exact[cell] = np.dot(exact_value_cell_xq, wq)*jac
-    mass_diff += np.dot(exact_value_cell_xq-value_xq, wq)*jac
+#    mass_diff += np.dot(exact_value_cell_xq-value_xq, wq)*jac
+    mass_diff += np.dot(abs(exact_value_cell_xq-value_xq), wq)*jac
 
 #  plt.plot(x_coord_exact_offset, mat_density_exact)
 #  plt.plot(x_coord, mat_density)

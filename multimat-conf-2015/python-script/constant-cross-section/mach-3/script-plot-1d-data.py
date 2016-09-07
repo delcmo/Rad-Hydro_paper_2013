@@ -214,8 +214,24 @@ file_list.append('mach-3-nel-700-points0.csv')
 file_list.append('mach-3-nel-900-points0.csv')
 file_list.append('mach-3-nel-1100-points0.csv')
 file_list.append('mach-3-nel-1300-points0.csv')
-file_list.append('mach-3-nel-1500-points0.csv')
+#file_list.append('mach-3-nel-1500-points0.csv')
 file_list.append('mach-3-nel-1700-points0.csv')
+file_list.append('mach-3-nel-1900-points0.csv')
+file_list.append('mach-3-nel-2100-points0.csv')
+#file_list.append('mach-3-nel-2300-points0.csv')
+
+## for energy and mass conservation with 50k nodes in semi-analytical solutions
+#file_list.append('mach-3-nel-300-points0.csv')
+#file_list.append('mach-3-nel-500-points0.csv')
+#file_list.append('mach-3-nel-700-points0.csv')
+#file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1100-points0.csv')
+#file_list.append('mach-3-nel-1300-points0.csv')
+#file_list.append('mach-3-nel-1500-points0.csv')
+#file_list.append('mach-3-nel-1700-points0.csv')
+#file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-2100-points0.csv')
+#file_list.append('mach-3-nel-2300-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
@@ -294,10 +310,10 @@ for file in file_list:
 #  print 'done plotting'
 
 # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
-#  res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-20, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
   # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
 
