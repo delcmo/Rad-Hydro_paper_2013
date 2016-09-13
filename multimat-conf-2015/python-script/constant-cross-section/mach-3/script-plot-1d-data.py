@@ -31,7 +31,7 @@ def plot_error_norms(nb_cells, L1_norm, L2_norm, variable):
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
-    y_label=r'$T_r$'
+    y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
   elif variable=='total':
@@ -48,7 +48,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   x_anal_offset = [float(x)+float(x_offset) for x in x_anal]
   x_num = [float(x) for x in x_num]
   plt.plot(x_num, y_num, '+-', markevery=30, markersize=8, label=r'$numerical \ solution$', linewidth=2)
-  plt.plot(x_anal_offset, y_anal, 'o-', markevery=500, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
+  plt.plot(x_anal_offset, y_anal, 'o-', markevery=5000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
   plt.legend(loc='best', fontsize=20, frameon=False)
   plt.xlabel(r'$x$', fontsize=20)
   if variable=='density':
@@ -56,7 +56,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
-    y_label=r'$T_r$'
+    y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
   else:
@@ -187,38 +187,46 @@ file_list = []
 #file_list.append('mach-3-nel-1000-points0.csv')
 #file_list.append('mach-3-nel-2000-points0.csv')
 
-## works well with cfl=0.1
-#file_list.append('mach-3-nel-100-points0.csv')
-#file_list.append('mach-3-nel-200-points0.csv') # mass diff = 1.e-8
-#file_list.append('mach-3-nel-300-points0.csv')
-#file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv') # mass diff = 1.e-8 energy diff = 1.e-6
-#file_list.append('mach-3-nel-600-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv') # energy diff = 1.e-6
-##file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-##file_list.append('mach-3-nel-1000-points0.csv')
-#file_list.append('mach-3-nel-1100-points0.csv')
-##file_list.append('mach-3-nel-1200-points0.csv')
-#file_list.append('mach-3-nel-1300-points0.csv')
-#file_list.append('mach-3-nel-1400-points0.csv') # mass diff = 1.e-7
-#
-#file_list.append('mach-3-nel-1500-points0.csv')
-##file_list.append('mach-3-nel-1600-points0.csv')
-##file_list.append('mach-3-nel-1700-points0.csv')
+# works well with cfl=0.1
+file_list.append('mach-3-nel-100-points0.csv')
+file_list.append('mach-3-nel-200-points0.csv') # mass diff = 1.e-8
+file_list.append('mach-3-nel-300-points0.csv')
+file_list.append('mach-3-nel-400-points0.csv')
+file_list.append('mach-3-nel-500-points0.csv') # mass diff = 1.e-8 energy diff = 1.e-6
+file_list.append('mach-3-nel-600-points0.csv') ###
+file_list.append('mach-3-nel-700-points0.csv') ### energy diff = 1.e-6
+file_list.append('mach-3-nel-800-points0.csv')
+file_list.append('mach-3-nel-900-points0.csv')
+file_list.append('mach-3-nel-1000-points0.csv')
+file_list.append('mach-3-nel-1100-points0.csv')
+file_list.append('mach-3-nel-1200-points0.csv')
+file_list.append('mach-3-nel-1300-points0.csv')
+file_list.append('mach-3-nel-1400-points0.csv') # mass diff = 1.e-7
+file_list.append('mach-3-nel-1500-points0.csv') ###
+file_list.append('mach-3-nel-1600-points0.csv')
+file_list.append('mach-3-nel-1700-points0.csv')
+file_list.append('mach-3-nel-1800-points0.csv')
+file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-2000-points0.csv')
+file_list.append('mach-3-nel-2100-points0.csv') ###
+file_list.append('mach-3-nel-2300-points0.csv')
+file_list.append('mach-3-nel-2400-points0.csv')
+file_list.append('mach-3-nel-2500-points0.csv') ###
+file_list.append('mach-3-nel-2600-points0.csv')
+file_list.append('mach-3-nel-2700-points0.csv') ###
 
 # for energy and mass conservation with 50k nodes in semi-analytical solutions
-file_list.append('mach-3-nel-300-points0.csv')
-file_list.append('mach-3-nel-500-points0.csv')
-file_list.append('mach-3-nel-700-points0.csv')
-file_list.append('mach-3-nel-900-points0.csv')
-file_list.append('mach-3-nel-1100-points0.csv')
-file_list.append('mach-3-nel-1300-points0.csv')
-#file_list.append('mach-3-nel-1500-points0.csv')
-file_list.append('mach-3-nel-1700-points0.csv')
-file_list.append('mach-3-nel-1900-points0.csv')
-file_list.append('mach-3-nel-2100-points0.csv')
-#file_list.append('mach-3-nel-2300-points0.csv')
+#file_list.append('mach-3-nel-300-points0.csv')
+#file_list.append('mach-3-nel-500-points0.csv')
+#file_list.append('mach-3-nel-700-points0.csv')
+#file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1100-points0.csv')
+#file_list.append('mach-3-nel-1300-points0.csv')
+##file_list.append('mach-3-nel-1500-points0.csv')
+#file_list.append('mach-3-nel-1700-points0.csv')
+#file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-2100-points0.csv')
+##file_list.append('mach-3-nel-2300-points0.csv')
 
 ## for energy and mass conservation with 50k nodes in semi-analytical solutions
 #file_list.append('mach-3-nel-300-points0.csv')
@@ -235,7 +243,7 @@ file_list.append('mach-3-nel-2100-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 10 # 20 # 70 # 100
+quad_order = 20 # 10 # 20 # 70 # 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
@@ -309,11 +317,14 @@ for file in file_list:
 #  plot_solution(x_coord, total_nrg, x_coord_exact, total_nrg_exact, 0., 'density', nb_cells[-1])
 #  print 'done plotting'
 
-# minimize the energy difference between the exact and numerical solutions to get 'x_offset'
-  res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-20, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
-
-  # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  if out_file_base == 'energy-diff':
+    print 'Compute x_offset with energy conservation'
+    # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  elif out_file_base == 'mass-diff':
+    print 'Compute x_offset with mass conservation'
+    # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
 
@@ -360,7 +371,7 @@ plot_error_norms(nb_cells, L1_norm_mat_temp, L2_norm_mat_temp, 'mat-temp')
 plot_error_norms(nb_cells, L1_norm_total, L2_norm_total, 'total')
 
 # PLOT MATERIAL DENSITY AND TEMPERATURE, RADIATION TEMPERATURE AND MACH NUMBER
-#plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density')
+plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1])
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])

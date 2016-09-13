@@ -48,7 +48,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   x_anal_offset = [float(x)+float(x_offset) for x in x_anal]
   x_num = [float(x) for x in x_num]
   plt.plot(x_num, y_num, '+-', markevery=30, markersize=8, label=r'$numerical \ solution$', linewidth=2)
-  plt.plot(x_anal_offset, y_anal, 'o-', markevery=500, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
+  plt.plot(x_anal_offset, y_anal, 'o-', markevery=5000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
   plt.legend(loc='best', fontsize=20, frameon=False)
   plt.xlabel(r'$x$', fontsize=20)
   if variable=='density':
@@ -56,7 +56,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
-    y_label=r'$T_r$'
+    y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
   else:
@@ -100,7 +100,6 @@ def plot_visc_coeff(x_num, file, var_index, nb_cells):
 
 # READ EXACT SOLUTION
 file_exact_list = []
-path_to_exact_files = 'test'
 # x-coordinates
 file_exact_list.append('x_data.txt')
 #file_exact_list.append('data_x.dat')
@@ -151,26 +150,38 @@ total_nrg_exact = [float(mat_temp_exact[i])*float(mat_density_exact[i])*(1+0.5*g
 # SET INPUT FILES
 file_list = []
 
-file_list.append('mach-3-nel-200-points0.csv')
+## cross section 7216.875
+#file_list.append('mach-3-nel-200-points0.csv')
 #file_list.append('mach-3-nel-300-points0.csv')
 #file_list.append('mach-3-nel-400-points0.csv')
 #file_list.append('mach-3-nel-500-points0.csv')
 #file_list.append('mach-3-nel-600-points0.csv')
 #file_list.append('mach-3-nel-700-points0.csv')
 #file_list.append('mach-3-nel-800-points0.csv')
-file_list.append('mach-3-nel-900-points0.csv')
-file_list.append('mach-3-nel-1000-points0.csv')
-file_list.append('mach-3-nel-1100-points0.csv')
-file_list.append('mach-3-nel-1200-points0.csv')
-file_list.append('mach-3-nel-1300-points0.csv')
-file_list.append('mach-3-nel-1400-points0.csv')
-
-## for energy
-#file_list.append('mach-3-nel-200-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
 #file_list.append('mach-3-nel-900-points0.csv')
 #file_list.append('mach-3-nel-1000-points0.csv')
+#file_list.append('mach-3-nel-1100-points0.csv')
 #file_list.append('mach-3-nel-1200-points0.csv')
+#file_list.append('mach-3-nel-1300-points0.csv')
+#file_list.append('mach-3-nel-1400-points0.csv')
+#file_list.append('mach-3-nel-1500-points0.csv')
+#file_list.append('mach-3-nel-1600-points0.csv')
+#file_list.append('mach-3-nel-1700-points0.csv')
+#file_list.append('mach-3-nel-1800-points0.csv')
+#file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-2000-points0.csv')
+## cross section 7216.875
+
+## cross section 577.3502692
+file_list.append('mach-3-nel-200-points0.csv')
+file_list.append('mach-3-nel-400-points0.csv')
+file_list.append('mach-3-nel-500-points0.csv')
+file_list.append('mach-3-nel-600-points0.csv')
+file_list.append('mach-3-nel-700-points0.csv')
+file_list.append('mach-3-nel-800-points0.csv')
+file_list.append('mach-3-nel-900-points0.csv')
+file_list.append('mach-3-nel-1000-points0.csv')
+## cross section 577.3502692
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
@@ -247,11 +258,12 @@ for file in file_list:
 #  plot_solution(x_coord, total_nrg, x_coord_exact, total_nrg_exact, 0., 'density', nb_cells[-1])
 #  print 'done plotting'
 
-# minimize the energy difference between the exact and numerical solutions to get 'x_offset'
-  res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
-
-  # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  if out_file_base == 'energy-diff':
+  # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-15, ftol=1e-15, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  elif out_file_base == 'mass-diff':
+    # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-15, ftol=1e-15, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
 

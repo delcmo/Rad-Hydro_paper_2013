@@ -16,9 +16,17 @@ from decimal import *
 def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, l2_norm_mass, l2_norm_energy, variable):
   nb_cells_log = [math.log(float(x)) for x in nb_cells]
   l1_norm_mass_log = [math.log(float(x)) for x in l1_norm_mass]
+  y_min=min(l1_norm_mass_log)
+  y_max=max(l1_norm_mass_log)
   l1_norm_energy_log = [math.log(float(x)) for x in l1_norm_energy]
+  ymin=min(y_min, min(l1_norm_energy_log))
+  ymax=max(y_max, max(l1_norm_energy_log))
   l2_norm_mass_log = [math.log(float(x)) for x in l2_norm_mass]
+  ymin=min(y_min, min(l2_norm_mass_log))
+  ymax=max(y_max, max(l2_norm_mass_log))
   l2_norm_energy_log = [math.log(float(x)) for x in l2_norm_energy]
+  ymin=min(y_min, min(l2_norm_energy_log))
+  ymax=max(y_max, max(l2_norm_energy_log))
   plt.plot(nb_cells_log, l1_norm_mass_log, '+-', label=r'$L_1^{error} norm \ \Delta \rho$', linewidth=2, markersize=8)
   plt.plot(nb_cells_log, l1_norm_energy_log, 'x-', label=r'$L_1^{error} norm \ \Delta (\rho E)_{tot}$', linewidth=2, markersize=8)
   plt.plot(nb_cells_log, l2_norm_mass_log, '*-', label=r'$L_2^{error} norm \ \Delta \rho$', linewidth=2, markersize=8)
@@ -33,6 +41,7 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, l2_norm_mass, l2_no
   plt.plot(x1, y2, '-', color='k')
   plt.legend(loc='upper center', fontsize=20, frameon=True, ncol=1, bbox_to_anchor=(0.8, 1.1), borderaxespad=0.)
   plt.xlabel(r'$\log (cells)$', fontsize=20)
+#  plt.ylim(y_min, y_max)
   if variable=='density':
     y_label=r'$\rho$'
   elif variable=='mat-temp':

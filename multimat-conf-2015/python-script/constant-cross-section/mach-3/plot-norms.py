@@ -17,6 +17,11 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
   nb_cells_log = [math.log(float(x)) for x in nb_cells]
   l1_norm_mass_log = [math.log(float(x)) for x in l1_norm_mass]
   l1_norm_energy_log = [math.log(float(x)) for x in l1_norm_energy]
+  l1_min = min(l1_norm_mass_log)
+  l1_min = min(l1_min, min(l1_norm_energy_log))
+  l1_max = max(l1_norm_mass_log)
+  l1_max = min(l1_max, max(l1_norm_energy_log))
+#  print l1_min, l1_max
   plt.plot(nb_cells_log, l1_norm_mass_log, '+-', label=r'$L_1^{error} norm \ \Delta \rho$', linewidth=2, markersize=8)
   plt.plot(nb_cells_log, l1_norm_energy_log, 'o-', label=r'$L_1^{error} norm \ \Delta (\rho E)_{tot}$', linewidth=2, markersize=8)
   x1 = [math.log(nb_cells[0]), math.log(nb_cells[-1])]
@@ -41,8 +46,9 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
   else:
     print 'ERROR: unvalid variable name'
     sys.exit()
+  plt.ylim(l1_min, l1_min+4.0)
   plt.ylabel(r'$\log (L_{1}^{error}($'+y_label+'$))$', fontsize=20)
-  fig_name='mass-energy-diff-'+variable+'-convergence.eps'
+  fig_name=out_file+'-'+variable+'-convergence.eps'
   print fig_name
   plt.savefig(fig_name)
   plt.clf()

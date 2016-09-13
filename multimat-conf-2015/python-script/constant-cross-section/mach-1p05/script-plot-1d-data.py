@@ -31,7 +31,7 @@ def plot_error_norms(nb_cells, L1_norm, L2_norm, variable):
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
-    y_label=r'$T_r$'
+    y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
   elif variable=='total':
@@ -56,7 +56,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
-    y_label=r'$T_r$'
+    y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
   else:
@@ -248,11 +248,14 @@ for file in file_list:
   nb_cells.append(len(x_coord)-1)
   print'Number of cells in file', file, ':', nb_cells[-1]
 
-  # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
-  res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  if out_file_base == 'energy-diff':
+    # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-20, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+  elif out_file_base == 'mass-diff':
+    # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
+    res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-30, ftol=1.e-30, full_output=True, disp=True, retall=True, maxfun=10000)[0:2]
 
-  # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-30, ftol=1.e-30, full_output=True, disp=True, retall=True, maxfun=10000)[0:2]
+#  res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=10., ftol=10., full_output=True, disp=True, retall=True, maxfun=10000)[0:2]
 
   x_offset.append(float(res[0]))
   mass_diff = res[1]
@@ -260,6 +263,7 @@ for file in file_list:
   print 'mass difference for', file, 'is', mass_diff
   # save density plot
   plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1], True, mass_diff)
+#  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, 0.0, 'density', nb_cells[-1], False, mass_diff)
   # compute the error norms for density
   l1_norm, l2_norm = compute_error_norms(x_offset[-1], x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind)
   L1_norm_density.append(l1_norm)
