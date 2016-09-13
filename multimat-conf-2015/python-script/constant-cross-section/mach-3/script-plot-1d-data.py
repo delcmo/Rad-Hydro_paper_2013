@@ -207,7 +207,7 @@ file_list.append('mach-3-nel-1600-points0.csv')
 file_list.append('mach-3-nel-1700-points0.csv')
 file_list.append('mach-3-nel-1800-points0.csv')
 file_list.append('mach-3-nel-1900-points0.csv')
-#file_list.append('mach-3-nel-2000-points0.csv')
+file_list.append('mach-3-nel-2000-points0.csv')
 file_list.append('mach-3-nel-2100-points0.csv') ###
 file_list.append('mach-3-nel-2300-points0.csv')
 file_list.append('mach-3-nel-2400-points0.csv')

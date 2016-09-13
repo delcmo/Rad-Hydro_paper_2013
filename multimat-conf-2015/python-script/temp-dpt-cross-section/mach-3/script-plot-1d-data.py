@@ -113,6 +113,7 @@ mat_density_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 mat_density_exact[:] = [ line[:-1] for line in file_data_exact]
 # radiation energy density
+#file_exact_list.append('Tr_data.txt')
 file_exact_list.append('Er_data.txt')
 #file_exact_list.append('data_RED.dat')
 radiation_exact = []
@@ -181,14 +182,20 @@ file_list.append('mach-3-nel-700-points0.csv')
 file_list.append('mach-3-nel-800-points0.csv')
 file_list.append('mach-3-nel-900-points0.csv')
 file_list.append('mach-3-nel-1000-points0.csv')
+file_list.append('mach-3-nel-1100-points0.csv')
+file_list.append('mach-3-nel-1200-points0.csv')
+file_list.append('mach-3-nel-1300-points0.csv')
+file_list.append('mach-3-nel-1400-points0.csv')
+file_list.append('mach-3-nel-1500-points0.csv')
 ## cross section 577.3502692
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 10 # 20 # 70 # 100
+quad_order = 20 # 70 # 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
+#var_index = [11, 5, 4, 2, 8, 4, 3] # [x, rho, rad temp, mach, mat temp]
 var_index[:] = [i -1 for i in var_index] # convert to python index
 
 # OUTPUT SOME INFORMATION
