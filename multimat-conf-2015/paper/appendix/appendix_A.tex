@@ -1,7 +1,7 @@
 \section{Implementation of boundary conditions} \label{App:AppendixA}
-This appendix deals with the implementation of the boundary conditions for the Grey Radiation-Hydrodynamic equations that arise from the following conservative terms.
+This appendix deals with the implementation of the boundary conditions for the Grey Radiation-Hydrodynamic equations solved with a \emph{continuous Galerkin finite element method} and with a \emph{temporal implicit solver}. The boundary condition terms arise from the following conservative terms:
 %
-\begin{equation}
+\begin{equation}\label{eq:bc-fluxes}
 F(U) + D(U) = 
 \begin{bmatrix}
 \rho u \\
@@ -19,30 +19,30 @@ u \left( \rho E + P \right) \\
 \,.
 \end{equation}
 %
-To discretize the conservative fluxes F(U) and D(U), one multiplies by a test function $\phi$, integrate over the computational domain and integrate per part. The resulting boundary terms are as follows:
+To discretize the conservative fluxes F(U) and D(U) in a finite element approach, one multiplies by a test function $\phi$, integrate over the computational domain and integrate per part. The resulting boundary terms are as follows:
 %
 \begin{eqnarray}
-\left[\left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{left} - \left[ \left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{right} \, ,
+\left[\left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{l} - \left[ \left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{r} \, ,
 \end{eqnarray}
 %
-where $\vec{n}$ is the outward normal.
+where $\vec{n}$ is the outward normal at the left $l$ and right $r$ boundaries.
 
-In the following, we first detail the implementation of the boundary conditions for the first-order differential terms, i.e. advection terms and then deal with the second-order differential term of the radiation-diffusion equation. 
+In the following, we first detail the implementation of the boundary conditions for the first-order differential terms, i.e. advection terms, and then deal with the second-order differential term of the radiation-diffusion equation. 
 %
 %are wave-dominated equations that require the implementation of boundary conditions consistent with the characteristics. In the finite element approach, boundary terms arise from integrating per part the conservative terms.
 %
 \subsection{Implementation of the boundary terms from F(U)}
 %
-Study of the hyperbolic term of the 1-D GRH equations yield four eigenvalues that are $\lambda_{1,2}=u$ and $\lambda_{3,4}=u \pm c_m$. The sign of the eigenvalues inform us on how the physical information travel in the computational domain and at the boundaries. We only consider in the appendix the cases of a left supersonic and a right subsonic boundaries as they are of interest to the tests presented in this paper. Under the assumption of supersonic left boundary condition, all eigenvalues are positive and none physical information leave the computational domain. As a result, four boundary values must be user-specified and used to compute the boundary fluxes from the advection terms. 
+Study of the hyperbolic term of the 1-D GRH equations yield four eigenvalues that are $\lambda_{1,2}=u$ and $\lambda_{3,4}=u \pm c_m$. The sign of the eigenvalues inform us on how the physical information travel in the computational domain and at the boundaries. We consider in the appendix the cases of a left supersonic and a right subsonic boundaries as they are of interest to the tests presented in this paper. Under the assumption of a supersonic left boundary condition ($u \geq c_m$), all eigenvalues are positive and none physical information leave the computational domain. As a result, four boundary values, ($\rho_{l, user}, u_{l, user}, P_{l, user}, \epsilon_{l, user})$, must be user-specified and serve together with an equation of state to compute the boundary flux F(U). 
 
-In the other hand, the treatment of the right subsonic boundary is quite different as three eigenvalues are positive and one is negative, meaning, physical information leaves and enters the computational domain at the right boundary. Consequently, the right boundary fluxes from the advection terms are computed using one user-specified boundary value, typically the material pressure, and three boundary values supplied by the code, i.e. current values of the material density, velocity and radiation energy density. 
+In the other hand, the treatment of the right subsonic boundary, ($u \leq c_m$), is quite different as three eigenvalues are positive and one is negative, meaning, physical information leaves and enters the computational domain at the right boundary. Consequently, the right boundary fluxes from the advection terms are computed using one user-specified boundary value, typically the material pressure $P_{r, user}$, and three boundary values supplied by the code, i.e. current values of the material density ($\rho_{r}$) velocity ($u_{r}$) and radiation energy density ($\epsilon_{r}$). Using an equation of state along with the user-specified and current boundary values, the boundary flux F(U) is computed.
 %
-\subsection{Implementation of the boundary terms from the second-order differential terms}
+\subsection{Implementation of the boundary terms from D(U)}
 %
 The radiation-diffusion equation contains the elliptic term D(U) that yields the boundary term 
 %
 \begin{eqnarray}
-\left[D(U)\cdot \vec{n} \ \phi \right]_{left} - \left[D(U)\cdot \vec{n} \ \phi \right]_{right} \, .
+\left[D(U)\cdot \vec{n} \ \phi \right]_{l} - \left[D(U)\cdot \vec{n} \ \phi \right]_{r} \, .
 \end{eqnarray}
 %
 A vaccum boundary condition is used to implement the boundary flux from the diffusion term:
@@ -51,10 +51,10 @@ A vaccum boundary condition is used to implement the boundary flux from the diff
 \frac{\epsilon}{4} - \frac{1}{2}\frac{c}{3 \sigma_t} \partial_x \epsilon = \frac{\epsilon_{out}}{4}
 \end{eqnarray}
 %
-where $\epsilon_{out}$ is a incoming radiation energy density. The above relation allows to derive an expression for the boundary flux D(U) that is function of $\partial_x \epsilon$:
+where $\epsilon_{out}$ is a incoming radiation energy density. The above relation allows to derive an expression for the boundary flux D(U) that is function of $\partial_x \epsilon$ (see \eqt{eq:bc-fluxes}):
 %
 \begin{eqnarray}
-\left[ \frac{\epsilon_j}{2} - \frac{\epsilon_{out,j}}{2} \cdot \vec{n} \ \phi \right]_{j} \text{ with } j = \left( left, \ right \right)
+\left[ \frac{\epsilon_j}{2} - \frac{\epsilon_{out,j}}{2} \cdot \vec{n} \ \phi \right]_{j} \text{ with } j = \left( l, \ r \right).
 \end{eqnarray}
 % 
 %In the continuous Galerkin finite element approach, boundary terms arise from the integration per part of first- and second-order conservative terms. We denote by the fluxes F(U) and D(U) the first- and second-order conservative terms in the 1-D GRH equations, respectively:

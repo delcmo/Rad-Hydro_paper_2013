@@ -196,24 +196,25 @@ file_list.append('mach-3-nel-500-points0.csv') # mass diff = 1.e-8 energy diff =
 file_list.append('mach-3-nel-600-points0.csv') ###
 file_list.append('mach-3-nel-700-points0.csv') ### energy diff = 1.e-6
 file_list.append('mach-3-nel-800-points0.csv')
-file_list.append('mach-3-nel-900-points0.csv')
-file_list.append('mach-3-nel-1000-points0.csv')
+#file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1000-points0.csv')
 file_list.append('mach-3-nel-1100-points0.csv')
-file_list.append('mach-3-nel-1200-points0.csv')
+#file_list.append('mach-3-nel-1200-points0.csv')
 file_list.append('mach-3-nel-1300-points0.csv')
 file_list.append('mach-3-nel-1400-points0.csv') # mass diff = 1.e-7
-file_list.append('mach-3-nel-1500-points0.csv') ###
-file_list.append('mach-3-nel-1600-points0.csv')
+#file_list.append('mach-3-nel-1500-points0.csv') ###
+#file_list.append('mach-3-nel-1600-points0.csv')
 file_list.append('mach-3-nel-1700-points0.csv')
-file_list.append('mach-3-nel-1800-points0.csv')
-file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-1800-points0.csv')
+#file_list.append('mach-3-nel-1900-points0.csv')
 file_list.append('mach-3-nel-2000-points0.csv')
-file_list.append('mach-3-nel-2100-points0.csv') ###
+
+#file_list.append('mach-3-nel-2100-points0.csv') ###
 file_list.append('mach-3-nel-2300-points0.csv')
-file_list.append('mach-3-nel-2400-points0.csv')
-file_list.append('mach-3-nel-2500-points0.csv') ###
-file_list.append('mach-3-nel-2600-points0.csv')
-file_list.append('mach-3-nel-2700-points0.csv') ###
+#file_list.append('mach-3-nel-2400-points0.csv')
+#file_list.append('mach-3-nel-2500-points0.csv') ###
+#file_list.append('mach-3-nel-2600-points0.csv')
+#file_list.append('mach-3-nel-2700-points0.csv') ###
 
 # for energy and mass conservation with 50k nodes in semi-analytical solutions
 #file_list.append('mach-3-nel-300-points0.csv')
@@ -243,7 +244,7 @@ file_list.append('mach-3-nel-2700-points0.csv') ###
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 20 # 10 # 20 # 70 # 100
+quad_order = 10 # 10 # 20 # 70 # 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]
@@ -320,11 +321,11 @@ for file in file_list:
   if out_file_base == 'energy-diff':
     print 'Compute x_offset with energy conservation'
     # minimize the energy difference between the exact and numerical solutions to get 'x_offset'
-    res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+    res = fmin(compute_mass_diff, 0., args=(x_coord, total_nrg, x_coord_exact, total_nrg_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-15, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
   elif out_file_base == 'mass-diff':
     print 'Compute x_offset with mass conservation'
     # minimize the mass difference between the exact and numerical solutions to get 'x_offset'
-    res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-10, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
+    res = fmin(compute_mass_diff, 0., args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), xtol=1.e-10, ftol=1e-15, full_output=True, disp=True, retall=True, maxiter=10000000, maxfun=1000)[0:2]
 
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
 
