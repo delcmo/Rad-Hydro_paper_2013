@@ -83,7 +83,7 @@ entropy viscosity method ; viscous stabilization ; equilibrium-diffusion limit.}
 %------------------------------------------------------------------
 Accurately solving the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}.
 The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. 
-The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (in unit $cm^{-1}$) \tcb{added unit here and at end of introduction as well} becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) equations. 
+The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (expressed in units of $cm^{-1}$) becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) equations. 
 The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
 % and can be written in a conservative form. 
 Numerically solving for the GRH equations is challenging for at least three reasons: 
@@ -227,12 +227,12 @@ The viscous regularization of the GRH equations {\it based on their hyperbolic p
 In \sct{sec:VR_new}, the theoretical grounds for using the EVM to solve the 
 Radiation-Hydrodynamic equations is enhanced by demonstrating that the omitted diffusion
 and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
-entropy condition for non-conservative system of equations. We also demonstrate that the entropy equation derived for the GRH devolves to the entropy equation obtained from the EDL system of equations. \tcb{Add line for second section in Section 3.} \tcb{Done}
+entropy condition for non-conservative system of equations. We also demonstrate that the entropy equation derived for the GRH devolves to the entropy equation obtained from the EDL system of equations. 
 %we demonstrate how that the previous viscous regularization still satisfies the entropy minimum 
 %principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
-The new theoretical results are illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study. We recall that in the remaining of this paper, the opacity is denoted by $\sigma$ and is of unit $cm^{-1}$. \tcb{added unit here for opacity}
+The new theoretical results are illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study. We recall that, in the remaining of this paper, the opacity is denoted by $\sigma$ and has of units $cm^{-1}$. 
 %with constant opacity, and Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
 %compared against semi-analytical solutions.
 %\tcr{Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
@@ -266,7 +266,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties can be found in (REF) \tcb{Jean: add reference}. The regularized GRH equations are as follows:
+In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties can be found in \cite{LowrieMorel,LowrieMorelHittinger}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
@@ -461,14 +461,14 @@ as a function of total pressure (the sum of the fluid and radiation pressures) a
 \begin{equation}\label{eq:visc-def}
 \kappa_e = h^2 \frac{\max \left( |\hat R_e|, J \right)}{\rho c^2_m} \, ,
 \end{equation}
-where $J$ is the jump of the gradient of density and pressure.
+where $J$ is the inter-element jump in the gradient of density and pressure.
 This entropy viscosity coefficient is bounded from above by a first-order viscosity (Rusanov or local Lax-Friedrichs viscosity):
 \begin{equation}
 \kappa_\text{max} = \tfrac 1 2 h \left( |u| + c_m \right) \nonumber
 \end{equation}
 Finally, the artificial viscosity coefficient is chosen to be the minimum of the entropy viscosity and the first-order viscosity:
 \begin{equation}
-\kappa = \min \left( \kappa_e, \kappa_\text{max} \right) \nonumber
+\kappa = \min \left( \kappa_e, \kappa_\text{max} \right) \nonumber \,.
 \end{equation}
 
 %\tcb{Should we add a few words about $\kappa_\text{max}$ and $\kappa_e$ along with equation numbers from previous paper?}
@@ -1273,25 +1273,25 @@ At the outlet, the flow becomes subsonic and thus requires a more sophisticated 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
 Vacuum boundary conditions are used at both inlet and outlet for the diffusion term of the radiation diffusion equation (\eqt{eq:GRHrad}).
 
-For an ideal gas equation-of-state, as solved in this paper, the structure of the radiative shock is completely described by its strength, which is defined as the upstream equilibrium initial Mach number, ${\cal M}_0$, and also by the upstream equilibrium temperature, $T_{\infty}$.
-The semi-analytic radiative shock solutions used here are generated using the method which is described in the paper by Lowrie and Edwards \cite{LowrieEdwards}.
-They choose to define the ratio of the upstream radiation energy density to the upstream kinetic energy as $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, which in their paper they arbitrarily chose to have the value of 1e-4.
-The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8e-5$, and $\sigma = 577.35$ which are consistent for an ideal-gas equation-of-state. \tcb{Jim: add rho infinity value}
-We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal, and we chose to set scattering to zero in this paper.
-This choice of values along with an initial Mach number allows for easy comparison with many of the figures in their paper.
+In the case of an ideal gas equation of state, as used here, the structure of the radiative shock is fully described by its \tcr{strength}\tcr{??}, which is defined \tcr{as}\tcr{??} the upstream equilibrium initial Mach number, ${\cal M}_0$, and \tcr{by??} the upstream equilibrium temperature, $T_{\infty}$.
+The semi-analytic radiative shock solutions used in this work have been generated following the method described in \cite{LowrieEdwards}.
+The ratio of the upstream radiation energy density to the upstream kinetic energy, $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, is arbitrarily set to $10^{-4}$ in \cite{LowrieEdwards}.
+The \tcr{definition??} and value they choose for their opacity is similarly arbitrary, and can be \tcr{combined??} with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma = 577.35$ which are consistent for an ideal-gas equation-of-state. \tcb{Jim: add rho infinity value} \tcr{I do not follow much here. i will stop adding red and wait until we talk}
+We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case.
+%This choice of values along with an initial Mach number allows for easy comparison with many of the figures in their paper.
 
-The method described in the paper by Lowrie and Edwards \cite{LowrieEdwards} semi-analytically solves the time-independent 1-D planar equations of radiation hydrodynamics for an ideal-gas equation of state in an infinitely long shock tube.
-Given values of the physical parameters at the upstream equilibrium (unshocked) state, specifically, ${\cal M}_0$, $T_{\infty}$, and the functional form of the opacity, then the spatial structure of the radiative shock can be reconstructed by semi-analytically solving the radiation-hydrodynamic equations.
+In \cite{LowrieEdwards}, the semi-analytical solutions are obtained by solving the time-independent 1-D planar equations of radiation hydrodynamics for an ideal gas in an infinitely long shock tube.
+Given values of the physical parameters at the upstream equilibrium (unshocked) state, specifically, ${\cal M}_0$, $T_{\infty}$, and the functional form of the opacity, the spatial structure of the radiative shock can be reconstructed.
 An inherent feature of these equations is their invariance under spatial shifts.
-This means that while the figures presented by Lowrie and Edwards always show the upstream unshocked precursor region as being to the left of $x = 0$, and the downstream shocked relaxation region as being to the right of $x = 0$, the placement of $x = 0$ is completely arbitrary.
-Therefore, in the attempt to compare numerical results to these semi-analytic solutions there is an inherent freedom to spatially shift either set of data.
+This means that while the figures presented by Lowrie and Edwards \cite{LowrieEdwards} always show the upstream unshocked precursor region as being to the left of $x = 0$, and the downstream shocked relaxation region as being to the right of $x = 0$, the shock placement at $x = 0$ is arbitrary.
+Therefore, when comparing our numerical results to these semi-analytic solutions, there is an inherent freedom to spatially shift either set of data.
 
 The test cases we compare against include continuous and discontinuous radiative shocks, with either constant opacity or with a temperature- and density-dependent opacity.
-The continuous shock case is for a constant opacity \tcb{define opacity the first time it is used in the text} \tcb{Done} of 577.35 $cm^{-1}$ at an initial upstream Mach number of 1.05.
+The continuous shock case is for a constant opacity of 577.35 $cm^{-1}$ at an initial upstream Mach number of 1.05.
 Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated for this test case.
 The discontinuous shock cases are for an initial upstream Mach number of 3, for both a constant opacity of 577.35 $cm^{-1}$ and for a temperature- and density-dependent cross section of the form $577.35 \rho T^{-3.5}$. \tcb{to modify} \tcb{Done}
 %\tcg{Marco, we should talk about this functional form of the opacity.}
-Convergence studies are performed for both of these Mach 3 tests which display an embedded hydrodynamic shock, such that only first-order accuracy can be achieved.
+Convergence studies are performed for both of these Mach 3 tests which display an embedded hydrodynamic shock, for which only first-order accuracy can be theoretically achieved.
 % These two tests display
 % \tcg{an embedded hydrodynamic shock}
 % and a Zeldovich temperature spike at steady state in the material properties, and thus only first-order accuracy can be achieved. 
@@ -1334,17 +1334,17 @@ The convergence study presented in this paper is performed by comparing the nume
 %It is often observed a shift between the two solutions when plotted on the same figure.
 Because the semi-analytical solution
 %\tcg{delete: is Galilean invariant,} \tcb{Jim, is this correct?}
-is invariant under spatial shifts the semi-analytical solution can to be shifted to overlap with the numerical solution when performing a convergence study. 
+is invariant under spatial shifts,  it can be shifted to overlap with the numerical solution.
+% when performing a convergence study. 
 %\tcr{is the shift due to the a-dimensional nature of the equations in the semi-analytical solution, or something else.  it would be good to say just a few more words}
 %\tcb{it says above because of the Gallilean invariant nature of the semi-analytical solution}.
 This shifting can be achieved by conserving either mass, momentum or total energy ($(\rho E)_{tot}= \rho E + \epsilon$) %\tcg{delete: that correspond to the conserved variables} 
 in the GRH.
-At steady state, momentum is constant (inferred from the continuity equation) and thus cannot be used to compute a unique shift value.
-In the following, we illustrate the shifting process with conservation of mass. 
+At steady state, momentum is constant (inferred from the continuity equation) and thus cannot be used to compute a shift value.
+In the following, we illustrate the shifting process invoking conservation of mass. 
 %\tcr{didn't you have a presentation for Rob where they do this. maybe you can reference that proceedings as an example where they was done. if not, you can still reference this as a personal communication} \tcb{I do but there is absolutely nothing on the method he used to perform the convergence study. We can add the reference anyway since I was able to find it online.} 
 %\tcg{I have spoken to Rob Lowrie directly about this, he used mass conservation, so ``personal communication'' would be fine.}
 %use conservation of mass or total energy (material energy plus radiation energy) that are conserved to minimize 
-\tcg{Why is the symbol for the semi-analytic solution subscripted with an ``h''?  I don't care, but perhaps subscripting with ``SA'' for semi-analytic would be more obvious and easier to recall for the reader.  I would similarly recommend ``SA'' below, instead of ``anal'', which I would never(!) recommend putting in a paper. I also would not use ``exact'' below, though I am less concerned about that.} \tcb{h is often used to denote the finite element solution. I personally like 'num' for numerical better}
 
 The goal of the shifting procedure is to accurately align the numerical result and the semi-analytic solution.
 To determine when the results are accurately aligned, we minimize the mass difference between the semi-analytical and the numerical solutions, $m_h$ and $m^\star$, respectively, where the mass difference is computed by integrating the density, a conservative variable, over a domain $[x_1, x_2]$ common to the numerical and the semi-analytical solution.
@@ -1359,7 +1359,7 @@ This is shown in \eqt{eq:mass-diff}:
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
 \end{equation}
 %
-where $x_{\text{\text{offset}}}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. \tcb{} Once the absolute value of the mass difference is smaller that a given tolerance, say $10^{-10}$, the value of $x_{\text{\text{offset}}}$ is accepted and we can proceed with computing the error norms. The $L_{1,2}$ error norms of any variable of interest, $y(x)$, are computed as follows:
+where $x_{\text{\text{offset}}}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference is smaller that a given tolerance, say $10^{-10}$, the value of $x_{\text{\text{offset}}}$ is accepted and we can proceed with computing the error norms. The $L_{1,2}$ error norms of any variable of interest, $y(x)$, are computed as follows:
 %
 \begin{eqnarray}\label{eq:l1-error-norm}
 L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\star(x) |^{1,2} dx \right]^{1,1/2} \\ 
@@ -1398,7 +1398,7 @@ For this test, the inlet Mach number is set to $1.05$.
 This test case serves multiple purposes.
 First, we use it to illustrate the shifting of the semi-analytical solution.
 Second, this test case corresponds to an example of EDL and yields a smooth solution, thus second-order accuracy of the EVM can be demonstrated numerically by performing a convergence study in the $L_1$ and $L_2$ error norms.
-Third, it is an illustrations of the mathematical proof presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL. \tcr{I am not following the consistency aspect here} \tcb{Maybe it is not well formulated. But since we are getting second order accuracy in the EDL, it illustrates the mathematical proof of Setion 3.2 to show that the dissipative terms are well scaled and thus do not over-dissipate}
+Third, it is an illustrations of the mathematical proof presented in \sct{sec:cons-equi-diff-limit} on the consistency of the entropy equation in the EDL. \tcr{I am not following the consistency aspect here} \tcb{Maybe it is not well formulated. But since we are getting second order accuracy in the EDL, it illustrates the mathematical proof of Section 3.2 to show that the dissipative terms are well scaled and thus do not over-dissipate}
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
 
 %To illustrate the points developed in \sct{sec:mthd-conv-test}, 
@@ -1406,7 +1406,7 @@ Third, it is an illustrations of the mathematical proof presented in \sct{sec:co
 In \tbl{tbl:mach-1p05-x-offset}, we provide the computed offset value $x_{\text{\text{offset}}}$ obtained by either minimizing the mass error
 or the total energy error, for meshes ranging from $10$ to $250$ cells.
 %<<<<<<< HEAD
-We note that both approaches yield similar values of $x_{offset}$; furthermore, $x_{offset}$ decreases as the mesh is refined to reach a plateau value of $\sim 1.3 \times 10^{-4}$.
+We note that both approaches yield similar values of $x_{\text{\text{offset}}}$; furthermore, $x_{\text{\text{offset}}}$ decreases as the mesh is refined to reach a plateau value of $\sim 1.3 \times 10^{-4}$.
 %=======
 %We note that both approaches yield similar values of $x_{\text{\text{offset}}}$; furthermore, $x_{\text{\text{offset}}}$ decreases as the mesh is refined to reach a plateau value of $3.8 \times 10^{-4}$ \tcr{that's not the value in the table}. \tcb{You are right. I will fix it later since it may change}
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
@@ -1569,7 +1569,7 @@ A convergence study is performed for the variables $(\rho, T, \epsilon, Mach)$ b
 %
 
 %<<<<<<< HEAD
-The steady-state numerical results obtained with a mesh of $1000$ cells are plotted against the semi-analytical solutions \cite{ferguson} \tcr{why cite ferguson here. shouldn't this have happened before?} \tcb{Well, I think he uses a new method so I will check with him} along with the viscosity coefficients $\kappa$ and $\kappa_\text{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. The shock is well resolved and the numerical solution does not display any instabilities (over/undershoots). In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich's spike in the vicinity of the shock region: the spike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_\text{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc} on a log scale. We observe that $\kappa$ is peaked in the vicinity of the shock and small elsewhere. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual. We also note that the viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_\text{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point explained in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects, i.e., stabilizing effects, of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). 
+The steady-state numerical results obtained with a mesh of $1,000$ cells are plotted against the semi-analytical solutions \cite{ferguson} \tcr{why cite ferguson here. shouldn't this have happened before?} \tcb{Well, I think he uses a new method so I will check with him} \tcr{still not following the citation here. isn't Lowrie/Edwards? and why cite this here again, we cited it many times before} along with the viscosity coefficients $\kappa$ and $\kappa_\text{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. The shock is well resolved and the numerical solution does not display any instabilities (over/undershoots). In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich's spike in the vicinity of the shock region: the spike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_\text{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc} on a log scale. We observe that $\kappa$ is peaked in the vicinity of the shock and small elsewhere. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual. We also note that the viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_\text{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point explained in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects, i.e., stabilizing effects, of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). 
 %=======
 %The steady-state numerical results obtained with a mesh of $1000$ cells are plotted against the semi-analytical solutions \cite{ferguson} \tcr{why cite ferguson here. shouldn't this have happened before?} \tcb{Well, I think he uses a new method so I will check with him} along with the viscosity coefficients $\kappa$ and $\kappa_\text{max}$ in \fig{fig:mach-3-cst-xs}. All variables show good agreement with the semi-analytical solutions. A shock is located around $x=0$ in the material density and mach number profiles in \fig{fig:mach-3-cst-xs-dens} and \fig{fig:mach-3-cst-xs-mach}, respectively. The shock is well resolved and the numerical solution does not display any instabilities (over/undershoots). In \fig{fig:mach-3-cst-xs-temp}, the material temperature profile displays a Zeldovich spike in the vicinity of the shock region: the spike is well resolved and matches the semi-analytical solution. On the other hand, the radiation temperature shown in \fig{fig:mach-3-cst-xs-rad} remains smooth even in the vicinity of the peak because of the diffusion term $ \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)$ in the radiation equation (\eqt{eq:GRHrad}). The viscosity coefficients $\kappa$ and $\kappa_\text{max}$ are plotted in \fig{fig:mach-3-cst-xs-visc} on a log scale. We observe that $\kappa$ is peaked in the vicinity of the shock and small elsewhere. This behavior is conformed to the definition of the viscosity coefficient $\kappa$ that is set proportional to the local entropy residual. We also note that the viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_\text{max}$ but still efficiently stabilizes the numerical solution. This is a consequence of the point explained in \sct{sec:ent-cond-full-GRH} that highlights the entropy-producing effects, i.e., stabilizing effects, of the relaxation and the diffusion terms (see \eqt{eq:ineq_ent_eq}). 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
@@ -1617,8 +1617,8 @@ The steady-state numerical results obtained with a mesh of $1000$ cells are plot
 %------------------------------------------------------------------
 %
 %\tcb{We need a reference for this test. I have the report that was emailed by Dr Morel to me but I am not sure this is sufficient} \\
-\tcb{I am not done with this part}\\
-We now consider a Mach 3 test in a pure absorber material with the same initial conditions as in \sct{sec:mach-3-cst-xs} but with an opacity that depends on the material properties, i.e, density $\rho$ and material temperature $T$. An expression of the \emph{dimensional} form of the density- and  temperature-dependent opacities is given in \eqt{eq:opacity}:
+\tcb{I am not done with this part} \tcr{still?}\\
+We now consider a Mach 3 test in a pure absorber material with the same initial conditions as in \sct{sec:mach-3-cst-xs} but with an opacity that depends on the material properties, i.e, density $\rho$ and temperature $T$. An expression of the \emph{dimensional} form of the density- and  temperature-dependent opacities is given in \eqt{eq:opacity}:
 % there was a tilde sigma here, why?
 %
 \begin{equation}\label{eq:opacity}
@@ -1703,10 +1703,10 @@ In \fig{fig:mach-3-dpt-xs-mat-temp} and \fig{fig:mach-3-dpt-xs-rad-temp}, the ma
 %=======
 %In \fig{fig:mach-3-dpt-xs-temp}, the material and radiation temperatures do not show any instability either. The Zeldovich spike in the material temperature profile is well resolved. The radiation temperature remains smooth as expected because of the diffusion term in the radiation equation. The numerical and semi-analytical solutions are in excellent agreement. 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
-The numerical profile of the opacity is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. 
+%The numerical profile of the opacity is plotted in \fig{fig:mach-3-dpt-xs-xs} against the semi-analytical solution that was computed from the semi-analytical solutions of the material density and temperature. 
 %We recall here that the material is a pure absorber and thus, the total and absorption opacities are equal. The opacity varies by a factor $30$ in the shock region which .... \tcb{Are we not in the case where the material is optically thick in the pre-shock region? If this is the case, we should write something about the interest of using the local entropy residual with a local normalization as we do for Euler equation.}
-The profiles of the entropy- ($\kappa_e$) and first-order ($\kappa_\text{max}$) viscosity coefficients are showed in \fig{fig:mach-3-dpt-xs-visc}. We observe that the entropy viscosity coefficient $\kappa_e$ displays two peaks at $x=-0.01 \ cm$ and at $x = 0 \ cm$. The latter one coincides with the shock position where the entropy residual $R_e(x,t)$ is known to be peaked. % (see \sct{sec:def-visc-coeff} and also \cite{our_jcp_radhy_paper}). 
-The former one, is due to the inclusion of the jumps in the definition of the entropy viscosity coefficient as recalled in \eqt{eq:visc-def}: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation that triggers a larger  jump value. 
+The profiles of the entropy ($\kappa_e$) and first-order ($\kappa_\text{max}$) viscosity coefficients are showed in \fig{fig:mach-3-dpt-xs-visc}. We observe that the entropy viscosity coefficient $\kappa_e$ displays two peaks at $x=-0.01 \ cm$ and at $x = 0 \ cm$. The latter one coincides with the shock position where the entropy residual $R_e(x,t)$ is known to be peaked. % (see \sct{sec:def-visc-coeff} and also \cite{our_jcp_radhy_paper}). 
+The former one, is due to the inclusion of the jumps in the definition of the entropy viscosity coefficient as recalled in \eqt{eq:visc-def}: the material density does not experience a shock at $x=-0.01 \ cm$ but a sharp variation that triggers a larger jump value. 
 %It is also observed that the entropy viscosity coefficient $\kappa_e$ does not saturate to the first-order viscosity coefficient $\kappa_\text{max}$ in the vicinity of the shock around $x = 0 \ cm$ which can be explained by the dissipative behavior of the source terms that add dissipation as highlighted in \sct{sec:VR_new}. 
 Once again, even though the entropy viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$, the numerical solution is still well stabilized thanks to the stabilizing effect of the source terms, as explained in \sct{sec:ent-cond-full-GRH}.
 Overall, the entropy viscosity coefficient behaves as expected: it is peaked in the vicinity of the shock and in regions of sharp variations, and small elsewhere.
@@ -1722,7 +1722,7 @@ In this paper, the theoretical foundation for the application of the entropy vis
 %  and, (iii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
 Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. 
 
-The EVM was tested with various test cases in a pure absorber material \tcr{should we really describe the material as pure absorber} \tcb{there is no scattering here. Do you think we are limiting the validity of the EVM to pure absorber by saying this?} and the numerical solutions were compared against a semi-analytical solutions. It was demonstrated that second- and first-order accuracy were achieved for smooth (Mach 1.05 test case) and with shock (Mach 3 test case) solutions, respectively. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
+The EVM was tested with various test cases and the numerical solutions were compared against semi-analytical solutions. We show that second-order accuracy is obtained for smooth solutions  (Mach 1.05 test case) and that solutions with shock (Mach 3 test case) yield first-order accuracy. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 
 %The numerical results presented for the Mach 1.05 test case with a pure absorber material showed that second-order accuracy is achieved for smooth solution when compared against a semi-analytical solution. Still using a semi-analytical solution, it was proved that first-order accuracy was achieved for the two Mach-3 radiative shock simulations, with constant and material-dependent opacities, and observed that the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 %
