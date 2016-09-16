@@ -151,43 +151,6 @@ total_nrg_exact = [float(mat_temp_exact[i])*float(mat_density_exact[i])*(1+0.5*g
 # SET INPUT FILES
 file_list = []
 
-#file_list.append('mach-3-nel-250-points0.csv')
-#file_list.append('mach-3-nel-300-points0.csv')
-
-# above 1e-10 mass difference
-#file_list.append('mach-3-nel-350-points0.csv')
-#file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-##file_list.append('mach-3-nel-600-points0.csv')
-#file_list.append('mach-3-nel-650-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-850-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-##file_list.append('mach-3-nel-1000-points0.csv')
-##file_list.append('mach-3-nel-1500-points0.csv')
-#file_list.append('mach-3-nel-2200-points0.csv')
-
-# below 1e-10 mass difference
-#file_list.append('mach-3-nel-450-points0.csv')
-#file_list.append('mach-3-nel-550-points0.csv')
-#file_list.append('mach-3-nel-750-points0.csv')
-#file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-950-points0.csv')
-#file_list.append('mach-3-nel-1200-points0.csv')
-#file_list.append('mach-3-nel-2000-points0.csv')
-#file_list.append('mach-3-nel-2500-points0.csv')
-
-#file_list.append('mach-3-nel-300-points0.csv')
-#file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-##file_list.append('mach-3-nel-600-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-#file_list.append('mach-3-nel-1000-points0.csv')
-#file_list.append('mach-3-nel-2000-points0.csv')
-
-# works well with cfl=0.1
 file_list.append('mach-3-nel-100-points0.csv')
 file_list.append('mach-3-nel-200-points0.csv') # mass diff = 1.e-8
 file_list.append('mach-3-nel-300-points0.csv')
@@ -216,31 +179,32 @@ file_list.append('mach-3-nel-2300-points0.csv')
 #file_list.append('mach-3-nel-2600-points0.csv')
 #file_list.append('mach-3-nel-2700-points0.csv') ###
 
-# for energy and mass conservation with 50k nodes in semi-analytical solutions
-#file_list.append('mach-3-nel-300-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-#file_list.append('mach-3-nel-1100-points0.csv')
-#file_list.append('mach-3-nel-1300-points0.csv')
-##file_list.append('mach-3-nel-1500-points0.csv')
-#file_list.append('mach-3-nel-1700-points0.csv')
-#file_list.append('mach-3-nel-1900-points0.csv')
-#file_list.append('mach-3-nel-2100-points0.csv')
-##file_list.append('mach-3-nel-2300-points0.csv')
-
-## for energy and mass conservation with 50k nodes in semi-analytical solutions
-#file_list.append('mach-3-nel-300-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
-#file_list.append('mach-3-nel-700-points0.csv')
-#file_list.append('mach-3-nel-900-points0.csv')
-#file_list.append('mach-3-nel-1100-points0.csv')
-#file_list.append('mach-3-nel-1300-points0.csv')
-#file_list.append('mach-3-nel-1500-points0.csv')
-#file_list.append('mach-3-nel-1700-points0.csv')
-#file_list.append('mach-3-nel-1900-points0.csv')
-#file_list.append('mach-3-nel-2100-points0.csv')
+#file_list.append('mach-3-nel-100-points0.csv')
+##file_list.append('mach-3-nel-200-points0.csv') # mass diff = 1.e-8
+##file_list.append('mach-3-nel-300-points0.csv')
+##file_list.append('mach-3-nel-400-points0.csv')
+#file_list.append('mach-3-nel-500-points0.csv') # mass diff = 1.e-8 energy diff = 1.e-6
+##file_list.append('mach-3-nel-600-points0.csv') ###
+##file_list.append('mach-3-nel-700-points0.csv') ### energy diff = 1.e-6
+##file_list.append('mach-3-nel-800-points0.csv')
+##file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1000-points0.csv')
+##file_list.append('mach-3-nel-1100-points0.csv')
+##file_list.append('mach-3-nel-1200-points0.csv')
+##file_list.append('mach-3-nel-1300-points0.csv')
+##file_list.append('mach-3-nel-1400-points0.csv') # mass diff = 1.e-7
+##file_list.append('mach-3-nel-1500-points0.csv') ###
+##file_list.append('mach-3-nel-1600-points0.csv')
+##file_list.append('mach-3-nel-1700-points0.csv')
+##file_list.append('mach-3-nel-1800-points0.csv')
+##file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-2000-points0.csv')
+#file_list.append('mach-3-nel-2100-points0.csv') ###
 #file_list.append('mach-3-nel-2300-points0.csv')
+#file_list.append('mach-3-nel-2400-points0.csv')
+#file_list.append('mach-3-nel-2500-points0.csv') ###
+#file_list.append('mach-3-nel-2600-points0.csv')
+#file_list.append('mach-3-nel-2700-points0.csv') ###
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()

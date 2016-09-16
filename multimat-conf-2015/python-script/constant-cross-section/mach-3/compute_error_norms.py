@@ -55,6 +55,8 @@ def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value
     interval=1
     if index_right-index_left>100:
       interval=int((index_right-index_left)/100)
+#    if index_right-index_left>10:
+#      interval=int((index_right-index_left)/10)
     exact_value_cell = exact_value[index_left:index_right:interval]
     exact_value_cell[0] = exact_value[index_left]
     exact_value_cell[-1] = exact_value[index_right]

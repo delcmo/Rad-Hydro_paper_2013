@@ -176,27 +176,32 @@ file_list = []
 ## cross section 577.3502692
 file_list.append('mach-3-nel-200-points0.csv')
 file_list.append('mach-3-nel-400-points0.csv')
-file_list.append('mach-3-nel-500-points0.csv')
-file_list.append('mach-3-nel-600-points0.csv')
-file_list.append('mach-3-nel-700-points0.csv')
+#file_list.append('mach-3-nel-500-points0.csv')
+#file_list.append('mach-3-nel-600-points0.csv')
+#file_list.append('mach-3-nel-700-points0.csv')
 file_list.append('mach-3-nel-800-points0.csv')
-file_list.append('mach-3-nel-900-points0.csv')
-file_list.append('mach-3-nel-1000-points0.csv')
-file_list.append('mach-3-nel-1100-points0.csv')
-file_list.append('mach-3-nel-1200-points0.csv')
-file_list.append('mach-3-nel-1300-points0.csv')
-file_list.append('mach-3-nel-1400-points0.csv')
-file_list.append('mach-3-nel-1500-points0.csv')
+#file_list.append('mach-3-nel-900-points0.csv')
+#file_list.append('mach-3-nel-1000-points0.csv')
+#file_list.append('mach-3-nel-1100-points0.csv')
+#file_list.append('mach-3-nel-1200-points0.csv')
+#file_list.append('mach-3-nel-1300-points0.csv')
+#file_list.append('mach-3-nel-1400-points0.csv')
+#file_list.append('mach-3-nel-1500-points0.csv')
 file_list.append('mach-3-nel-1600-points0.csv')
 file_list.append('mach-3-nel-1700-points0.csv')
 file_list.append('mach-3-nel-1800-points0.csv')
 file_list.append('mach-3-nel-1900-points0.csv')
 file_list.append('mach-3-nel-2000-points0.csv')
+file_list.append('mach-3-nel-2100-points0.csv')
+file_list.append('mach-3-nel-2200-points0.csv')
+file_list.append('mach-3-nel-2300-points0.csv')
+file_list.append('mach-3-nel-2400-points0.csv')
+file_list.append('mach-3-nel-2500-points0.csv')
 ## cross section 577.3502692
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
-quad_order = 20 # 70 # 100
+quad_order = 20 # 20 # 70 # 100
 interp_kind = 'linear'
 nb_files = len(file_list)
 var_index = [11, 5, 1, 2, 8, 4, 3] # [x, rho, radiation, mach, mat temp]

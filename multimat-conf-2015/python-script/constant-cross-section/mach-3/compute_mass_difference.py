@@ -70,6 +70,8 @@ def compute_mass_diff(x_offset, x_coord, mat_density, x_coord_exact, mat_density
     interval=1
     if index_right-index_left>100:
       interval=int((index_right-index_left)/100)
+#    if index_right-index_left>10:
+#      interval=int((index_right-index_left)/10)
     exact_value_cell = mat_density_exact[index_left:index_right:interval]
     exact_value_cell[0] = mat_density_exact[index_left]
     exact_value_cell[-1] = mat_density_exact[index_right]

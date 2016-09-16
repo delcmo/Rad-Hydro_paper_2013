@@ -14,9 +14,13 @@ from decimal import *
 
 #### define function ####
 def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
-  nb_cells_log = [math.log(float(x)) for x in nb_cells]
-  l1_norm_mass_log = [math.log(float(x)) for x in l1_norm_mass]
-  l1_norm_energy_log = [math.log(float(x)) for x in l1_norm_energy]
+  length=2*0.023103788495063781738
+#  nb_cells_log = [math.log(length/float(x)) for x in nb_cells]
+#  l1_norm_mass_log = [math.log(float(x)) for x in l1_norm_mass]
+#  l1_norm_energy_log = [math.log(float(x)) for x in l1_norm_energy]
+  nb_cells_log = [length/float(x) for x in nb_cells]
+  l1_norm_mass_log = [float(x) for x in l1_norm_mass]
+  l1_norm_energy_log = [float(x) for x in l1_norm_energy]
   l1_min = min(l1_norm_mass_log)
   l1_min = min(l1_min, min(l1_norm_energy_log))
   l1_max = max(l1_norm_mass_log)
@@ -24,15 +28,19 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
 #  print l1_min, l1_max
   plt.plot(nb_cells_log, l1_norm_mass_log, '+-', label=r'$L_1^{error} norm \ \Delta \rho$', linewidth=2, markersize=8)
   plt.plot(nb_cells_log, l1_norm_energy_log, 'o-', label=r'$L_1^{error} norm \ \Delta (\rho E)_{tot}$', linewidth=2, markersize=8)
-  x1 = [math.log(nb_cells[0]), math.log(nb_cells[-1])]
+#  x1 = [nb_cells_log[0], nb_cells_log[-1]]
+  x1 = [nb_cells_log[-1], nb_cells_log[0]]
   a = 0.5*(float(l1_norm_mass[-1])+float(l1_norm_energy[-1]))
-  y1 = [-math.log(nb_cells[0])+math.log(a)+math.log(nb_cells[-1]), math.log(a)]
-  plt.plot(x1, y1, '-', label=r'$line \ of  \ slope \ 1$', linewidth=2)
+#  y1 = [-nb_cells_log[0]+math.log(a)+nb_cells_log[-1], math.log(a)]
+#  y1 = [math.log(a), nb_cells_log[0]+math.log(a)-nb_cells_log[-1]]
+  y1 = [a, nb_cells_log[0]+a-nb_cells_log[-1]]
+  plt.loglog(x1, y1, '-', label=r'$line \ of  \ slope \ 1$', linewidth=2)
   #  plt.plot(nb_cells_log, L2_norm_log, 'o-', label=r'$L_2^{error} norm$')
   #  y2 = [-math.log(nb_cells[0])+math.log(L2_norm[-1])+math.log(nb_cells[-1]), math.log(L2_norm[-1])]
   #  plt.plot(x1, y2, '-', label=r'$line \ of  \ slope \ 2$')
   plt.legend(loc='best', fontsize=20, frameon=False)
-  plt.xlabel(r'$\log (cells)$', fontsize=20)
+#  plt.xlabel(r'$\log (cells)$', fontsize=20)
+  plt.xlabel(r'$\Delta x$', fontsize=20)
   if variable=='density':
     y_label=r'$\rho$'
   elif variable=='mat-temp':
@@ -46,7 +54,7 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
   else:
     print 'ERROR: unvalid variable name'
     sys.exit()
-  plt.ylim(l1_min, l1_min+4.0)
+#  plt.ylim(l1_min, l1_min+4.0)
   plt.ylabel(r'$\log (L_{1}^{error}($'+y_label+'$))$', fontsize=20)
   fig_name=out_file+'-'+variable+'-convergence.eps'
   print fig_name
