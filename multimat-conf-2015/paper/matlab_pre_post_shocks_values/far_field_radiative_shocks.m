@@ -1,7 +1,7 @@
 clear all; clc;
 
 % eos gamma
-g=1.6667;   % not sure
+g=5/3;   % not sure
 % upstream Mach
 M=1.05; 
 % radiation constant
@@ -21,8 +21,8 @@ c0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 );
 % velocity
 u0 = M * c0;
 % 
-fprintf('\nthis P0 should be about 8.8e-5 if this script is correct\n');
-P0 = aR*T0^4 / (rho0*u0^2)
+fprintf('this P0 should be about 8.8e-5 if this script is correct\n');
+P0 = aR*T0^4 / (rho0*c0^2)
 
 
 % initial guess for P0 paramter (goal is to recover 8.8e-5 from paper)
