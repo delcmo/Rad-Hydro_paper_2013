@@ -21,7 +21,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 %
 
-\runningheads{M.~O.~Delchini, J.~C.~Ragusa}{Viscous Regularization of the Grey Radiation-Hydrodynamics}
+\runningheads{M.~O.~Delchini, J.~C.~Ragusa, J.~M.~Ferguson}{Viscous Regularization for Grey Radiation-Hydrodynamics}
 
 \title{Viscous Regularization of the non-equilibrium Grey Radiation-Hydrodynamics}
 
@@ -56,19 +56,6 @@ compared with semi-analytical reference solutions by performing a convergence st
 entropy viscosity method ; viscous stabilization ; equilibrium-diffusion limit.}
 
 \maketitle
-
-%-------------------------
-%-------------------------
-%\author{Marc O. Delchini\fnref{label1}}
-%\ead{marco.delchini@gmail.com}
-%%
-%\author{Jean C. Ragusa$^*$\footnote{$^*$Corresponding author}\fnref{label1}}
-%\ead{jean.ragusa@tamu.edu}
-%%
-%\author{Jim Morel\fnref{label1}}
-%\ead{jim.morel@tamu.edu}
-%%
-%\address[label1]{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA \fnref{label1}}
 
 %
 % \linenumbers
@@ -1376,7 +1363,7 @@ This is shown in \eqt{eq:mass-diff}:
 where $x_{\text{\text{offset}}}$ is an offset value that is used to shift the semi-analytical solution towards the numerical solution. Once the absolute value of the mass difference is smaller that a given tolerance, say $10^{-10}$, the value of $x_{\text{\text{offset}}}$ is accepted and we can proceed with computing the error norms. The $L_{1,2}$ error norms of any variable of interest, $y(x)$, are computed as follows:
 %
 \begin{eqnarray}\label{eq:l1-error-norm}
-L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\star(x) |^{1,2} dx \right]^{1,1/2} \\ 
+L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\star(x) |^{1,2} dx \right]^{1,1/2} \nonumber \\ 
 %&=& \left[ \sum_{i=1}^{nb_{cells}} \int_{x_i}^{x_{i+1}} | y_h(x+x_{\text{\text{offset}}}) - y^\star(x) |^{1,2} dx \right]^{1,1/2} \\ 
 &=& \left[ \sum_{i=1}^{nb_{cells}} \sum_{q} | y_h(x_q+x_{\text{\text{offset}}}) - y^\star(x_q) |^{1,2} w_q \right]^{1,1/2} \, .
 \end{eqnarray}
@@ -1386,8 +1373,7 @@ L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\st
 %(Fortran version of the function '\emph{interp1d}') \tcr{who knows what interp1d is. why don't you say why is used actually?}\tcb{I think I should just remove it}. 
 %=======
 %\tcg{I do not understand what is being done here.  Specifically, I do not understand what $nb_{cells}$ is meant to represent, and I do not understand why any form of Gaussian quadrature is necessary over each cell.  Again, it is very important to mention that I am not saying that I think it is horribly wrong, but I would not be able to explain to someone else why that is being done.  In the (pretty unofficial) work I have done here when comparing code results with semi-analytic solutions, I always have a uniform spatial mesh for ease of understanding the convergence analysis, and I simply sum over the number of cells, no integration required.  Depending on how I want to present the results the summation can be normalized by the number of cells, or not.  But I definitely feel like this is not coherently explained below.}
-\tcb{Jean: add note for quadrature rule}
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (a Gauss quadrature rule of order $10$ is used here). This means that the semi-analytical and numerical solutions be evaluated at quadrature points. The numerical solution is computed at quadrature points using the finite element expansion (we used Lagrange test functions in this paper). The values of the semi-analytical solution at quadrature points are computed with a linear interpolation.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (index $q$ in \eqt{eq:l1-error-norm}); a Gauss quadrature rule of order $10$ is used here. This means that the semi-analytical and numerical solutions be evaluated at quadrature points. The numerical solution is computed at quadrature points using the finite element expansion (we used Lagrange test functions in this paper). The values of the semi-analytical solution at quadrature points are computed with a linear interpolation.
 %(Fortran version of the function '\emph{interp1d}') \tcr{who knows what interp1d is. why don't you say why is used actually?}\tcb{I think I should just remove it}. 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
 A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with about $10^4$ nodes (compared to about $1000$ nodes for the numerical solution); this should minimize the error due to the interpolation in the semi-analytical solution. Finally, we have chosen to shift the semi-analytical solution since it is computed on a finer mesh than the numerical solution. The exact same procedure can be performed for conservation of total energy by replacing $m_h$ and $m^\star$ with $(\rho E)_h$ and $(\rho E)^\star$, respectively, in \eqt{eq:mass-diff}.
@@ -1431,7 +1417,7 @@ We note that both approaches yield similar values of $x_{\text{\text{offset}}}$;
 \begin{center}
 \begin{tabular}{ |c|c|c||c|c|c| }
 \hline
- cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ &  cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ \\ \hline
+ cells & $\Delta \rho$ & $\Delta (\rho E)_{tot}$ &  cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ \\ \hline
 10 & 2.3092e-03 & 2.3544e-03 & 190 & 1.5716e-04 & 1.5813e-04 \\ \hline
 40 & 5.9536e-04 & 6.0679e-04 & 200 & 1.5123e-04 & 1.5212e-04 \\ \hline
 50 & 4.8484e-04 & 4.9320e-04 & 210 & 1.4586e-04 & 1.4668e-04 \\ \hline
@@ -1441,7 +1427,7 @@ We note that both approaches yield similar values of $x_{\text{\text{offset}}}$;
 160 & 1.7930e-04 & 1.8062e-04 & 250 & 1.2861e-04 & 1.2924e-04 \\ \hline
 \end{tabular}
 \end{center}
-\caption{$x_{\text{\text{offset}}}$ values computed from mass and energy conversations.}\label{tbl:mach-1p05-x-offset}
+\caption{$x_{\text{\text{offset}}}$ values computed from mass ($\Delta \rho$) and energy ($\Delta (\rho E)_{tot}$) conversations as a function of the spatial grid resolution.}\label{tbl:mach-1p05-x-offset}
 \end{table}
 
 The numerical and semi-analytical density profiles are shown before and after shifting the semi-analytical solution in \fig{fig:mach-1p05-cst-xs-density-no-shift} and \fig{fig:mach-1p05-cst-xs-density-with-shift}, respectively. The numerical solution was obtained using $50$ cells. By minimizing the mass or total energy difference between the numerical and semi-analytical solutions, the semi-analytical solution is shifted towards the right.
