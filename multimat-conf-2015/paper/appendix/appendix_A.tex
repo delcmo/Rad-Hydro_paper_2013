@@ -43,20 +43,21 @@ In the other hand, the treatment of the right subsonic boundary, ($u \leq c_m$),
 The radiation-diffusion equation contains the elliptic term $D(U)$ that yields the boundary term 
 %
 \begin{eqnarray}
-\left[D(U)\cdot \vec{n} \ \phi \right]_{l} - \left[D(U)\cdot \vec{n} \ \phi \right]_{r} \, .
+\left[D(U)\cdot \vec{n} \ \phi \right]_{l} - \left[D(U)\cdot \vec{n} \ \phi \right]_{r} \, . \nonumber
 \end{eqnarray}
 %
-A vaccum boundary condition is used to implement the boundary flux from the diffusion term:
+A reflective boundary condition, i.e. $\left. \partial_x \epsilon \right|_j = 0$, is used to implement the boundary flux from the diffusion term
 %
-\begin{eqnarray}
-\frac{\epsilon}{4} - \frac{1}{2}\frac{c}{3 \sigma_t} \partial_x \epsilon = \frac{\epsilon_{out}}{4}
-\end{eqnarray}
+%\begin{eqnarray}
+%\partial_x \epsilon = 0 \, ,
+%\end{eqnarray}
 %
-where $\epsilon_{out}$ is a incoming radiation energy density. The above relation allows to derive an expression for the boundary flux $D(U)$ that is function of $\partial_x \epsilon$ (see \eqt{eq:bc-fluxes}):
+which implies $\left[D(U)\cdot \vec{n} \ \phi \right]_{j} = 0$ with $j = \left( l, \ r \right)$.
+%where $\epsilon_{out}$ is a incoming radiation energy density. The above relation allows to derive an expression for the boundary flux $D(U)$ that is function of $\partial_x \epsilon$ (see \eqt{eq:bc-fluxes}):
 %
-\begin{eqnarray}
-\left[ \frac{\epsilon}{2} - \frac{\epsilon_{out}}{2} \cdot \vec{n} \ \phi \right]_{j} \text{ with } j = \left( l, \ r \right).
-\end{eqnarray}
+%\begin{eqnarray}
+%\left[ \frac{\epsilon}{2} - \frac{\epsilon_{out}}{2} \cdot \vec{n} \ \phi \right]_{j} \text{ with } j = \left( l, \ r \right).
+%\end{eqnarray}
 % 
 %In the continuous Galerkin finite element approach, boundary terms arise from the integration per part of first- and second-order conservative terms. We denote by the fluxes F(U) and D(U) the first- and second-order conservative terms in the 1-D GRH equations, respectively:
 %%

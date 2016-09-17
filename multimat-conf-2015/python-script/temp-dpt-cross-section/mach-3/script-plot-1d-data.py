@@ -48,7 +48,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   x_anal_offset = [float(x)+float(x_offset) for x in x_anal]
   x_num = [float(x) for x in x_num]
   plt.plot(x_num, y_num, '+-', markevery=30, markersize=8, label=r'$numerical \ solution$', linewidth=2)
-  plt.plot(x_anal_offset, y_anal, 'o-', markevery=5000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
+  plt.plot(x_anal_offset, y_anal, 'o-', markevery=50000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
   plt.legend(loc='best', fontsize=20, frameon=False)
   plt.xlabel(r'$x$', fontsize=20)
   if variable=='density':
@@ -81,8 +81,8 @@ def plot_visc_coeff(x_num, file, var_index, nb_cells):
   line_head = file_data.readline()
   for line in file_data:
     row = line.split(',')
-    visc_e.append(row[var_index[5]])
-    visc_max.append(row[var_index[6]])
+    visc_e.append(row[var_index[0]])
+    visc_max.append(row[var_index[1]])
   x_num = [float(x) for x in x_num[:-1]]
   plt.plot(x_num, visc_max, '+-', markevery=30, markersize=8, label=r'$\kappa_{max}$', linewidth=2)
   plt.plot(x_num, visc_e, 'o-', markevery=30, markersize=8, label=r'$\kappa_e$', linewidth=2)
@@ -93,6 +93,27 @@ def plot_visc_coeff(x_num, file, var_index, nb_cells):
   plt.xlim(float(min(x_num)), float(max(x_num)))
   plt.margins(0.1, 0.1)
   fig_name=out_file+'-visc-nel-'+str(nb_cells)+'-plot.eps'
+  plt.savefig(fig_name)
+  print 'Saving plot using Matplotlib:', fig_name
+  plt.clf()
+
+def plot_opacity(x_num, file, var_index, nb_cells):
+  # open file and read first line
+  sigma = []
+  file_data=open(file, 'r')
+  line_head = file_data.readline()
+  for line in file_data:
+    row = line.split(',')
+    sigma.append(row[var_index])
+  x_num = [float(x) for x in x_num[:-1]]
+  plt.plot(x_num, sigma, '+-', markevery=30, markersize=8, linewidth=2)
+#  plt.legend(loc='best', fontsize=20, frameon=False)
+  plt.xlabel(r'$x$', fontsize=20)
+  plt.ylabel(r'$\sigma_{t,a}$', fontsize=20)
+#  plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
+  plt.xlim(float(min(x_num)), float(max(x_num)))
+  plt.margins(0.1, 0.1)
+  fig_name=out_file+'-opacity-nel-'+str(nb_cells)+'-plot.eps'
   plt.savefig(fig_name)
   print 'Saving plot using Matplotlib:', fig_name
   plt.clf()
@@ -175,28 +196,31 @@ file_list = []
 
 ## cross section 577.3502692
 file_list.append('mach-3-nel-200-points0.csv')
-file_list.append('mach-3-nel-400-points0.csv')
-#file_list.append('mach-3-nel-500-points0.csv')
+#file_list.append('mach-3-nel-400-points0.csv')
+file_list.append('mach-3-nel-500-points0.csv')
 #file_list.append('mach-3-nel-600-points0.csv')
 #file_list.append('mach-3-nel-700-points0.csv')
-file_list.append('mach-3-nel-800-points0.csv')
+#file_list.append('mach-3-nel-800-points0.csv')
 #file_list.append('mach-3-nel-900-points0.csv')
-#file_list.append('mach-3-nel-1000-points0.csv')
+file_list.append('mach-3-nel-1000-points0.csv')
 #file_list.append('mach-3-nel-1100-points0.csv')
 #file_list.append('mach-3-nel-1200-points0.csv')
 #file_list.append('mach-3-nel-1300-points0.csv')
 #file_list.append('mach-3-nel-1400-points0.csv')
 #file_list.append('mach-3-nel-1500-points0.csv')
-file_list.append('mach-3-nel-1600-points0.csv')
-file_list.append('mach-3-nel-1700-points0.csv')
-file_list.append('mach-3-nel-1800-points0.csv')
-file_list.append('mach-3-nel-1900-points0.csv')
+#file_list.append('mach-3-nel-1600-points0.csv')
+#file_list.append('mach-3-nel-1700-points0.csv')
+#file_list.append('mach-3-nel-1800-points0.csv')
+#file_list.append('mach-3-nel-1900-points0.csv')
 file_list.append('mach-3-nel-2000-points0.csv')
 file_list.append('mach-3-nel-2100-points0.csv')
 file_list.append('mach-3-nel-2200-points0.csv')
 file_list.append('mach-3-nel-2300-points0.csv')
 file_list.append('mach-3-nel-2400-points0.csv')
 file_list.append('mach-3-nel-2500-points0.csv')
+file_list.append('mach-3-nel-2600-points0.csv')
+file_list.append('mach-3-nel-2700-points0.csv')
+file_list.append('mach-3-nel-2800-points0.csv')
 ## cross section 577.3502692
 
 # SET SOME VARIABLES
@@ -289,7 +313,7 @@ for file in file_list:
   print 'x offset for', file, 'is', x_offset[-1]
   print 'mass difference for', file, 'is', mass_diff
   # save density plot
-  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1], True, mass_diff)
+#  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1], True, mass_diff)
   # compute the error norms for density
   l1_norm, l2_norm = compute_error_norms(x_offset[-1], x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind)
   print l1_norm
@@ -328,10 +352,12 @@ plot_error_norms(nb_cells, L1_norm_total, L2_norm_total, 'total')
 
 # PLOT MATERIAL DENSITY AND TEMPERATURE, RADIATION TEMPERATURE AND MACH NUMBER
 #plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density')
+plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1])
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
-#plot_visc_coeff(x_coord, 'visc-coeff-nel-1000-points0.csv', var_index, nb_cells[-1])
+#plot_visc_coeff(x_coord, 'mach-3-nel-2700-cells0.csv', [3,2], nb_cells[-1])
+#plot_opacity(x_coord, 'mach-3-nel-2700-cells0.csv', 5, nb_cells[-1])
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1600-points0.csv', var_index, nb_cells[-1])
 
 # save L1 norm values

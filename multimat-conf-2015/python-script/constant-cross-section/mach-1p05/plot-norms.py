@@ -45,12 +45,13 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, l2_norm_mass, l2_no
   print nb_cells_log[0], 2*nb_cells_log[0], a, 2*nb_cells_log[0]+a, nb_cells_log[-1]
 #  y2 = [-2*math.log(nb_cells[0])+math.log(a)+2*math.log(nb_cells[-1]), math.log(a)]
 #  y2 = [math.log(a), 2*nb_cells_log[0]+math.log(a)-2*nb_cells_log[-1]]
-  y3 = [a, 0.25*nb_cells_log[0]+a-0.25*nb_cells_log[-1]]
+#  y3 = [a, 0.25*nb_cells_log[0]+a-0.25*nb_cells_log[-1]]
+  y3 = [a, a/nb_cells_log[-1]**2*nb_cells_log[0]**2]
   plt.loglog(x1, y3, '-', label=r'$line \ of  \ slope \ 2$', color='k')
   b = float(l2_norm_mass_log[-1])
 #  y2 = [-2*math.log(nb_cells[0])+math.log(a)+2*math.log(nb_cells[-1]), math.log(a)]
 #  y2 = [math.log(a), 2*nb_cells_log[0]+math.log(a)-2*nb_cells_log[-1]]
-  y2 = [b, 2*nb_cells_log[0]+b-2*nb_cells_log[-1]]
+  y2 = [b, b/nb_cells_log[-1]**2*nb_cells_log[0]**2]
   plt.loglog(x1, y2, '-', color='k')
   plt.legend(loc='best', fontsize=15, frameon=True, ncol=1, borderaxespad=0.)
   plt.xlabel(r'$\Delta x$', fontsize=20)
