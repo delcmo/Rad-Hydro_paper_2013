@@ -88,3 +88,8 @@ M1_ = u1/cm1
 radiation_energy_ratio=epsilon1/epsilon0
 radiation_T_ratio=(epsilon1/epsilon0)^0.25
 Mach_ratio=M1_/M
+
+% attempt at getting sigma
+L=1; c=3e8;
+sigma = 1e6*cm0/c/L
+sigma = 1e6*cm1/c/L
