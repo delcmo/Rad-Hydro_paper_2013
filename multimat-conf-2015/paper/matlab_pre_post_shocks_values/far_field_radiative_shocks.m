@@ -4,6 +4,7 @@ clear all; clc;
 g=5/3;   % not sure
 % upstream Mach
 M=1.05; 
+M=3; 
 % radiation constant
 aR = 1.3720172e-2;
 cv = 0.14472799784454;
@@ -16,12 +17,15 @@ rho0=1;
 press0 = (g-1)*rho0*cv*T0
 % radiatio energy
 epsilon0 = aR * T0^4
-% sound speed
-% c0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 );
+% sound speed. the initial radiation energy is very small, so 
+% the sound speed and the radiation-modified sound speed should be very
+% close
+cm0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 )
 c0 = sqrt( g*press0/rho0 )
 % velocity
 % u0 = M * c0
-u0 = M
+u0 = M % Marco picks u0 as M. why?
+u0 = M *c0
 % 
 % fprintf('this P0 should be about 8.8e-5 if this script is correct\n');
 fprintf('this P0 should be about 8.5e-5 if this script is correct (This is what I have in my code and this is what Jim uses. \n');
@@ -52,28 +56,35 @@ dresdT = @(r,T) 3*r*r + 4*g*P0*r*T.^3 ;
 
 % solve eq.(12) and eq.(13) for T1 and rho1:
 for iter=1:100
-    rho1 = rho(T1);
+    rho1 = rho(T1/T0);
     fprintf('iter %d, T1=%g, rho1=%g \n',iter,T1,rho1);
-    res = residual(rho1,T1);
+    res = residual(rho1,T1/T0);
     if abs(res)<1e-10
         break
     end
-    slope = dresdT(rho1,T1);
-    T1= T1 - res/slope;
+    slope = dresdT(rho1,T1/T0);
+    T1= T1 - res/slope*T0;
 end
         
 
 % In Moose: T1=0.1494666288 if T0=0.1
+% Marco, you must have a typo: not 0.1494... but 0.10494... (missing a 0)
 
 % pressure
 press1 = (g-1)*rho1*cv*T1
 % radiatio energy
 epsilon1 = aR * T1^4
 % sound speed
-% c1 = sqrt( (g*press1 + 4*epsilon1/9)/rho1 );
-c1 = sqrt( g*press1/rho1 );
+% post shock, the soupdspeed and the radiation-modified soundspeed should be different
+cm1 = sqrt( (g*press1 + 4*epsilon1/9)/rho1 )
+c1 = sqrt( g*press1/rho1 )
 % conservation of momentum gives the downstream velocity
-% u1 = rho0 * M / u0;
 u1 = rho0 * u0 / rho1
 % finally, we can get a post-shock Mach
 M1 = u1
+M1 = u1/c1
+M1_ = u1/cm1
+
+radiation_energy_ratio=epsilon1/epsilon0
+radiation_T_ratio=(epsilon1/epsilon0)^0.25
+Mach_ratio=M1_/M
