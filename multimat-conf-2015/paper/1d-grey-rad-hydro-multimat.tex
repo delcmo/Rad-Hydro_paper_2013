@@ -68,7 +68,7 @@ entropy viscosity method ; viscous stabilization ; equilibrium-diffusion limit.}
 \label{sec:intro}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-Accurately solving the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,EdwardsMorelLowrie}.
+Accurately solving the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations has been an area of great interest and substantial research \cite{Balsara,LowrieMorelHittinger,LowrieEdwards,EdwardsMorelLowrie}.
 The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. 
 The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (expressed in units of $cm^{-1}$) becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) equations. 
 The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
@@ -1276,9 +1276,12 @@ At the outlet, the flow becomes subsonic and thus requires a more sophisticated 
 Reflective (or zero gradient) boundary conditions are used at both inlet and outlet for the radiation diffusion equation (\eqt{eq:GRHrad}).
 
 In the case of an ideal gas equation of state, as used here, the structure of the radiative shock is fully described by its strength, which depends on the upstream equilibrium initial Mach number, ${\cal M}_0$, and the upstream equilibrium temperature, $T_{\infty}$.
-The semi-analytic radiative shock solutions used in this work have been generated following the method described in \cite{LowrieEdwards}.
-The ratio of the upstream radiation energy density to the upstream kinetic energy, $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, is arbitrarily set to $10^{-4}$ in \cite{LowrieEdwards}.
-The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma = 577.35 \ cm^{-1}$ which are consistent for an ideal-gas equation-of-state. \tcb{Jim: add rho infinity value} We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case. \tcb{add reference with section to compute the initial conditions}
+The semi-analytic radiative shock solutions used in this work have been generated following the method described in \cite{LowrieRauenzahn,LowrieEdwards}.
+In \cite{LowrieEdwards}, the ratio of the upstream radiation energy density to the upstream kinetic energy, $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, was arbitrarily set to $10^{-4}$. Here, we select the upstream pre-shock values to be $T_{\infty} = 100\, eV$, $\rho_{\infty} = 1\, g/cc$, and the inlet Mach number ${\cal M}_0$. This leads
+(through solving Equations (12) and (1) of \cite{LowrieRauenzahn}) to $P_0 \approx 8.8\cdot 10^{-5}$. \tcr{last question: how do we get $\sigma = 577.35 \ cm^{-1}$ ?}
+\\
+\tcr{is there anything else to keep from here: The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma = 577.35 \ cm^{-1}$ which are consistent for an ideal-gas equation-of-state.} \tcb{Jim: add rho infinity value} \\
+We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case. \tcb{add reference with section to compute the initial conditions}
 %This choice of values along with an initial Mach number allows for easy comparison with many of the figures in their paper.
 
 In \cite{LowrieEdwards}, the semi-analytical solutions are obtained by solving the time-independent 1-D planar equations of radiation hydrodynamics for an ideal gas in an infinitely long shock tube.
