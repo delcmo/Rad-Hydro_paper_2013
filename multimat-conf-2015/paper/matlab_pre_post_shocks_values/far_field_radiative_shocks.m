@@ -4,7 +4,7 @@ clear all; clc;
 g=5/3;   % not sure
 % upstream Mach
 M=1.05; 
-M=3; 
+% M=3; 
 % radiation constant
 aR = 1.3720172e-2;
 cv = 0.14472799784454;
@@ -20,7 +20,7 @@ epsilon0 = aR * T0^4
 % sound speed. the initial radiation energy is very small, so 
 % the sound speed and the radiation-modified sound speed should be very
 % close
-cm0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 )
+cm0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 ) % it is never used
 c0 = sqrt( g*press0/rho0 )
 % velocity
 % u0 = M * c0
@@ -54,6 +54,10 @@ rho = @(T) (f1(T) + sqrt(f1(T).^2 + f2(T)))./(6*(g-1)*T);
 residual = @(r,T) 3*r*(r*T-1) + g*P0*r*(T.^4-1) - 3*g*(r-1)*M^2;
 dresdT = @(r,T) 3*r*r + 4*g*P0*r*T.^3 ;
 
+% T1 is an a-dimensional value and should be divided by T0. If you
+% want the dimensional value of T1, you have to multiply by T0 but
+% after the newton solve.
+
 % solve eq.(12) and eq.(13) for T1 and rho1:
 for iter=1:100
     rho1 = rho(T1/T0);
@@ -67,8 +71,9 @@ for iter=1:100
 end
         
 
-% In Moose: T1=0.1494666288 if T0=0.1
+% In Moose: T1=1.049455798 if T0=0.1
 % Marco, you must have a typo: not 0.1494... but 0.10494... (missing a 0)
+% you are right
 
 % pressure
 press1 = (g-1)*rho1*cv*T1
@@ -90,6 +95,12 @@ radiation_T_ratio=(epsilon1/epsilon0)^0.25
 Mach_ratio=M1_/M
 
 % attempt at getting sigma
-L=1; c=3e8;
-sigma = 1e6*cm0/c/L
-sigma = 1e6*cm1/c/L
+L=1; 
+% c=3e8;
+c=2.99792e+2;
+% I think this is not correct below. I have to double check.
+sigma = 1e6*c0/c/L
+sigma = 1e6*0.12681025/c
+% you cannot compute sigma from the post-shock values since the
+% non-dimensionalised numbers are function of the pre-shock values.
+% sigma = 1e6*cm1/c/L
