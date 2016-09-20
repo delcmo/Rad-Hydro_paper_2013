@@ -10,12 +10,13 @@ aR = 1.3720172e-2;
 cv = 0.14472799784454;
 
 % a-dimensionalized pre-shock values
+% I think these below are reference values
 T0=0.1; % not 1.0 but 0.1 keV = 100 eV  
 rho0=1; 
 
-% pressure
+% pressure (reference value)
 press0 = (g-1)*rho0*cv*T0
-% radiatio energy
+% radiatio energy (reference value)
 epsilon0 = aR * T0^4
 % sound speed. the initial radiation energy is very small, so 
 % the sound speed and the radiation-modified sound speed should be very
@@ -24,6 +25,7 @@ cm0 = sqrt( (g*press0 + 4*epsilon0/9)/rho0 ) % it is never used
 c0 = sqrt( g*press0/rho0 )
 % velocity
 % u0 = M * c0
+% u0 should be a-dimensional and is not a reference value here
 u0 = M % Marco picks u0 as M. why?
 u0 = M *c0
 % 
@@ -44,6 +46,10 @@ T1 = ((1-g+2*g*M^2)*(2+(g-1)*M^2))/((g+1)^2*M^2)
 % if P0>1
 %     T1= (8/7*(M^2/(4/9*P0)-1))^0.25;
 % end
+
+% The below equations are a-dimensional and you should not have to divide by
+% T0 that has units. You first compute T1 and them multiply by T0 to get
+% the dimensional temperature.
 
 % equations after eq.(12) in Lowrie/Rauenzahn
 f1 = @(T) 3*(g+1)*(T-1)-P0*g*(g-1)*(7+T.^4);
@@ -84,7 +90,7 @@ epsilon1 = aR * T1^4
 cm1 = sqrt( (g*press1 + 4*epsilon1/9)/rho1 )
 c1 = sqrt( g*press1/rho1 )
 % conservation of momentum gives the downstream velocity
-u1 = rho0 * u0 / rho1
+u1 = rho0 * u0 / rho1 % (u0, rho0 and rho1 are a-dimensional)
 % finally, we can get a post-shock Mach
 M1 = u1
 M1 = u1/c1
@@ -98,7 +104,13 @@ Mach_ratio=M1_/M
 L=1; 
 % c=3e8;
 c=2.99792e+2;
-% I think this is not correct below. I have to double check.
+% This is what I have in my Moose code
+% C = c / c0
+% C = std::sqrt(_ics.SIGMA_A()*3.*_ics.K()) with SIGMA_A=1e6 and K=1
+% sigma = SIGMA_A / C
+C = sqrt(1e6*3*1)
+sigma = 1e6/C % this yields the correct value for the cross section.
+
 sigma = 1e6*c0/c/L
 sigma = 1e6*0.12681025/c
 % you cannot compute sigma from the post-shock values since the
