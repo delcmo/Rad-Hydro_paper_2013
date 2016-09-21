@@ -141,7 +141,7 @@ radiation_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
 radiation_exact[:] = [ line[:-1] for line in file_data_exact]
 # mach number or fluid velocity
-file_exact_list.append('Mach_Data.txt')
+file_exact_list.append('Mach_data.txt')
 #file_exact_list.append('data_Mach.dat')
 mach_nb_exact = []
 file_data_exact=open(file_exact_list[-1], 'r')
