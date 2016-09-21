@@ -37,11 +37,11 @@
 *.gz
 .DS_Store
 Plots
-*.txt
+#*.txt
 *Copy*.*
 CAF*
 *.pdf
 *initial_submit*
 numerical-results-outputs/
 post-processed-norms/moose_output_files/
-multimat-conf-2015/semi-analytical-sol-Jim-Ferguson/
+#multimat-conf-2015/semi-analytical-sol-Jim-Ferguson/
