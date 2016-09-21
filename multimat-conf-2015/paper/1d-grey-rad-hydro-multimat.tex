@@ -46,7 +46,7 @@ present in the material energy and radiation energy equations.
 %
 Here, we extend the method and derive an entropy minimum principle for the full non-equilibrium Grey Radiation Hydrodynamic 
 equations. This further strengthens the potential and applicability of the entropy viscosity method as a stabilization technique 
-for radiation-hydrodynamic shock simulations, in \tcb{TO DELETE both} the streaming \tcb{TO DELETE: and equilibrium-diffusion} limits. 
+for radiation-hydrodynamic shock simulations.
 %\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 %\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
 Radiative shock calculations using constant and temperature-dependent opacities are presented and 
@@ -257,7 +257,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties \tcb{and its domain of application} can be found in \cite{LowrieMorelHittinger, LowrieMorel}. The regularized GRH equations are as follows:
+In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
@@ -288,7 +288,7 @@ In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consis
 %\end{equation}
 \end{subequations}
 %
-where $\rho$, $\rho u$, $\rho E$, $P$, and $T$ are the material density, momentum, total energy, pressure, and temperature, respectively, and $\epsilon$ denotes the radiation energy density. The variable $\kappa$ is an artificial viscosity coefficient whose definition will be \tcb{recalled}  later in \sct{sec:visc-coeff-def}.
+where $\rho$, $\rho u$, $\rho E$, $P$, and $T$ are the material density, momentum, total energy, pressure, and temperature, respectively, and $\epsilon$ denotes the radiation energy density. The variable $\kappa$ is an artificial viscosity coefficient whose definition will be recalled  later in \sct{sec:visc-coeff-def}.
 The system consists of six variables and four partial differential equations. In order to close the system, two closure relationships are needed:  
 an equation of state that relates the material pressure $P$ to the material density $\rho$ and to the 
 material specific internal energy $e = E - \tfrac 1 2 u^2$. A second equation of state, linking material temperature 
@@ -447,7 +447,7 @@ s( \rho, e, \epsilon) = s_{Euler}(\rho, e) + s_{rad}(\rho, \epsilon) = s_{Euler}
 %------------------------------------------------------------------
 %
 The definition of the  entropy viscosity coefficient $\kappa$ is recalled below (we refer the reader to Section 2.4 of \cite{our_jcp_radhy_paper} for further details). They key idea is to make the artificial viscosity proportional to the 
-local entropy production \tcb{ and jumps}. The entropy residual $R_e$ of \eqt{eq:app_entr_eq_non_equil} can be recast
+local entropy production monitored with the entropy residual and jumps. The entropy residual $R_e$ of \eqt{eq:app_entr_eq_non_equil} can be recast
 as a function of total pressure (the sum of the fluid and radiation pressures) and density: $\hat R_e = \matder{\left(P+\tfrac 1 3 \epsilon\right)} - c^2_m \matder{\rho}$. An asymptotic limit study in the EDL reveals that a proper normalization for this residual is $\rho c^2_m$. Then, the entropy viscosity is defined and computed as
 \begin{equation}\label{eq:visc-def}
 \kappa_e = h^2 \frac{\max \left( |\hat R_e|, J \right)}{\rho c^2_m} \, ,
@@ -461,7 +461,7 @@ Finally, the artificial viscosity coefficient is chosen to be the minimum of the
 \begin{equation}
 \kappa = \min \left( \kappa_e, \kappa_\text{max} \right) \nonumber \,.
 \end{equation}
-
+%
 %\tcb{Should we add a few words about $\kappa_\text{max}$ and $\kappa_e$ along with equation numbers from previous paper?}
 %\tcr{we refer a whole lot tot he other paper. maybe a very short and sweet paragraph on the coefficients would be better. I tried. see what you think. remark: in our first paper, I noted that the entropy residual, very last eq of the appendix, can also just be given in terms of fluid variables, P fluid, rho fluid, c fluid. So, it looks like we don't need to care about radiation contribution to the residual at all in this model..., what do you think????}\tcb{We do need to keep the radiation contribution to the entropy residual. This is part of the proof.}
 
@@ -705,7 +705,7 @@ Finally, the artificial viscosity coefficient is chosen to be the minimum of the
 In the previous Section, we  reviewed the viscous regularization derived using the hyperbolic parts of the GRH equations, as presented in \cite{our_jcp_radhy_paper}. 
 Numerical results in \cite{our_jcp_radhy_paper} show that this viscous regularization 
 behaves properly in the streaming and equilibrium diffusion limits but there was no theoretical basis to justify the same viscous flux definitions when considering the \emph{full} GRH equations. As we 
-demonstrate below \tcb{TO DELETE:, in \sct{sec:VR_new}}, the contribution from the relaxation and diffusion terms to the entropy residual equation will only 
+demonstrate below, the contribution from the relaxation and diffusion terms to the entropy residual equation will only 
 yield entropy-producing terms.
 %% when using the functional form of the entropy function given in \eqt{eq:ent_equ}. 
 %We will also show in \sct{sec:cons-equi-diff-limit} that, in the equilibrium-diffusion limit, 
@@ -1281,10 +1281,12 @@ Reflective (or zero gradient) boundary conditions are used at both inlet and out
 In the case of an ideal gas equation of state, as used here, the structure of the radiative shock is fully described by its strength, which depends on the upstream equilibrium initial Mach number, ${\cal M}_0$, and the upstream equilibrium temperature, $T_{\infty}$.
 The semi-analytic radiative shock solutions used in this work have been generated following the method described in \cite{LowrieRauenzahn,LowrieEdwards}.
 In \cite{LowrieEdwards}, the ratio of the upstream radiation energy density to the upstream kinetic energy, $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, was arbitrarily set to $10^{-4}$. Here, we select the upstream pre-shock values to be $T_{\infty} = 100\, eV$, $\rho_{\infty} = 1\, g/cc$, and the inlet Mach number ${\cal M}_0$. This leads
-(through solving Equations (12) and (1) of \cite{LowrieRauenzahn}) to $P_0 \approx 8.5 \cdot 10^{-5}$. \tcr{last question: how do we get $\sigma = 577.35 \ cm^{-1}$ ?} \tcb{you still need to give the opacity value}
+(through solving Equations (12) and (13) of \cite{LowrieRauenzahn}) to $P_0 \approx 8.5 \cdot 10^{-5}$. The opacities are assumed constant and set to $\sigma_t = \sigma_a = 577.35 \ cm^{-1}$. 
+%\tcr{last question: how do we get $\sigma = 577.35 \ cm^{-1}$ ?} \tcb{you still need to give the opacity value}
 \\
-\tcr{is there anything else to keep from here: The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma = 577.35 \ cm^{-1}$ which are consistent for an ideal-gas equation-of-state.} \tcb{Jim: add rho infinity value} \tcb{I think Jean did it so please Jim double check} \\
-We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case. \tcb{add reference with section to compute the initial conditions}
+%\tcr{is there anything else to keep from here: The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma_t = \sigma_a = 577.35 \ cm^{-1}$ which are consistent for an ideal-gas equation-of-state.} \tcb{Jim: add rho infinity value} \tcb{I think Jean did it so please Jim double check} \\
+We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case. 
+%\tcb{add reference with section to compute the initial conditions}
 %This choice of values along with an initial Mach number allows for easy comparison with many of the figures in their paper.
 
 In \cite{LowrieEdwards}, the semi-analytical solutions are obtained by solving the time-independent 1-D planar equations of radiation hydrodynamics for an ideal gas in an infinitely long shock tube.
@@ -1385,7 +1387,8 @@ The integral over the computational domain delimited by $[x_1; x_2]$ is split ov
 A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with about $10^4$ nodes (compared to about $1000$ nodes for the numerical solution); this should minimize the error due to the interpolation in the semi-analytical solution. Finally, we have chosen to shift the semi-analytical solution since it is computed on a finer mesh than the numerical solution. The exact same procedure can be performed for conservation of total energy by replacing $m_h$ and $m^\star$ with $(\rho E)_h$ and $(\rho E)^\star$, respectively, in \eqt{eq:mass-diff}.
 
 A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same numerical simulation on successively finer meshes. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{\text{\text{offset}}}$, is computed. We present the shift values for conservation of total mass and conservation of
-total energy \tcb{for the Mach-1.05 test case presented in \sct{sec:mach-1p05-cst-xs}}.
+total energy.
+%\tcb{for the Mach-1.05 test case presented in \sct{sec:mach-1p05-cst-xs}}.
 % by minimizing the mass, and further used to compute the $L_1$ and/or $L_2$ error norm given in \eqt{eq:l1-error-norm}.
 %
 %------------------------------------------------------------------
