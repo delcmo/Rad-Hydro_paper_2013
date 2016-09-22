@@ -51,6 +51,7 @@
 \newcommand{\tcb}[1]{\textcolor{blue}{#1}}
 \newcommand{\tcg}[1]{\textcolor{green}{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../wileyj}
 
 \begin{document}
 
@@ -76,36 +77,38 @@ Thank you.
 
 {\color{blue}
 1. The flow model is presented in page 4. Its limitations are not mentioned. What are the assumptions? For which kind of application this model can be used. This is important for the reader. \\}
-The model was derived in REFS. We added these two references in Section right before equation...
+This set of equations is suitable for nonrelativistic radiation hydrodynamics and was derived in \cite{LowrieMorelHittinger, LowrieMorel}. They show that the system of equations is correct to $O(u/c)$ which means that the error term is $O(u^2/c^2)$, where $u$ is the characteristic fluid and $c$ is the speed of light. Also, the set of equation solve in this paper is the simplest nonequilibrium model with a constant Eddington factor of 1/3 in the diffusion term, which assumes a isotropic angular variation of the radiation. It can be used to verify simulation codes. One of the advantage of this system of equations is that it is hyperbolic and thus,  can be numerically integrated using high-order numerical methods based on a wave decomposition for example. We added these two references in Section 2.1 right before Eq. 2. 
 \bigskip
 
 {\color{blue}
 2. Page 5, Section 2.3. Because of their hyperbolic nature the GRH equations can develop shocks.
 Could you explain/detail what shock structure is expected? One could expect constant radiation through the shock.
 If the shock relations are known, they should be presented with System 5 and commented. Page 13 the reader is directed to Refs 24 and 28 meaning these relations are available.\\}
-We are not presenting these relations since we are not using them in this work. These relations are indeed available in references 24 and 28. \tcb{I am not sure what he/she means by shock structure}
+The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions. A detailed description of the wave structure can be found in \cite{Balsara}. We are not presenting these relations in this paper since they are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). As for the relations needed to compute the initial conditions, we modified the paper and added a paragraph that specifies the values and the equations to use in lines 225-234 instead of referencing the reader to \cite{LowrieEdwards}. \tcb{constant radiation through the shock?}
 \bigskip
 
 {\color{blue}
 3. Several times the authors refer to Ref 6. Is the method of that reference in agreement with the shock relations of Refs 24-28?
 \\}
-
+Ref. 6 is an example of 
 \bigskip
 
 {\color{blue}
 4. Section 6. The results at steady state are compared with an exact solution. It should be presented in an Appendix with illustrations showing the configuration studied as well as boundary conditions. \\}
-We added an appendix explaining how the boundary conditions are implemented. We also added in the paper a paragraph explaining how the semi-analytical solutions are obtained and provided references for the reader.
+We added an appendix explaining how the boundary conditions are implemented. We also added in the paper a paragraph explaining how the semi-analytical solutions are obtained and provide references for the reader in lines 235-244.
 \bigskip
 
 {\color{blue}
 \noindent Minor concerns: \\
 \indent 1. Page 4,5 lines from bottom: ?can be derived hyperbolic parts of the GRH? ... please correct.\\}
-Thank you.
+It is now corrected. Thank you.
 
 \bigskip
 
 {\color{blue}
  2. Rusanov instead of Rusabov.\\}
- Thank you.
+It is now corrected. Thank you.
+
+\bibliography{../mybibfile}
 \end{document}
 

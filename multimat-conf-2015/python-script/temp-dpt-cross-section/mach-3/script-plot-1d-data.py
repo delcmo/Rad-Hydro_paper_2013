@@ -234,9 +234,11 @@ file_list.append('mach-3-nel-100-points0.csv')
 file_list.append('mach-3-nel-200-points0.csv')
 file_list.append('mach-3-nel-400-points0.csv')
 file_list.append('mach-3-nel-800-points0.csv')
-#file_list.append('mach-3-nel-1000-points0.csv')
-#file_list.append('mach-3-nel-1500-points0.csv')
+file_list.append('mach-3-nel-1000-points0.csv')
+file_list.append('mach-3-nel-1500-points0.csv')
 file_list.append('mach-3-nel-1600-points0.csv')
+file_list.append('mach-3-nel-2000-points0.csv')
+#file_list.append('mach-3-nel-2500-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()

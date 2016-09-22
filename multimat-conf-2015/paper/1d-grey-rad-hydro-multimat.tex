@@ -15,6 +15,8 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \input{inputs/packages.tex}
 \input{inputs/definitions.tex}
 \bibliographystyle{wileyj}
+\usepackage{lineno}
+\linenumbers
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -29,7 +31,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \address{
 {\affilnum{1}Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA} \\
-{\affilnum{2}Los Alamos National Laboratory, Los Alamos, NM 77843, USA}
+{\affilnum{2}Los Alamos National Laboratory, Los Alamos, NM 87545, USA}
 }
 
 \corraddr{Department of Nuclear Engineering, Texas A\&M University, College Station, TX 77843, USA. E-mail: jean.ragusa@tamu.edu}
@@ -1691,25 +1693,25 @@ Numerical results for the material density, the material temperature and the rad
 \begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mat-temp-convergence.eps}
     \caption{Material temperature.}\label{fig:mach-3-dpt-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-density-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-density-convergence.eps}
     \caption{Material density.}\label{fig:mach-3-dpt-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mach-number-convergence.eps}
     \caption{Mach number.}\label{fig:mach-3-dpt-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mach-3-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-radiation-convergence.eps}
     \caption{Radiation energy density.}\label{fig:mach-3-dpt-xs-radiation-conv}
     \end{subfigure}        
 \caption{$L_1$ error norm for Mach $3$ test with temperature-dependent cross section.}\label{fig:mach-3-dpt-xs-conv} 
