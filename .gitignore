@@ -45,3 +45,4 @@ CAF*
 numerical-results-outputs/
 post-processed-norms/moose_output_files/
 #multimat-conf-2015/semi-analytical-sol-Jim-Ferguson/
+*.pyc
