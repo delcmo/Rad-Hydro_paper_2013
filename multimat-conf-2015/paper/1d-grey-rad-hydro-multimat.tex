@@ -52,13 +52,13 @@ for radiation-hydrodynamic shock simulations.
 %\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 %\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
 Radiative shock calculations using constant and temperature-dependent opacities are presented and 
-compared with semi-analytical reference solutions by performing a convergence study. % \tcr{Convergence rates are provided. TBD}
+compared with semi-analytical reference solutions by performing a convergence study. \tcb{The method employed to perform the convergence study with a semi-analytical solution is detailed, and results show that the correct convergence rates are achieved for all tests.}
 \end{abstract}
 %-------------------------
 
 
 \keywords{radiation-hydrodynamics ; artificial viscosity method; 
-entropy viscosity method ; viscous stabilization ; equilibrium-diffusion limit.}
+entropy viscosity method ; viscous stabilization ; semi-analytical solution; convergence study}
 
 \maketitle
 
@@ -112,9 +112,10 @@ Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encount
 The theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
 %With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
 that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
-conservation laws \cite{Lax}. In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
-measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
-$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
+conservation laws \cite{Lax}. \tcb{I deleted the sentence on the Borel measure}
+%In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
+%measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
+%$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
 Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution.
 %
 %\tcb{The Borel measure of 
@@ -225,7 +226,7 @@ entropy condition for non-conservative system of equations.
 %principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
-The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study. We recall that, in the remaining of this paper, the opacity is denoted by $\sigma$ and has of units $cm^{-1}$. 
+The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study. \tcb{The method employed to perform the convergence study is detailed in \sct{sec:mthd-conv-test} as it uses a semi-analytical solution that is invariant under spatial shifts \cite{LowrieEdwards}.} We recall that, in the remaining of this paper, the opacity is denoted by $\sigma$ and has of units $cm^{-1}$. 
 %with constant opacity, and Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
 %compared against semi-analytical solutions.
 %\tcr{Convergence rates of the L$_1$ and L$_2$ norms are also presented for smooth numerical solutions 
@@ -1386,10 +1387,10 @@ L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\st
 The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (index $q$ in \eqt{eq:l1-error-norm}); a Gauss quadrature rule of order $10$ is used here. This means that the semi-analytical and numerical solutions be evaluated at quadrature points. The numerical solution is computed at quadrature points using the finite element expansion (we used Lagrange test functions in this paper). The values of the semi-analytical solution at quadrature points are computed with a linear interpolation.
 %(Fortran version of the function '\emph{interp1d}') \tcr{who knows what interp1d is. why don't you say why is used actually?}\tcb{I think I should just remove it}. 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
-A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with about $10^4$ nodes (compared to about $1000$ nodes for the numerical solution); this should minimize the error due to the interpolation in the semi-analytical solution. Finally, we have chosen to shift the semi-analytical solution since it is computed on a finer mesh than the numerical solution. The exact same procedure can be performed for conservation of total energy by replacing $m_h$ and $m^\star$ with $(\rho E)_h$ and $(\rho E)^\star$, respectively, in \eqt{eq:mass-diff}.
+A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with about $10^4$ nodes (compared to about $1000$ nodes for the numerical solution); this should minimize the error due to the interpolation in the semi-analytical solution. Finally, we have chosen to shift the semi-analytical solution since it is computed on a finer mesh than the numerical solution. The exact same procedure can be performed for conservation of total energy by replacing $\rho_h$ and $\rho^\star$ with $(\rho E)_{tot,h}$ and $(\rho E)^\star_{tot}$, respectively, in \eqt{eq:mass-diff}. \tcb{In the remaining of this paper, we refer to mass and energy conservations as the methods used to compute the shifts under conservation of mass and total energy, respecitvely.}
 
-A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same numerical simulation on successively finer meshes. For each new run, once the steady-state solution is obtained, a value of the shift, $x_{\text{\text{offset}}}$, is computed. We present the shift values for conservation of total mass and conservation of
-total energy.
+A spatial convergence study is performed for each test case presented in this paper, which requires to run multiple times the same numerical simulation on successively finer meshes. \tcb{For each new run, once the steady-state solution is obtained, a value of the shift, $x_{\text{\text{offset}}}$, is computed using mass and energy conversations, and used to compute the convergence rates. We present the shift values for conservation of total mass and conservation of
+total energy for the Mach 1.05 test case only for illustration purpose.}
 %\tcb{for the Mach-1.05 test case presented in \sct{sec:mach-1p05-cst-xs}}.
 % by minimizing the mass, and further used to compute the $L_1$ and/or $L_2$ error norm given in \eqt{eq:l1-error-norm}.
 %
@@ -1471,7 +1472,7 @@ The numerical and semi-analytical density profiles are shown before and after sh
 %
 %\tcr{if you minimize the absolute value of the difference in mass, the figure 1.b still shows that the 2 solutions are not
 %identical. why does that figure have a value of delta rho $=10^{-12}$. this doesn't look right} \tcb{This is consistent with equation 32 since there is no absolute value. It will, however, have to be changed}
-The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions for the variables $(\rho, T, \epsilon, Mach)$. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved in both the $L_1$ and $L_2$ error norms under mesh refinement. This example proves that the EVM achieves second-order accuracy for smooth solutions.
+The convergence rates for the material density, the material temperature, the radiation temperature and the mach number are given in \fig{fig:mach-1p05-cst-xs-conv} for the $L_1$ and $L_2$ error norms between the numerical and semi-analytical solutions for the variables $(\rho, T, \epsilon, Mach)$. A reference line of slope $2$ is also plotted which clearly shows that second-order accuracy is achieved in both the $L_1$ and $L_2$ error norms under mesh refinement with both mass and energy conservations. This example proves that the EVM achieves second-order accuracy for smooth solutions.
 %and that the entropy condition still holds in the EDL as shown in \sct{sec:cons-equi-diff-limit}.
 %
 \begin{figure}[h]
@@ -1742,7 +1743,7 @@ In this paper, the theoretical foundation for the application of the entropy vis
 %  and, (iii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
 Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. 
 
-The EVM was tested with various test cases and the numerical solutions were compared against semi-analytical solutions. We show that second-order accuracy is obtained for smooth solutions  (Mach 1.05 test case) and that solutions with shock (Mach 3 test case) yield first-order accuracy. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
+The EVM was tested with various test cases and the numerical solutions were compared against semi-analytical solutions. After detailing the method used for the convergence study, we show that second-order accuracy is obtained for smooth solutions  (Mach 1.05 test case) and that solutions with shock (Mach 3 test case) yield first-order accuracy. Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 
 %The numerical results presented for the Mach 1.05 test case with a pure absorber material showed that second-order accuracy is achieved for smooth solution when compared against a semi-analytical solution. Still using a semi-analytical solution, it was proved that first-order accuracy was achieved for the two Mach-3 radiative shock simulations, with constant and material-dependent opacities, and observed that the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 %
