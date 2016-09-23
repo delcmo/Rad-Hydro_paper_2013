@@ -103,7 +103,7 @@ As mentioned above, the GRH equations are a  non-conservative hyperbolic system 
 %for which the theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$:
 %
 \begin{equation}\label{eq:nc-syst-eq}
-\partial_t U + A(U) \partial_x U = 0 \, ,\ U \in \Omega
+\partial_t U + A(U) \partial_x U = 0 \, ,\ U \in \Omega \,,
 \end{equation}
 %
 where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of a vector-valued function $f(U): \mathbb{R}^n \to \mathbb{R}^n$ and thus $\frac{\partial f(U)}{\partial U} \ne A(U)$.  
@@ -458,7 +458,7 @@ as a function of total pressure (the sum of the fluid and radiation pressures) a
 where $J$ is the inter-element jump in the gradient of density and pressure.
 This entropy viscosity coefficient is bounded from above by a first-order viscosity (Rusanov or local Lax-Friedrichs viscosity):
 \begin{equation}
-\kappa_\text{max} = \tfrac 1 2 h \left( |u| + c_m \right) \nonumber
+\kappa_\text{max} = \tfrac 1 2 h \left( |u| + c_m \right) \nonumber \,.
 \end{equation}
 Finally, the artificial viscosity coefficient is chosen to be the minimum of the entropy viscosity and the first-order viscosity:
 \begin{equation}
@@ -736,34 +736,33 @@ full system of GRH equations, \eqts{eq:regularized_hyperbolic_GRH}, and re-cast 
 %
 \begin{equation}
 \label{eq:GRHmass_}
-\matder{\rho} + \rho  \partial_x u = 0 
+\matder{\rho} + \rho  \partial_x u = 0 \,,
 \end{equation}
 %
 \begin{equation}
 \label{eq:GRHmom_}
-\rho\matder{u} + \partial_x  P + \frac{1}{3} \partial_x \epsilon = 0 
+\rho\matder{u} + \partial_x  P + \frac{1}{3} \partial_x \epsilon = 0  \,.
 \end{equation}
 %
 From \eqt{eq:GRHmom_}, we establish the specific kinetic energy equation:
 \begin{equation}
 \label{eq:GRH_KE}
-\rho\matder{\tfrac{u^2}{2}} + u\partial_x  P +\frac{u}{3} \partial_x \epsilon = 0 
+\rho\matder{\tfrac{u^2}{2}} + u\partial_x  P +\frac{u}{3} \partial_x \epsilon = 0  \,.
 \end{equation}
 %
 Then, an equation for the specific internal energy is: % (recall that $e=E-\tfrac 1 2 u^2$) is
 \begin{equation}
 \label{eq:GRHenerg_}
-\rho\matder{e}  + \partial_x P = \sigma_a c \left( a T^4 - \epsilon \right) 
+\rho\matder{e}  + \partial_x P = \sigma_a c \left( a T^4 - \epsilon \right)  \,.
 \end{equation}
 %
 The primitive form of the radiation energy equation is:
 \begin{equation}
 \label{eq:GRHrad_}
-\matder{\epsilon} + \frac{4}{3} \epsilon \partial_x u = \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon \right)
+\matder{\epsilon} + \frac{4}{3} \epsilon \partial_x u = \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) + \sigma_a c \left( a T^4 - \epsilon  \,\right)  \,.
 \end{equation}
 \end{subequations}
-
-\noindent
+%
 For the next step, we note that (chain rule)
 %
 \begin{equation}
@@ -773,7 +772,7 @@ For the next step, we note that (chain rule)
 and thus combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRHrad_} using chain rule to obtain
 %
 \begin{equation} \label{eq:entro_eq_all_terms}
-\rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right) 
+\rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left( a T^4 - \epsilon \right) +   \rho s_\epsilon \partial_x \left( \frac{c}{3 \sigma_t} \partial_x \epsilon \right)  \,.
 \end{equation}
 %
 If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is unconditionally positive, then the proposed 
@@ -820,7 +819,7 @@ Using the chain rule to combine partial derivatives, we obtain
 =
  \partial_x \left(   \frac{c}{3 \sigma_t} \partial_x \tilde{s}_{rad}  \right) 
 -
-\frac{c}{3 \sigma_t} \tilde{s}^{\prime\prime}_{rad}  \left(  \partial_x \epsilon \right)^2   \qquad  \qquad  \qquad \  \,.
+\frac{c}{3 \sigma_t} \tilde{s}^{\prime\prime}_{rad}  \left(  \partial_x \epsilon \right)^2  \,.
 \end{multline}
 %
 The first term on the right-hand side of \eqt{eq:final_form_second_term} a conservative term (it only yields boundary 

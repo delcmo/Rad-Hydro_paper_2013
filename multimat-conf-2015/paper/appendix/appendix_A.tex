@@ -26,19 +26,18 @@ To discretize the conservative fluxes F(U) and D(U) in a finite element approach
 \left[\left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{l} - \left[ \left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{r} \, ,
 \end{eqnarray}
 %
-where $\vec{n}$ is the outward normal at the left $l$ and right $r$ boundaries.
-
-In the following, we first detail the implementation of the boundary conditions for the first-order differential terms, i.e., advection terms, and then deal with the second-order differential term of the radiation-diffusion equation. 
+where $\vec{n}$ is the outward normal at the left $l$ and right $r$ boundaries. 
+In the following sections, we first give the implementation of the boundary conditions for the first-order differential terms, i.e., the advection terms, and then deal with the second-order differential term found in the radiation-diffusion equation. 
 %
 %are wave-dominated equations that require the implementation of boundary conditions consistent with the characteristics. In the finite element approach, boundary terms arise from integrating per part the conservative terms.
 %
-\subsection{Implementation of the boundary terms from $F(U)$}
+\subsection{Implementation of the boundary terms for $F(U)$}
 %
 Study of the hyperbolic term of the 1-D GRH equations yield four eigenvalues that are $\lambda_{1,2}=u$ and $\lambda_{3,4}=u \pm c_m$. The sign of the eigenvalues inform us on how the physical information travel in the computational domain and at the boundaries. We consider in the appendix the cases of a left supersonic and a right subsonic boundaries as they are of interest to the tests presented in this paper. Under the assumption of a supersonic left boundary condition ($u \geq c_m$), all eigenvalues are positive and no physical information leaves the computational domain. As a result, four boundary values, ($\rho_{l, user}, u_{l, user}, P_{l, user}, \epsilon_{l, user})$, must be user-specified and, along with an equation of state, are used to compute the boundary flux $F(U)$. 
 
 In the other hand, the treatment of the right subsonic boundary, ($u \leq c_m$), is quite different as three eigenvalues are positive and one is negative, meaning, physical information leaves and enters the computational domain at the right boundary. Consequently, the right boundary fluxes from the advection terms are computed using one user-specified boundary value, typically the material pressure $P_{r, user}$, and three boundary values supplied by the code, i.e., current values of the material density ($\rho_{r}$) velocity ($u_{r}$) and radiation energy density ($\epsilon_{r}$). Using an equation of state along with the user-specified and current boundary values, the boundary flux $F(U)$ is computed.
 %
-\subsection{Implementation of the boundary terms from $D(U)$}
+\subsection{Implementation of the boundary terms for $D(U)$}
 %
 The radiation-diffusion equation contains the elliptic term $D(U)$ that yields the boundary term 
 %
