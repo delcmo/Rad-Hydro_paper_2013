@@ -232,13 +232,20 @@ file_list = []
 
 file_list.append('mach-3-nel-100-points0.csv')
 file_list.append('mach-3-nel-200-points0.csv')
+file_list.append('mach-3-nel-300-points0.csv')
 file_list.append('mach-3-nel-400-points0.csv')
+file_list.append('mach-3-nel-500-points0.csv')
+file_list.append('mach-3-nel-600-points0.csv')
+file_list.append('mach-3-nel-700-points0.csv')
 file_list.append('mach-3-nel-800-points0.csv')
+file_list.append('mach-3-nel-900-points0.csv')
 file_list.append('mach-3-nel-1000-points0.csv')
 file_list.append('mach-3-nel-1500-points0.csv')
 file_list.append('mach-3-nel-1600-points0.csv')
 file_list.append('mach-3-nel-2000-points0.csv')
-#file_list.append('mach-3-nel-2500-points0.csv')
+file_list.append('mach-3-nel-2500-points0.csv')
+file_list.append('mach-3-nel-3000-points0.csv')
+file_list.append('mach-3-nel-3200-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
@@ -326,6 +333,7 @@ for file in file_list:
 ##  res = minimize(compute_mass_diff, 2.e-4, args=(x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind,), method='nelder-mead', options={'xtol': 1e-4, 'disp': True, 'maxiter' : 10000})
 
   x_offset.append(float(res[0]))
+#  x_offset.append(0.0)
   mass_diff = res[1]
   print 'x offset for', file, 'is', x_offset[-1]
   print 'mass difference for', file, 'is', mass_diff

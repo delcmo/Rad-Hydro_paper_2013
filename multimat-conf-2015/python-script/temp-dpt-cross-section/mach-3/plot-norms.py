@@ -14,7 +14,7 @@ from decimal import *
 
 #### define function ####
 def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
-  length=2*0.023103788495063781738
+  length=0.45
 #  nb_cells_log = [math.log(float(x)) for x in nb_cells]
 #  l1_norm_mass_log = [math.log(float(x)) for x in l1_norm_mass]
 #  l1_norm_energy_log = [math.log(float(x)) for x in l1_norm_energy]
@@ -29,8 +29,11 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
   x1 = [nb_cells_log[-1], nb_cells_log[0]]
   a = 0.5*(float(l1_norm_mass[-1])+float(l1_norm_energy[-1]))
 #  y1 = [-math.log(nb_cells[0])+math.log(a)+math.log(nb_cells[-1]), math.log(a)]
+  y1 = [a, a/nb_cells_log[-1]*nb_cells_log[0]/nb_cells_log[-1]*nb_cells_log[0]]
+  plt.plot(x1, y1, '-', label=r'$line \ of  \ slope \ 2$', linewidth=2)
   y1 = [a, a/nb_cells_log[-1]*nb_cells_log[0]]
 #  plt.plot(x1, y1, '-', label=r'$line \ of  \ slope \ 1$', linewidth=2)
+#  plt.loglog(x1, y1, '-', label=r'$line \ of  \ slope \ 2$')
   plt.loglog(x1, y1, '-', label=r'$line \ of  \ slope \ 1$')
   #  plt.plot(nb_cells_log, L2_norm_log, 'o-', label=r'$L_2^{error} norm$')
   #  y2 = [-math.log(nb_cells[0])+math.log(L2_norm[-1])+math.log(nb_cells[-1]), math.log(L2_norm[-1])]
@@ -43,6 +46,7 @@ def plot_error_norms(nb_cells, l1_norm_mass, l1_norm_energy, variable):
   elif variable=='mat-temp':
     y_label=r'$T$'
   elif variable=='radiation':
+#    y_label=r'$T_r$'
     y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'

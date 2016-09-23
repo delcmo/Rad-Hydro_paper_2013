@@ -72,6 +72,7 @@ def compute_error_norms(x_offset, x_coord, num_value, x_coord_exact, exact_value
     for qp in xrange(quad_order):
       value_xq[qp] = np.dot(lq[:,qp],num_value_cell)
     # compute mass difference between the exact and numerical solutions
+#    if x_coord[cell] > -0.2 and x_coord[cell+1] < 0.1:
     l1_norm_cell[cell] = np.dot(abs(value_xq-exact_value_cell_xq),wq)*jac
     l2_norm_cell[cell] = np.dot((value_xq-exact_value_cell_xq)**2, wq)*jac
 
