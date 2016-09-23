@@ -84,18 +84,20 @@ This set of equations is suitable for nonrelativistic radiation hydrodynamics an
 2. Page 5, Section 2.3. Because of their hyperbolic nature the GRH equations can develop shocks.
 Could you explain/detail what shock structure is expected? One could expect constant radiation through the shock.
 If the shock relations are known, they should be presented with System 5 and commented. Page 13 the reader is directed to Refs 24 and 28 meaning these relations are available.\\}
-The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions. A detailed description of the wave structure can be found in \cite{Balsara}. We are not presenting these relations in this paper since they are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). As for the relations needed to compute the initial conditions, we modified the paper and added a paragraph that specifies the values and the equations to use in lines 225-234 instead of referencing the reader to \cite{LowrieEdwards}. \tcb{constant radiation through the shock?}
+The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions. A detailed description of the wave structure can be found in \cite{Balsara}. We are not presenting these relations in this paper since they are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). As for the relations needed to compute the initial conditions, we modified the paper and added a paragraph that specifies the values and the equations to use in lines 225-234 instead of simply referencing the reader to \cite{LowrieEdwards}. \tcb{constant radiation through the shock?}
 \bigskip
 
 {\color{blue}
 3. Several times the authors refer to Ref 6. Is the method of that reference in agreement with the shock relations of Refs 24-28?
 \\}
-Ref. 6 is an example of 
+\cite{dlm} details the mathematical theoretical ground to develop numerical methods for non-conservative system of equations. Recall the GRH equations without source terms are a non-conservative system of equations, the theory developed in \cite{dlm} should be used. Jump relations for the non-conservative system of equations apply to the GRH and to any conservative system of equations, and thus should be in agreement with the ones presented in \cite{LowrieEdwards} and \cite{Toro}.
 \bigskip
 
 {\color{blue}
 4. Section 6. The results at steady state are compared with an exact solution. It should be presented in an Appendix with illustrations showing the configuration studied as well as boundary conditions. \\}
 We added an appendix explaining how the boundary conditions are implemented. We also added in the paper a paragraph explaining how the semi-analytical solutions are obtained and provide references for the reader in lines 235-244.
+
+As for the configuration studied, we believe you are referring to the wave decomposition that is usually used in a Riemann solver. Since we are not using such a solver in the numerical method presented in \cite{our_jcp_radhy_paper} and in this paper, we are just giving references in the introduction.
 \bigskip
 
 {\color{blue}
