@@ -77,20 +77,21 @@ Thank you.
 
 {\color{blue}
 1. The flow model is presented in page 4. Its limitations are not mentioned. What are the assumptions? For which kind of application this model can be used. This is important for the reader. \\}
-This set of equations is suitable for nonrelativistic radiation hydrodynamics and was derived in \cite{LowrieMorelHittinger, LowrieMorel}. It is shown that the system of equations is correct to $O(u/c)$ which means that the error term is $O(u^2/c^2)$, where $u$ is the characteristic fluid and $c$ is the speed of light. Also, the set of equations solved in this paper is the simplest nonequilibrium model with a constant Eddington factor of 1/3 in the diffusion term, which assumes a isotropic angular variation of the radiation. It can be used to verify simulation codes. One of the advantage of this system of equations is that it is hyperbolic and thus,  can be numerically integrated using high-order numerical methods based on a wave decomposition for example. We added these two references in Section 2.1 right before Eq. 2. 
+This set of equations is suitable for nonrelativistic radiation hydrodynamics and was derived in \cite{LowrieMorelHittinger, LowrieMorel}. It is shown that the system of equations is correct to $O(u/c)$ which means that the error term is $O(u^2/c^2)$, where $u$ is the characteristic fluid and $c$ is the speed of light. Also, the set of equations solved in this paper is the simplest nonequilibrium model and assumes a isotropic angular variation of the radiation which yields a constant Eddington factor of 1/3 in the diffusion term. It can be used to verify simulation codes. One of the advantage of this system of equations is that it is hyperbolic and thus,  can be numerically integrated using high-order numerical methods based on a wave decomposition for example. We added these two references in Section 2.1 right before Eq. 2. 
 \bigskip
 
 {\color{blue}
 2. Page 5, Section 2.3. Because of their hyperbolic nature the GRH equations can develop shocks.
 Could you explain/detail what shock structure is expected? One could expect constant radiation through the shock.
 If the shock relations are known, they should be presented with System 5 and commented. Page 13 the reader is directed to Refs 24 and 28 meaning these relations are available.\\}
-The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions. A detailed description of the wave structure can be found in \cite{Balsara}. We are not presenting these relations in this paper since they are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). As for the relations needed to compute the initial conditions, we modified the paper and added a paragraph that specifies the values and the equations to use in lines 225-234 instead of simply referencing the reader to \cite{LowrieEdwards}. \tcb{constant radiation through the shock?}
+A detailed description of the wave structure for the system of equations of interest can be found in \cite{Balsara}. The jump relations are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). The same jump relations are used to compute the initial conditions and we added a paragraph in lines 225-234 detailing the process to follow and the equations to use for this purpose instead of simply referencing the reader to \cite{LowrieEdwards}. The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions.
+\tcb{constant radiation through the shock?}
 \bigskip
 
 {\color{blue}
 3. Several times the authors refer to Ref 6. Is the method of that reference in agreement with the shock relations of Refs 24-28?
 \\}
-\cite{dlm} details the mathematical theoretical ground to develop numerical methods for non-conservative system of equations. Recall the GRH equations without source terms are a non-conservative system of equations, the theory developed in \cite{dlm} should be used. Jump relations for the non-conservative system of equations apply to the GRH and to any conservative system of equations, and thus should be in agreement with the ones presented in \cite{LowrieEdwards} and \cite{Toro}.
+\cite{dlm} ([6] in the first paper version) details the mathematical theoretical ground to develop numerical methods for non-conservative system of equations that are also valid for conservative system of equations. The GRH equations without source terms are a non-conservative system of equations and thus the theory developed in \cite{dlm} should be used. Jump relations for the non-conservative system of equations apply to the GRH and to any conservative system of equations, and thus should be in agreement with the ones presented in \cite{LowrieEdwards} and \cite{Toro}.
 \bigskip
 
 {\color{blue}

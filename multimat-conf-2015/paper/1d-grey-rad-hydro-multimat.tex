@@ -93,7 +93,7 @@ Significant research efforts regarding the GRH equations have been devoted to th
 In \cite{Balsara}, an approximate Riemann solver is developed for the GRH equations by considering the frozen approximation that uncouples the two physics, photon radiation and material hydrodynamics, but the validity of such an approximation may be questionable in the equilibrium-diffusion limit.
 Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the presence of relaxation terms.
 Edwards et al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations where an approximate Riemann solver along with a flux limiter was used to resolve shocks and other waves. 
-Their results show good agreement with the semi-analytical solutions of Lowrie and Edwards \cite{LowrieEdwards}.
+Their results show good agreement with the semi-analytical solutions of Lowrie and Edwards \cite{LowrieEdwards} \tcb{within a eyeball norm}.
 %
 %In this paper, we will consider the first-order hyperbolic terms of the GRH equations which yield a non-conservative hyperbolic system of equations. This method
 %could be questioned by noticing that the radiation energy density variable cannot develop shock because of the diffusion term in the radiation energy density equation:\tcb{to finish}
@@ -226,7 +226,7 @@ entropy condition for non-conservative system of equations.
 %principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
-\tcb{Numerical results and convergence studies are presented in \sct{sec:num-rslt}. We first detail the procedure used for the convergence studies. Then, numerical results for Mach 1.05 and Mach 3 tests are presented.
+\tcb{Numerical results and convergence studies are presented in \sct{sec:num-rslt}. We first detail the procedure used for the convergence studies as it has not been published to the best of your knowledge. Then, numerical results for Mach 1.05 and Mach 3 tests are presented.
 %The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. 
 For each test, the numerical solution is compared against semi-analytical solutions by performing a convergence study with the presented procedure. 
 %\tcb{Because the semi-analytical solution obtained from \cite{LowrieEdwards} are invariant under spatial shifts, we propose, in \sct{sec:mthd-conv-test}, a procedure to perform the convergence study.} 
@@ -1287,11 +1287,10 @@ Reflective (or zero gradient) boundary conditions are used at both inlet and out
 In the case of an ideal gas equation of state, as used here, the structure of the radiative shock is fully described by its strength, which depends on the upstream equilibrium initial Mach number, ${\cal M}_0$, and the upstream equilibrium temperature, $T_{\infty}$.
 The semi-analytic radiative shock solutions used in this work have been generated following the method described in \cite{LowrieRauenzahn,LowrieEdwards}.
 In \cite{LowrieEdwards}, the ratio of the upstream radiation energy density to the upstream kinetic energy, $P_0 \equiv a_{\textrm{R}} T_{\infty}^4 / \rho_{\infty} u_{\infty}^2$, was arbitrarily set to $10^{-4}$. Here, we select the upstream pre-shock values to be $T_{\infty} = 100\, eV$, $\rho_{\infty} = 1\, g/cc$, and the inlet Mach number ${\cal M}_0$. This leads
-(through solving Equations (12) and (13) of \cite{LowrieRauenzahn}) to $P_0 \approx 8.5 \cdot 10^{-5}$. The opacities are assumed constant and set to $\sigma_t = \sigma_a = 577.35 \ cm^{-1}$. 
+(through solving Equations (12) and (13) of \cite{LowrieRauenzahn}) to $P_0 \approx 8.5 \cdot 10^{-5}$. The opacities are assumed constant and set to $\sigma_t = \sigma_a = 577.35 \ cm^{-1}$ \tcb{unless otherwise specified.}
 %\tcr{last question: how do we get $\sigma = 577.35 \ cm^{-1}$ ?} \tcb{you still need to give the opacity value}
-\\
 %\tcr{is there anything else to keep from here: The definition and value they choose for their opacity is similarly arbitrary, and can be combined with their definition for $P_0$ to arrive at a set of values for $T_{\infty} = 100 eV$, such that $P_0 \approx 8.8\cdot 10^{-5}$, and $\sigma_t = \sigma_a = 577.35 \ cm^{-1}$ which are consistent for an ideal-gas equation-of-state.} \tcb{Jim: add rho infinity value} \tcb{I think Jean did it so please Jim double check} \\
-We recall that in the case of a purely absorbing material the total and absorption opacities are identically equal; in this paper, all of the simulations presented correspond to this case. 
+We recall that in all of the simulations presented in this paper the total and absorption opacities are identically equal.
 %\tcb{add reference with section to compute the initial conditions}
 %This choice of values along with an initial Mach number allows for easy comparison with many of the figures in their paper.
 
@@ -1304,7 +1303,7 @@ Therefore, when comparing our numerical results to these semi-analytic solutions
 The test cases we compare against include continuous and discontinuous radiative shocks, with either constant opacity or with a temperature- and density-dependent opacity.
 The continuous shock case is for a constant opacity of 577.35 $cm^{-1}$ at an initial upstream Mach number of 1.05.
 Since a high-order numerical method is employed in this paper, second-order convergence will be demonstrated for this test case.
-The discontinuous shock cases are for an initial upstream Mach number of 3, for both a constant opacity of 577.35 $cm^{-1}$ and for a temperature- and density-dependent cross section of the form $577.35 \rho T^{-3.5}$.
+The discontinuous shock cases are for an initial upstream Mach number of 3, for both a constant opacity of 577.35 $cm^{-1}$ and for a temperature- and density-dependent cross section of the form $577.35 \rho T^{-3.5}$ $cm^{-1}$.
 %\tcg{Marco, we should talk about this functional form of the opacity.}
 Convergence studies are performed for both of these Mach 3 tests which display an embedded hydrodynamic shock, for which only first-order accuracy can be theoretically achieved.
 % These two tests display
