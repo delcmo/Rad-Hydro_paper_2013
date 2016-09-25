@@ -72,28 +72,40 @@ Thank you.
 \bigskip
 
 {\color{blue}
-1. As far as I can tell, the vast majority of this new paper is a re-statement of the original discussions and formulations from [1] ? the only new parts seem to be the discussion in section 3, the use of a Mach 3 rad-shock problem (instead of the Mach 1.2, 2, 5 and 50 tests presented in [1]) and the use of temperature dependent opacities in one of the test problems. As such, I believe this paper is too long, and much of the introductory material of section 2, the discussion of entropy viscosity (section 4) and the discretization method used (section 5) can be replaced with a reference to [1]. There is simply not enough new material here to warrant a 19 page paper. \\}
-You are correct to say the numerical method employed is identical to [1]. The novelties in this paper are (i) the extension of the entropy minimum principle to the full GRH which allows us to strengthen the  theoretical ground for the EVM and also helps us understand the source terms effect on stability of the numerical method; and (ii) the use of the semi-analytical solution derived by Lowrie and Edwards to perform a convergence analysis.
+1. As far as I can tell, the vast majority of this new paper is a re-statement of the original discussions and formulations from [1]  the only new parts seem to be the discussion in section 3, the use of a Mach 3 rad-shock problem (instead of the Mach 1.2, 2, 5 and 50 tests presented in [1]) and the use of temperature dependent opacities in one of the test problems. As such, I believe this paper is too long, and much of the introductory material of section 2, the discussion of entropy viscosity (section 4) and the discretization method used (section 5) can be replaced with a reference to [1]. There is simply not enough new material here to warrant a 19 page paper. \\}
+You are correct to say the numerical method employed is identical to [1]. The novelties in this paper are (i) the extension of the entropy minimum principle to the full GRH which allows us to strengthen the theoretical ground for the EVM and also helps us understand the source terms effect on stability of the numerical method; and (ii) the use of the semi-analytical solution derived by Lowrie and Edwards to perform a convergence analysis for smooth solutions and solutions with shocks.
 
-Following your suggestion, we shortened the introductory material, replace section 5 by a paragraph briefly describing the discretization technique and refer the reader to [1] as often as possible. We also shortened section 4 and moved it to section 2.3 that now only recalls the definition of the viscosity coefficients. 
+Following your suggestion, we shortened the introductory material, replace section 5 by a paragraph briefly describing the discretization technique and refer the reader to [1] as often as possible. We also shortened the old section 4 and moved it to section 2.3 that now only recalls briefly the definition of the viscosity coefficients. 
 
-We added a section, section 4.1, to detail the method used to perform a convergence study for each test case presented in the paper: the semi-analytical solution needs to be shifted by either conservation of mass or total energy before performing a convergence study. Such a method is not detailed in the literature to the best of our knowledge.
+We added a new section, section 4.1, to detail the method used to perform a convergence study for each test case presented in the paper: the semi-analytical solution needs to be shifted by either conservation of mass or total energy before performing a convergence study. To the best of our knowledge, this has not been published in the literature and \tcr{yet is crucial in
+establishing convergence rates for the numerical solution.  }
 \bigskip
 
 {\color{blue}
 2. Further, its not clear why the Mach 3 test was chosen for this paper ? is there really any difference in the numerical solution technique being applied in this paper compared to the one used in the results from [1]? It is not clear what impact the derivation presented in section 3 has on the results in section 6.\\}
-We could have used any other tests developing a shock but chose to present numerical solution of the Mach 3 test with $\sigma_a = \sigma_t$. Also in [1], we did not present any test with $\sigma_a = \sigma_t$ but presented numerical solutions for $\sigma_a \neq \sigma_t$. 
+We could have used any other tests developing a shock but chose to present numerical solution of the Mach 3 test with $\sigma_a = \sigma_t$. \tcr{Our collaborator, Jim Ferguson, now co-author, was working on the semi-analytical solutions for the Mach-3 test at the time of this paper}. Also in [1], we did not present any test where $\sigma_a = \sigma_t$. 
 
-We now present a total of three tests: Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with temperature-dependent opacity in order to illustrate the mathematical derivations performed in Section 3, i.e., the source terms positively contribute to the stabilization of the numerical solution. This is an explanation to the fact that the entropy viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$ in the shock region. This observation/conclusion is also valid for the numerical tests presented in [1].
+We present a total of three tests: Mach 1.05 and Mach 3 with constant opacity, and Mach 3 with density-/temperature-dependent opacity in order to illustrate the mathematical derivations performed in Section 3, i.e., the source terms positively contribute to the stabilization of the numerical solution. This is an explanation to the fact that the entropy viscosity coefficient $\kappa$ does not saturate to the first-order viscosity coefficient $\kappa_{max}$ in the shock region. This observation/conclusion is also valid for the numerical tests presented in [1] \tcr{but we had not explanation for this at the time of [1].}
 
-The same study could have be done with other test cases such as Mach 1.5, 2 or 5 for instance. 
+The same study could have be done with other test cases of [1], such as Mach 1.5, 2, or 5, for instance. 
 \bigskip
 
 {\color{blue}
 3. 
-The radiating shock benchmarks have known semi-analytic solutions ? and are therefore amenable to normed error analysis. The authors really need to quantify the error in their results instead of relying on plot overlays. I believe the authors need to update their results to include more quantitative error analysis for these tests.
+The radiating shock benchmarks have known semi-analytic solutions and are therefore amenable to normed error analysis. The authors really need to quantify the error in their results instead of relying on plot overlays. I believe the authors need to update their results to include more quantitative error analysis for these tests.
 \\}
-A semi-analytical solution is indeed available for the tests we present in this paper. We added a paragraph in lines 235-244 briefly describing how the semi-analytical solutions are obtained. In section 4,1, we detail two procedures that are used to perform the convergence studies. Finally, for each test presented in section 4, the numerical solutions are presented along with a convergence study by using the semi-analytical solution as a reference solution. The convergence studies show that the numerical method achieves second-order accuracy for smooth solutions and first-order accuracy for solutions with shocks. 
+
+We agree that plot "`overlays"' are not a proper quantification of the error. We are now using the semi-analytical solution to perform a spatial convergence study.
+
+We added a paragraph in lines 235-244 briefly describing how the semi-analytical solutions are obtained
+\tcr{
+(they are obtained using infinite 1D planar geometry). The solutions being Galilean-invariant, we present a shifting
+process based on conservation of mass or total energy before proceeding to the converge study per se. 
+}
+In section 4.1, we detail two procedures that are used to perform the convergence studies. Finally, for each test presented in section 4, the numerical solutions are presented along with a convergence study by using the semi-analytical solution as a reference solution. The convergence studies show that the numerical method achieves second-order accuracy for smooth solutions and first-order accuracy for solutions with shocks. 
+
+\tcr{We are thankful for your comments. We believe our quantification error analysis additions have significantly strengthened the paper.}
+
 \bigskip
 
 \end{document}
