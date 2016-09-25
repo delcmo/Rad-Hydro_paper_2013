@@ -1656,14 +1656,14 @@ Numerical results for the material density, the material temperature and the rad
 \begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mat-temp-convergence.eps}
-    \caption{Material temperature.}\label{fig:mach-3-dpt-xs-temp-conv}
-    \end{subfigure}
-    ~
-    \begin{subfigure}{0.5\textwidth}
-    \centering
     \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-density-convergence.eps}
     \caption{Material density.}\label{fig:mach-3-dpt-xs-density-conv}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.5\textwidth}    
+    \centering
+    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mat-temp-convergence.eps}
+    \caption{Material temperature.}\label{fig:mach-3-dpt-xs-temp-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
@@ -1746,7 +1746,7 @@ In this paper, the theoretical foundation for the application of the entropy vis
 %  and, (iii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
 Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. 
 
-The EVM was tested with various test cases and the numerical solutions were compared against semi-analytical solutions obtained by following the method described in \cite{LowrieEdwards}. After proposing a mass and a energy conservation procedures used for the convergence study, we show that second-order accuracy is obtained for smooth solutions (Mach 1.05 test case) and that solutions with shock (Mach 3 test cases) yield first-order accuracy in all variables for fine meshes. \tcb{For the Mach 3 test cases, it was also observed that the radiation energy density achieves second order accuracy on coarse meshes ($\Delta x \geq 10^{-4}$ $cm$), even though a shock develops in the material variables. Such behavior is unexplained at this date but is under further investigation.}
+The EVM was tested with various test cases and the numerical solutions were compared against semi-analytical solutions obtained by following the method described in \cite{LowrieEdwards}. After proposing a mass and a energy conservation procedures used for the convergence study, we show that second-order accuracy is obtained for smooth solutions (Mach 1.05 test case) and that solutions with shock (Mach 3 test cases) yield first-order accuracy in all variables for fine meshes. \tcb{For the Mach 3 test cases, it was also observed that the radiation energy density achieves second order accuracy on coarse meshes ($\Delta x \geq 10^{-4}$ $cm$), even though a shock develops in the material variables. Such behavior is unexplained at this time but is under further investigation.}
 
 Physical features such as embedded hydrodynamic shocks and the Zeldovich spike are resolved accurately without spurious oscillations. The entropy viscosity coefficient is only peaked in the vicinity of the shock and in region of strong gradients, and remains small elsewhere, as expected. Overall, the entropy viscosity method behaves very satisfactorily when compared against semi-analytical solutions.
 
