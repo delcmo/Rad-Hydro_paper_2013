@@ -95,7 +95,7 @@ In \cite{Balsara}, an approximate Riemann solver is developed for the GRH equati
 Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the presence of relaxation terms.
 Edwards et al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations where an approximate Riemann solver along with a flux limiter was used to resolve shocks and other waves. 
 Their results \tcr{visually} showed good agreement with the semi-analytical solutions of Lowrie and Edwards \cite{LowrieEdwards}.
-\tcr{they didn't do a convergence, right?}
+\tcr{they didn't do a convergence, right?} \tcb{This is correct.}
 %
 %In this paper, we will consider the first-order hyperbolic terms of the GRH equations which yield a non-conservative hyperbolic system of equations. This method
 %could be questioned by noticing that the radiation energy density variable cannot develop shock because of the diffusion term in the radiation energy density equation:\tcb{to finish}
@@ -229,7 +229,7 @@ entropy condition for non-conservative system of equations.
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
 Numerical results and spatial convergence studies are presented in \sct{sec:num-rslt}. We fully describe the process followed 
-to carry out the convergence studies; \tcr{our present work is the first illustration of such a procedure}. Then, numerical results for 
+to carry out the convergence studies; \tcr{our present work is the first illustration of such a procedure} \tcb{Done}. Then, numerical results for 
 Mach 1.05 and Mach 3 tests are presented.
 %The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. 
 For each test, the numerical (viscous) solution is compared against a semi-analytical solution and a spatial convergence analysis is presented. 
@@ -1392,7 +1392,7 @@ L_{1,2}(y) &=& \left[ \int_{x_1}^{x_2} | y_h(x+x_{\text{\text{offset}}}) - y^\st
 %(Fortran version of the function '\emph{interp1d}') \tcr{who knows what interp1d is. why don't you say why is used actually?}\tcb{I think I should just remove it}. 
 %=======
 %\tcg{I do not understand what is being done here.  Specifically, I do not understand what $nb_{cells}$ is meant to represent, and I do not understand why any form of Gaussian quadrature is necessary over each cell.  Again, it is very important to mention that I am not saying that I think it is horribly wrong, but I would not be able to explain to someone else why that is being done.  In the (pretty unofficial) work I have done here when comparing code results with semi-analytic solutions, I always have a uniform spatial mesh for ease of understanding the convergence analysis, and I simply sum over the number of cells, no integration required.  Depending on how I want to present the results the summation can be normalized by the number of cells, or not.  But I definitely feel like this is not coherently explained below.}
-The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (index $q$ in \eqt{eq:l1-error-norm}); a Gauss quadrature rule of order $10$ is used here. This means that the semi-analytical and numerical solutions are evaluated at quadrature points. The numerical solution is obtained at quadrature points using the finite element expansion employed in the discretization (we use Lagrange test functions in this paper). The values of the semi-analytical solution at quadrature points are computed with a linear interpolation \tcr{on a very fine grid}.
+The integral over the computational domain delimited by $[x_1; x_2]$ is split over $nb_{cells}$ cell integrals. Each cell integral is numerically computed with a quadrature rule (index $q$ in \eqt{eq:l1-error-norm}); a Gauss quadrature rule of order $10$ is used here. This means that the semi-analytical and numerical solutions are evaluated at quadrature points. The numerical solution is obtained at quadrature points using the finite element expansion employed in the discretization (we use Lagrange test functions in this paper). The values of the semi-analytical solution at quadrature points are computed with a linear interpolation \tcr{on a very fine grid} \tcb{done}.
 %(Fortran version of the function '\emph{interp1d}') \tcr{who knows what interp1d is. why don't you say why is used actually?}\tcb{I think I should just remove it}. 
 %>>>>>>> 80a5074596b6d65166c9c071f44d3b9efb860727
 A typical semi-analytical solution with shock is solved on a non-uniform mesh discretized with about $10^4$ nodes (compared to about $1000$ nodes for the numerical solution); using an adapted fine grid,  the interpolation error in the semi-analytical solution is negligible. Finally, we have chosen to shift the semi-analytical solution since it is computed on a finer mesh than the numerical solution. The exact same procedure can be performed for conservation of total energy by replacing $\rho_h$ and $\rho^\star$ with $(\rho E)_{tot,h}$ and $(\rho E)^\star_{tot}$, respectively, in \eqt{eq:mass-diff}. In the remaining of this paper, we refer to mass and energy conservation procedures as the two methods used to compute the spatial shifts while conserving mass or total energy.
@@ -1550,7 +1550,7 @@ The numerical and semi-analytical solutions of $(\rho, T, \epsilon, Mach)$ are p
 %
 \tcr{I do not understand the delta rho in figure 3.b, the num. sol. is obtained with 250 cells). delta rho is about $3e-6$. 
 However, in figure 1.b,t he shifted delta rho is $1e-19$. Why isn't the graph 3.b for the SHIFTED numerical solution????   
-}
+} \tcb{good catch, it is the delta rho when using the L1 norm to compute the shift. I updated the plots, and removed the delta rho even though they visually look the same}
 \pagebreak
 
 %------------------------------------------------------------------
@@ -1569,7 +1569,7 @@ to a first-order convergence rate, see \fig{fig:mach-3-cst-xs-radiation-conv}.
 Given that the radiation energy variable is always smooth, even in the shock region, a higher convergence rate is possible
 until the first-order rate present in the other (hydrodynamic) variables limits the energy radiation density rate to unity.
 This behavior may warrant further analysis. (not sure if that very last sentence is useful)
-}
+} \tcb{ l like it}
 %
 \begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
