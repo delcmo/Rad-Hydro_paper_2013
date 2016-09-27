@@ -66,6 +66,8 @@ Title: ``Regularization of the non-equilibrium Grey Radiation-Hydrodynamic equat
 {\it International Journal for Numerical Methods in Fluids}\\
 
 \bigskip
+{\it The References cited in our letter are provided below, at the end of our replies. They can be found in the revised manuscript as well,
+but with a different citing number (BibTeX renumbers them in each document).}
 \bigskip
 
 {\color{blue}
@@ -77,25 +79,32 @@ Thank you.
 
 {\color{blue}
 1. The flow model is presented in page 4. Its limitations are not mentioned. What are the assumptions? For which kind of application this model can be used. This is important for the reader. \\}
-This set of equations is suitable for nonrelativistic radiation hydrodynamics and was derived in \cite{LowrieMorelHittinger, LowrieMorel}. It is shown that the system of equations is correct to $O(u/c)$ which means that the error term is $O(u^2/c^2)$, where $u$ is the characteristic fluid and $c$ is the speed of light. Also, the set of equations solved in this paper is the simplest non-equilibrium model and assumes a isotropic angular variation of the radiation which yields a constant Eddington factor of 1/3 in the diffusion term. It can be used to verify simulation codes. One of the advantage of this system of equations is that it contains hyperbolic terms that can be numerically integrated using high-order numerical methods based on a wave decomposition, for example. We added these two references in Section 2.1, before Eq. (2). 
+This set of equations is suitable for nonrelativistic radiation hydrodynamics and was derived in \cite{LowrieMorelHittinger, LowrieMorel}. 
+We added these two references in Section 2.1, before Eq. (2). 
+It is shown that the system of equations is correct to $O(u/c)$ which means that the error term is $O(u^2/c^2)$, where $u$ is the characteristic fluid and $c$ is the speed of light. The set of equations solved in this paper is one of the simplest non-equilibrium models and assumes an isotropic angular variation of the radiation which yields a constant Eddington factor of 1/3 in the diffusion term. This model is particularly interesting to verify more complex simulation codes as radiating shock benchmarks have known semi-analytic solutions and are therefore amenable to normed error analysis. 
 \bigskip
 
 {\color{blue}
 2. Page 5, Section 2.3. Because of their hyperbolic nature the GRH equations can develop shocks.
 Could you explain/detail what shock structure is expected? One could expect constant radiation through the shock.
 If the shock relations are known, they should be presented with System 5 and commented. Page 13 the reader is directed to Refs 24 and 28 meaning these relations are available.\\}
-A detailed description of the wave structure for the system of equations of interest can be found in \cite{Balsara}. The jump relations are widely available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and references therein). The same jump relations are used to compute the initial conditions and we added a paragraph in lines 224-233 detailing the process to follow and the equations to use for this purpose instead of simply referencing the reader to \cite{LowrieEdwards}. The shock problem of interest in this paper consists of an embedded shock with precursor and relaxation regions \cite{LowrieEdwards}.
+A detailed description of the wave structure for the system of equations of interest can be found in \cite{Balsara}. The jump relations are already  available in the published literature (see \cite{LowrieEdwards, LowrieMorelHittinger} and the references therein). We have made sure these
+are properly referenced in the revised manuscript. The same jump relations are used to compute the initial conditions (left/right states) and we added a paragraph in lines 224-233 detailing the process to follow and the equations to use for this purpose.  For completeness, we also give the equation numbers of \cite{LowrieEdwards}. The shock problem of interest in this paper consists of an embedded radiative shock with precursor and relaxation regions \cite{LowrieEdwards}.
 \bigskip
 
 {\color{blue}
 3. Several times the authors refer to Ref 6. Is the method of that reference in agreement with the shock relations of Refs 24-28?
 \\}
-\cite{dlm} ([6] in the first paper version) provides the mathematical theoretical ground to develop numerical methods for non-conservative system of equations that are also valid for conservative system of equations. The GRH equations without source terms are a non-conservative system of equations and thus the theory developed in \cite{dlm} should be used. Jump relations for the non-conservative system of equations apply to the GRH and to any conservative system of equations, and thus should be in agreement with the ones presented in \cite{LowrieEdwards} and \cite{Toro}.
+\cite{dlm} ([6] in our original manuscript) provides the mathematical theoretical ground to develop numerical methods for non-conservative system of equations that are also valid for conservative system of equations. The GRH equations without source terms are a non-conservative system of equations and thus the theory developed in \cite{dlm} should be used. Jump relations for the non-conservative system of equations apply to the GRH and to any conservative system of equations, and thus should be in agreement with the ones presented in \cite{LowrieEdwards} and \cite{Toro}.
 \bigskip
 
 {\color{blue}
 4. Section 6. The results at steady state are compared with an exact solution. It should be presented in an Appendix with illustrations showing the configuration studied as well as boundary conditions. \\}
-We added an appendix explaining how the boundary conditions are implemented. We also added, in the main of the paper, a paragraph explaining how the semi-analytical solutions are obtained and provide references for the reader in lines 235-244. The pre-/post-shocks far field values that are employed in the numerical solution are obtained using the Lowrie/Rauenzahn paper \cite{LowrieRauenzahn} (we refer to their equation numbers in our added paragraph).
+We added an appendix describing how the boundary conditions are implemented. We have also added, in the main body of the paper, a paragraph explaining how the semi-analytical solutions are obtained and have provided corresponding references in lines 235-244. The pre-/post-shocks far field values that are employed in the numerical solution are obtained using the Lowrie/Rauenzahn paper \cite{LowrieRauenzahn} (we refer to their equation numbers in our added paragraph).
+
+Since radiating shock benchmarks have known semi-analytical solutions, they are amenable to normed error analysis. Hence, we have added a
+complete convergence study for each of the test cases shown.
+
 
 %As for the configuration studied, we believe you are referring to the wave decomposition that is usually used in a Riemann solver. Since we are not using such a solver in the numerical method presented in \cite{our_jcp_radhy_paper} and in this paper, we are just giving references in the introduction.
 \bigskip
