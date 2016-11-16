@@ -48,7 +48,7 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
   x_anal_offset = [float(x)+float(x_offset) for x in x_anal]
   x_num = [float(x) for x in x_num]
   plt.plot(x_num, y_num, '+-', markevery=30, markersize=8, label=r'$numerical \ solution$', linewidth=2)
-  plt.plot(x_anal_offset, y_anal, 'o-', markevery=50000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
+  plt.plot(x_anal_offset, y_anal, 'o-', markevery=16000, markersize=8, label=r'$exact \ solution$', linewidth=1.2)
   plt.legend(loc='best', fontsize=20, frameon=False)
   plt.xlabel(r'$x$', fontsize=20)
   if variable=='density':
@@ -59,6 +59,8 @@ def plot_solution(x_num, y_num, x_anal, y_anal, x_offset, variable, nb_cells, te
     y_label=r'$\epsilon$'
   elif variable=='mach-number':
     y_label=r'$Mach$'
+  elif variable=='opacity':
+    y_label=r'$\sigma_{a,t}$'
   else:
     print 'ERROR: unvalid variable name'
     sys.exit()
@@ -230,22 +232,22 @@ file_list = []
 #file_list.append('mach-3-nel-3500-points0.csv')
 ## cross section 577.3502692
 
-file_list.append('mach-3-nel-100-points0.csv')
-file_list.append('mach-3-nel-200-points0.csv')
+#file_list.append('mach-3-nel-100-points0.csv')
+#file_list.append('mach-3-nel-200-points0.csv')
 #file_list.append('mach-3-nel-300-points0.csv')
-file_list.append('mach-3-nel-400-points0.csv')
+#file_list.append('mach-3-nel-400-points0.csv')
 #file_list.append('mach-3-nel-500-points0.csv')
 #file_list.append('mach-3-nel-600-points0.csv')
 #file_list.append('mach-3-nel-700-points0.csv')
-file_list.append('mach-3-nel-800-points0.csv')
+#file_list.append('mach-3-nel-800-points0.csv')
 #file_list.append('mach-3-nel-900-points0.csv')
 #file_list.append('mach-3-nel-1000-points0.csv')
 #file_list.append('mach-3-nel-1500-points0.csv')
-file_list.append('mach-3-nel-1600-points0.csv')
-file_list.append('mach-3-nel-2000-points0.csv')
+#file_list.append('mach-3-nel-1600-points0.csv')
+#file_list.append('mach-3-nel-2000-points0.csv')
 file_list.append('mach-3-nel-2500-points0.csv')
-#file_list.append('mach-3-nel-3000-points0.csv')
-file_list.append('mach-3-nel-3200-points0.csv')
+##file_list.append('mach-3-nel-3000-points0.csv')
+#file_list.append('mach-3-nel-3200-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
@@ -381,6 +383,12 @@ plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
+
+opacity = []
+opacity_exact = []
+opacity[:] = [rho*577.3502692/T**3.5 for rho, T in zip(mat_density, mat_temp)]
+opacity_exact[:] = [rho*577.3502692/T**3.5 for rho, T in zip(mat_density_exact, mat_temp_exact)]
+plot_solution(x_coord, opacity, x_coord_exact, opacity_exact, x_offset[-1], 'opacity', nb_cells[-1])
 #plot_visc_coeff(x_coord, 'mach-3-nel-2700-cells0.csv', [3,2], nb_cells[-1])
 #plot_opacity(x_coord, 'mach-3-nel-2700-cells0.csv', 5, nb_cells[-1])
 #plot_visc_coeff(x_coord, 'visc-coeff-nel-1600-points0.csv', var_index, nb_cells[-1])

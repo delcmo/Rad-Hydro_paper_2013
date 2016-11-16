@@ -1,5 +1,5 @@
-#python script-plot-1d-data.py mass-diff
+python script-plot-1d-data.py mass-diff
 
-#python script-plot-1d-data.py energy-diff
+python script-plot-1d-data.py energy-diff
 
 python plot-norms.py mass-diff-mach-1p05-l1-l2-norms.txt energy-diff-mach-1p05-l1-l2-norms.txt mass-energy-diff-scd-method

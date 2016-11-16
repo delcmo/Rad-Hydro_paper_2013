@@ -170,12 +170,14 @@ file_list.append('mach-1p05-nel-160-points0.csv')
 #file_list.append('mach-1p05-nel-170-points0.csv')
 #file_list.append('mach-1p05-nel-180-points0.csv')
 file_list.append('mach-1p05-nel-190-points0.csv')
-file_list.append('mach-1p05-nel-200-points0.csv')
-file_list.append('mach-1p05-nel-210-points0.csv')
+#file_list.append('mach-1p05-nel-200-points0.csv')
+#file_list.append('mach-1p05-nel-210-points0.csv')
 file_list.append('mach-1p05-nel-220-points0.csv')
-file_list.append('mach-1p05-nel-230-points0.csv')
-file_list.append('mach-1p05-nel-240-points0.csv')
+#file_list.append('mach-1p05-nel-230-points0.csv')
+#file_list.append('mach-1p05-nel-240-points0.csv')
 file_list.append('mach-1p05-nel-250-points0.csv')
+
+#file_list.append('mach-1p05-nel-500-points0.csv')
 
 # SET SOME VARIABLES
 dir_path = os.getcwd()
@@ -262,7 +264,7 @@ for file in file_list:
   print 'x offset for', file, 'is', x_offset[-1]
   print 'mass difference for', file, 'is', mass_diff
   # save density plot
-  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1], True, mass_diff)
+#  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1], True, mass_diff)
 #  plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, 0.0, 'density', nb_cells[-1], False, mass_diff)
   # compute the error norms for density
   l1_norm, l2_norm = compute_error_norms(x_offset[-1], x_coord, mat_density, x_coord_exact, mat_density_exact, quad_order, interp_kind)
@@ -297,10 +299,11 @@ plot_error_norms(nb_cells, L1_norm_total, L2_norm_total, 'total')
 
 # PLOT MATERIAL DENSITY AND TEMPERATURE, RADIATION TEMPERATURE AND MACH NUMBER
 #plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density')
+plot_solution(x_coord, mat_density, x_coord_exact, mat_density_exact, x_offset[-1], 'density', nb_cells[-1])
 plot_solution(x_coord, radiation, x_coord_exact, radiation_exact, x_offset[-1], 'radiation', nb_cells[-1])
 plot_solution(x_coord, mach_nb, x_coord_exact, mach_nb_exact, x_offset[-1], 'mach-number', nb_cells[-1])
 plot_solution(x_coord, mat_temp, x_coord_exact, mat_temp_exact, x_offset[-1], 'mat-temp', nb_cells[-1])
-plot_visc_coeff(x_coord, 'test0.csv', var_index, nb_cells[-1])
+#plot_visc_coeff(x_coord, 'test0.csv', var_index, nb_cells[-1])
 
 # save L1 norm values
 file_name = out_file+'-l1-l2-norms.txt'
