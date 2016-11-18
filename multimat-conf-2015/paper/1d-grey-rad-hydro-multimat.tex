@@ -114,11 +114,11 @@ Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encount
 The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
 %With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
 that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
-conservation laws \cite{Lax}. \tcb{This approach, however, does not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
+conservation laws \cite{Lax}.
 %In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 %measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 %$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
-Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution.
+Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution. \tcb{This approach, however, does not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
 %
 %\tcb{The Borel measure of 
 %the non-conservative product is denoted by $\left[ A(U) \partial_x U \right]_\phi$ and is defined as
@@ -327,7 +327,7 @@ The heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
 & \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{left} = \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{right} \, , \nonumber
 \end{eqnarray}
 %
-where $left$ and $right$ correspond to the pre- and post-shock states, respectively. Note that $\epsilon$ remains smooth across jump whereas the material properties $\rho$, $u$, $P$ and $T$ may be discontinuous.}
+where $left$ and $right$ correspond to the pre- and post-shock states, respectively. Note that $\epsilon$ remains smooth across jump whereas the material properties $\rho$, $u$, $P$ and $T$ may be discontinuous as observed in the numerical results presented in \sct{sec:num-rslt}.}
 %------------------------------------------------------------------
 \subsection{Entropy minimum principle:}\label{sec:ent-min}
 %------------------------------------------------------------------
