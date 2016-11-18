@@ -75,7 +75,7 @@ entropy viscosity method ; viscous stabilization ; semi-analytical solution; con
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 Accurately solving the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations is an area of great interest and substantial ongoing research \cite{Balsara,LowrieMorelHittinger,LowrieEdwards,EdwardsMorelLowrie}.
-The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. 
+The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. \tcb{A non-exhaustive list of domain of applications includes astrophysics, inertial confinement fusion (ICF) and flows with high temperatures (REFs).}
 The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (expressed in units of $cm^{-1}$) becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) equations. 
 The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
 % and can be written in a conservative form. 
@@ -84,7 +84,8 @@ Numerically solving for the GRH equations is challenging for at least three reas
 \item
 the solution technique for the GRH equations should preserve the wave structure of the system; 
 \item
-the system equations without the source terms cannot be written in a conservative form; thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.  Instead, the theory developed by Dal Maso, Le Floch, and Murat (DLM) must be used to rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation and radiation energy density equation;
+the system equations without the source terms cannot be written in a conservative form; thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.  \tcb{This problem can be approached by using either the theory developed by Dal Maso, Le Floch, and Murat (DLM), or a vanishing viscosity method.}
+%The DLM theory \tcb{can} be used to rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation and radiation energy density equation;
 \item
 finally, the numerical scheme devised needs to preserve the equilibrium-diffusion limit (EDL). For an artificial viscosity technique, this means that the dissipative terms must scale appropriately in such a limit, i.e., that the regularized GRH equations 
 devolve to the EDL system of equations with well-scaled artificial dissipative terms.
@@ -110,10 +111,10 @@ As mentioned above, the GRH equations are a  non-conservative hyperbolic system 
 where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of a vector-valued function $f(U): \mathbb{R}^n \to \mathbb{R}^n$ and thus $\frac{\partial f(U)}{\partial U} \ne A(U)$.  
 Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
 \cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. 
-The theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
+The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
 %With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
 that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
-conservation laws \cite{Lax}. 
+conservation laws \cite{Lax}. \tcb{This approach, however, does not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
 %In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 %measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 %$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
@@ -267,7 +268,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. The regularized GRH equations are as follows:
+In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{Jump relations for a steady discontinuity are given in Eq. 12 of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
@@ -316,7 +317,17 @@ P = (\gamma-1) \rho e \ \text{  and  } \ e = C_v T \, .
 \end{equation}
 %
 The heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
+
+\tcr{For completeness, the jump relations of the un-regularized GRH (\eqt{eq:regularized_hyperbolic_GRH}), i.e. without artificial viscous fluxes, are recalled for a steady discontinuity (see also Eq. 12 of \cite{LowrieEdwards}):
 %
+\begin{eqnarray}\label{eq:jump-relations}
+& (\rho u )_{left} = (\rho u )_{right} \, , \nonumber \\
+& (\rho u^2 + P )_{left} = (\rho u^2 + P )_{right} \, , \nonumber \\
+& \left[ u(\rho E + P )\right]_{left} = \left[ u(\rho E + P )\right]_{right} \, , \nonumber \\
+& \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{left} = \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{right} \, , \nonumber
+\end{eqnarray}
+%
+where $left$ and $right$ correspond to the pre- and post-shock states, respectively. Note that $\epsilon$ remains smooth across jump whereas the material properties $\rho$, $u$, $P$ and $T$ may be discontinuous.}
 %------------------------------------------------------------------
 \subsection{Entropy minimum principle:}\label{sec:ent-min}
 %------------------------------------------------------------------
