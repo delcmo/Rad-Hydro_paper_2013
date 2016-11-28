@@ -1,0 +1,104 @@
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb}
+% more math
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsbsy}
+
+\usepackage{color}
+\newcommand{\mt}[1]{\marginpar{\small #1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% new commands
+\newcommand{\nc}{\newcommand}
+% operators
+\renewcommand{\div}{\vec{\nabla}\! \cdot \!}
+\newcommand{\grad}{\vec{\nabla}}
+% latex shortcuts
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bal}{\begin{align}}
+\newcommand{\eali}{\end{align}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+% DGFEM commands
+\newcommand{\jmp}[1]{[\![#1]\!]}                     % jump
+\newcommand{\mvl}[1]{\{\!\!\{#1\}\!\!\}}             % mean value
+\newcommand{\keff}{\ensuremath{k_{\textit{eff}}}\xspace}
+% shortcut for domain notation
+\newcommand{\D}{\mathcal{D}}
+% vector shortcuts
+\newcommand{\vo}{\vec{\Omega}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vn}{\vec{n}}
+\newcommand{\vnk}{\vec{\mathbf{n}}}
+\newcommand{\vj}{\vec{J}}
+% extra space
+\newcommand{\qq}{\quad\quad}
+% common reference commands
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
+\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
+\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
+
+\newcommand{\ud}{\,\mathrm{d}}
+
+\newcommand{\tcr}[1]{\textcolor{red}{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
+\newcommand{\tcg}[1]{\textcolor{green}{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{../wileyj}
+
+\begin{document}
+
+\begin{center}
+{ \Large Answers to Reviewer \# 1}
+\end{center}
+
+\bigskip
+
+\noindent Manuscript \# FLD-16-0027 \\
+Title: ``Regularization of the non-equilibrium Grey Radiation-Hydrodynamic equations with an artificial viscosity method', \\
+{\it International Journal for Numerical Methods in Fluids}\\
+
+\bigskip
+%{\it The References cited in our letter are provided below, at the end of our replies. They can be found in the revised manuscript as well,
+%but with a different citing number (BibTeX renumbers them in each document).}
+%\bigskip
+
+{\color{blue}
+Comments to the Author: \\ 
+1. System (2) being non-conventional the authors may give associated shock conditions. Added details in lines 224-233 do not give much information. Related issues in my former report are not answered by the revised version.\\}
+The jump relations are now given in Section 2.1 at lines 133-137. The same jump relations can also be found in Eq. 12 of \cite{LowrieEdwards}.
+\bigskip
+
+{\color{blue}
+ 2. Lines 20-24 regarding DLM theory of non conservative products. The authors consider that this theory 'must be used to rigorously define, in a weak sense, the non-conservative products ..'. This theory is not general and the author should moderate their considerations. For example it is shown in the following reference that this method is inappropriate:
+Abgrall, R., \& Karni, S. (2010). A comment on the computation of non-conservative products. Journal of Computational Physics, 229(8), 2759-2763\\}
+We moderated the introduction by saying that the DLM theory can be applied but does not guarantee convergence of the numerical solution to the weak solution. We also included the reference you provided for completeness. 
+\bigskip
+
+{\color{blue}
+3. Nothing has been added regarding model's validity:
+\begin{itemize}
+\item is it accurate for flames?
+\item is it appropriate for radiation in air or only in dense matter?
+\end{itemize}
+References (3, 6) do not give that much information.\\}
+
+The general GRH equations (grey nonequilibrium-diffusion radiation coupled to hydro) are a slightly relaxed version of the equilibrium-diffusion approximation (EDA), which assumes:
+\begin{enumerate}
+\item the photon mean-free-path is small compared to the size of the system (optically thick)
+\item the material and radiation are in thermal equilibrium
+\item the radiation flux is time-independent diffusive (F = - $\grad$ E, and if in the lab-frame then add the radiation enthalpy, 4 ar u $T^4 / 3$)
+\item the radiation pressure is isotropic.
+\end{enumerate}
+The obvious distinction between the EDA your GRH equations is that assumption 2) is no longer enforced, but it is still assumed that the system is optically thick.  But this is more a statement about the assumptions that go into these specific equations, than a statement about whether the computational algorithm 'will' (although it might be expected to) produce reasonable solutions for a given physical environment. 
+
+\bibliography{../mybibfile}
+\end{document}
+
