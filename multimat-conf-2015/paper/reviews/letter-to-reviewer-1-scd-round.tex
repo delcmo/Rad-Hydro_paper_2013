@@ -79,7 +79,7 @@ The jump relations are now given in Section 2.1 at lines 133-137. The same jump 
 {\color{blue}
  2. Lines 20-24 regarding DLM theory of non conservative products. The authors consider that this theory 'must be used to rigorously define, in a weak sense, the non-conservative products ..'. This theory is not general and the author should moderate their considerations. For example it is shown in the following reference that this method is inappropriate:
 Abgrall, R., \& Karni, S. (2010). A comment on the computation of non-conservative products. Journal of Computational Physics, 229(8), 2759-2763\\}
-We moderated the introduction by saying that the DLM theory can be applied but does not guarantee convergence of the numerical solution to the weak solution. We also included the reference you provided for completeness. 
+We moderated the introduction by saying that the DLM theory can be applied (instead of \emph{must be applied} in the previous version of the manuscript) to non-conservative system of equations but does not guarantee convergence of the numerical solution to the weak solution (see lines 23-25 and lines 50-51). We also included the reference you provided for completeness (see lines 50-51).
 \bigskip
 
 {\color{blue}
@@ -89,12 +89,13 @@ We moderated the introduction by saying that the DLM theory can be applied but d
 \item is it appropriate for radiation in air or only in dense matter?
 \end{itemize}
 References (3, 6) do not give that much information.\\}
+We added a sentence in the introduction of the manuscript in lines 12-14 regarding the common domains of applications of the GRH with appropriate references.
 
 The general GRH equations (grey nonequilibrium-diffusion radiation coupled to hydro) are a slightly relaxed version of the equilibrium-diffusion approximation (EDA), which assumes:
 \begin{enumerate}
-\item the photon mean-free-path is small compared to the size of the system (optically thick)
-\item the material and radiation are in thermal equilibrium
-\item the radiation flux is time-independent diffusive (F = - $\grad$ E, and if in the lab-frame then add the radiation enthalpy, 4 ar u $T^4 / 3$)
+\item the photon mean-free-path is small compared to the size of the system (optically thick),
+\item the material and radiation are in thermal equilibrium,
+\item the radiation flux is time-independent diffusive (F = - $\grad$ E, and if in the lab-frame then add the radiation enthalpy, $4T^4\grad \vec{u} / 3$),
 \item the radiation pressure is isotropic.
 \end{enumerate}
 The obvious distinction between the EDA your GRH equations is that assumption 2) is no longer enforced, but it is still assumed that the system is optically thick.  But this is more a statement about the assumptions that go into these specific equations, than a statement about whether the computational algorithm 'will' (although it might be expected to) produce reasonable solutions for a given physical environment. 
