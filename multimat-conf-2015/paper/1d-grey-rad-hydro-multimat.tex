@@ -270,7 +270,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{Jump relations for a steady discontinuity are given in Eq. 12 of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
+In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{First option: Jump relations for a steady discontinuity are given in Eq. 12 of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
@@ -320,7 +320,7 @@ P = (\gamma-1) \rho e \ \text{  and  } \ e = C_v T \, .
 %
 The heat ratio $\gamma$ and the heat capacity $C_v$ are assumed constant.
 
-\tcr{For completeness, the jump relations of the un-regularized GRH (\eqt{eq:regularized_hyperbolic_GRH}), i.e. without artificial viscous fluxes, are recalled for a steady discontinuity (see also Eq. 12 of \cite{LowrieEdwards}):
+\tcr{Second option: For completeness, the jump relations of the un-regularized GRH (\eqt{eq:regularized_hyperbolic_GRH}), i.e. without artificial viscous fluxes, are recalled for a steady discontinuity (see also Eq. 12 of \cite{LowrieEdwards}):
 %
 \begin{eqnarray}\label{eq:jump-relations}
 & (\rho u )_{left} = (\rho u )_{right} \, , \nonumber \\
