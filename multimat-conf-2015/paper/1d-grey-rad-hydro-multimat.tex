@@ -25,7 +25,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \runningheads{M.~O.~Delchini, J.~C.~Ragusa, J.~M.~Ferguson}{Viscous Regularization for Grey Radiation-Hydrodynamics}
 
-\title{Viscous Regularization of the non-equilibrium Grey Radiation-Hydrodynamics}
+\title{Viscous regularization of the full non-equilibrium grey radiation-hydrodynamic equations}
 
 \author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}, Jim Ferguson\affil{2}}
 
@@ -112,15 +112,16 @@ As mentioned above, the GRH equations are a  non-conservative hyperbolic system 
 %
 where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of a vector-valued function $f(U): \mathbb{R}^n \to \mathbb{R}^n$ and thus $\frac{\partial f(U)}{\partial U} \ne A(U)$.  
 Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
+Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
 \cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. 
-The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \partial_x U$,
+The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \partial_x U$;
 %With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
 that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
 conservation laws \cite{Lax}.
 %In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 %measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 %$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
-Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution. \tcb{This approach, however, does not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
+Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution. \tcb{This approach, however, may not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
 %
 %\tcb{The Borel measure of 
 %the non-conservative product is denoted by $\left[ A(U) \partial_x U \right]_\phi$ and is defined as
@@ -270,7 +271,7 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %------------------------------------------------------------------
 The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{First option: Jump relations for a steady discontinuity are given in Eq. 12 of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
+In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{First option: Jump relations for a steady shock are given in Eq.~(12) of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
