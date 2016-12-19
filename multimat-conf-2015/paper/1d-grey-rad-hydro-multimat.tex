@@ -16,16 +16,22 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \input{inputs/definitions.tex}
 \bibliographystyle{wileyj}
 \usepackage{lineno}
+% The packages below were introduced by JMF during the editing process, and should not affect the final markup of the paper.
+\usepackage{soul}
+\usepackage{xcolor}
+\usepackage{marginnote}
+% The packages above were introduced by JMF during the editing process, and should not affect the final markup of the paper.
 \linenumbers
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %
 \begin{document}
+\setstcolor{red}
 %
 
 \runningheads{M.~O.~Delchini, J.~C.~Ragusa, J.~M.~Ferguson}{Viscous Regularization for Grey Radiation-Hydrodynamics}
 
-\title{Viscous regularization of the full non-equilibrium grey radiation-hydrodynamic equations}
+\title{Viscous regularization of the full {\color{red} set of} nonequilibrium{\color{red} -diffusion} grey radiation-hydrodynamic equations}
 
 \author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}, Jim Ferguson\affil{2}}
 
@@ -38,17 +44,15 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 %-------------------------
 \begin{abstract}
-In \cite{our_jcp_radhy_paper}, a viscous regularization technique based on the local entropy residual was
-proposed to stabilize the non-equilibrium Grey Radiation-Hydrodynamic equations using an artificial viscosity technique. 
-The viscosity coefficient is modulated by the local entropy production and peaks at shock locations. 
+{\color{red} JMF comment: Over half of the summary discusses paper [1], and I think gives short-shrift to what is done in this paper, especially since, I think, the summary is meant to summarize the current paper.}
+
+In \cite{our_jcp_radhy_paper}, a viscous regularization technique{\color{red} ,} based on the local entropy residual{\color{red} ,} was proposed to stabilize the nonequilibrium{\color{red} -diffusion} Grey Radiation-Hydrodynamic equations using an artificial viscosity technique. 
+The viscosity coefficient is modulated by the local entropy production{\color{red} ,} and peaks at shock locations. 
 The dissipative fluxes added in this viscous regularization are consistent with the entropy minimum principle. 
-However, the work in \cite{our_jcp_radhy_paper} was only based on the hyperbolic parts
-of the Grey Radiation-Hydrodynamic equations and thus omitted the relaxation and diffusion terms 
-present in the material energy and radiation energy equations. 
+However, the work in \cite{our_jcp_radhy_paper} was only based on the hyperbolic parts of the Grey Radiation-Hydrodynamic equations, and thus omitted the relaxation and diffusion terms present in the material energy and radiation energy equations. 
 %
-Here, we extend the method and derive an entropy minimum principle for the full non-equilibrium Grey Radiation Hydrodynamic 
-equations. This further strengthens the potential and applicability of the entropy viscosity method as a stabilization technique 
-for radiation-hydrodynamic shock simulations.
+Here, we extend the method and derive an entropy minimum principle for the full {\color{red} set of} nonequilibrium{\color{red} -diffusion} Grey Radiation Hydrodynamic equations.
+This further strengthens the \st{potential and} applicability of the entropy viscosity method as a stabilization technique for radiation-hydrodynamic shock simulations.
 %\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 %\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
 Radiative shock calculations using constant and temperature-dependent opacities are 
@@ -74,54 +78,56 @@ entropy viscosity method ; viscous stabilization ; semi-analytical solution; con
 \label{sec:intro}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-Accurately solving the non-equilibrium Grey diffusion Radiation-Hydrodynamic (GRH) equations is an area of great interest and substantial ongoing research \cite{Balsara,LowrieMorelHittinger,LowrieEdwards,EdwardsMorelLowrie}.
-The GRH equations form a non-conservative multi-physics system of equations that couples the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation. \tcb{
-Radiation-hydrodynamics is of importance in optically-thick astrophysical environments \cite{Mihalas}, inertial confinement fusion \cite{atzeniMeyer2004}, optically-thick radiative shocks \cite{LowrieEdwards}, and optically-thick high-energy-density-physics environments \cite{drake2006}}.
+Accurately solving the nonequilibrium{\color{red} -diffusion} Grey \st{diffusion} Radiation-Hydrodynamic (GRH) equations is an area of great interest and substantial ongoing research \cite{Balsara,LowrieMorelHittinger,LowrieEdwards,EdwardsMorelLowrie}.
+The GRH equations form a non-conservative multi-physics system of equations \st{that} {\color{red} which} couple\st{s} the inviscid hydrodynamic equations, i.e., Euler equations, with a parabolic radiation-diffusion equation.
+{\color{red} The GRH equations} \tcb{\st{Radiation-hydrodynamics is}} {\color{red} are} \tcb{of importance} {\color{red} when modeling} \tcb{\st{in} optically-thick astrophysical environments \cite{Mihalas}, inertial confinement fusion \cite{atzeniMeyer2004}, optically-thick radiative shocks \cite{LowrieEdwards}, and optically-thick high-energy-density-physics environments \cite{drake2006}}.
 %\tcb{A non-exhaustive list of domain of applications includes astrophysics, inertial confinement fusion (ICF) and flows with high temperatures (REFs).}
-The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (expressed in units of $cm^{-1}$) becomes large, the GRH equations devolve to the Equilibrium-Diffusion Limit (EDL) equations. 
-The EDL can be obtained from the GRH by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
-% and can be written in a conservative form. 
-Numerically solving for the GRH equations is challenging for at least three reasons: 
+The coupling between the two physics is ensured through relaxation terms. When the configuration is optically thick, i.e., the absorption opacity (expressed in units of $cm^{-1}$) becomes large, the GRH equations devolve to the {\color{red} equations describing the} Equilibrium-Diffusion {\color{red} Approximation (EDA)} \st{Limit (EDL) equations}.
+The ED{\color{red} A}\st{L} can be obtained from the GRH equations by performing a Chapman-Enskog expansion (see Section 4 of \cite{LowrieMorel} or Section 2.2 of \cite{our_jcp_radhy_paper}).
+% and can be wrtten in a conservative form. 
+Numerically solving for the GRH equations is {\color{red} computationally} challenging for at least three reasons: 
 \begin{enumerate}
 \item
-the solution technique for the GRH equations should preserve the wave structure of the system; 
+\st{t}{\color{red} T}he solution technique for the GRH equations should preserve the wave structure of the system{\color{red} .}\st{;}
 \item
-the system equations without the source terms cannot be written in a conservative form; thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.  \tcb{This problem can be approached by using either the theory developed by Dal Maso, Le Floch, and Murat (DLM), or a vanishing viscosity method.}
+\st{t}{\color{red} T}he system of equations without the {\color{red} radiation(?)} source terms cannot be written in a conservative form, and thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.
+\tcb{This problem can be approached by using either the theory developed by Dal Maso, Le Floch, and Murat (DLM), or a vanishing viscosity method.}
 %The DLM theory \tcb{can} be used to rigorously define, in a weak sense, the non-conservative products (\cite{dlm}) present in the material energy equation and radiation energy density equation;
 \item
-finally, the numerical scheme devised needs to preserve the equilibrium-diffusion limit (EDL). For an artificial viscosity technique, this means that the dissipative terms must scale appropriately in such a limit, i.e., that the regularized GRH equations 
-devolve to the EDL system of equations with well-scaled artificial dissipative terms.
+\st{f}{\color{red} F}inally, the numerical scheme devised needs to asymptotically preserve the first-order exactness of the {\color{red} EDA} \st{equilibrium-diffusion limit (EDL)}.
+For an artificial viscosity technique, this means that the dissipative terms must scale appropriately in {\color{red} the asymptotic} \st{uch a} limit, i.e., that the regularized GRH equations devolve to the ED{\color{red} A}\st{L} system of equations with well-scaled artificial dissipative terms.
 \end{enumerate}
 %
 Significant research efforts regarding the GRH equations have been devoted to the elaboration of numerical solution schemes, focusing mostly on approximate Riemann solvers utilized in the context of discontinuous spatial discretization techniques.
-In \cite{Balsara}, an approximate Riemann solver is developed for the GRH equations by considering the frozen approximation that uncouples the two physics, photon radiation and material hydrodynamics, but the validity of such an approximation may be questionable in the equilibrium-diffusion limit.
-Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the presence of relaxation terms.
-Edwards et al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the Radiation-Hydrodynamic equations where an approximate Riemann solver along with a flux limiter was used to resolve shocks and other waves. 
-Their results visually showed good agreement with the semi-analytical solutions of Lowrie and Edwards \cite{LowrieEdwards}.
+In \cite{Balsara}, an approximate Riemann solver is developed for the GRH equations by considering the ``frozen'' approximation{\color{red}, which}\st{that un}{\color{red} de}couples the \st{two} physics {\color{red} of radiation transport from the material hydrodynamics.}\st{, photon radiation and material hydrodynamics, but}
+{\color{red} However,} the validity of such an approximation may be questionable in the {\color{red} asymptotic EDL.}\st{equilibrium-diffusion limit}
+{\color{red} In order to address this problem(?),} Lowrie et al. \cite{LowrieMorelHittinger} proposed a generalized Riemann solver that accounts for the presence of relaxation terms.
+Edwards et al. \cite{EdwardsMorelLowrie} employed a two-stage semi-implicit IMEX scheme to solve the {\color{red} GRH(?)} \st{Radiation-Hydrodynamic} equations{\color{red} ,} where an approximate Riemann solver along with a flux limiter was used to resolve shocks and other waves. 
+Their results visually showed good agreement with the {\color{red} nonequilibrium-diffusion} semi-analytic\st{al} {\color{red} radiative shock} solutions {\color{red} developed by} \st{of} Lowrie and Edwards \cite{LowrieEdwards}.
 %
 %In this paper, we will consider the first-order hyperbolic terms of the GRH equations which yield a non-conservative hyperbolic system of equations. This method
 %could be questioned by noticing that the radiation energy density variable cannot develop shock because of the diffusion term in the radiation energy density equation:\tcb{to finish}
 %
 
-As mentioned above, the GRH equations are a  non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} 
+As mentioned above, the GRH equations are a non-conservative hyperbolic system of equations of the form given in \eqt{eq:nc-syst-eq} 
 %for which the theory developed by DLM \cite{dlm} is needed in order to define, in a weak sense, the non-conservative products $A(U) \partial_x U$:
 %
 \begin{equation}\label{eq:nc-syst-eq}
-\partial_t U + A(U) \partial_x U = 0 \, ,\ U \in \Omega \,,
+\partial_t U + A(U) \, \partial_x U = 0 \, , \quad U \in \Omega \,,
 \end{equation}
 %
-where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be written in a conservative form, i.e., matrix $A(U)$ is not the jacobian matrix of a vector-valued function $f(U): \mathbb{R}^n \to \mathbb{R}^n$ and thus $\frac{\partial f(U)}{\partial U} \ne A(U)$.  
-Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
+where $U$ is a vector solution and $\Omega$ is an open convex set. \eqt{eq:nc-syst-eq} cannot be written in a conservative form, i.e., {\color{red} the} matrix $A(U)$ is not the \st{j}{\color{red} J}acobian matrix of a vector-valued function, $f(U): \mathbb{R}^n \to \mathbb{R}^n$, and thus \st{$\frac{\partial f(U)}{\partial U}$} $\partial_U f(U) \ne A(U)$.
+% Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, se 
 Systems of equations of the form given by  \eqt{eq:nc-syst-eq} are often encountered in two-phase flow models, see 
 \cite{Saurel_2009, Ambroso_2012, Zein_2010, Li_2004, Saurel_2001b, Saurel_2001a, GuillardMurrone2003}, for instance. 
-The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \partial_x U$;
+The theory developed by DLM \cite{dlm} \tcb{can be used} to define, in a weak sense, the non-conservative products $A(U) \, \partial_x U$;
 %With the above assumptions, the non-conservative product $A(U) \partial_x U$ is not defined in the sense of distributions, % when considering a Riemann problem, 
 that is, one cannot rigorously define the notions of weak and entropy solutions as is typically done for 
 conservation laws \cite{Lax}.
 %In the theory proposed by DLM, the non-conservative products are defined as a bounded Borel 
 %measure by introducing a Lipschitz family of path $\phi: [0,1] \times \mathbb{R}^n \times \mathbb{R}^n$ such that 
 %$\phi(0, U_L, U_R) = U_L$ and $\phi(1, U_L, U_R) = U_R$, with the solution vectors $U_L$ and $U_R$ denoting the left and the right limit values at the discontinuity. 
-Generally speaking, the main idea is to specify the values of the solution at points of discontinuity so that the non-conservative product admits a weak solution. \tcb{This approach, however, may not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
+Generally speaking, the main idea is to specify the values of the solution at points \st{of discontinuity} {\color{red} where discontinuities occur,} so that the non-conservative product admits a weak solution. \tcb{This approach, however, may not always ensure convergence of the numerical solution to the entropy solution as shown in \cite{abgrall-karni-2010}.}
 %
 %\tcb{The Borel measure of 
 %the non-conservative product is denoted by $\left[ A(U) \partial_x U \right]_\phi$ and is defined as
@@ -146,11 +152,11 @@ Generally speaking, the main idea is to specify the values of the solution at po
 %\tcr{that paragraph about the DLM is super long and then, here, we seem to say we switch to something else. The question for a reader would be: why?} \tcb{We can remove the paragraph starting at "The Borel measure .... "}
 Vanishing viscosity methods have also been extended for non-conservative systems of equations (see Theorem 1 on page 229 of \cite{bianchini_bressan_2005}, as well as \cite{lefloch_1988,alouges_merlet_2004}) 
 and we follow this approach here.
-Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization as follows:
+Consider the  vanishing viscosity solution of \eqt{eq:nc-syst-eq} by adding a parabolic viscous regularization {\color{red} term(?),} as follows:
 %
 \begin{equation}
 \label{eq:nc-syst-eq-visc}
-\partial_t U^\epsilon + A(U^\epsilon) \partial_x U^\epsilon = \epsilon \partial_{xx} U^\epsilon \ , \nonumber
+\partial_t U^\epsilon + A(U^\epsilon) \, \partial_x U^\epsilon = \epsilon \, \partial_{xx} U^\epsilon \ , \nonumber
 \end{equation}
 %
 where $\epsilon$ is a vanishing viscosity coefficient. This approach was first studied by Bianchini et al. \cite{bianchini_bressan_2005} and 
@@ -161,35 +167,29 @@ vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of
 %bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
 %numerical solution to the entropy weak solution. 
 %
-Moreover, Le Floch generalized the notion of entropy 
-condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function 
-and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
-entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative EDL equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as a viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} through an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} for the GRH where 
+Moreover, Le Floch {\color{red} (cite?)} generalized the notion of entropy condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}.
+Examples of applications of the
+entropy inequality to {\color{red} a} non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}.
+\st{In their work,} Bianchini and Le Floch also emphasized that the theory developed for {\color{red} a} non-conservative system of equations remains valid for {\color{red} a} conservative system of equations.
+This remark is of importance for the case where the GRH devolve to {\color{red} the(?)} conservative ED{\color{red} A}\st{L} equations \st{when performing a Chapman-Enskog expansion}.
+Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms\st{, also referred to as a viscous regularization,} can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} through an entropy condition{\color{red} ; this is also referred to as a viscous regularization}.
+This work was previously performed in \cite{our_jcp_radhy_paper} for the GRH equations, where 
 %where an and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
 %The generalization of the entropy inequality to non-conservative hyperbolic systems of equations in \cite{lefloch_1988} is directly applicable to
 %the topic of this paper. In \cite{our_jcp_radhy_paper}, Delchini et al. 
-the numerical discretization of the non-equilibrium Grey Radiation-Hydrodynamics 
-equations was stabilized using the Entropy Viscosity Method (EVM); 
-stabilization is achieved by adding appropriate dissipation terms (viscous fluxes) to the governing laws while ensuring 
-that the entropy minimum principle still holds. 
+the numerical discretization \st{of the non-equilibrium Grey Radiation-Hydrodynamics 
+equations} {\color{red} (isn't this redundant, or are you making a subtle distinction?)} was stabilized using the Entropy Viscosity Method (EVM)\st{;}{\color{red} .} 
+{\color{red} It was shown in that paper that} stabilization is achieved by adding {\color{red} the} appropriate dissipation terms (viscous fluxes) to the governing laws while {\color{red} preserving} \st{ensuring that} the entropy minimum principle \st{still holds}.
 %This requires an entropy inequality (we define later in the introduction what we mean by \emph{entropy minimum principle}). 
-The viscosity coefficients modulate the magnitude of the added dissipation such that it is large in shock regions 
-and vanishingly small elsewhere. In doing so, shocks can be detected and tracked and an adequate amount of viscosity 
-is added locally to stabilize the numerical scheme. 
-The entropy viscosity coefficients are taken proportional to the entropy production while, at the same time, 
-being bounded from above by a first-order viscosity coefficient.
-Because of the similarity between Euler equations and the radiation-hydrodynamic equations, it was conjectured in 
-\cite{our_jcp_radhy_paper} that the entropy 
-viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
+The viscosity coefficients modulate the magnitude of the added dissipation{\color{red} ,} such that it is large in shock regions and vanishingly small elsewhere.
+\st{In doing so}{\color{red} Subsequently}, shocks can be detected and tracked, and an adequate amount of viscosity \st{is}{\color{red} can be} added locally to stabilize the numerical scheme. 
+The entropy viscosity coefficients are \st{taken} proportional to the entropy production \st{while, at the same time, being} {\color{red} and} bounded from above by a first-order viscosity coefficient.
+\st{Because of} {\color{red} Due to} the similarity between {\color{red} the} Euler equations and the radiation-hydrodynamic {\color{red} (GRH?)} equations, it was conjectured in \cite{our_jcp_radhy_paper} that the entropy viscosity method may be a good candidate for resolving shocks occurring in radiation-hydrodynamic phenomena.
 
-The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any entropy spatial 
-minimum, the rate of entropy change of the system must be positive. When
-adding dissipative terms to the governing laws, one must verify that the entropy minimum principle still holds in 
-order to single out the entropy solution. Indeed, the functional form of these dissipation terms
-should be chosen such that this principle is verified. In \cite{our_jcp_radhy_paper}, we followed an approach 
-similar to that of \cite{Balsara, LowrieMorel} 
-where the relaxation and diffusion terms in the radiation and material energy equations were omitted, hence {\it only analyzing the hyperbolic parts} of 
-the non-equilibrium Grey Radiation-Hydrodynamic equations. 
+The crux of the EVM lies in satisfying the entropy minimum principle, which states that, at any entropy \st{spatial}{\color{red} (?)} minimum, the rate of entropy change of the system must be positive.
+When adding dissipative terms to the governing laws, one must verify that the entropy minimum principle still holds in order to single out the entropy solution.
+Indeed, the functional form of these dissipation terms should be chosen such that this principle is verified.
+In \cite{our_jcp_radhy_paper}, we followed an approach similar to that of \cite{Balsara, LowrieMorel} where the relaxation and diffusion terms in the radiation and material energy equations were omitted, {\color{red} and thus,} \st{hence} {\it only {\color{red} the} \st{analyzing the} hyperbolic parts} {\it of the \st{non-equilibrium Grey Radiation-Hydrodynamic} {\color{red} GRH} equations were analyzed}.
 %Numerical results showed that the functional form of the viscous dissipation hence yielded satisfactory results. 
 %
 %The aim of this paper is two-fold. 
@@ -218,12 +218,10 @@ the non-equilibrium Grey Radiation-Hydrodynamic equations.
 %and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}. Examples of applications of the
 %entropy inequality to non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}. In their work, Bianchini and Le Floch also emphasized that the theory developed for non-conservative system of equations remains valid for conservative system of equations. This remark is of importance for the case where the GRH devolve to conservative ED equations when performing a Chapman-Enskog expansion. Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms, also referred to as viscous regularization, can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} by the mean of an entropy condition. This work was previously performed in \cite{our_jcp_radhy_paper} and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
 
-The remainder of the paper is as follows: in \sct{sec:GRH}, we give
-the non-equilibrium Grey Radiation-Hydrodynamic (GRH) equations, recall some of their mathematical properties, 
+The remainder of the paper is as follows: in \sct{sec:GRH}, we give the \st{non-equilibrium Grey Radiation-Hydrodynamic (}GRH\st{)} equations, recall some of their mathematical properties, 
 and review some theoretical aspects pertaining to non-conservative systems of equations. 
-The viscous regularization of the GRH equations {\it based on their hyperbolic parts} is recalled in \sct{sec:GRH}.
-In \sct{sec:VR_new}, the theoretical grounds for using the EVM to solve the 
-Radiation-Hydrodynamic equations is enhanced by demonstrating that the omitted diffusion
+The viscous regularization of the GRH equations {\it based on their hyperbolic parts} is {\color{red} also} recalled in \sct{sec:GRH}.
+In \sct{sec:VR_new}, the theoretical grounds for using the EVM to solve the \st{Radiation-Hydrodynamic} {\color{red} GRH} equations is enhanced by demonstrating that the omitted diffusion
 and relaxation terms do not negatively affect the previously defined dissipative terms and thus still satisfies the 
 entropy condition for non-conservative system of equations. 
 %We also demonstrate that the entropy equation derived for the GRH devolves to the entropy equation obtained from the EDL system of equations. 
@@ -231,11 +229,12 @@ entropy condition for non-conservative system of equations.
 %principle when one considers the {\it full} GRH equations, i.e., with relaxation and diffusion terms present. 
 % We alsoshow that \tcb{add something in the introduction about the ED limit.}
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
-Numerical results and spatial convergence studies are presented in \sct{sec:num-rslt}. We fully describe the process followed 
-to carry out the convergence studies; our present work is the first illustration of such a procedure. Then, numerical results for 
-Mach 1.05 and Mach 3 tests are presented.
+Numerical results and spatial convergence studies are presented in \sct{sec:num-rslt}.
+\st{Then}{\color{red} Specifically}, numerical {\color{red} (viscuous)} results for Mach 1.05 and Mach 3 tests are presented {\color{red} and compared against the semi-analytic radiaive shock solutions developed by Lowrie and Edwards \cite{LowrieEdwards}.}
+{\color{red} We believe} our present work is the first {\color{red} time that their solutions have been used for a convergence analysis, and we describe the process we used to carry out the convergence analysis.} \st{illustration of such a procedure.}
+\st{We fully describe the process followed to carry out the convergence studies;}
 %The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. 
-For each test, the numerical (viscous) solution is compared against a semi-analytical solution and a spatial convergence analysis is presented. 
+\st{For each test, the numerical (viscous) solution is compared against a semi-analytical solution and a spatial convergence analysis is presented.}
 %\tcb{Because the semi-analytical solution obtained from \cite{LowrieEdwards} are invariant under spatial shifts, we propose, in \sct{sec:mthd-conv-test}, a procedure to perform the convergence study.} 
 We recall that, in the remaining of this paper, the opacities are denoted by $\sigma$ and are given in  units of $cm^{-1}$. 
 %with constant opacity, and Mach-3 tests with constant and temperature-dependent opacity are given in \sct{sec:num-rslt} and 
@@ -250,7 +249,7 @@ We recall that, in the remaining of this paper, the opacities are denoted by $\s
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In this section, we provide some background on the non-equilibrium Grey Radiation-Hydrodynamic equations and  its viscous regularization.
+In this section, we \st{provide}{\color{red} review} some {\color{red} mathematical} background \st{on}{\color{red} for} the \st{non-equilibrium Grey Radiation-Hydrodynamic} {\color{red} GRH} equations and \st{its} {\color{red} their} viscous regularization.
 % that was derived in \cite{our_jcp_radhy_paper}.
 %and recall the main results derived in \cite{our_jcp_radhy_paper}. 
 %These will serve as the foundation for the 
@@ -266,12 +265,16 @@ In this section, we provide some background on the non-equilibrium Grey Radiatio
 %\tcr{derived in \cite{our_jcp_radhy_paper} are recalled.}
 
 %------------------------------------------------------------------
-\subsection{The 1-D regularized non-equilibrium grey Radiation-Hydrodynamic equations}
+\subsection{The 1-D regularized non-equilibrium grey Radiation-Hydrodynamic equatins}
+\subsection*{The 1-D regularized {\color{red} GRH} equations {\color{red} (I can't ``strikethrough'' in a subsection title)}}
 \label{sec:GRH-viscid}
-%------------------------------------------------------------------
-The regularized 1-D non-equilibrium Grey Radiation-Hydrodynamic equations, i.e. \emph{with} viscous regularization, are given in \eqt{eq:regularized_hyperbolic_GRH}. We refer the reader to \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper. The viscous fluxes are given on the right-hand-side of each equation and were added to ensure stability of the numerical solution. 
+%-----------------------------------------------------------------
+The regularized 1-D \st{non-equilibrium Grey Radiation-Hydrodynamic} {\color{red} GRH} equations, i.e. \emph{with} viscous regularization {\color{red} (isn't this redundant since you say at the beginning of the sentence that the equations are regularized)}, are given in \eqt{eq:regularized_hyperbolic_GRH}{\color{red} , below}.
+We refer the reader to {\color{red} our previous paper} \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper.
+The viscous fluxes are given on the right-hand-side of each equation and \st{were} {\color{red} are} added to ensure stability of the numerical solution.
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-In other terms, the left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D non-equilibrium Grey Radiation-Hydrodynamic equations that are obtained from the coupling between Euler equations and the radiation transport equation and will be referred to as the  GRH. More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{First option: Jump relations for a steady shock are given in Eq.~(12) of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
+\st{In other terms, t}{\color{red} T}he left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D \st{non-equilibrium Grey Radiation-Hydrodynamic} {\color{red} GRH} equations{\color{red} , which} \st{that} are obtained {\color{red} by} \st{from the} coupling {\color{red} the} \st{between} Euler equations and the radiation {\color{red} momentum and energy equations.}\st{transport equation and will be referred to as the GRH.}
+More details regarding its mathematical properties and its domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. \tcr{First option: Jump relations for a steady shock are given in Eq.~(12) of \cite{LowrieEdwards}}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
 %
