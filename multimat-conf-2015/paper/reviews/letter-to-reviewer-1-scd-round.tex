@@ -82,7 +82,7 @@ We added a reference in Section 2.1 at lines 113-114 for the shock conditions as
 & \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{left} = \left[ \frac{4}{3}u \epsilon - \frac{c}{3\sigma_t} \partial_x \epsilon \right]_{right} \, , \nonumber
 \end{eqnarray}
 %
-where $left$ and $right$ correspond to the pre- and post-shock states, respectively. Note that $\epsilon$ remains smooth across jump whereas the material properties $\rho$, $u$, $P$ and $T$ may be discontinuous as observed in the numerical results presented in the paper.}
+where $left$ and $right$ correspond to the pre- and post-shock states, respectively. Note that $\epsilon$ remains smooth across jump whereas the material properties $\rho$, $u$, $P$ and $T$ may be discontinuous as observed in the numerical results presented in the paper.
 
 \bigskip
 
@@ -101,14 +101,14 @@ We fully agree with you and moderated the introduction by saying that the DLM th
 References (3, 6) do not give that much information.\\}
 We added a sentence in the introduction of the manuscript in lines 12-14 regarding the common domains of applications of the GRH with appropriate references.
 
-The general GRH equations (grey nonequilibrium-diffusion radiation coupled to hydrodynamic equations) are a slightly relaxed version of the equilibrium-diffusion approximation (EDA), which assumes:
-\begin{enumerate}
-\item the photon mean-free-path is small compared to the size of the system (optically thick),
-\item the material and radiation are in thermal equilibrium,
-\item the radiation flux is time-independent diffusive \tcr{what does that mean?} ($\vec{F} \propto - \grad$ E, and if in the lab-frame then add the radiation enthalpy, $4T^4\grad \vec{u} / 3$), \tcr{a coef. is missing between $F$,which, by the way, should be a vector $\vec{F}$. Also, the end of the sentence reads really funny. If in the lab frame, then, by the way, add one more term. It's better to use big picture physics ideas.}
-\item the radiation pressure is isotropic.
-\end{enumerate}
-The obvious distinction between the EDA your GRH equations is that assumption 2) is no longer enforced, but it is still assumed that the system is optically thick.  But this is more a statement about the assumptions that go into these specific equations, than a statement about whether the computational algorithm 'will' (although it might be expected to) produce reasonable solutions for a given physical environment. \tcr{I do not follow how this last sentence is answering one of the reviewer's questions. His comments was about model validity and we seem to embark on a discussion EDA versus GRH} 
+%The general GRH equations (grey nonequilibrium-diffusion radiation coupled to hydrodynamic equations) are a slightly relaxed version of the equilibrium-diffusion approximation (EDA), which assumes:
+%\begin{enumerate}
+%\item the photon mean-free-path is small compared to the size of the system (optically thick),
+%\item the material and radiation are in thermal equilibrium,
+%\item the radiation flux is time-independent diffusive \tcr{what does that mean?} ($\vec{F} \propto - \grad$ E, and if in the lab-frame then add the radiation enthalpy, $4T^4\grad \vec{u} / 3$), \tcr{a coef. is missing between $F$,which, by the way, should be a vector $\vec{F}$. Also, the end of the sentence reads really funny. If in the lab frame, then, by the way, add one more term. It's better to use big picture physics ideas.}
+%\item the radiation pressure is isotropic.
+%\end{enumerate}
+%The obvious distinction between the EDA your GRH equations is that assumption 2) is no longer enforced, but it is still assumed that the system is optically thick.  But this is more a statement about the assumptions that go into these specific equations, than a statement about whether the computational algorithm 'will' (although it might be expected to) produce reasonable solutions for a given physical environment. \tcr{I do not follow how this last sentence is answering one of the reviewer's questions. His comments was about model validity and we seem to embark on a discussion EDA versus GRH} 
 
 \bibliography{../mybibfile}
 \end{document}
