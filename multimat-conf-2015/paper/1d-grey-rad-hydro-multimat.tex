@@ -31,7 +31,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \runningheads{M.~O.~Delchini, J.~C.~Ragusa, J.~M.~Ferguson}{Viscous Regularization for Grey Radiation-Hydrodynamics}
 
-\title{Viscous regularization of the full {\color{red} set of} nonequilibrium{\color{red} -diffusion} grey radiation-hydrodynamic equations}
+\title{Viscous regularization of the full set of nonequilibrium-diffusion grey radiation-hydrodynamic equations}
 
 \author{Marc O. Delchini\affil{1}, Jean C. Ragusa\corrauth\affil{1}, Jim Ferguson\affil{2}}
 
@@ -44,20 +44,18 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 %-------------------------
 \begin{abstract}
-{\color{red} JMF comment: Over half of the summary discusses paper [1], and I think gives short-shrift to what is done in this paper, especially since, I think, the summary is meant to summarize the current paper.}
 
-In \cite{our_jcp_radhy_paper}, a viscous regularization technique{\color{red} ,} based on the local entropy residual{\color{red} ,} was proposed to stabilize the nonequilibrium{\color{red} -diffusion} Grey Radiation-Hydrodynamic equations using an artificial viscosity technique. 
-The viscosity coefficient is modulated by the local entropy production{\color{red} ,} and peaks at shock locations. 
-The dissipative fluxes added in this viscous regularization are consistent with the entropy minimum principle. 
-However, the work in \cite{our_jcp_radhy_paper} was only based on the hyperbolic parts of the Grey Radiation-Hydrodynamic equations, and thus omitted the relaxation and diffusion terms present in the material energy and radiation energy equations. 
+In \cite{our_jcp_radhy_paper}, a viscous regularization technique, based on the local entropy residual, was proposed to stabilize the nonequilibrium-diffusion Grey Radiation-Hydrodynamic equations using an artificial viscosity technique. 
+This viscous regularization is modulated by the local entropy production and is consistent with the entropy minimum principle. 
+However, the work in \cite{our_jcp_radhy_paper} was only based on the hyperbolic parts of the Grey Radiation-Hydrodynamic equations and thus omitted the relaxation and diffusion terms present in the material energy and radiation energy equations. 
 %
-Here, we extend the method and derive an entropy minimum principle for the full {\color{red} set of} nonequilibrium{\color{red} -diffusion} Grey Radiation Hydrodynamic equations.
-This further strengthens the \st{potential and} applicability of the entropy viscosity method as a stabilization technique for radiation-hydrodynamic shock simulations.
+Here, we extend the theoretical grounds for the method and derive an entropy minimum principle for the full set of nonequilibrium-diffusion Grey Radiation Hydrodynamic equations.
+This further strengthens the applicability of the entropy viscosity method as a stabilization technique for radiation-hydrodynamic shock simulations.
 %\tcr{do we want to add the VR of the EDL, I think I removed some of it in jcp} \tcb{I think we just need to add a small paragraph or a few sentences saying that it was done in the previous paper because we will have to say something about the entropy condition for non-conservative system of equations still being valid for conservative system of equations as we did in the 7-equation paper.}
 %\tcr{We also verify that the regularized equations yield the proper equilibrium-diffusion limit, i.e., that the viscous regularization is well-scaled in that limit.}
 Radiative shock calculations using constant and temperature-dependent opacities are 
-compared against semi-analytical reference solutions. % by performing a spatial convergence study. 
-We present a procedure to perform spatial convergence studies of such simulations. % using semi-analytical solutions.%, and apply it to show that the expected convergence rates are achieved for all tests when refining the mesh.}
+compared against semi-analytical reference solutions % by performing a spatial convergence study. 
+and we present a procedure to perform spatial convergence studies of such simulations. % using semi-analytical solutions.%, and apply it to show that the expected convergence rates are achieved for all tests when refining the mesh.}
 \end{abstract}
 %-------------------------
 

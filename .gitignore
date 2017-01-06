@@ -50,3 +50,7 @@ multimat-conf-2015/python-script/constant-cross-section/mach-3/*.eps
 multimat-conf-2015/python-script/constant-cross-section/mach-1p05/*.eps
 multimat-conf-2015/python-script/temp-dpt-cross-section/mach-3/*.eps
 *.pyc
+multimat-conf-2015\paper\latex-files-upload-revision\*
+multimat-conf-2015\paper\latex-files-upload-revision\*\*
+multimat-conf-2015/paper/latex-files-upload-revision/*
+multimat-conf-2015/paper/latex-files-upload-revision/*/*
