@@ -90,7 +90,7 @@ Numerically solving for the GRH equations is computationally challenging for at 
 \item
 The solution technique for the GRH equations should preserve the wave structure of the system.
 \item
-The system of equations without the {\color{red} radiation(?)} source terms cannot be written in a conservative form, and thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.
+The system of equations cannot be written in a conservative form, and thus the notions of weak and entropy solutions cannot be defined in the sense of distributions \cite{dlm, lefloch_1988, lefloch_1989, lefloch_liu_1993, bianchini_bressan_2005}.
 This problem can be approached by using either the theory developed by Dal Maso, Le Floch, and Murat (DLM), or a vanishing viscosity method.
 \item
 Finally, the numerical scheme devised needs to asymptotically preserve the first-order exactness of the EDA.
@@ -164,11 +164,11 @@ vanishing viscosity system is unique as $\epsilon \to 0$ (Theorem 1, page 229 of
 %bounded functions of bounded variation, by introducing an entropy inequality in order to ensure convergence of the 
 %numerical solution to the entropy weak solution. 
 %
-Moreover, Le Floch {\color{red} (cite?)} generalized the notion of entropy condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution \cite{lefloch_1988}.
+Moreover, Le Floch \cite{lefloch_1988} generalized the notion of entropy condition to non-conservative systems of equations in the space of bounded functions of bounded variation by introducing an entropy function and an associated entropy inequality to ensure convergence of the numerical solution to the entropy weak solution.
 Examples of applications of the
 entropy inequality to a non-conservative system of equations are given in Section 4 of \cite{lefloch_1988}.
 Bianchini and Le Floch also emphasized that the theory developed for a non-conservative system of equations remains valid for a conservative system of equations.
-This remark is of importance for the case where the GRH devolve to the \tcr{why? conservative} EDA equations.
+This remark is of importance for the case where the GRH devolve to the EDA equations, which are conservative.
 Based on the above theoretical results by Bianchini and Le Floch, artificial dissipative terms can be derived for the non-conservative system of equations given in \eqt{eq:regularized_hyperbolic_GRH} through an entropy condition; this is also referred to as a viscous regularization.
 This work was previously performed in \cite{our_jcp_radhy_paper} for the GRH equations, where 
 %where an and the main steps are recalled in \sct{sec:GRH} as a prerequisite for \sct{sec:VR_new}.
@@ -227,7 +227,8 @@ entropy condition for non-conservative system of equations.
 %\tcg{The previous sentences have described a scenario in which the pertinent equations ``devolve'' asymptotically to the EDL.  The next sentence references these ``new theoretical results'' appropriate in the EDL, and says they are illustrated by comparing them to the nonequilibrium-diffusion semi-analytic solutions as seen in section 4.  These concepts cannot be compared, and I am afraid that they have been confused.  They can complement each other as separate tests of the equations derived in this paper, but they cannot be used together.  Similar comments are made at the end of section 3.}
 Numerical results and spatial convergence studies are presented in \sct{sec:num-rslt}.
 Specifically, numerical results for Mach 1.05 and Mach 3 tests are presented and compared against the semi-analytic radiative shock solutions developed by Lowrie and Edwards \cite{LowrieEdwards}.
-\tcr{We believe our present work is the first time that their semi-analytic solutions have been used for a convergence analysis in situations with temperature-dependent opacities where a Zeldovich spike occurs and we describe the process we used to carry out the convergence analysis.}
+We believe our present work is the first time that their semi-analytic solutions have been used for a convergence analysis in situations where a Zel'dovich spike occurs 
+(with both constant and temperature- and density-dependent opacities). We provide the procedure used to carry out the convergence analysis.
 %The new theoretical result is illustrated in \sct{sec:num-rslt} with numerical results for Mach 1.05 and Mach 3 tests. 
 %\tcb{Because the semi-analytical solution obtained from \cite{LowrieEdwards} are invariant under spatial shifts, we propose, in \sct{sec:mthd-conv-test}, a procedure to perform the convergence study.} 
 We recall that, in the remaining of this paper, the opacities are denoted by $\sigma$ and are given in  units of $cm^{-1}$. 
@@ -238,12 +239,12 @@ We recall that, in the remaining of this paper, the opacities are denoted by $\s
 %
 %------------------------------------------------------------------
 %------------------------------------------------------------------
-\section{The non-equilibrium Grey Radiation-Hydrodynamic equations: mathematical properties and background}
+\section{The non-equilibrium diffusion Grey Radiation-Hydrodynamic equations: mathematical properties and background}
 \label{sec:GRH}
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 %
-In this section, we review some mathematical properties of the GRH equations and their viscous regularization.
+In this section, we review some mathematical properties of the nonequilibrium-diffusion Grey Radiation-Hydrodynamic equations and their viscous regularization.
 % that was derived in \cite{our_jcp_radhy_paper}.
 %and recall the main results derived in \cite{our_jcp_radhy_paper}. 
 %These will serve as the foundation for the 
@@ -259,14 +260,14 @@ In this section, we review some mathematical properties of the GRH equations and
 %\tcr{derived in \cite{our_jcp_radhy_paper} are recalled.}
 
 %------------------------------------------------------------------
-\subsection{The 1-D regularized nonequilibrium-diffusion GRH equations}
+\subsection{The 1-D regularized nonequilibrium-diffusion Grey Radiation-Hydrodynamic equations}
 \label{sec:GRH-viscid}
 %-----------------------------------------------------------------
 The regularized 1-D GRH equations, i.e. \emph{with} viscous regularization already added, are given in \eqt{eq:regularized_hyperbolic_GRH}, below.
 We refer the reader to our previous paper \cite{our_jcp_radhy_paper} for details on how to derive the viscous regularization that is of interest for the present paper.
 The viscous fluxes are given on the right-hand-side of each equation and have been added to ensure stability of the numerical solution.
 %whereas the physical terms (advection terms, source terms, diffusion term and temporal derivative terms) are given in the lefthand-side of \eqt{eq:regularized_hyperbolic_GRH}. 
-The left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D \tcr{nonequilibrium-diffusion} GRH equations, which are obtained by coupling the Euler equations and the radiation momentum and energy equations.
+The left-hand-side of \eqt{eq:regularized_hyperbolic_GRH} consists of the inviscid 1-D GRH equations, which are obtained by coupling the Euler equations and the radiation momentum and energy equations.
 Additional details regarding their mathematical properties and domain of application can be found in \cite{LowrieMorelHittinger, LowrieMorel}. For example, jump relations for a steady radiative shock are given in Eq.~(12) of \cite{LowrieEdwards}. The regularized GRH equations are as follows:
 %
 \begin{subequations}\label{eq:regularized_hyperbolic_GRH}
@@ -743,7 +744,7 @@ and can shed light on some of the features observed in the numerical results pre
 %\label{sec:ent-cond-full-GRH}
 %------------------------------------------------------------------
 %
-In this Section, an entropy condition is derived for the full GRH, i.e., with relaxation and diffusion terms present.
+In this Section, an entropy condition is derived for the full set of GRH, i.e., with relaxation and diffusion terms present.
 Since we have already established that adding the dissipative terms in the GRH equations yields the positive terms shown on the right-hand side of 
 \eqt{eq:app_entr_eq_non_equil}, we \emph{omit} these viscous terms for brevity in the new derivation below as their contribution to the entropy residual 
 will remain unaffected. Hence, we can focus on the impact that the relaxation and diffusion terms have on the entropy residual equation.
@@ -796,7 +797,7 @@ and thus combine \eqt{eq:GRHmass_}, \eqt{eq:GRHenerg_}, and \eqt{eq:GRHrad_} usi
 %
 If we can prove that the right-hand side of \eqt{eq:entro_eq_all_terms} is unconditionally positive, then the proposed 
 viscous regularization, shown in \eqt{eq:regularized_hyperbolic_GRH}, 
-will also be entropy-minimum satisfying for the full GRH equations. 
+will also be entropy-minimum satisfying for the full set of GRH equations. 
 
 The right-hand side of \eqt{eq:entro_eq_all_terms} contains two terms that we analyze separately. 
 Using the entropy function given in \eqt{eq:ent_equ}, the first term in the right-hand side becomes
@@ -852,7 +853,7 @@ R_e(x,t) = \rho \matder{s} = \Big( \rho s_\epsilon -s_e \Big)  \sigma_a c \left(
 \end{equation}
 which demonstrates that the entropy equation of the {\it full} GRH equations satisfies an entropy inequality and is positive. Consequently, in order to prove positivity of the entropy residual $R_e(x,t)$, a requirement to satisfy an entropy minimum principle, positivity of the density is needed as well. Guermond et al. proved in Lemma 3.1 of \cite{jlg} positivity of the material density $\rho$ when the continuity equation, \eqt{eq:GRHmass}, is regularized by a viscous term of the form $\partial_x ( \kappa \partial_x \rho )$. Here, the continuity equation of the GRH is regularized in the same manner, we can infer that positivity of the material density is ensured. Thus, we have the following:
 %
-\begin{theorem}[Entropy minimum principle for the full GRH equations]
+\begin{theorem}[Entropy minimum principle for the full set of GRH equations]
 \emph{Assume that the initial values of the density $\rho_0$, the internal energy $e_0$ and the radiation energy density $\epsilon_0$ are constant outside some compact set, and that the solution to the regularized GRH equations with source terms is smooth. Assume that \eqt{eq:ineq_ent_eq} and \eqt{eq:app_entr_eq_non_equil} hold. Then, recalling that positivity of the density is ensured by Lemma 3.1 of \cite{jlg}, the entropy minimum principle holds:
 \begin{equation}
 \text{inf} \ s(x,t) \geq \text{inf} \ s_0(x)
@@ -1432,7 +1433,7 @@ We note that both approaches yield similar values of $x_{\text{\text{offset}}}$;
 \begin{center}
 \begin{tabular}{ |c|c|c||c|c|c| }
 \hline
- cells & $\Delta \rho$ & $\Delta (\rho E)_{tot}$ &  cells & $\Delta \rho$ & $\Delta (\rho E_{tot})$ \\ \hline
+ cells & $x_{\text{\text{offset}}}$ ($\Delta \rho$) & $x_{\text{\text{offset}}}$ ($\Delta (\rho E)_{tot}$) &  cells & $x_{\text{\text{offset}}}$ ($\Delta \rho$) & $x_{\text{\text{offset}}}$ ($\Delta (\rho E_{tot})$) \\ \hline
 10 & 2.3092e-03 & 2.3544e-03 & 190 & 1.5716e-04 & 1.5813e-04 \\ \hline
 40 & 5.9536e-04 & 6.0679e-04 & 200 & 1.5123e-04 & 1.5212e-04 \\ \hline
 50 & 4.8484e-04 & 4.9320e-04 & 210 & 1.4586e-04 & 1.4668e-04 \\ \hline
@@ -1468,7 +1469,7 @@ The numerical and semi-analytical density profiles are shown before and after sh
     \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50-plot.eps}
     \caption{}\label{fig:mach-1p05-cst-xs-density-with-shift}
     \end{subfigure}
-    \caption{Material density before (a) and after (b) shifting.\tcr{what are the $\Delta \rho$ values in the plots? They do not correspond to any value in Table 1.}}\label{fig:mach-1p05-shift-vs-non-shift}
+    \caption{Material density before (a) and after (b) shifting.}\label{fig:mach-1p05-shift-vs-non-shift}
 \end{figure}
 %
 %\tcr{if you minimize the absolute value of the difference in mass, the figure 1.b still shows that the 2 solutions are not
@@ -1718,7 +1719,7 @@ Overall, the entropy viscosity coefficient behaves as expected: it is peaked in 
 %------------------------------------------------------------------
 %------------------------------------------------------------------
 In this paper, the theoretical foundation for the application of the entropy viscosity method to the full nonequilibrium-diffusion Grey Radiation Hydrodynamic equations, i.e., including relaxation and source terms, has been strengthened, utilizing the notions of weak solution and entropy condition for non-conservative hyperbolic systems of equations. We show that 
-(i) we still recover an entropy condition that holds for the full GRH equations when borrowing the functional expression of the entropy  $s(\rho,e,\varepsilon)$ previously derived by only considering the hyperbolic parts of the GRH \cite{our_jcp_radhy_paper}, and
+(i) we still recover an entropy condition that holds for the full set of GRH equations when borrowing the functional expression of the entropy  $s(\rho,e,\varepsilon)$ previously derived by only considering the hyperbolic parts of the GRH \cite{our_jcp_radhy_paper}, and
 (ii) the same viscous regularization can be employed to stabilize the GRH equations.
 %  and, (iii) the asymptotic study of the GRH equations is still equivalent to the equilibrium-diffusion limit (EDL) equations.
 Using the above theoretical results, the definition of the first-order and entropy-viscosity coefficients from \cite{our_jcp_radhy_paper} are shown to be still valid. 
