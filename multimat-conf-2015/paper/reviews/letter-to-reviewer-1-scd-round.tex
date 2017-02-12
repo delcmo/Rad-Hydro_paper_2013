@@ -102,8 +102,12 @@ We fully agree with you and moderated the introduction by saying that the DLM th
 References (3, 6) do not give that much information.\\}
 We added a sentence in the introduction of the manuscript in lines 12-15 regarding the application domains of the GRH with appropriate references.\\
 
-The GRH equations contain ``$u/c$'' terms (e.g., $u/(3c) \partial_x \epsilon$, where I divided by $c$ to make the terminology ``$u/c$'' obvious). 
-These terms typically come into play when temperatures exceed the million-degree mark and the material kinetic energy is significantly affected 
+The GRH equations combine non-relativistic material (Euler) equations with relativistic (photon) energy equations. Because opacities (probabilities of interaction) are defined/computed with respect to a material at rest, they cannot be directly used to compute interaction rates in the laboratory frame where the material can be moving with a sizeable speed \cite{castor,mihalas}. However, in the co-moving frame (the frame having the particle velocity measured in a local frame that is at rest with respect to the material), the standard opacity definition applies. A Lorentz transformation is then applied to obtain the interaction rates in the laboratory frame.  For a variety of reasons, it is numerically advantageous to work with the laboratory-frame equation. These equations are then simplified by expanding terms in $\mathcal{O}(u/c)$. The GRH equations are frequency-integrated 
+equations that preserve the equilibrium-diffusion limit and are correct to order $\mathcal{O}(u/c)$.
+%The GRH equations contain ``$u/c$'' terms (e.g., $u/(3c) \partial_x \epsilon$, where I divided by $c$ to make the terminology ``$u/c$'' obvious). 
+% These ``$u/c$'' terms (e.g., $u/(3c) \partial_x \epsilon$) typically come into play when temperatures 
+It is necessary to use the GRH (or more complex forms of radiation-hydrodynamics equations) 
+when temperatures exceed the million-degree mark and the material kinetic energy is significantly affected 
 by radiation momentum deposition. This is the situation in astrophysical environments and in high-energy high-density experiments, but not necessarily 
 in combustion and flame modeling. Moreover, combustion/flame modeling oftentimes needs photon spectral information which requires that frequency-dependent (not grey) 
 equations are solved.
