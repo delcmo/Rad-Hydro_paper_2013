@@ -12,8 +12,123 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
-\input{packages.tex}
-\input{definitions.tex}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{xspace}
+\usepackage{subcaption}
+\usepackage[titletoc,title]{appendix}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage{amstext}
+\usepackage{amsbsy}
+\usepackage{mathbbol} 
+\def\fxnote#1{\marginpar{\textcolor{green}{#1}}}
+\def\fxwarning#1{\marginpar{\textcolor{red}{#1}}}
+\usepackage{placeins}
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+%
+%=================================================================================================
+% new commands
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\newcommand{\nc}{\newcommand}
+
+% operators
+\renewcommand{\div}{\mbold{\nabla}\! \cdot \!}
+\newcommand{\grad}{\mbold{\nabla}}
+\newcommand{\divv}[1]{\boldsymbol{\nabla}^{#1}\! \cdot \!}
+\newcommand{\gradd}[1]{\mbold{\nabla}^{#1}}
+\newcommand{\mbold}[1]{\boldsymbol#1}
+% latex shortcuts
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bal}{\begin{align}}
+\newcommand{\eali}{\end{align}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\usepackage{amsthm}
+\newtheorem*{remark}{Remark}
+\newcommand{\Us}{\textrm{U}}
+% DGFEM commands
+\newcommand{\jmp}[1]{[\![#1]\!]}                     % jump
+\newcommand{\mvl}[1]{\{\!\!\{#1\}\!\!\}}             % mean value
+\newcommand{\keff}{\ensuremath{k_{\textit{eff}}}\xspace}
+% shortcut for domain notation
+\newcommand{\D}{\mathcal{D}}
+% vector shortcuts
+\newcommand{\vo}{\mbold{\Omega}}
+\newcommand{\vr}{\mbold{r}}
+\newcommand{\vn}{\mbold{n}}
+\newcommand{\vnk}{\mbold{\mathbf{n}}}
+\newcommand{\vj}{\mbold{J}}
+\newcommand{\eig}[1]{\| #1 \|_2}
+%
+\newcommand{\EI}{\mathcal{E}_h^i}
+\newcommand{\ED}{\mathcal{E}_h^{\partial \D^d}}
+\newcommand{\EN}{\mathcal{E}_h^{\partial \D^n}}
+\newcommand{\ER}{\mathcal{E}_h^{\partial \D^r}}
+\newcommand{\reg}{\textit{reg}}
+%
+\newcommand{\norm}{\textrm{norm}}
+\renewcommand{\Re}{\textrm{Re}}
+\newcommand{\Pe}{\textrm{P\'e}}
+\renewcommand{\Pr}{\textrm{Pr}}
+\renewcommand{\Us}{\mathbb{C}_\infty}
+\newcommand{\ar}{\ensuremath{a_R}}
+%
+\newcommand{\resi}{R}
+%\newcommand{\resinew}{\tilde{D}_e}
+\newcommand{\resinew}{\widetilde{\resi}}
+\newcommand{\resisource}{\widetilde{\resi}^{source}}
+\newcommand{\matder}[1]{\frac{\textrm{D} #1}{\textrm{D} t}}
+%
+% extra space
+\newcommand{\qq}{\quad\quad}
+% common reference commands
+\newcommand{\eqt}[1]{Eq.~(\ref{#1})}                     % equation
+\newcommand{\eqts}[1]{Eqs.~(\ref{#1})}                     % equation
+\newcommand{\fig}[1]{Fig.~\ref{#1}}                      % figure
+\newcommand{\tbl}[1]{Table~\ref{#1}}                     % table
+\newcommand{\sct}[1]{Section~\ref{#1}}                   % section
+\newcommand{\app}[1]{Appendix~\ref{#1}}                   % appendix
+\newcommand{\theo}[1]{Theorem~\ref{#1}}                   % theorem
+%
+\newcommand{\ie}{i.e.,\@\xspace}
+\newcommand{\eg}{e.g.,\@\xspace}
+\newcommand{\psc}[1]{{\sc {#1}}}
+\newcommand{\rs}{\psc{R7}\xspace}
+%
+\newcommand\br{\mathbf{r}}
+%\newcommand{\tf}{\varphi}
+\newcommand{\tf}{b}
+%
+\newcommand{\sdd}{\ensuremath{\rho^{-2}\partial_{\rho}(\rho^2 \partial_{\rho} s)}}
+\newcommand{\sddhat}{\ensuremath{\hat{\rho}^{-2}\partial_{\hat{\rho}}(\hat{\rho}^2 \partial_{\hat{\rho}} \hat{s})}}
+\newcommand{\sde}{\ensuremath{\partial_{\rho e} s}}
+\newcommand{\sdehat}{\ensuremath{\partial_{\hat{\rho} \hat{e}} \hat{s}}}
+\newcommand{\see}{\ensuremath{\partial_{e e} s}}
+\newcommand{\seehat}{\ensuremath{\partial_{\hat{e} \hat{e}} \hat{s}}}
+\newcommand{\srr}{\ensuremath{\partial_{\epsilon \epsilon} s}}
+\newcommand{\srrhat}{\ensuremath{\partial_{\hat{\epsilon} \hat{\epsilon}} \hat{s}}}
+%
+\newcommand{\tcr}[1]{\textcolor{red}{#1}}
+\newcommand{\tcb}[1]{\textcolor{blue}{#1}}
+\newcommand{\tcg}[1]{\textcolor{green}{#1}}
+\newcommand{\mt}[1]{\marginpar{ {\tiny #1}}}
+
+\newtheorem{theorem}{Theorem}[section]%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{wileyj}
 \usepackage{lineno}
 % The packages below were introduced by JMF during the editing process, and should not affect the final markup of the paper.
@@ -786,7 +901,55 @@ The authors would like to acknowledge Robert Lowrie (LANL), Bojan Popov (TAMU), 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
-\input{appendix_A.tex}
+
+\section{Implementation of boundary conditions} \label{App:AppendixA}
+
+This appendix deals with the implementation of the boundary conditions for the Grey Radiation-Hydrodynamic equations solved with a \emph{continuous Galerkin finite element method} and with an \emph{implicit temporal solver}. The boundary condition terms arise from the following conservative terms:
+%
+\begin{equation}\label{eq:bc-fluxes}
+F(U) + D(U) = 
+\begin{bmatrix}
+\rho u \\
+\rho u^2 + P + \frac{\epsilon}{3} \\
+u \left( \rho E + P \right) \\
+\frac{4}{3} u \epsilon
+\end{bmatrix}
++  
+\begin{bmatrix}
+0 \\
+0 \\
+0 \\
+- \frac{c}{3 \sigma_t} \partial_x \epsilon
+\end{bmatrix}
+\,.
+\end{equation}
+%
+To discretize the conservative fluxes F(U) and D(U) in a finite element approach, one multiplies by a test function $\phi$, and integrates by parts over the computational domain. The resulting boundary terms are as follows:
+%
+\begin{eqnarray}
+\left[\left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{l} - \left[ \left(F(U)+D(U)\right) \cdot \vec{n} \ \phi \right]_{r} \, ,
+\end{eqnarray}
+%
+where $\vec{n}$ is the outward normal at the left $l$ and right $r$ boundaries. 
+In the following sections, we first give the implementation of the boundary conditions for the first-order differential terms, i.e., the advection terms, and then deal with the second-order differential term found in the radiation-diffusion equation. 
+%
+\subsection{Implementation of the boundary terms for $F(U)$}
+%
+Study of the hyperbolic term of the 1-D GRH equations yield four eigenvalues that are $\lambda_{1,2}=u$ and $\lambda_{3,4}=u \pm c_m$. The sign of the eigenvalues inform us on how the physical information travel in the computational domain and at the boundaries. We consider in the appendix the cases of a left supersonic and a right subsonic boundaries as they are of interest to the tests presented in this paper. Under the assumption of a supersonic left boundary condition ($u \geq c_m$), all eigenvalues are positive and no physical information leaves the computational domain. As a result, four boundary values, ($\rho_{l, user}, u_{l, user}, P_{l, user}, \epsilon_{l, user})$, must be user-specified and, along with an equation of state, are used to compute the boundary flux $F(U)$. 
+
+In the other hand, the treatment of the right subsonic boundary, ($u \leq c_m$), is quite different as three eigenvalues are positive and one is negative, meaning, physical information leaves and enters the computational domain at the right boundary. Consequently, the right boundary fluxes from the advection terms are computed using one user-specified boundary value, typically the material pressure $P_{r, user}$, and three boundary values supplied by the code, i.e., current values of the material density ($\rho_{r}$) velocity ($u_{r}$) and radiation energy density ($\epsilon_{r}$). Using an equation of state along with the user-specified and current boundary values, the boundary flux $F(U)$ is computed.
+%
+\subsection{Implementation of the boundary terms for $D(U)$}
+%
+The radiation-diffusion equation contains the elliptic term $D(U)$ that yields the boundary term 
+%
+\begin{eqnarray}
+\left[D(U)\cdot \vec{n} \ \phi \right]_{l} - \left[D(U)\cdot \vec{n} \ \phi \right]_{r} \, . \nonumber
+\end{eqnarray}
+%
+A reflective boundary condition, i.e. $\left. \partial_x \epsilon \right|_j = 0$, is used to implement the boundary flux from the diffusion term
+which implies $\left[D(U)\cdot \vec{n} \ \phi \right]_{j} = 0$ for $j = \left( l, \ r \right)$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
