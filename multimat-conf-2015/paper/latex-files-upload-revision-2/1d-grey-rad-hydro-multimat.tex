@@ -22,7 +22,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \usepackage{subcaption}
 \usepackage[titletoc,title]{appendix}
 \usepackage{graphicx}
-\usepackage{epstopdf}
+%%%%\usepackage{epstopdf}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
@@ -645,12 +645,12 @@ The numerical and semi-analytical density profiles are shown before and after sh
 \begin{figure}[h]
     \centering   
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50-zero-shift.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-density-nel-50-zero-shift.pdf}
     \caption{}\label{fig:mach-1p05-cst-xs-density-no-shift}
     \end{subfigure}
     %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mach-1p05-density-nel-50-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-density-nel-50-plot.pdf}
     \caption{}\label{fig:mach-1p05-cst-xs-density-with-shift}
     \end{subfigure}
     \caption{Material density before (a) and after (b) shifting.}\label{fig:mach-1p05-shift-vs-non-shift}
@@ -662,25 +662,25 @@ This example proves that the EVM achieves second-order accuracy for smooth solut
 \begin{figure}[h]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-energy-diff-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-energy-diff-mat-temp-convergence.pdf}
     \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-energy-diff-density-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-energy-diff-density-convergence.pdf}
     \caption{Material density.}\label{fig:mach-1p05-cst-xs-density-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-energy-diff-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-energy-diff-mach-number-convergence.pdf}
     \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-energy-diff-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-energy-diff-radiation-convergence.pdf}
     \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation-conv}
     \end{subfigure}        
 \caption{Mach $1.05$ test: $L_1$ and $L_2$ error norms.}\label{fig:mach-1p05-cst-xs-conv}    
@@ -692,23 +692,23 @@ The numerical and semi-analytical solutions of $(\rho, T, \epsilon, Mach)$ are p
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-mat-temp-nel-250-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-diff-mach-1p05-mat-temp-nel-250-plot.pdf}
     \caption{Material temperature.}\label{fig:mach-1p05-cst-xs-temp}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-density-nel-250-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-diff-mach-1p05-density-nel-250-plot.pdf}
     \caption{Material density.}\label{fig:mach-1p05-cst-xs-density}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-mach-number-nel-250-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-diff-mach-1p05-mach-number-nel-250-plot.pdf}
     \caption{Mach number.}\label{fig:mach-1p05-cst-xs-mach}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-radiation-nel-250-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-diff-mach-1p05-radiation-nel-250-plot.pdf}
     \caption{Radiation energy density.}\label{fig:mach-1p05-cst-xs-radiation}
     \end{subfigure}        
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-1p05/mass-diff-mach-1p05-visc-nel-250-plot.eps}
+    \includegraphics[width=\linewidth]{mach-1p05-mass-diff-mach-1p05-visc-nel-250-plot.pdf}
     \caption{Viscosity coefficients.}\label{fig:mach-1p05-cst-xs-visc}
     \end{subfigure}        
 \caption{Mach $1.05$ test with constant opacity: Numerical ($250$ cells) and semi-analytical ($\sim 3500$ nodes) steady-state profiles;
@@ -737,25 +737,25 @@ This behavior may warrant further analysis.
 \begin{figure}[ht]
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-scd-method-density-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-energy-diff-scd-method-density-convergence.pdf}
     \caption{Material density.}\label{fig:mach-3-cst-xs-density-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-scd-method-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-energy-diff-scd-method-mat-temp-convergence.pdf}
     \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp-conv}
     \end{subfigure}
     
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-scd-method-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-energy-diff-scd-method-mach-number-convergence.pdf}
     \caption{Mach number.}\label{fig:mach-3-cst-xs-mach-conv}
     \end{subfigure}
     ~
     \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-energy-diff-scd-method-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-energy-diff-scd-method-radiation-convergence.pdf}
     \caption{Radiation energy density.}\label{fig:mach-3-cst-xs-radiation-conv}
     \end{subfigure}        
 \caption{Mach $3$ test with constant opacity: $L_1$ error norms}\label{fig:mach-3-cst-xs-conv}    
@@ -769,27 +769,27 @@ should be proportional to the local entropy residual. We also note that the visc
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-diff-mat-temp-nel-1000-plot.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-diff-mat-temp-nel-1000-plot.pdf}
     \caption{Material temperature.}\label{fig:mach-3-cst-xs-temp}
     \end{subfigure}	
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-diff-density-nel-1000-plot.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-diff-density-nel-1000-plot.pdf}
     \caption{Material density.}\label{fig:mach-3-cst-xs-dens}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-diff-radiation-nel-1000-plot.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-diff-radiation-nel-1000-plot.pdf}
     \caption{Radiation energy density.}\label{fig:mach-3-cst-xs-rad}
     \end{subfigure}
 %   
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-diff-mach-number-nel-1000-plot.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-diff-mach-number-nel-1000-plot.pdf}
     \caption{Mach number.}\label{fig:mach-3-cst-xs-mach}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/cst-xs/mach-3/mass-diff-visc-nel-1000-plot.eps}
+    \includegraphics[width=\linewidth]{mach-3-mass-diff-visc-nel-1000-plot.pdf}
     \caption{Artificial viscosity coefficients.}\label{fig:mach-3-cst-xs-visc}
     \end{subfigure}        
 \caption{Mach $3$ test with constant opacity: Numerical ($1000$ cells) and semi-analytical ($\sim 5 \cdot 10^4$ nodes) steady-state profiles for the material temperature (a),  density (b),  radiation temperature (c), Mach number (d), and  viscosity coefficient (e).}\label{fig:mach-3-cst-xs}      
@@ -814,22 +814,22 @@ Numerical results for the material density, the material temperature and the rad
 \begin{figure}[ht]
     \centering
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-density-convergence.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-energy-diff-scd-method-density-convergence.pdf}
     \caption{Material density.}\label{fig:mach-3-dpt-xs-density-conv}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}    
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mat-temp-convergence.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-energy-diff-scd-method-mat-temp-convergence.pdf}
     \caption{Material temperature.}\label{fig:mach-3-dpt-xs-temp-conv}
     \end{subfigure} 
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-mach-number-convergence.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-energy-diff-scd-method-mach-number-convergence.pdf}
     \caption{Mach number.}\label{fig:mach-3-dpt-xs-mach-conv}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-energy-diff-scd-method-radiation-convergence.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-energy-diff-scd-method-radiation-convergence.pdf}
     \caption{Radiation energy density.}\label{fig:mach-3-dpt-xs-radiation-conv}
     \end{subfigure}        
 \caption{Mach $3$ test with density- and temperature-dependent opacity: $L_1$ error norms.}\label{fig:mach-3-dpt-xs-conv} 
@@ -838,32 +838,32 @@ Numerical results for the material density, the material temperature and the rad
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-mat-temp-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-mat-temp-nel-2700-plot.pdf}
     \caption{Material temperature.}\label{fig:mach-3-dpt-xs-mat-temp}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-radiation-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-radiation-nel-2700-plot.pdf}
     \caption{Radiation energy density.}\label{fig:mach-3-dpt-xs-rad-temp}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-density-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-density-nel-2700-plot.pdf}
     \caption{Material density.}\label{fig:mach-3-dpt-xs-dens}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-mach-number-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-mach-number-nel-2700-plot.pdf}
     \caption{Mach number.}\label{fig:mach-3-dpt-xs-mach}
     \end{subfigure}
 %
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-opacity-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-opacity-nel-2700-plot.pdf}
     \caption{Total opacity $\sigma_t = \sigma_a$.}\label{fig:mach-3-dpt-xs-xs}
     \end{subfigure}
     ~
     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\linewidth]{figures/dpt-xs/mass-diff-visc-nel-2700-plot.eps}
+    \includegraphics[width=\linewidth]{dpt-mass-diff-visc-nel-2700-plot.pdf}
     \caption{Artificial viscosity coefficients.}\label{fig:mach-3-dpt-xs-visc}
     \end{subfigure}      
 \caption{Mach $3$ test with density- and temperature-dependent opacity:  Numerical ($2700$ cells) and semi-analytical ($\sim 5 \cdot 10^4$ nodes) steady-state profiles for the material temperature (a), density (b), radiation temperature (c),  Mach number (d), and viscosity coefficient (e).}\label{fig:mach-3-temp-dep-xs}    
